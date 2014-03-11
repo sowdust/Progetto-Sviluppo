@@ -1,0 +1,36 @@
+ATTORI:
+
+Attori Principali:
+Mittente
+Destinatario 
+Spia/Analista
+Giocatore
+Coordinatore (?)
+
+Attori Esterni (di supporto):
+Algoritmi di cifratura
+Alfabeto
+
+Attori Secondari (fuori scena):
+Committente
+
+
+CASI D'USO:
+
+Composizione del messaggio
+Criptatura del messaggio
+Invio del messaggio
+Ricezione del messaggio
+Decriptatura del messaggio
+Spionaggio
+Sfida
+Scelta livello difficoltà
+Scelta dell'algoritmo di cifratura
+Scelta trattazione caratteri speciali (punteggiatura e spazi)
+Scelta della parola chiave 
+Scelta del modulo (Cesare)
+Scelta del seed (pseudocasuale)
+Scambio della chiave/modulo/seed
+Elaborare ipotesi
+Analisi §delle frequenze
+
