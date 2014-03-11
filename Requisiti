@@ -1,9 +1,9 @@
-ATTORI:
+ATTORI:						OBIETTIVI
 
 Attori Principali:
-Mittente
-Destinatario 
-Spia/Analista
+Mittente					Mandare messaggi cifrati
+Destinatario 					Ricevere messaggi cifrati
+Spia/Analista					Violare messaggi cifrati
 Giocatore
 Coordinatore (?)
 
