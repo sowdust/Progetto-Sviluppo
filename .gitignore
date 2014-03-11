@@ -1,0 +1,4 @@
+# Pattern da ignorare
+
+*.swp
+*.class
