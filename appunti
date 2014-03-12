@@ -1,0 +1,12 @@
+gli use-case devono rispecchiare i termini utilizzati nel glossario: se ho dei sinonimi li cambio in uno dei due documenti
+
+le 'caselle' che definiscono use-case (componi messaggio, cifra messaggio...) possono essere definite a loro volta in use-case piu'
+dettagliati, ma non e' obbligatorio
+
+class diagram: se non e' dettagliato allora e' meglio non inserire cose che dipendono dall'implementazione del sistema
+			   se stiamo gia' facendo delle scelte progettuali, e' troppo nel dettaglio per un diagramma non-dettagliato
+			   descrittivo, non vincolante
+			   non deve dipendere dal sistema
+
+todo: togliere il blocco generico 'decifra' e dettagliarlo leggermente di piu'. la prof suggerisce di formularlo indipendentemente dal sistema come una persona lavorerebbe senza la sua presenza. lei l'ha dettagliato poco senza nemmeno scrivere dei tool di supporto. va bene anche solo un loop di formulazione ipotesi
+
