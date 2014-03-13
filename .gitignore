@@ -1,5 +1,5 @@
 # Pattern da ignorare
-
 *.swp
 *.class
 .DS_Store
+*~
