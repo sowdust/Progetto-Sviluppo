@@ -1,0 +1,25 @@
+studio	U
+messaggi	C
+mittente	C/U
+destinatario C/U	
+chiave	C
+spie	S
+analisi crittografia	S/C
+cifratura monoalfabetica	C
+sistema di Cesare	C
+pseudocasuale	C
+parola chiave	C
+cifrare	S/U
+decifrare	S/U
+mappatura	S/U
+albero delle ipotesi	S/U
+lingua	C
+frequenza	C
+sfide	S
+livelli di difficoltà	S
+punteggi	S
+scambio legittimo	U
+coordinatore	U
+classifica		S
+
+S = sistema | C = crittografia | U = utenti
