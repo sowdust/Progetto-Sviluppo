@@ -1,0 +1,20 @@
+Basic Markdown
+https://help.github.com/articles/markdown-basics
+
+Dialetto di github
+https://help.github.com/articles/github-flavored-markdown
+
+Condiderazioni di un tizio
+http://blog.johnjcamilleri.com/2013/01/markdown-pandoc-and-github/
+
+
+Installare pandoc (convertitore di formati)
+First, install the Haskell platform, then use the cabal tool to get the latest release of pandoc:
+
+cabal update
+cabal install pandoc
+
+pandoc executable in ~/.cabal/bin (on GNU/Linux and BSD) or ~/Library/Haskell/bin (on OS X).
+
+Convertire da md in odt:
+~/.cabal/bin/pandoc input.md -o output.ods -f markdown_github
