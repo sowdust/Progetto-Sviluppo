@@ -1,5 +1,5 @@
 |Nomi                      | Definizione                                                                                                                  | Sinonimi |
-|--------------------------|:----------------------------------------------------------------------------------------------------------------------------:|---------:|
+|--------------------------|------------------------------------------------------------------------------------------------------------------------------|----------|
 |albero delle ipotesi      | struttura che mantiene il susseguirsi di assunzioni e scelte fatte durante il processo di analisi crittografica |
 |alfabeto                  | insieme di simboli appartenenti che il messaggio può contenere; alfabeto pre-post cifratura |
 |analisi crittografica     | processo in cui si cercano pattern/schemi nel testo crittografato con l'obiettivo di decifrare il messaggio |
@@ -48,6 +48,5 @@
 |spia                      | sinonimi di analista. agente che desidera fare esercizi di analisi e visualizzare messaggi scambiati da altri utenti |
 |stabilire la difficoltà   | ? |
 |testo cifrato             | messaggio risultante dall'applicazione della funzione di cifratura scelta da mittente e destinatario |
-|utente                    | qualsiasi agente che opera nel sistema (mittente, destinatario, spia, coordinatore(?)) |
-|utilizzatore              | sinonimo di utente |
+|utente                    | qualsiasi agente che opera nel sistema (mittente, destinatario, spia, coordinatore(?)) | utilizzatore |
 |violare                   | intercettare e decifrare un messaggio |
