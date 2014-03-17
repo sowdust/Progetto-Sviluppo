@@ -26,7 +26,7 @@ caratteri speciali
 Punteggiatura e spazi (differenza fra alfabeti pre e post cifratura)
 
 chiave
-elemento segreto condiviso dai due agenti della conversazione, necessario alla cifrutra
+elemento segreto condiviso dai due agenti della conversazione, necessario alla cifratura
 
 cifratura monoalfabetica
 sistema crittografico basato su permutazioni di simboli dell'alfabeto
@@ -51,7 +51,7 @@ serie di diverse analisi crittografiche guidate dal sistema
 (decidere chi sceglie quali esercizi fare: sistema o utente?)
 
 funzionalità di supporto analisi crittografiche
-insieme delle funzionalitàdi analisi crittografica offerte dal sistema (analisi frequenze...)
+insieme delle funzionalità di analisi crittografica offerte dal sistema (analisi frequenze...)
 
 informazioni sul messaggio
 meta informazioni date a priori riguardanti ogni singolo messaggio (lingua, spaziatura, punteggiatura, mittente e destinatario)
