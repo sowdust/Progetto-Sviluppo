@@ -25,4 +25,4 @@ il primo stile è completamente testuale. indico alternative facendo una tabella
 rispettare a livello di implementazione. la debolezza di questo stile è che si perde uno sguardo d'insieme e del flusso che effettivamente
 ha lo use case.
 
- 
+lo schema che stiamo facendo (creasistemacifratura) è un sequence/activity (più activity)
