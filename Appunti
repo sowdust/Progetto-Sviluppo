@@ -9,3 +9,20 @@ class diagram: se non e' dettagliato allora e' meglio non inserire cose che dipe
                non deve dipendere dal sistema
 
 agente studente: rappresenta quello che possono fare tutti
+
+come scegliere il 10% dei casi di uso da dettagliare? devono essere rappresentativi dei casi d'uso del sistema, che quindi ne coinvolgano
+gli elementi chiave. 
+se un caso d'uso è molto semplice, è preferibile una buona descrizione testuale ad un diagramma elementare. 
+
+ci sono due sistemi per fare i casi d'uso dettagliati: la prof. ci fa vedere entrambi, almeno all'inizio. siamo liberi di usare
+quello che preferiamo.
+
+i casi d'uso dettagliati sono a grandi linee un elenco di cose che il sistema deve offrire all'utente,
+e per ognuno di questi quali sono i casi d'uso utili allo scopo.
+
+il primo stile è completamente testuale. indico alternative facendo una tabella separata che fa riferimento al punto specifico della tabella
+"principale" che modella il caso d'uso. posso anche riassumere le azioni del sistema con degli "pseudonomi di metodo", che non è obbligatorio 
+rispettare a livello di implementazione. la debolezza di questo stile è che si perde uno sguardo d'insieme e del flusso che effettivamente
+ha lo use case.
+
+ 
