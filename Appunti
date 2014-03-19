@@ -30,3 +30,6 @@ lo schema che stiamo facendo (creasistemacifratura) è un sequence/activity (pi�
 suggerimento: si prevedano dei casi d'uso a parte per i tool di supporto. questo perchè tali strumenti potrebbero essere sviluppati ulteriorm.
 in seguito (non lo faremo). in generale la modularizzazione del sw può già cominciare dalla fase di progettazione. inoltre non lavoreremo su
 tutti i casi d'uso, quindi dividerli e modulizzarli può tornare utile nel momento in cui sceglieremo quali sviluppare (concordandoli con i prof)
+
+lezione teoria 19/03: consegna per casa: implementare con il pattern 'decorator' la gerarchia persona -> studente -> studente lavoratore
+                                                                                                      -> lavoratore
