@@ -18,3 +18,14 @@ pandoc executable in ~/.cabal/bin (on GNU/Linux and BSD) or ~/Library/Haskell/bi
 
 Convertire da md in odt:
 ~/.cabal/bin/pandoc input.md -o output.ods -f markdown_github
+
+Modifiche da fare al file ods dopo aver convertito:
+Formato->Pagina->Pagina->Orientamento: orizzontale
+Formato->Formattazione Condizionata: la formula è RESTO(RIF.RIGA(); 2) = 0 (modificare schema mettendo sfondo grigio)
+Formato->Celle->bordi
+bordi interni bianchi (0,8pt)
+bordi esterni neri (0.8pt)
+
+ctrl+a
+Formato->Celle->Allineamento->Scorrimento testo automatico
+
