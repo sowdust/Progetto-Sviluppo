@@ -1,5 +1,5 @@
 public abstract class Ruolo implements PersonaConRuolo {
-    PersonaConRuolo component; // può farlo perchè PersonaConRuolo può essere anche un vero oggetto, a patto che la classe di quell'oggetto estenda PersonaConRuolo
+    PersonaConRuolo component; // può farlo perchè PersonaConRuolo può essere anche un vero oggetto, a patto che la classe di quell'oggetto implementi PersonaConRuolo
     
     public Ruolo(PersonaConRuolo p) {
         component = p;
