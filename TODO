@@ -12,3 +12,18 @@ sfide
 spazi
 spia (è sinonimo di analista)
 stabilire la difficoltà
+
+terminare l'UC dettagliato per il ciclo di analisi: abbiamo deciso di modellare separatamente l'UC "aggiungi/gestisci ipotesi" lasciandolo
+incluso come UC separato nell'UC "effettua ciclo di analisi". dobbiamo mettere in bella lo schema già fatto da ale, che in base a quello
+che abbiamo deciso sarebbe concluso.
+
+modello di dominio: fa parte della modellazione del business. bisogna fare attenzione a non pensare ancora in oop. quello per gli UC1 
+sarà concordato con quello che fa la prof, quello per gli UC2 invece lo faremo noi di nostra sponte
+caratteristica del modello di dominio è che le classi hanno solo attributi e non metodi. è facile dando attributi alle classi che 
+mi renda conto che alcune di questi attributi possono essere naturalmente promossi a classe. ad esempio scrivendo gli attributi 
+di messaggio inserisco "mittente" e "destinatario", che mi rendo conto essere due attori e quindi assolutamente da inserire anche
+come classi. a questo punto mi rendo conto che è superfluo tenere "mittente" e "destinatario" come attributi nella classe
+"messaggio", e mi limito a dire che esiste una associazione tra queste classi. in tale associazione è necessario indicare la cardinalità
+ed è opzionale scrivere il ruolo delle classi all'interno di questa. ricordiamo anche quindi che mittente e destinatario sono 
+generalizzazioni di studente/utente: forse vorrei allora inserire l'attributo "nome" nella classe studente, e farlo ereditare a mittente
+e destinatario

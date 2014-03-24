@@ -31,5 +31,23 @@ suggerimento: si prevedano dei casi d'uso a parte per i tool di supporto. questo
 in seguito (non lo faremo). in generale la modularizzazione del sw può già cominciare dalla fase di progettazione. inoltre non lavoreremo su
 tutti i casi d'uso, quindi dividerli e modulizzarli può tornare utile nel momento in cui sceglieremo quali sviluppare (concordandoli con i prof)
 
-lezione teoria 19/03: consegna per casa: implementare con il pattern 'decorator' la gerarchia persona -> studente -> studente lavoratore
-                                                                                                      -> lavoratore
+non vogliamo creare un sistema intelligente per risolvere problemi di crittografia, solamente un sistema per aiutare gli analisti che li risolvono!
+una persona che fa crittoanalisi tipicamente ha davanti il testo cifrato che vuole decifrare, e di solito si suggerisce di inserire sotto le parole
+cifrate il testo in chiaro, o quantomeno i pezzi che sinora è riuscito a decifrare.
+
+esempio:
+wrhgw euhuh
+c p i ron a
+
+voglio anche mantenere un albero delle ipotesi, a cui però non devo necessariamente ad ogni passo aggiungere ipotesi, ma potrei volere anche magari
+poter riconsiderare, modificare e rimuovere alcune di esse. inoltre ad ogni passo può opzionalmente richiedere delle analisi statistiche.
+questi i passi che l'analista compirà:
+
+1. pensare/analizzare (eventualmente con strumenti di supporto statistici)
+2. aggiornare l'ipotesi, il che modifica il mio albero. questo è simile a fare una mossa in un gioco. oppure faccio una UNDO.
+
+si noti che una sola ipotesi può modificare più di un'assegnazione lettera-lettera. l'albero delle ipotesi è gestibile come uno stack. se per caso 
+l'analista giunge ad un'ipotesi che aveva già formulato in precedenza, potrei volerlo avvisare di tale fatto: da qui l'esigenza di un albero delle ipotesi.
+non è detto che avere effettivamente una visualizzazione grafica di tale albero sia necessario, ma è un'opzione da considerare. magari posso tenergli uno storico
+delle ultime 2-3 cose che ha fatto. è anche utile che venga data all'analista l'opzione di poter immettere nel sistema le sue motivazioni per aver riconsiderato
+o scartato un'ipotesi.
