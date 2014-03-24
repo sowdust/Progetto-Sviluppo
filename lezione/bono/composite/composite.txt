@@ -1,0 +1,4 @@
+la differenza tra composite e decorator è che gestisce un albero, con padre composition
+e figli composite.  metodi di composite sono: addChild, removeChild per gestire i figli;
+getChild, per prendere l'i-esimo figlio. inoltre dentro composite c'è un'operazione op() generica.
+nella classe leaf, tale operazione farà qualcosa di concreto, mentre nel composite  
