@@ -8,7 +8,8 @@ A livello di codice si rappresenta con:
   se è la prima volta che viene chiamato ne crea uno nuovo
   altrimenti chiama un'eccezione o ritorna l'oggetto già creato.
 Posso fare piccole varianti dando la possibilità di creare un tot di istanze e non solo una.
-In java il pattern singleton dà la possibilità di avere l'idea di variable globale a tutto il programma, cosa che in java solitamente non esiste.
+In java il pattern singleton dà la possibilità di avere l'idea di variable globale a tutto il programma
+cosa che in java solitamente non esiste.
 */
 public class A {
     private static A istance;
