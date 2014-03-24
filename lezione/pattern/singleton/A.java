@@ -4,7 +4,7 @@ public class A {
     private A() {
     }
 
-    public A create() {
+    public static A create() {
         if (instance == null) {
             instance = new A();
         }
