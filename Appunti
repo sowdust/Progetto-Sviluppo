@@ -51,3 +51,23 @@ l'analista giunge ad un'ipotesi che aveva già formulato in precedenza, potrei v
 non è detto che avere effettivamente una visualizzazione grafica di tale albero sia necessario, ma è un'opzione da considerare. magari posso tenergli uno storico
 delle ultime 2-3 cose che ha fatto. è anche utile che venga data all'analista l'opzione di poter immettere nel sistema le sue motivazioni per aver riconsiderato
 o scartato un'ipotesi.
+
+modello di dominio: fa parte della modellazione del business. bisogna fare attenzione a non pensare ancora in oop. quello per gli UC1 
+sarà concordato con quello che fa la prof, quello per gli UC2 invece lo faremo noi di nostra sponte
+caratteristica del modello di dominio è che le classi hanno solo attributi e non metodi. è facile dando attributi alle classi che 
+mi renda conto che alcune di questi attributi possono essere naturalmente promossi a classe. ad esempio scrivendo gli attributi 
+di messaggio inserisco "mittente" e "destinatario", che mi rendo conto essere due attori e quindi assolutamente da inserire anche
+come classi. a questo punto mi rendo conto che è superfluo tenere "mittente" e "destinatario" come attributi nella classe
+"messaggio", e mi limito a dire che esiste una associazione tra queste classi. in tale associazione è necessario indicare la cardinalità
+ed è opzionale scrivere il ruolo delle classi all'interno di questa. ricordiamo anche quindi che mittente e destinatario sono 
+generalizzazioni di studente/utente: forse vorrei allora inserire l'attributo "nome" nella classe studente, e farlo ereditare a mittente
+e destinatario
+
+contratti tra le classi: precondizioni e postcondizioni sugli oggetti del modello di dominio. è il momento in cui ci si rende conto anche se 
+abbiamo modellato le classi corrette, se ce ne sono troppe poche. sono utili a rendere modulare la progettazione, in quanto potremo smettere di pensare
+ai casi d'uso facendo riferimento a precondizioni e postcondizioni. 
+si faccia riferimento all'elenco operazioni dell'UC1: segue il metodo con cui si scrivono. ogni metodo "teorico" definito negli UC dettagliati viene
+inserito e riportato, facendo riferimento all'UC di provenienza. vanno inserite poi anche quelle dagli UC non dettagliati, che vanno
+dedotte dalla descrizione testuale. vanno escluse le nozioni di navigazione UI. sarebbe il momento di cominciare a inserire nel modello di dominio
+alcuni concetti che vengono fuori in questo momento, se necessario. si noti che la differenza tra glossario e modello di dominio
+è che il glossario non sottolinea le relazioni tra i concetti. 
