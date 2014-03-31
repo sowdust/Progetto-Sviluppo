@@ -122,3 +122,42 @@ myfilter p (x:xs) | p x = x: myfilter p xs
  (a -> Bool) -> [a] -> Bool è vero che tutti gli elementi soddisfano il predicato?
  (a -> Bool) -> [a] -> ([a],[a]) separa, mette da una parte gli elenti che soddisfano il predicato, e dall'altra quelli che non lo soddisfano
 -}
+
+
+mypartition p [] = ([], [])
+mypartition p (x:xs) = let (ys, zs) = mypartition p xs in
+                       if p x then (x:ys, zs) else (ys, x:zs)
+              
+mypermutations [] = [[]]
+mypermutations (x:xs) = concat (map insertAll(mypermutations xs))
+   where
+      insertAll [] = [[x]]
+      insertAll (y:ys) = (x:y:ys) : prependAll y (insertAll ys)
+      
+      prependAll _ [] = []
+      prependAll x (y:ys) = (x:y):prependAll x ys
+
+-- è tail ricorsiva   
+myfoldl f a [] = a
+myfoldl f a (x:xs) = myfoldl f (a `f` x) xs
+-- non è tail ricorsiva
+myfoldr f a [] = a
+myfoldr f a (x:xs) = x `f` myfoldr f a xs
+
+-- guardare differenza facendo foldl (-) 0 [1,2,3] e foldr (-) 0 [1,2,3]
+
+{-
+ senza usare la ricorsione, implementare le funzioni:
+  - maximum
+  - length
+  - concat
+  - append (++)
+-}
+
+maximumnr (x:xs) = myfoldl (max) x xs
+
+lengthnr l = myfoldl (+) 0 (map (const 1) l)
+
+concatnr l = myfoldl (++) [] l
+
+appendnr xs ys = myfoldr (:) ys xs
