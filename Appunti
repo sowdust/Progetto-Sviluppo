@@ -70,4 +70,7 @@ si faccia riferimento all'elenco operazioni dell'UC1: segue il metodo con cui si
 inserito e riportato, facendo riferimento all'UC di provenienza. vanno inserite poi anche quelle dagli UC non dettagliati, che vanno
 dedotte dalla descrizione testuale. vanno escluse le nozioni di navigazione UI. sarebbe il momento di cominciare a inserire nel modello di dominio
 alcuni concetti che vengono fuori in questo momento, se necessario. si noti che la differenza tra glossario e modello di dominio
-è che il glossario non sottolinea le relazioni tra i concetti. 
+è che il glossario non sottolinea le relazioni tra i concetti.
+
+ciò che è segnato in giallo è quello che non è presente nel modello di dominio e probabilmente andrà in qualche modo inserito
+ 

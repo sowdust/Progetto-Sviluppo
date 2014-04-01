@@ -17,3 +17,21 @@ terminare l'UC dettagliato per il ciclo di analisi: abbiamo deciso di modellare 
 incluso come UC separato nell'UC "effettua ciclo di analisi". dobbiamo mettere in bella lo schema già fatto da ale, che in base a quello
 che abbiamo deciso sarebbe concluso.
 
+vediProposteSistemiCifrature()  [da UC:Accetta/RifiutaSistemaCifratura]
+comunicaDecisione(decisione)  [da UC:Accetta/RifiutaSistemaCifratura]
+decifra(messaggio)  [da UC:RiceviMessaggioCifrato]
+
+Operazione: vediProposteSistemiCifrature()
+Riferimenti: UC:Accetta/RifiutaSistemaCifratura]
+Precondizioni: 
+Postcondizioni: nessuna, ma ha degli effetti sull'interfaccia perchè viene mostrata la lista di proposte in stato "pending" 
+
+Operazione: comunicaDecisione(decisione)
+Riferimenti: UC:Accetta/RifiutaSistemaCifratura]
+Precondizioni: l'utente partner ha selezionato una proposta di cifratura in stato "pending"
+Postcondizioni: viene cambiato lo stato della decisione, da "pending" a "accettata" o "rifiutata"
+
+Operazione: decifra(messaggio)
+Riferimenti: UC:RiceviMessaggioCifrato
+Precondizioni: il messaggio non dev'essere vuoto, mittente e destinatario devono avere una proposta di cifratura in stato "accettata" 
+Postcondizioni: il campo "testo" di "messaggio" viene riempito con il messaggio in chiaro
