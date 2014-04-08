@@ -74,3 +74,20 @@ alcuni concetti che vengono fuori in questo momento, se necessario. si noti che 
 
 ciò che è segnato in giallo è quello che non è presente nel modello di dominio e probabilmente andrà in qualche modo inserito
  
+
+apri (apro ed eventualmente posso modificare)
+visualizza (apro in sola lettura)
+
+per il messaggio: 1 solo oggetto e una sola tabella useremo 2 interfacce diverse per esporre campi e comportamenti diversi al mittente e ricevente. Con 2 interfacce ci permette in un futuro di cambiare l'implementazione e usare 2 oggetti separati
+
+certe connessioni si possono fare usando la lazy connection: invece di avrere tutto l'oggetto 'studente' dentro all'oggetto 'messaggio' ne tengo soltanto il suo id
+
+
+glossario
+use case
+use case dettagliato (20%)
+modello di dominio
+contratti
+modello di progetto
+entity relationship
+sequence dettagliato
