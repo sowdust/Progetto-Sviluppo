@@ -1,0 +1,25 @@
+Operazione:     
+Riferimenti:    
+Precondizioni:  
+Postcondizioni: 
+
+
+Operazione:     getFrequency(num)
+Riferimenti:    uc: AnalisiDellFrequenze
+Precondizioni:  num > 0
+Postcondizioni: restituisce oggetto AnalisiDiFrequenza che contiene le informazioni statistiche richieste a seconda di "num" (lunghezza della sillaba del pattern)
+
+Operazione:     modificaMappatura(azione)
+Riferimenti:    uc: AggiornaIpotesiLavoro
+Precondizioni:  ~
+Postcondizioni: viene modificato l'albero delle ipotesi restituendo un feedback (ipotesi gia' raggiunta, soluzione trovata)
+
+Operazione:     undo(message)
+Riferimenti:    AggiornaIpotesiDiLavoro
+Precondizioni:  albero delle ipotesi non vuoto
+Postcondizioni: viene eliminato l'ultimo nodo dell'albero delle ipotesi
+
+
+
+
+
