@@ -11,9 +11,60 @@ Postcondizioni: viene modificato l'albero delle ipotesi restituendo un feedback 
 Operazione:     undo(message)
 Riferimenti:    AggiornaIpotesiDiLavoro
 Precondizioni:  albero delle ipotesi non vuoto
-Postcondizioni: viene eliminato l'ultimo nodo dell'albero delle ipotesi
+Postcondizioni: si torna all'ipotesi precedente nell'albero delle ipotesi
+
+crea, carica, elimina, salva sessione
+elimina, salva, carica soluzione (gestiscisoluzioni)
+
+Operazione:     mostraSoluzioni() 
+Riferimenti:    uc: GestisciSoluzioni
+Precondizioni:  Studente st identificato 
+Postcondizioni: ritorna la lista delle soluzioni dello Studente st
+
+Operazione:     filtraSoluzioni(st1, st2)
+Riferimenti:    uc: GestisciSoluzioni
+Precondizioni:  Studente st identificato, Studenti st1 e st2 esistenti 
+Postcondizioni: mostra tutte le soluzioni in cui st1 e st2 sono mittente e destinatario
+
+Operazione:     salvaSoluzione(map, msg)
+Riferimenti:    uc: SalvaSoluzione
+Precondizioni:  Studente st identificato, il sistema ha dato feedback di soluzione raggiunta
+Postcondizioni: la Mappatura parziale o totale map viene associata al Messaggio msg e viene salvata una nuova Soluzione sol
+
+Operazione:     caricaSoluzione(sol)
+Riferimenti:    uc: CaricaSoluzione
+Precondizioni:  Studente st identificato, sol è una soluzione   
+Postcondizioni: applica la Soluzione sol al messaggio che la Spia sta violando
+
+Operazione:     eliminaSoluzione(sol)
+Riferimenti:    uc: EliminaSoluzione
+Precondizioni:  Studente st identificato, sol è una soluzione 
+Postcondizioni: viene eliminata la Soluzione sol
+
+Operazione:     creaSessione(msg)
+Riferimenti:    uc: CreaSessione
+Precondizioni:  Studente st identificato 
+Postcondizioni: viene inizializzata una Sessione
+
+domanda: ma come vengono scelti i messaggi? in automatico? posso filtrare in base a chi se li scambia?
+
+Operazione:     salvaSessione()
+Riferimenti:    uc: SalvaSessione
+Precondizioni:  la Sessione s è stata creata ed è in corso
+Postcondizioni: la Sessione corrente viene salvata
 
 
+Operazione:     mostraSessioni()     
+Riferimenti:    uc: GestisciSessioni
+Precondizioni:  Studente st identificato 
+Postcondizioni: ritorna la lista delle sessioni create dal Studente st
 
+Operazione:     caricaSessione(s)
+Riferimenti:    uc: CaricaSessione
+Precondizioni:  Studente st identificato, s è una Sessione
+Postcondizioni: viene riaperta la Sessione s prima inizializzata
 
-
+Operazione:     eliminaSessione(s)
+Riferimenti:    uc: GestisciSessioni
+Precondizioni:  Studente st identificato, s è una Sessione 
+Postcondizioni: la Sessione s viene eliminata 
