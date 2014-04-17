@@ -1,9 +1,3 @@
-Operazione:     
-Riferimenti:    
-Precondizioni:  
-Postcondizioni: 
-
-
 Operazione:     getFrequency(num)
 Riferimenti:    uc: AnalisiDellFrequenze
 Precondizioni:  num > 0
