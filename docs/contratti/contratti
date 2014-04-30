@@ -46,13 +46,10 @@ Riferimenti:    uc: CreaSessione
 Precondizioni:  Studente st identificato 
 Postcondizioni: viene inizializzata una Sessione
 
-domanda: ma come vengono scelti i messaggi? in automatico? posso filtrare in base a chi se li scambia?
-
 Operazione:     salvaSessione()
 Riferimenti:    uc: SalvaSessione
 Precondizioni:  la Sessione s è stata creata ed è in corso
 Postcondizioni: la Sessione corrente viene salvata
-
 
 Operazione:     mostraSessioni()     
 Riferimenti:    uc: GestisciSessioni
