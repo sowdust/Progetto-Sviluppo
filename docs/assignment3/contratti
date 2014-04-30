@@ -11,17 +11,12 @@ Postcondizioni: viene modificato l'albero delle ipotesi restituendo un feedback 
 Operazione:     undo(message)
 Riferimenti:    AggiornaIpotesiDiLavoro
 Precondizioni:  albero delle ipotesi non vuoto
-Postcondizioni: si torna all'ipotesi precedente nell'albero delle ipotesi
+Postcondizioni: si torna all'ipotesi precedente nell'albero delle ipotesi e message viene salvato nel nodo come motivazione dell'annullamento
 
-Operazione:     mostraSoluzioni() 
-Riferimenti:    uc: GestisciSoluzioni
-Precondizioni:  Studente st identificato 
-Postcondizioni: ritorna la lista delle soluzioni dello Studente st
-
-Operazione:     filtraSoluzioni(st1, st2)
+Operazione:     mostraSoluzioni(st1, st2)
 Riferimenti:    uc: GestisciSoluzioni
 Precondizioni:  Studente st identificato, Studenti st1 e st2 esistenti 
-Postcondizioni: mostra tutte le soluzioni in cui st1 e st2 sono mittente e destinatario o viceversa
+Postcondizioni: st1 ed st2 sono parametri facoltativi. se presenti, verranno mostrate le soluzioni in cui st1 o st2 sono mittente o destinatario.
 
 Operazione:     salvaSoluzione(map, msg)
 Riferimenti:    uc: SalvaSoluzione
