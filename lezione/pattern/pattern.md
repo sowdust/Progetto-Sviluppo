@@ -1,16 +1,15 @@
 #Pattern
 - Creazionali:
+    - Abstract Factory
     - Singleton
-    - Abstract
-    - Factory
 - Strutturali:
-    - Decorator
     - Adapter
+    - Composite
+    - Decorator
     - Proxy
 - Comportamentali:
+    - Mediator
     - Observer
+    - State
     - Strategy
     - Visitor
-    - Mediator
-    - State
-- 

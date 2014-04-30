@@ -1,0 +1,1 @@
+Non mi sembra che ci sia, nel ciclo di analisi, un momento in cui si decide se la decondifica è completata, si rimanda solo a un generico feedback del sistema. Questa parte sarebbe da dettagliare meglio in particolare l'interazione spia/sistema. Per il resto va bene.
