@@ -14,3 +14,9 @@ spia (è sinonimo di analista)
 stabilire la difficoltà
 
 cambiare negli uc2 AggiornaIpotesiLavoro: inviaMappatura diventa modificaMappatura(azione)
+
+dobbiamo pensare a GUI (non meravigliose) e gestire l'interazione con il database
+
+rispettare le scelte fatte nell'uc1
+
+sistema: no database no GUI
