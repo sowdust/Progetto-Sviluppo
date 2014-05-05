@@ -30,7 +30,6 @@ public class Proposta {
     private UserInfo proponente;
     private UserInfo partner;
     
-    /* tipo di sec? forse è sdc: sistema di cifratura */
     public Proposta(Studente user, Studente partner, String sdc) {
         throw new UnsupportedOperationException("Not supported yet.");
     }
