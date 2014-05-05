@@ -15,23 +15,18 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package cryptokey;
+package cryptohelper;
 
 /**
  *
  * @author glaxy
  */
-public class Mappatura {
-    
-    private char[] mappa;
-    private char[] mappaInversa;
-    
-    public char map(char c) {
-        throw new UnsupportedOperationException("Not supported yet.");
-    }
-    
-    public char inverseMap(char c) {
-        throw new UnsupportedOperationException("Not supported yet.");
-    }
+public class Studente {
+
+    private int id;
+    private String nickname;
+    private String password;
+    private String nome;
+    private String cognome;
     
 }

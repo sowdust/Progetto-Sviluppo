@@ -15,18 +15,23 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package cryptokey;
+package cryptohelper;
 
 /**
  *
  * @author glaxy
  */
-public interface MessaggioAstratto {
+public class Mappatura {
     
-    public String getTesto();
-    public String getTestoCifrato();
-    public String getLingua();
-    public String getTitolo();
-    public boolean elimina();
+    private char[] mappa;
+    private char[] mappaInversa;
+    
+    public char map(char c) {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+    
+    public char inverseMap(char c) {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
     
 }

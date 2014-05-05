@@ -15,20 +15,18 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package cryptokey;
+package cryptohelper;
 
 /**
  *
  * @author glaxy
  */
-public class Cifratore {
+public interface MessaggioAstratto {
     
-    public String cifraMonoalfabetica(Mappatura mappa, String testo) {
-        throw new UnsupportedOperationException("Not supported yet.");
-    }
-
-    public String decifraMonoalfabetica(Mappatura mappa, String testo) {
-        throw new UnsupportedOperationException("Not supported yet.");
-    }
-
+    public String getTesto();
+    public String getTestoCifrato();
+    public String getLingua();
+    public String getTitolo();
+    public boolean elimina();
+    
 }

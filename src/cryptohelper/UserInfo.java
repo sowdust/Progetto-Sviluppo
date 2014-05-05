@@ -15,14 +15,15 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package cryptokey;
+package cryptohelper;
 
 /**
  *
  * @author glaxy
  */
-public interface MessaggioDestinatario extends MessaggioAstratto {
+class UserInfo {
     
-    public boolean isLetto();
-    
+    private int id;
+    private String nome;
+    private String cognome;
 }

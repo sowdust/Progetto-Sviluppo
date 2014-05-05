@@ -15,19 +15,19 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package cryptokey;
+package cryptohelper;
 
 /**
  *
  * @author glaxy
  */
-public class CryptoKey {
-
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String[] args) {
-        // TODO code application logic here
+public interface CalcolatoreMappatura {
+    
+    /*
+    public static CalcolatoreMappatura create(String metodo) {
+        throw new UnsupportedOperationException("Not supported yet.");
     }
+    */
+    public Mappatura calcola(String chiave);
     
 }

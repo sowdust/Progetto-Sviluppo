@@ -15,33 +15,51 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package cryptokey;
+package cryptohelper;
+
+import java.sql.ResultSet;
 
 /**
  *
  * @author glaxy
  */
-public class Proposta {
+public class SistemaCifratura {
     
-    private String stato;
-    private boolean notificata;
-    private UserInfo proponente;
-    private UserInfo partner;
+    private int id;
+    private String chiave;
+    private String metodo;
+    private CalcolatoreMappatura calcolatore;
+    private Mappatura mappatura;
+    private Proposta proposta;
+    private UserInfo creatore;
     
-    /* tipo di sec? */
-    public Proposta(Studente user, Studente partner, String sec) {
+    /* void? */
+    public static void caricaSistemiCifratura(Studente st) {
         throw new UnsupportedOperationException("Not supported yet.");
     }
     
-    public Proposta(QueryResult queryResult) {
+    public static SistemaCifratura load(Studente user1, Studente user2) {
         throw new UnsupportedOperationException("Not supported yet.");
     }
     
-    public static void load(int id) {
+    public SistemaCifratura(String chiave, String metodo) {
         throw new UnsupportedOperationException("Not supported yet.");
     }
     
-    public static void caricaAttiva(int idProp, int idPartner) {
+    /* QueryResult? magari ResultSet */
+    public SistemaCifratura(ResultSet queryResult) {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+    
+    public String prova(String testo) {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+    
+    public void calcolaMappatura() {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+    
+    public void save() {
         throw new UnsupportedOperationException("Not supported yet.");
     }
 }

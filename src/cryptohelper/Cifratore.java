@@ -15,18 +15,20 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package cryptokey;
+package cryptohelper;
 
 /**
  *
  * @author glaxy
  */
-public class Studente {
-
-    private int id;
-    private String nickname;
-    private String password;
-    private String nome;
-    private String cognome;
+public class Cifratore {
     
+    public String cifraMonoalfabetica(Mappatura mappa, String testo) {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    public String decifraMonoalfabetica(Mappatura mappa, String testo) {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
 }

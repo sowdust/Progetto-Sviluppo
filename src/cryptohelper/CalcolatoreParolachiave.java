@@ -15,15 +15,17 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package cryptokey;
+package cryptohelper;
 
 /**
  *
  * @author glaxy
  */
-class UserInfo {
+public class CalcolatoreParolachiave implements CalcolatoreMappatura {
+
+    @Override
+    public Mappatura calcola(String chiave) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
     
-    private int id;
-    private String nome;
-    private String cognome;
 }
