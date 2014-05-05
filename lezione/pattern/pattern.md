@@ -1,4 +1,4 @@
-#Pattern
+#Patterns
 - Creazionali:
     - Abstract Factory
     - Singleton
