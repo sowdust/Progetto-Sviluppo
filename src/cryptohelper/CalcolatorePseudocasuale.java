@@ -21,7 +21,7 @@ package cryptohelper;
  *
  * @author glaxy
  */
-public class CalcolatorePseudocasuale implements CalcolatoreMappatura {
+public class CalcolatorePseudocasuale extends CalcolatoreMappatura {
 
     @Override
     public Mappatura calcola(String chiave) {

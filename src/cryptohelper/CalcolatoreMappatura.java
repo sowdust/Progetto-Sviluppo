@@ -21,13 +21,12 @@ package cryptohelper;
  *
  * @author glaxy
  */
-public interface CalcolatoreMappatura {
+public abstract class CalcolatoreMappatura {
     
-    /*
     public static CalcolatoreMappatura create(String metodo) {
         throw new UnsupportedOperationException("Not supported yet.");
     }
-    */
-    public Mappatura calcola(String chiave);
+    
+    public abstract Mappatura calcola(String chiave);
     
 }

@@ -21,7 +21,7 @@ package cryptohelper;
  *
  * @author glaxy
  */
-public class CalcolatoreParolachiave implements CalcolatoreMappatura {
+public class CalcolatoreParolachiave extends CalcolatoreMappatura {
 
     @Override
     public Mappatura calcola(String chiave) {
