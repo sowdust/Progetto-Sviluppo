@@ -3,7 +3,10 @@
 *.class
 .DS_Store
 *~
+
+# cose di netbeans
 build/
 nbproject/**
 manifest.mf
+build.xml
 
