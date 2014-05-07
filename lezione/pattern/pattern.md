@@ -3,13 +3,13 @@
     - Abstract Factory
     - Singleton
 - Strutturali:
-    - Adapter
-    - Composite
-    - Decorator
-    - Proxy
+    - Adapter - adattare una classe o interfaccia già sviluppata alle esigenze di un nuovo cliente o applicativo
+    - Composite - comporre gerarchie di oggetti compositi
+    - Decorator - se solo alcuni oggetti di una classe hanno responsabilità particolari
+    - Proxy - nel caso nella applicazione si dovesse spesso prendere solo parti di un altro oggetto, ma sovente lo si deve caricare tutto (oscuro, lo so)
 - Comportamentali:
-    - Mediator
-    - Observer
-    - State
-    - Strategy
-    - Visitor
+    - Mediator - utile per il low coupling, fa interagire fra loro diverse classi
+    - Observer - quando molti oggetti dipendono da uno o questo deve reagire dinamicamente ai cambiamenti di quelli
+    - State - una sorta di auto-observer, un oggetto ha solo alcuni stati legali e in base ai cambiamenti di questi reagisce in un certo modo 
+    - Strategy - descrive famiglie di algoritmi che si possono applicare su oggetti differenti
+    - Visitor - contorto 

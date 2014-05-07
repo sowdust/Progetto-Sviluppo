@@ -20,3 +20,16 @@ dobbiamo pensare a GUI (non meravigliose) e gestire l'interazione con il databas
 rispettare le scelte fatte nell'uc1
 
 sistema: no database no GUI
+
+implementazione: scelta del CONTROLLER. cosa ha fatto giulio?
+abstract factory sembra una buona idea per la creazione di messaggi e sessioni di decifratura
+composite potrebbe essere interessante per la gestione della sessione di decifratura, se
+oltre all'insieme dei nodi troviamo altre cose interessanti da inserirvi, come ad esempio lo stato
+dell'utilizzo dei tool (che però possiamo anche non mettere...)
+proxy mi sembra molto versatile per molti utilizzi, come ad esempio per fare in modo più efficiente
+il filtering dei messaggi da decifrare in base a mittente e destinatario. poco chiaro come mai la prof 
+non ci abbia pensato invece di inserire quello "pseudo-studente" nel modello di progetto.
+banalmente state potrebbe essere utile perchè una sessione si "auto-accorga" se è stata modificata, o 
+addirittura una casella di posta (complesso)
+
+
