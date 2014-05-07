@@ -31,7 +31,7 @@ public class DBController {
         Statement st; // TODO
         ResultSet rs;
         try {
-            conn = DriverManager.getConnection(url, "cryptouser", "cryptopass"); //ateam è username e password
+            conn = DriverManager.getConnection(url, "crypto_user", "crypto_pass"); //ateam è username e password
             st = conn.createStatement();
             rs = st.executeQuery(query);
             out = analyzeResult(rs);
