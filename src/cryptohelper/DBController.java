@@ -20,30 +20,33 @@ public class DBController {
     */
     private static DBController instance = null;
     private static final String url = "jdbc:derby://localhost:1527/crypto_db"; 
-    private String user;
-    private String pwd;
+    private final String user = "crypto_user";
+    private final String pwd = "crypto_pass";
     private Connection conn;
     
     private DBController() {}
     
-    public String execute(String query) {
+    public ResultSet execute(String query) {
         String out = "";
         Statement st; // TODO
-        ResultSet rs;
+        ResultSet rs = null;
         try {
-            conn = DriverManager.getConnection(url, "crypto_user", "crypto_pass"); //ateam è username e password
+            conn = DriverManager.getConnection(url, user, pwd); //ateam è username e password
             st = conn.createStatement();
             rs = st.executeQuery(query);
+            /*
             out = analyzeResult(rs);
             rs.close();
             st.close();
             conn.close();
+            */
         } catch(SQLException e) {
             System.out.println(e.getMessage());
         }
-        return out;
+        //return out;
+        return rs;
     }
-    
+        
     private String analyzeResult(ResultSet rs) {
         String out = "";
         try {
