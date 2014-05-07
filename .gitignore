@@ -3,6 +3,6 @@
 *.class
 .DS_Store
 *~
-/build/
-/nbproject/
+build/
+nbproject/
 manifest.mf
