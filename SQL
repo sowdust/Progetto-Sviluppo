@@ -33,6 +33,15 @@ CREATE TABLE SistemaCifratura (
     FOREIGN KEY (creatore) REFERENCES Studente(id)
 );
 
+CREATE TABLE Decisione (
+    id          int PRIMARY KEY,
+    stato       varchar(20),
+    proponente  int,
+    partner     int,
+    FOREIGN KEY (proponente) REFERENCES Studente(id),
+    FOREIGN KEY (partner) REFERENCES Studente(id)
+);
+
 INSERT INTO Studente VALUES 
     (0, 'tory', 'pass1', 'Pietro', 'Torasso'),
     (1, 'felix', 'pass2', 'Felice', 'Cardone');
