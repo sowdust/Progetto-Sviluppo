@@ -24,29 +24,17 @@ public class DBController {
     private final String pwd = "crypto_pass";
     private Connection conn;
     
-    private DBController() {}
+    private DBController() {
+        conn = DriverManager.getConnection(url, user, pwd);
+    }
     
-    public ResultSet execute(String query) {
-        String out = "";
-        Statement st; // TODO
-        ResultSet rs = null;
-        try {
-            conn = DriverManager.getConnection(url, user, pwd); //ateam è username e password
-            st = conn.createStatement();
-            rs = st.executeQuery(query);
-            /*
-            out = analyzeResult(rs);
-            rs.close();
-            st.close();
-            conn.close();
-            */
-        } catch(SQLException e) {
-            System.out.println(e.getMessage());
-        }
-        //return out;
+    public ResultSet execute(String query) throws SQLException {
+        Statement st = conn.createStatement();
+        ResultSet rs = st.executeQuery(query);
         return rs;
     }
-        
+    
+    /*    
     private String analyzeResult(ResultSet rs) {
         String out = "";
         try {
@@ -59,13 +47,11 @@ public class DBController {
         }
         return out;
     }
+    */
     
     public static DBController getInstance() {
         if(instance == null) {
             instance = new DBController();
-        }
-        else {
-            System.out.println("warning: db già inizializzato");
         }
         return instance;
     }
