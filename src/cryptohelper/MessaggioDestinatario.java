@@ -24,6 +24,6 @@ package cryptohelper;
 public interface MessaggioDestinatario extends MessaggioAstratto {
     
     public boolean isLetto();
-    public void setLetto();
+    public void setLetto(boolean letto);
     
 }
