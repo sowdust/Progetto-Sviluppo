@@ -20,7 +20,8 @@ package cryptohelper;
 /**
  * 
  * NOTE:    i metodi sono dichiarati statici
- *          in quanto non vedo motivo di fare altrimenti
+ *          in quanto non vedo (Mattia V.) motivo di fare altrimenti
+ *          da valutare se conviene fare così oppure no
  * 
  *          la cifratura viene fatta eliminando spazi e segni di punteggiatura
  * 
