@@ -1,0 +1,41 @@
+
+DROP TABLE Messaggio;
+DROP TABLE SistemaCifratura;
+DROP TABLE Studente;
+
+CREATE TABLE Studente (
+    id int PRIMARY KEY,
+    nickname    varchar(20),
+    password    varchar(32),
+    nome        varchar(20),
+    cognome     varchar(20)
+);
+
+CREATE TABLE Messaggio (
+    id              int PRIMARY KEY,
+    mittente        int,
+    destinatario    int,
+    testo           varchar(20),
+    testoCifrato    varchar(20),
+    lingua          varchar(20),
+    titolo          varchar(20),
+    bozza           boolean,
+    letto           boolean,
+    FOREIGN KEY (mittente) REFERENCES Studente(id),
+    FOREIGN KEY (destinatario) REFERENCES Studente(id)
+);
+
+CREATE TABLE SistemaCifratura (
+    id          int PRIMARY KEY,
+    creatore    int,
+    metodo      varchar(20),
+    chiave      varchar(20),
+    FOREIGN KEY (creatore) REFERENCES Studente(id)
+);
+
+INSERT INTO Studente VALUES 
+    (0, 'tory', 'pass1', 'Pietro', 'Torasso'),
+    (1, 'felix', 'pass2', 'Felice', 'Cardone');
+       
+INSERT INTO Messaggio VALUES
+    (0, 0, 1, 'testo in chiaro', 'testo cifrato', 'Italiano', 'Un titolo a caso', True, False);
