@@ -39,7 +39,6 @@ public class Messaggio implements MessaggioMittente, MessaggioDestinatario {
     private boolean letto;
     
     private Messaggio(ResultSet queryResult) throws SQLException {
-        queryResult.next();
         id = queryResult.getInt("Id");
         testo = queryResult.getString("Testo");
         testoCifrato = queryResult.getString("TestoCifrato");
@@ -51,29 +50,42 @@ public class Messaggio implements MessaggioMittente, MessaggioDestinatario {
     
     public static Messaggio load(int id) throws SQLException {
         DBController dbc = DBController.getInstance();
-        ResultSet rs = dbc.execute("SELECT * FROM crypto_user.Messages WHERE Id = " + id);
+        ResultSet rs = dbc.execute("SELECT * FROM crypto_user.Messaggi WHERE id = " + id);
+        rs.next();
         return new Messaggio(rs);
     }
 
-    public static List<MessaggioMittente> caricaInviati(Studente studente) {       
-        throw new UnsupportedOperationException("Not supported yet.");
-    }
-    
-    public static List<MessaggioMittente> caricaBozze(Studente studente) {
-        /*
+    public static List<MessaggioMittente> caricaInviati(Studente studente) throws SQLException {
         DBController dbc = DBController.getInstance();
         int studentId = studente.getId();
-        ResultSet rs = dbc.execute("SELECT * FROM crypto_user.Messages WHERE Mittente = " + studentId + " AND Bozza = " + true);
-        List<MessaggioMittente> drafts = new ArrayList<MessaggioMittente>();
+        ResultSet rs = dbc.execute("SELECT * FROM crypto_user.Messagggi WHERE mittente = " + studentId + " AND bozza = " + false);
+        List<MessaggioMittente> listaInviati = new ArrayList<>();
         while(rs.next()) {
-            rs
+            listaInviati.add(new Messaggio(rs));
         }
-        */
-        throw new UnsupportedOperationException("Not supported yet.");
+        return listaInviati;
     }
     
-    public static List<MessaggioDestinatario> caricaRicevuti(Studente studente) {       
-        throw new UnsupportedOperationException("Not supported yet.");
+    public static List<MessaggioMittente> caricaBozze(Studente studente) throws SQLException {
+        DBController dbc = DBController.getInstance();
+        int studentId = studente.getId();
+        ResultSet rs = dbc.execute("SELECT * FROM crypto_user.Messaggi WHERE mittente = " + studentId + " AND bozza = " + true);
+        List<MessaggioMittente> listaBozze = new ArrayList<>();
+        while(rs.next()) {
+            listaBozze.add(new Messaggio(rs));
+        }
+        return listaBozze;
+    }
+    
+    public static List<MessaggioDestinatario> caricaRicevuti(Studente studente) throws SQLException {
+        DBController dbc = DBController.getInstance();
+        int studentId = studente.getId();
+        ResultSet rs = dbc.execute("SELECT * FROM crypto_user.Messaggi WHERE destinatario = " + studentId);
+        List<MessaggioDestinatario> listaRicevuti = new ArrayList<>();
+        while(rs.next()) {
+            listaRicevuti.add(new Messaggio(rs));
+        }
+        return listaRicevuti;
     }
 
     @Override
@@ -113,7 +125,13 @@ public class Messaggio implements MessaggioMittente, MessaggioDestinatario {
 
     @Override
     public boolean elimina() {
-        throw new UnsupportedOperationException("Not supported yet.");
+        DBController dbc = DBController.getInstance();
+        try {
+            return dbc.executeUpdate("DELETE * FROM crypto_user.Messaggi WHERE id = " + id);
+        } catch (SQLException ex) {
+            Logger.getLogger(Messaggio.class.getName()).log(Level.SEVERE, null, ex);
+            return false;
+        }
     }
 
     @Override

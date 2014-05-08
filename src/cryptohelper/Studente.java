@@ -28,5 +28,9 @@ public class Studente {
     private String password;
     private String nome;
     private String cognome;
+
+    int getId() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
     
 }

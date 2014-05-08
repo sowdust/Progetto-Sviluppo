@@ -34,6 +34,11 @@ public class DBController {
         return rs;
     }
     
+    public boolean executeUpdate(String query) throws SQLException {
+        Statement st = conn.createStatement();
+        int nrow = st.executeUpdate(query);
+        return nrow != 0;
+    }
     /*    
     private String analyzeResult(ResultSet rs) {
         String out = "";
