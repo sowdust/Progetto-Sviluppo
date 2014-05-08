@@ -25,7 +25,7 @@ package cryptohelper;
  * 
  *          la cifratura viene fatta eliminando spazi e segni di punteggiatura
  * 
- *          !! da aggiungere alla documentazione il metodo Mappatura.isInAlphabet
+ *          !! da aggiungere alla documentazione il metodo Mappatura.inAlphabet
  * 
  * @author mat
  */
@@ -36,7 +36,7 @@ public class Cifratore {
         
         for(char c : testo.toCharArray()) {
             char k = Character.toLowerCase(c);
-            if(mappa.isInAlphabet(Character.toLowerCase(k))) {
+            if(mappa.inAlphabet(Character.toLowerCase(k))) {
                 testoCifrato += mappa.map(k);
             }
         }
@@ -49,7 +49,7 @@ public class Cifratore {
         
         for(char c : testo.toCharArray()) {
             char k = Character.toLowerCase(c);
-            if(mappa.isInAlphabet(Character.toLowerCase(k))) {
+            if(mappa.inAlphabet(Character.toLowerCase(k))) {
                 testoDeCifrato += mappa.inverseMap(k);
             }
         }

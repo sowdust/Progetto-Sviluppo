@@ -24,7 +24,7 @@ public class MappaturaTest {
         System.out.println();
         System.out.println(map.map('z'));
         System.out.println(map.inverseMap('z'));
-        System.out.println(map.isInAlphabet('!'));
-        System.out.println(map.isInAlphabet('k'));
+        System.out.println(map.inAlphabet('!'));
+        System.out.println(map.inAlphabet('k'));
     }
 }

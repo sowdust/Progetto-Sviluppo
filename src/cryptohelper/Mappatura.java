@@ -17,14 +17,14 @@
 
 package cryptohelper;
 import java.lang.IllegalArgumentException;
-import static java.util.Arrays.asList;
+
 /**
  * 
  * NOTE:        !! valutare se i metodi map() e inverseMap() possono essere
  *              affiancati o sostituiti da metodi che invece che lavorare con
  *              i caratteri lavorino con gli indici dei caratteri nell'array:
  *              in questo modo si migliorerebbe di molto l'efficienza evitando
- *              chiamate superflue a metodi ausiliari tipo isInAlphabet()
+ *              chiamate superflue a metodi ausiliari tipo inAlphabet()
  *              e metodi di conversioni vari
  * 
  *              da aggiungere alla documentazione il metodo inInAlfabet(char c)
@@ -50,7 +50,7 @@ public class Mappatura {
             throw new IllegalArgumentException("Lunghezza mappature non corrispondenti");
         }
         for(char c : mappa) {
-            if(!isInAlphabet(c)) {
+            if(!inAlphabet(c)) {
                 throw new IllegalArgumentException("Carattere "+c+" non fa parte dell'alfabeto");
             }
         }
@@ -58,24 +58,28 @@ public class Mappatura {
     }
     
     public char map(char c) {
-        if(!isInAlphabet(c)) {
-            throw new IllegalArgumentException("Carattere "+c+" non fa parte dell'alfabeto");
+        int i = 0;
+        for(char k : mappa) {
+            if(c == k) {
+                return mappaInversa[i];
+            }
+            ++i;
         }
-        int i;
-        for(i = 0; i < mappaInversa.length && c != mappaInversa[i]; ++i) ;
-        return this.mappa[i];
+        throw new IllegalArgumentException(c + " non in alfabeto");
     }
     
     public char inverseMap(char c) {
-        if(!isInAlphabet(c)) {
-            throw new IllegalArgumentException("Carattere "+c+" non fa parte dell'alfabeto");
+        int i = 0;
+        for(char k : mappaInversa) {
+            if(c == k) {
+                return mappa[i];
+            }
+            ++i;
         }
-        int i;
-        for(i = 0; i < mappa.length && c != mappa[i]; ++i) ;
-        return this.mappaInversa[i];
+        throw new IllegalArgumentException(c + " non in alfabeto");
     }
     
-    public boolean isInAlphabet(char c) {
+    public boolean inAlphabet(char c) {
         for(char k : mappaInversa) {
             if(k == c) {
                 return true;
