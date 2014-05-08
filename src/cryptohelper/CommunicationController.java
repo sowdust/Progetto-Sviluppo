@@ -28,4 +28,17 @@ public class CommunicationController {
         return m;
     }
     
+    public boolean inviaDecisione(Proposta proposta, String decisione) {
+        if(decisione.compareTo("accettata") == 1) {
+            Proposta old = caricaAttiva(proposta.getProponente(), proposta.getPartner());
+            if (old != null) {
+                old.setStato("expired");
+                ResultSet rs1 = old.save(); //nei DSD non sembra essere usato altrimenti
+            }
+        }
+        proposta.setStato(decisione);
+        ResultSet rs2 = proposta.save();
+        return rs2;
+    }
+    
 }
