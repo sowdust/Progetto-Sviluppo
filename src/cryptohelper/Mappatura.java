@@ -24,7 +24,7 @@ import static java.util.Arrays.asList;
  *              affiancati o sostituiti da metodi che invece che lavorare con
  *              i caratteri lavorino con gli indici dei caratteri nell'array:
  *              in questo modo si migliorerebbe di molto l'efficienza evitando
- *              chiamate superflui a metodi ausiliari tipo isInAlphabet()
+ *              chiamate superflue a metodi ausiliari tipo isInAlphabet()
  *              e metodi di conversioni vari
  * 
  *              da aggiungere alla documentazione il metodo inInAlfabet(char c)
