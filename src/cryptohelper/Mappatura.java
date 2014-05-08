@@ -16,22 +16,74 @@
  */
 
 package cryptohelper;
-
+import java.lang.IllegalArgumentException;
+import static java.util.Arrays.asList;
 /**
- *
- * @author glaxy
+ * 
+ * NOTE:        da aggiungere alla documentazione il metodo inInAlfabet(char c)
+ * 
+ *              forse l'import di java.lang non è necessaria
+ * 
+ * 
+ * @author mat
  */
+
+
 public class Mappatura {
     
-    private char[] mappa;
-    private char[] mappaInversa;
+    private final char[] mappa;
+    private final char[] mappaInversa = {
+        'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i',
+        'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r',
+        's', 't', 'u', 'v', 'w', 'x', 'y', 'z'
+    };
+    
+    public Mappatura(char[] mappa) {
+        if(mappa.length != this.mappaInversa.length) {
+            throw new IllegalArgumentException("Lunghezza mappature non corrispondenti");
+        }
+        for(char c : mappa) {
+            if(!isInAlphabet(c)) {
+                throw new IllegalArgumentException("Carattere "+c+" non fa parte dell'alfabeto");
+            }
+        }
+        this.mappa = mappa;
+    }
     
     public char map(char c) {
-        throw new UnsupportedOperationException("Not supported yet.");
+        if(!isInAlphabet(c)) {
+            throw new IllegalArgumentException("Carattere "+c+" non fa parte dell'alfabeto");
+        }
+        int i;
+        for(i = 0; i < mappaInversa.length && c != mappaInversa[i]; ++i) ;
+        return this.mappa[i];
     }
     
     public char inverseMap(char c) {
-        throw new UnsupportedOperationException("Not supported yet.");
+        if(!isInAlphabet(c)) {
+            throw new IllegalArgumentException("Carattere "+c+" non fa parte dell'alfabeto");
+        }
+        int i;
+        for(i = 0; i < mappa.length && c != mappa[i]; ++i) ;
+        return this.mappaInversa[i];
+    }
+    
+    public boolean isInAlphabet(char c) {
+        for(char k : mappaInversa) {
+            if(k == c) {
+                return true;
+            }
+        }
+        return false;
+    }   
+    
+    @Override
+    public String toString() {
+        String s = "";
+        for(int i = 0; i < mappa.length; ++i ) {
+            s += "["+i+"] "+mappaInversa[i]+" -> "+mappa[i]+" \n";
+        }
+        return s;
     }
     
 }

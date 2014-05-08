@@ -18,17 +18,42 @@
 package cryptohelper;
 
 /**
- *
- * @author glaxy
+ * 
+ * NOTE:    i metodi sono dichiarati statici
+ *          in quanto non vedo motivo di fare altrimenti
+ * 
+ *          la cifratura viene fatta eliminando spazi e segni di punteggiatura
+ * 
+ *          !! da aggiungere alla documentazione il metodo Mappatura.isInAlphabet
+ * 
+ * @author mat
  */
 public class Cifratore {
     
-    public String cifraMonoalfabetica(Mappatura mappa, String testo) {
-        throw new UnsupportedOperationException("Not supported yet.");
+    public static String cifraMonoalfabetica(Mappatura mappa, String testo) {
+        String testoCifrato = "";
+        
+        for(char c : testo.toCharArray()) {
+            char k = Character.toLowerCase(c);
+            if(mappa.isInAlphabet(Character.toLowerCase(k))) {
+                testoCifrato += mappa.map(k);
+            }
+        }
+        
+        return testoCifrato;
     }
 
-    public String decifraMonoalfabetica(Mappatura mappa, String testo) {
-        throw new UnsupportedOperationException("Not supported yet.");
+    public static String decifraMonoalfabetica(Mappatura mappa, String testo) {
+        String testoDeCifrato = "";
+        
+        for(char c : testo.toCharArray()) {
+            char k = Character.toLowerCase(c);
+            if(mappa.isInAlphabet(Character.toLowerCase(k))) {
+                testoDeCifrato += mappa.inverseMap(k);
+            }
+        }
+        
+        return testoDeCifrato;
     }
 
 }
