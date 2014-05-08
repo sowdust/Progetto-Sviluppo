@@ -17,6 +17,8 @@
 
 package cryptohelper;
 
+import java.sql.SQLException;
+
 /**
  *
  * @author glaxy
@@ -24,6 +26,6 @@ package cryptohelper;
 public interface MessaggioMittente extends MessaggioAstratto {
     
     public boolean isBozza();
-    public boolean save();
+    public boolean save() throws SQLException;
     public void cifra();
 }

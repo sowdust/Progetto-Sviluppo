@@ -51,7 +51,7 @@ public class Messaggio implements MessaggioMittente, MessaggioDestinatario {
     
     public static Messaggio load(int id) throws SQLException {
         DBController dbc = DBController.getInstance();
-        ResultSet rs = dbc.execute("SELECT * FROM crypto_user.Messages WHERE Id = " + id);
+        ResultSet rs = dbc.execute("SELECT * FROM crypto_user.Messaggio WHERE Id = " + id);
         return new Messaggio(rs);
     }
 
@@ -83,7 +83,13 @@ public class Messaggio implements MessaggioMittente, MessaggioDestinatario {
 
     @Override
     public boolean save() {
-        throw new UnsupportedOperationException("Not supported yet.");
+        try {
+            DBController dbc = DBController.getInstance();
+            dbc.execute(""); //TODO
+            return true;
+        } catch(SQLException e) {
+            return false;
+        }
     }
 
     @Override
@@ -119,6 +125,11 @@ public class Messaggio implements MessaggioMittente, MessaggioDestinatario {
     @Override
     public boolean isLetto() {
         return letto;
+    }
+    
+    @Override
+    public void setLetto(boolean letto) {
+        this.letto = letto;
     }
     
 }
