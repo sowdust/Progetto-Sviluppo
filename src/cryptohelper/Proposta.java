@@ -18,6 +18,7 @@
 package cryptohelper;
 
 import java.sql.ResultSet;
+import java.sql.SQLException;
 
 /**
  *
@@ -34,15 +35,46 @@ public class Proposta {
         throw new UnsupportedOperationException("Not supported yet.");
     }
     
-    public Proposta(ResultSet queryResult) {
-        throw new UnsupportedOperationException("Not supported yet.");
+    public Proposta(ResultSet queryResult) throws SQLException {
+        DBController dbc = DBController.getInstance();
+        ResultSet rs1 = dbc.execute("select * from crypto_db.Studente where id = "+queryResult.getInt("proponente"));
+        ResultSet rs2 = dbc.execute("select * from crypto_db.Studente where id = "+queryResult.getInt("partner"));
+        while(rs1.next()) {
+            this.proponente = new UserInfo(rs1.getInt("id"), rs1.getString("nome"), rs1.getString("cognome"));
+        }
+        while(rs2.next()) {
+            this.partner = new UserInfo(rs2.getInt("id"), rs2.getString("nome"), rs2.getString("cognome"));
+        }
+        this.notificata = false; //TODO
+        this.stato = ""; //TODO
     }
     
     public static void load(int id) {
         throw new UnsupportedOperationException("Not supported yet.");
     }
     
-    public static void caricaAttiva(int idProp, int idPartner) {
-        throw new UnsupportedOperationException("Not supported yet.");
+    public UserInfo getProponente() {
+        return this.proponente;
     }
+    
+    public UserInfo getPartner() {
+        return this.partner;
+    }
+    
+    public static Proposta caricaAttiva(int idProp, int idPartner) throws SQLException {
+        Proposta old = null; //necessario per CommunicationController.inviaDecisione
+        int cont = 0;
+        DBController dbc = DBController.getInstance();
+        ResultSet rs = dbc.execute("select * from crypto_user.Decisione where id = "+idProp+" and id ="+idPartner);
+        while(rs.next()) {
+            if (cont != 0) {
+                throw new SQLException("ritornata più di una proposta!");
+            }
+            //id, stato, proponente, partner
+            old = new Proposta(rs);
+            cont++;
+        }
+        return old;
+    }
+    
 }

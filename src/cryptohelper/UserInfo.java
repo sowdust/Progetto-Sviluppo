@@ -21,9 +21,27 @@ package cryptohelper;
  *
  * @author glaxy
  */
-class UserInfo {
+public class UserInfo {
     
     private int id;
     private String nome;
     private String cognome;
+    
+    public UserInfo(int id, String nome, String cognome) {
+        this.id = id;
+        this.nome = nome;
+        this.cognome = cognome;
+    }
+    public int getId() {
+        return this.id;
+    }
+    
+    public String getNome() {
+        return this.nome;
+    }
+    
+    public String getCognome() {
+        return this.cognome;
+    }
+    
 }
