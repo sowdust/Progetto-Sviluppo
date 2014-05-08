@@ -25,6 +25,11 @@ import java.sql.SQLException;
  * @author glaxy
  */
 public class Proposta {
+    /* NOTE:
+    - mi sembra che la save di Messaggio e questa siano differenti. Infatti il DSD vuole che questa
+    ritorni una queryResult.
+    - TODO: fare costruttore da Studente, il che comporta definire meglio la classe Studente 
+    */
     
     private String stato;
     private boolean notificata;
@@ -77,4 +82,13 @@ public class Proposta {
         return old;
     }
     
+    public void setStato(String stato) {
+        this.stato = stato;
+    }
+    
+    public ResultSet save() throws SQLException { //mi sembra che la save di messaggio e questa siano diverse, dal DSD
+        DBController dbc = DBController.getInstance();
+        ResultSet rs = dbc.execute(""); //TODO
+        return rs;
+    }
 }

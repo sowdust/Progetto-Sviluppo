@@ -1,6 +1,7 @@
 
 package cryptohelper;
 
+import java.sql.ResultSet;
 import java.sql.SQLException;
 
 /**
@@ -28,9 +29,9 @@ public class CommunicationController {
         return m;
     }
     
-    public boolean inviaDecisione(Proposta proposta, String decisione) {
-        if(decisione.compareTo("accettata") == 1) {
-            Proposta old = caricaAttiva(proposta.getProponente().getId(), proposta.getPartner().getId());
+    public ResultSet inviaDecisione(Proposta proposta, String decisione) throws SQLException{
+        if(decisione.compareTo("accettata") == 0) {
+            Proposta old = Proposta.caricaAttiva(proposta.getProponente().getId(), proposta.getPartner().getId());
             if (old != null) {
                 old.setStato("expired");
                 ResultSet rs1 = old.save(); //nei DSD non sembra essere usato altrimenti
