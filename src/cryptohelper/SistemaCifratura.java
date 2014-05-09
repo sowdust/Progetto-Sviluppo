@@ -29,8 +29,14 @@ import java.util.List;
  * 
  * NOTE:        decidere come definire i nomi (costanti) dei sistemi
  *              di cifrature
+ * 
+ *              load(mittente, destinatario) al posto di load(st1, st2)
+ *              in quanto viene chiamata da "Messaggio"
+ * 
+ *              se per fornirli alla spia vogliamo caricare tutti i sdc tra st1 e st2 
+ *              abbiamo bisogno di altro metodo (da implementare)
  *
- * @author glaxy
+ * @author mat
  */
 public class SistemaCifratura {
     
@@ -74,7 +80,7 @@ public class SistemaCifratura {
         return lista;
     }
     
-    public static SistemaCifratura load(Studente user1, Studente user2) {
+    public static SistemaCifratura load(Studente mittente, Studente destinatario) {
         throw new UnsupportedOperationException("Not supported yet.");
     }
      
@@ -93,6 +99,12 @@ public class SistemaCifratura {
     
     public boolean save() throws SQLException {
         throw new UnsupportedOperationException("Not supported yet.");
-    }
+        DBController dbc = DBController.getInstance();
+        ResultSet rs = dbc.execute("INSERT INTO crypto_user.SistemaCifratura (), VALUES()");
+        List<SistemaCifratura> lista = new ArrayList<>();
+        while(rs.next()) {
+            lista.add(new SistemaCifratura(rs.getString("chiave"),rs.getString("metodo")));
+        }
+        return FALSE;    }
 
 }
