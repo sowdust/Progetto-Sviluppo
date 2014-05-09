@@ -22,11 +22,54 @@ package cryptohelper;
  * @author glaxy
  */
 public class Studente {
-
+    
+    public Studente(int id, String nickname, String password, String nome, String cognome) {
+        this.id = id;
+        this.nickname = nickname;
+        this.password = password;
+        this.nome = nome;
+        this.cognome = cognome;
+    }
+    
     private int id;
     private String nickname;
     private String password;
     private String nome;
     private String cognome;
-    
+
+    /**
+     * @return the id
+     */
+    public int getId() {
+        return id;
+    }
+
+    /**
+     * @return the nickname
+     */
+    public String getNickname() {
+        return nickname;
+    }
+
+    /**
+     * @return the password
+     */
+    public String getPassword() {
+        return password;
+    }
+
+    /**
+     * @return the nome
+     */
+    public String getNome() {
+        return nome;
+    }
+
+    /**
+     * @return the cognome
+     */
+    public String getCognome() {
+        return cognome;
+    }
+  
 }

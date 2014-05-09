@@ -47,7 +47,7 @@ public class SistemaCifratura {
     }
     
     /* QueryResult? magari ResultSet */
-    public SistemaCifratura(ResultSet queryResult) {
+    public SistemaCifratura(ResultSet rs) {
         throw new UnsupportedOperationException("Not supported yet.");
     }
     

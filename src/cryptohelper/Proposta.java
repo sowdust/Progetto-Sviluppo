@@ -35,23 +35,23 @@ public class Proposta {
     private boolean notificata;
     private UserInfo proponente;
     private UserInfo partner;
+    private SistemaCifratura sdc;
     
-    public Proposta(Studente user, Studente partner, String sdc) {
-        throw new UnsupportedOperationException("Not supported yet.");
+    public Proposta(Studente proponente, Studente partner, SistemaCifratura sdc) {
+        this.proponente = new UserInfo(proponente.getId(), proponente.getNome(), proponente.getCognome());
+        this.partner = new UserInfo(partner.getId(), partner.getNome(), partner.getCognome());
+        this.sdc = sdc;
     }
     
     public Proposta(ResultSet queryResult) throws SQLException {
         DBController dbc = DBController.getInstance();
-        ResultSet rs1 = dbc.execute("select * from crypto_db.Studente where id = "+queryResult.getInt("proponente"));
-        ResultSet rs2 = dbc.execute("select * from crypto_db.Studente where id = "+queryResult.getInt("partner"));
-        while(rs1.next()) {
-            this.proponente = new UserInfo(rs1.getInt("id"), rs1.getString("nome"), rs1.getString("cognome"));
-        }
-        while(rs2.next()) {
-            this.partner = new UserInfo(rs2.getInt("id"), rs2.getString("nome"), rs2.getString("cognome"));
-        }
+        ResultSet rs1 = dbc.execute("SELECT * FROM crypto_db.Studente WHERE id = "+queryResult.getInt("proponente"));
+        ResultSet rs2 = dbc.execute("SELECT * FROM crypto_db.Studente WHERE id = "+queryResult.getInt("partner"));
+        this.proponente = new UserInfo(rs1);
+        this.partner = new UserInfo(rs2);
         this.notificata = false; //TODO
-        this.stato = ""; //TODO
+        this.stato = "pending"; //TODO
+        
     }
     
     public static void load(int id) {
@@ -70,10 +70,10 @@ public class Proposta {
         Proposta old = null; //necessario per CommunicationController.inviaDecisione
         int cont = 0;
         DBController dbc = DBController.getInstance();
-        ResultSet rs = dbc.execute("select * from crypto_user.Decisione where id = "+idProp+" and id ="+idPartner);
+        ResultSet rs = dbc.execute("select * from crypto_user.Proposta where Proponente = "+idProp+" and Partner ="+idPartner+" and stato='accettata'");
         while(rs.next()) {
             if (cont != 0) {
-                throw new SQLException("ritornata più di una proposta!");
+                throw new SQLException("ritornata più di una proposta attiva!");
             }
             //id, stato, proponente, partner
             old = new Proposta(rs);
@@ -88,7 +88,7 @@ public class Proposta {
     
     public ResultSet save() throws SQLException { //mi sembra che la save di messaggio e questa siano diverse, dal DSD
         DBController dbc = DBController.getInstance();
-        ResultSet rs = dbc.execute(""); //TODO
+        ResultSet rs = dbc.execute(""); 
         return rs;
     }
 }
