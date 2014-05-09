@@ -18,6 +18,10 @@
 package cryptohelper;
 
 import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
+
 
 /**
  *
@@ -33,19 +37,25 @@ public class SistemaCifratura {
     private Proposta proposta;
     private UserInfo creatore;
     
-    /* void? */
-    public static void caricaSistemiCifratura(Studente st) {
+    public SistemaCifratura(String chiave, String metodo) {
         throw new UnsupportedOperationException("Not supported yet.");
+    }
+    
+    /* void? */
+    public static List<SistemaCifratura> caricaSistemiCifratura(Studente st) throws SQLException {
+        DBController dbc = DBController.getInstance();
+        ResultSet rs = dbc.execute("SELECT chiave, metodo FROM crypto_user.SistemaCifratura WHERE creatore = " + st.getNickname());
+        List<SistemaCifratura> lista = new ArrayList<>();
+        while(rs.next()) {
+            lista.add(new SistemaCifratura(rs.getString("metodo"),rs.getString("chiave")));
+        }
+        return lista;
     }
     
     public static SistemaCifratura load(Studente user1, Studente user2) {
         throw new UnsupportedOperationException("Not supported yet.");
     }
-    
-    public SistemaCifratura(String chiave, String metodo) {
-        throw new UnsupportedOperationException("Not supported yet.");
-    }
-    
+     
     /* QueryResult? magari ResultSet */
     public SistemaCifratura(ResultSet rs) {
         throw new UnsupportedOperationException("Not supported yet.");

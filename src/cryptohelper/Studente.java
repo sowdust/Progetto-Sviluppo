@@ -22,6 +22,13 @@ package cryptohelper;
  * @author glaxy
  */
 public class Studente {
+
+    private int id;
+    private String nickname;
+    private String password;
+    private String nome;
+    private String cognome;
+
     
     public Studente(int id, String nickname, String password, String nome, String cognome) {
         this.id = id;
@@ -31,23 +38,8 @@ public class Studente {
         this.cognome = cognome;
     }
     
-    private int id;
-    private String nickname;
-    private String password;
-    private String nome;
-    private String cognome;
-
-<<<<<<< HEAD
     int getId() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-    
-=======
-    /**
-     * @return the id
-     */
-    public int getId() {
-        return id;
     }
 
     /**
@@ -77,6 +69,16 @@ public class Studente {
     public String getCognome() {
         return cognome;
     }
-  
->>>>>>> DSDComunicazione
+    
+    public String toString() {
+        System.out.println("Id: " + id);
+        System.out.println("Nick: " + nickname);
+        System.out.println("Pass: " + password);
+        System.out.println("Nome: " + nome);
+        System.out.println("Cognome: " + cognome);
+        
+    }
+    
+ 
+    
 }
