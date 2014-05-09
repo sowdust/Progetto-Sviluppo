@@ -48,3 +48,10 @@ INSERT INTO Studente VALUES
        
 INSERT INTO Messaggio VALUES
     (0, 0, 1, 'testo in chiaro', 'testo cifrato', 'Italiano', 'Un titolo a caso', True, False);
+
+
+-- POPOLAMENTO TABELLA "SISTEMACIFRATURA"
+INSERT into SISTEMACIFRATURA (id,creatore,metodo,chiave) VALUES (2, 0, 'pseudocasuale','CIPOLLA');
+INSERT into SISTEMACIFRATURA (id,creatore,metodo,chiave) VALUES (2, 0, 'cesare','1');
+INSERT into SISTEMACIFRATURA (id,creatore,metodo,chiave) VALUES (3, 1, 'pseudocasuale','55');
+
