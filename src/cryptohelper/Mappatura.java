@@ -41,16 +41,12 @@ public class Mappatura {
     private final char[] mappa;
     private final char[] mappaInversa;
     
-    public Mappatura(char[] mappa) {
+    public Mappatura(char[] mappa, char[] mappaInversa) {
         if(mappa.length != this.mappaInversa.length) {
             throw new IllegalArgumentException("Lunghezza mappature non corrispondenti");
         }
-        for(char c : mappa) {
-            if(!inAlphabet(c)) {
-                throw new IllegalArgumentException("Carattere "+c+" non fa parte dell'alfabeto");
-            }
-        }
         this.mappa = mappa;
+        this.mappaInversa = mappaInversa;
     }
     
     public char map(char c) {
