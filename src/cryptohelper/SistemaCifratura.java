@@ -20,10 +20,15 @@ package cryptohelper;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 
 /**
+ * 
+ * 
+ * NOTE:        decidere come definire i nomi (costanti) dei sistemi
+ *              di cifrature
  *
  * @author glaxy
  */
@@ -37,17 +42,34 @@ public class SistemaCifratura {
     private Proposta proposta;
     private UserInfo creatore;
     
+    private final char[] alfabeto = {
+        'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i',
+        'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r',
+        's', 't', 'u', 'v', 'w', 'x', 'y', 'z'
+    };
+
+    private final String[] SISTEMI_DI_CIFRATURA = {
+        "pseudocasuale",
+        "cesare",
+        "parolachiave"
+    };
+    
     public SistemaCifratura(String chiave, String metodo) {
-        throw new UnsupportedOperationException("Not supported yet.");
+        if(!Arrays.asList(SISTEMI_DI_CIFRATURA).contains(metodo)) {
+            throw new IllegalArgumentException("metodo non valido");
+        }
+        this.metodo = metodo;
+        this.chiave = chiave;
+        //calcolatore = CalcolatoreMappatura.create(metodo);
+        //calcolatore.calcola(chiave);
     }
     
-    /* void? */
     public static List<SistemaCifratura> caricaSistemiCifratura(Studente st) throws SQLException {
         DBController dbc = DBController.getInstance();
-        ResultSet rs = dbc.execute("SELECT chiave, metodo FROM crypto_user.SistemaCifratura WHERE creatore = " + st.getNickname());
+        ResultSet rs = dbc.execute("SELECT chiave, metodo FROM crypto_user.SistemaCifratura WHERE creatore = " + st.getId());
         List<SistemaCifratura> lista = new ArrayList<>();
         while(rs.next()) {
-            lista.add(new SistemaCifratura(rs.getString("metodo"),rs.getString("chiave")));
+            lista.add(new SistemaCifratura(rs.getString("chiave"),rs.getString("metodo")));
         }
         return lista;
     }
@@ -72,4 +94,5 @@ public class SistemaCifratura {
     public void save() {
         throw new UnsupportedOperationException("Not supported yet.");
     }
+
 }
