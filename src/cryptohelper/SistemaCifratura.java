@@ -60,8 +60,8 @@ public class SistemaCifratura {
         }
         this.metodo = metodo;
         this.chiave = chiave;
-        //calcolatore = CalcolatoreMappatura.create(metodo);
-        //calcolatore.calcola(chiave);
+        calcolatore = CalcolatoreMappatura.create(alfabeto, metodo);
+        this.mappatura = calcolatore.calcola(chiave);
     }
     
     public static List<SistemaCifratura> caricaSistemiCifratura(Studente st) throws SQLException {
@@ -84,15 +84,23 @@ public class SistemaCifratura {
     }
     
     public String prova(String testo) {
-        throw new UnsupportedOperationException("Not supported yet.");
+        return Cifratore.cifraMonoalfabetica(mappatura, testo);
     }
     
     public void calcolaMappatura() {
         throw new UnsupportedOperationException("Not supported yet.");
     }
     
-    public void save() {
-        throw new UnsupportedOperationException("Not supported yet.");
+    public boolean save() {
+        DBController dbc = DBController.getInstance();
+        ResultSet rs = dbc.execute("SELECT chiave, metodo FROM crypto_user.SistemaCifratura WHERE creatore = " + st.getId());
+        List<SistemaCifratura> lista = new ArrayList<>();
+        while(rs.next()) {
+            lista.add(new SistemaCifratura(rs.getString("chiave"),rs.getString("metodo")));
+        }
+        return lista;
+        
+
     }
 
 }
