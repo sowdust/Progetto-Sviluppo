@@ -95,7 +95,13 @@ public class Messaggio implements MessaggioMittente, MessaggioDestinatario {
 
     @Override
     public boolean save() {
-        throw new UnsupportedOperationException("Not supported yet.");
+        try {
+            DBController dbc = DBController.getInstance();
+            dbc.execute(""); //TODO
+            return true;
+        } catch(SQLException e) {
+            return false;
+        }
     }
 
     @Override
@@ -137,6 +143,11 @@ public class Messaggio implements MessaggioMittente, MessaggioDestinatario {
     @Override
     public boolean isLetto() {
         return letto;
+    }
+    
+    @Override
+    public void setLetto(boolean letto) {
+        this.letto = letto;
     }
     
 }

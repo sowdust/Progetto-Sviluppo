@@ -17,13 +17,41 @@
 
 package cryptohelper;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
+
 /**
  *
  * @author glaxy
  */
-class UserInfo {
+public class UserInfo {
     
     private int id;
     private String nome;
     private String cognome;
+    
+    public UserInfo(int id, String nome, String cognome) {
+        this.id = id;
+        this.nome = nome;
+        this.cognome = cognome;
+    }
+    
+    public UserInfo(ResultSet rs) throws SQLException {
+        this.id = rs.getInt("id");
+        this.nome = rs.getString("nome");
+        this.cognome = rs.getString("cognome");
+    }
+    
+    public int getId() {
+        return this.id;
+    }
+    
+    public String getNome() {
+        return this.nome;
+    }
+    
+    public String getCognome() {
+        return this.cognome;
+    }
+    
 }

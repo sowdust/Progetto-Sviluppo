@@ -24,7 +24,7 @@ public class DBController {
     private final String pwd = "crypto_pass";
     private Connection conn;
     
-    private DBController() {
+    private DBController() throws SQLException {
         conn = DriverManager.getConnection(url, user, pwd);
     }
     
@@ -54,7 +54,7 @@ public class DBController {
     }
     */
     
-    public static DBController getInstance() {
+    public static DBController getInstance() throws SQLException {
         if(instance == null) {
             instance = new DBController();
         }

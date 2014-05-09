@@ -7,15 +7,15 @@ import java.sql.SQLException;
  *
  * @author Mattia Cerrato, mattia.cerrato[at]studenti.unito[dot]it
  */
-public class DBTest {
+public class CommunicationTest {
     public static void main(String[] args) {
-        String out = "";
+        Messaggio m = null;
+        CommunicationController commC = CommunicationController.getInstance();
         try {
-            DBController db = DBController.getInstance();
+            m = commC.apriMessaggioRicevuto(0);
         } catch(SQLException e) {
             System.out.println(e.getMessage());
         }
-        //String result = db.execute("select * from CRYPTO_USER.USERS");
-        //System.out.println(result);
+        System.out.println(m.getTesto());
     }
 }
