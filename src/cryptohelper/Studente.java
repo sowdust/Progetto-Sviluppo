@@ -71,14 +71,7 @@ public class Studente {
     }
     
     public String toString() {
-        System.out.println("Id: " + id);
-        System.out.println("Nick: " + nickname);
-        System.out.println("Pass: " + password);
-        System.out.println("Nome: " + nome);
-        System.out.println("Cognome: " + cognome);
-        
+        return "Id: " + id + "Nick: " + nickname + "Pass: " + password + "Nome: " + nome + "Cognome: " + cognome;
     }
-    
- 
     
 }

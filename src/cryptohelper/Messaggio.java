@@ -131,8 +131,8 @@ public class Messaggio implements MessaggioMittente, MessaggioDestinatario {
 
     @Override
     public boolean elimina() {
-        DBController dbc = DBController.getInstance();
         try {
+            DBController dbc = DBController.getInstance();
             return dbc.executeUpdate("DELETE * FROM crypto_user.Messaggio WHERE id = " + id);
         } catch (SQLException ex) {
             Logger.getLogger(Messaggio.class.getName()).log(Level.SEVERE, null, ex);
