@@ -33,7 +33,7 @@ CREATE TABLE SistemaCifratura (
     FOREIGN KEY (creatore) REFERENCES Studente(id)
 );
 
-CREATE TABLE Decisione (
+CREATE TABLE Proposta (
     id          int PRIMARY KEY,
     stato       varchar(20),
     proponente  int,
