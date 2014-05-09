@@ -50,7 +50,7 @@ public class Messaggio implements MessaggioMittente, MessaggioDestinatario {
     
     public static Messaggio load(int id) throws SQLException {
         DBController dbc = DBController.getInstance();
-        ResultSet rs = dbc.execute("SELECT * FROM crypto_user.Messaggi WHERE id = " + id);
+        ResultSet rs = dbc.execute("SELECT * FROM crypto_user.Messaggio WHERE id = " + id);
         rs.next();
         return new Messaggio(rs);
     }
@@ -58,7 +58,7 @@ public class Messaggio implements MessaggioMittente, MessaggioDestinatario {
     public static List<MessaggioMittente> caricaInviati(Studente studente) throws SQLException {
         DBController dbc = DBController.getInstance();
         int studentId = studente.getId();
-        ResultSet rs = dbc.execute("SELECT * FROM crypto_user.Messagggi WHERE mittente = " + studentId + " AND bozza = " + false);
+        ResultSet rs = dbc.execute("SELECT * FROM crypto_user.Messaggio WHERE mittente = " + studentId + " AND bozza = " + false);
         List<MessaggioMittente> listaInviati = new ArrayList<>();
         while(rs.next()) {
             listaInviati.add(new Messaggio(rs));
@@ -69,7 +69,7 @@ public class Messaggio implements MessaggioMittente, MessaggioDestinatario {
     public static List<MessaggioMittente> caricaBozze(Studente studente) throws SQLException {
         DBController dbc = DBController.getInstance();
         int studentId = studente.getId();
-        ResultSet rs = dbc.execute("SELECT * FROM crypto_user.Messaggi WHERE mittente = " + studentId + " AND bozza = " + true);
+        ResultSet rs = dbc.execute("SELECT * FROM crypto_user.Messaggio WHERE mittente = " + studentId + " AND bozza = " + true);
         List<MessaggioMittente> listaBozze = new ArrayList<>();
         while(rs.next()) {
             listaBozze.add(new Messaggio(rs));
@@ -80,7 +80,7 @@ public class Messaggio implements MessaggioMittente, MessaggioDestinatario {
     public static List<MessaggioDestinatario> caricaRicevuti(Studente studente) throws SQLException {
         DBController dbc = DBController.getInstance();
         int studentId = studente.getId();
-        ResultSet rs = dbc.execute("SELECT * FROM crypto_user.Messaggi WHERE destinatario = " + studentId);
+        ResultSet rs = dbc.execute("SELECT * FROM crypto_user.Messaggio WHERE destinatario = " + studentId);
         List<MessaggioDestinatario> listaRicevuti = new ArrayList<>();
         while(rs.next()) {
             listaRicevuti.add(new Messaggio(rs));
@@ -127,7 +127,7 @@ public class Messaggio implements MessaggioMittente, MessaggioDestinatario {
     public boolean elimina() {
         DBController dbc = DBController.getInstance();
         try {
-            return dbc.executeUpdate("DELETE * FROM crypto_user.Messaggi WHERE id = " + id);
+            return dbc.executeUpdate("DELETE * FROM crypto_user.Messaggio WHERE id = " + id);
         } catch (SQLException ex) {
             Logger.getLogger(Messaggio.class.getName()).log(Level.SEVERE, null, ex);
             return false;

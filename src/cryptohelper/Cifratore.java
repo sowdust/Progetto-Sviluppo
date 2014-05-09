@@ -27,6 +27,8 @@ package cryptohelper;
  * 
  *          !! da aggiungere alla documentazione il metodo Mappatura.inAlphabet
  * 
+ *          usare string buffer al posto di +=
+ * 
  * @author mat
  */
 public class Cifratore {
