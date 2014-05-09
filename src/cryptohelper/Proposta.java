@@ -87,8 +87,9 @@ public class Proposta {
     }
     
     public ResultSet save() throws SQLException { //mi sembra che la save di messaggio e questa siano diverse, dal DSD
+        ResultSet rs = null;
         DBController dbc = DBController.getInstance();
-        ResultSet rs = dbc.execute(""); 
+        //rs = dbc.execute(""); 
         return rs;
     }
 }
