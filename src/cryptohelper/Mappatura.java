@@ -59,9 +59,9 @@ public class Mappatura {
     
     public char map(char c) {
         int i = 0;
-        for(char k : mappa) {
+        for(char k : mappaInversa) {
             if(c == k) {
-                return mappaInversa[i];
+                return mappa[i];
             }
             ++i;
         }
@@ -70,9 +70,9 @@ public class Mappatura {
     
     public char inverseMap(char c) {
         int i = 0;
-        for(char k : mappaInversa) {
+        for(char k : mappa) {
             if(c == k) {
-                return mappa[i];
+                return mappaInversa[i];
             }
             ++i;
         }
