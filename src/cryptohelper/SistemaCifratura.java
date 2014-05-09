@@ -91,16 +91,8 @@ public class SistemaCifratura {
         throw new UnsupportedOperationException("Not supported yet.");
     }
     
-    public boolean save() {
-        DBController dbc = DBController.getInstance();
-        ResultSet rs = dbc.execute("SELECT chiave, metodo FROM crypto_user.SistemaCifratura WHERE creatore = " + st.getId());
-        List<SistemaCifratura> lista = new ArrayList<>();
-        while(rs.next()) {
-            lista.add(new SistemaCifratura(rs.getString("chiave"),rs.getString("metodo")));
-        }
-        return lista;
-        
-
+    public boolean save() throws SQLException {
+        throw new UnsupportedOperationException("Not supported yet.");
     }
 
 }
