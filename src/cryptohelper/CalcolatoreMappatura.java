@@ -24,9 +24,15 @@ package cryptohelper;
 public abstract class CalcolatoreMappatura {
     
     public static CalcolatoreMappatura create(String metodo) {
-        throw new UnsupportedOperationException("Not supported yet.");
+        String className = "Calcolatore" + metodo;
+        try {
+            CalcolatoreMappatura cm = (CalcolatoreMappatura)(Class.forName(className)).newInstance();
+            return cm;
+        } catch (ClassNotFoundException | InstantiationException | IllegalAccessException ex) {
+            return null;
+        }
     }
     
-    public abstract Mappatura calcola(String chiave);
+    public abstract Mappatura calcola(String chiave, char[] alfabeto);
     
 }

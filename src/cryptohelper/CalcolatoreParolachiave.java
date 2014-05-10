@@ -24,7 +24,7 @@ package cryptohelper;
 public class CalcolatoreParolachiave extends CalcolatoreMappatura {
 
     @Override
-    public Mappatura calcola(String chiave) {
+    public Mappatura calcola(String chiave, char[] alfabeto) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     

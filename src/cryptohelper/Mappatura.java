@@ -16,7 +16,6 @@
  */
 
 package cryptohelper;
-import java.lang.IllegalArgumentException;
 
 /**
  * 
@@ -39,22 +38,14 @@ import java.lang.IllegalArgumentException;
 public class Mappatura {
     
     private final char[] mappa;
-    private final char[] mappaInversa = {
-        'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i',
-        'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r',
-        's', 't', 'u', 'v', 'w', 'x', 'y', 'z'
-    };
+    private final char[] mappaInversa;
     
-    public Mappatura(char[] mappa) {
-        if(mappa.length != this.mappaInversa.length) {
+    public Mappatura(char[] mappa, char[] alfabeto) {
+        if(mappa.length != alfabeto.length) {
             throw new IllegalArgumentException("Lunghezza mappature non corrispondenti");
         }
-        for(char c : mappa) {
-            if(!inAlphabet(c)) {
-                throw new IllegalArgumentException("Carattere "+c+" non fa parte dell'alfabeto");
-            }
-        }
         this.mappa = mappa;
+        this.mappaInversa = alfabeto;
     }
     
     public char map(char c) {
