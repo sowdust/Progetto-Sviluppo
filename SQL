@@ -1,4 +1,8 @@
+-- PER AUTO INCREMENT:
+-- GENERATED ALWAYS AS IDENTITY (START WITH 1, INCREMENT BY 1)
 
+
+DROP TABLE Proposta;
 DROP TABLE Messaggio;
 DROP TABLE SistemaCifratura;
 DROP TABLE Studente;
@@ -38,6 +42,8 @@ CREATE TABLE Proposta (
     stato       varchar(20),
     proponente  int,
     partner     int,
+    metodo      varchar(20),
+    chiave      varchar(20),
     FOREIGN KEY (proponente) REFERENCES Studente(id),
     FOREIGN KEY (partner) REFERENCES Studente(id)
 );
@@ -54,4 +60,10 @@ INSERT INTO Messaggio VALUES
 INSERT into SISTEMACIFRATURA (id,creatore,metodo,chiave) VALUES (2, 0, 'pseudocasuale','CIPOLLA');
 INSERT into SISTEMACIFRATURA (id,creatore,metodo,chiave) VALUES (2, 0, 'cesare','1');
 INSERT into SISTEMACIFRATURA (id,creatore,metodo,chiave) VALUES (3, 1, 'pseudocasuale','55');
+INSERT into  CRYPTO_USER.SISTEMACIFRATURA (ID,CREATORE,METODO,CHIAVE) values (4,1,'parolachiave','papaslkfdkfjdfjl');
+
+
+-- POPOLAMENTO TABELLA "PROPOSTA"
+INSERT INTO Proposta VALUES
+    (0, 'accepted', 0, 1, 'cesare','1')
 

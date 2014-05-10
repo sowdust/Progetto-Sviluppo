@@ -39,7 +39,7 @@ public class Studente {
     }
     
     int getId() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return id;
     }
 
     /**
@@ -71,7 +71,7 @@ public class Studente {
     }
     
     public String toString() {
-        return "Id: " + id + "Nick: " + nickname + "Pass: " + password + "Nome: " + nome + "Cognome: " + cognome;
+        return "\nId: " + id + "\nNick: " + nickname + "\nPass: " + password + "\nNome: " + nome + "\nCognome: " + cognome;
     }
     
 }
