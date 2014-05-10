@@ -42,6 +42,8 @@ CREATE TABLE Proposta (
     stato       varchar(20),
     proponente  int,
     partner     int,
+    metodo      varchar(20),
+    chiave      varchar(20),
     FOREIGN KEY (proponente) REFERENCES Studente(id),
     FOREIGN KEY (partner) REFERENCES Studente(id)
 );
@@ -63,5 +65,5 @@ INSERT into  CRYPTO_USER.SISTEMACIFRATURA (ID,CREATORE,METODO,CHIAVE) values (4,
 
 -- POPOLAMENTO TABELLA "PROPOSTA"
 INSERT INTO Proposta VALUES
-    (0, 'accepted', 0, 1)
+    (0, 'accepted', 0, 1, 'cesare','1')
 

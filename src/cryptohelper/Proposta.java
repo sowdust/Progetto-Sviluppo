@@ -31,6 +31,15 @@ public class Proposta {
     - TODO: fare costruttore da Studente, il che comporta definire meglio la classe Studente 
     */
     
+    /*
+    
+    NOTE: ( da mattia V. - usando "proposta" in SDC )
+    pensare di mettere gli stati di "proposta" in un array e di poterli
+    richiamare con dei metodi?
+    Non molto bello dover scrivere
+                stato = "accepted" in una query 
+    */
+    
     private String stato;
     private boolean notificata;
     private UserInfo proponente;

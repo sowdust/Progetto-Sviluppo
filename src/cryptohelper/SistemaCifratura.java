@@ -35,6 +35,12 @@ import java.util.List;
  * 
  *              se per fornirli alla spia vogliamo caricare tutti i sdc tra st1 e st2 
  *              abbiamo bisogno di altro metodo (da implementare)
+ * 
+ *              pensare di mettere gli stati di "proposta" in un array e di poterli
+ *              richiamare con dei metodi. Non molto bello dover scrivere 
+ *                  stato = "accepted" in una query. 
+ * 
+ *              il creatore come e quando viene impostato??
  *
  * @author mat
  */
@@ -45,8 +51,11 @@ public class SistemaCifratura {
     private String metodo;
     private CalcolatoreMappatura calcolatore;
     private Mappatura mappatura;
-    private Proposta proposta;
     private UserInfo creatore;
+    /**
+     *  NOTE: che se ne fa il sistema di cifratura di un oggetto proposta??
+     */
+    private Proposta proposta;
     
     private final char[] alfabeto = {
         'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i',
@@ -61,6 +70,7 @@ public class SistemaCifratura {
     };
     
     public SistemaCifratura(String chiave, String metodo) {
+        
         if(!Arrays.asList(SISTEMI_DI_CIFRATURA).contains(metodo)) {
             throw new IllegalArgumentException("metodo non valido");
         }
@@ -68,6 +78,13 @@ public class SistemaCifratura {
         this.chiave = chiave;
         calcolatore = CalcolatoreMappatura.create(alfabeto, metodo);
         this.mappatura = calcolatore.calcola(chiave);
+    }
+    
+    /*
+    NOTE: davvero utile?
+    */
+    public SistemaCifratura(ResultSet rs) {
+        throw new UnsupportedOperationException("Not supported yet.");
     }
     
     public static List<SistemaCifratura> caricaSistemiCifratura(Studente st) throws SQLException {
@@ -79,32 +96,35 @@ public class SistemaCifratura {
         }
         return lista;
     }
-    
-    public static SistemaCifratura load(Studente mittente, Studente destinatario) {
-        throw new UnsupportedOperationException("Not supported yet.");
+    /*
+    NOTE:
+        da qualche parte dobbiamo mettere un controllo per essere sicuri che ci
+        sia sempre solo al massimo una proposta attiva tra a -> b e b -> a
+        qua non mi pare il luogo adatto. Forse in Proposta ? 
+    */
+    public static SistemaCifratura load(Studente mittente, Studente destinatario) throws SQLException {
+
+        DBController dbc = DBController.getInstance();
+        ResultSet rs = dbc.execute("SELECT chiave, metodo FROM crypto_user.Proposta WHERE proponente = " + mittente.getId() + "AND destinatario = " + destinatario.getId() + "AND stato = 'accepted' ");
+        return new SistemaCifratura(rs.getString("chiave"), rs.getString("metodo"));
     }
      
-    /* QueryResult? magari ResultSet */
-    public SistemaCifratura(ResultSet rs) {
-        throw new UnsupportedOperationException("Not supported yet.");
-    }
-    
     public String prova(String testo) {
         return Cifratore.cifraMonoalfabetica(mappatura, testo);
     }
     
+    /**
+     * NOTE:
+     * probabilmente da modificare e da usare piuttosto ogni qual volta
+     * un utente fa una nuova ipotesi e va aggiornata la nuova mappatura?
+     */
     public void calcolaMappatura() {
-        throw new UnsupportedOperationException("Not supported yet.");
+        this.mappatura = calcolatore.calcola(chiave);
     }
     
-    public boolean save() throws SQLException {
-        throw new UnsupportedOperationException("Not supported yet.");
+    public void save() throws SQLException {
         DBController dbc = DBController.getInstance();
-        ResultSet rs = dbc.execute("INSERT INTO crypto_user.SistemaCifratura (), VALUES()");
-        List<SistemaCifratura> lista = new ArrayList<>();
-        while(rs.next()) {
-            lista.add(new SistemaCifratura(rs.getString("chiave"),rs.getString("metodo")));
-        }
-        return FALSE;    }
+        ResultSet rs = dbc.execute("INSERT INTO crypto_user.SistemaCifratura (creatore, metodo, chiave), VALUES(" + creatore.getId() + ", " + metodo + ", " + chiave + ")");
+    }
 
 }
