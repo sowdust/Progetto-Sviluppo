@@ -25,7 +25,23 @@ public class CalcolatoreParolachiave extends CalcolatoreMappatura {
 
     @Override
     public Mappatura calcola(String chiave, char[] alfabeto) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        /* NOTE: bisogna assolutamente eliminare le doppie dalla chiave
+                 controllare se la chiave è composta unicamente da simboli dell'alfabeto ?
+        */
+        char[] mappa = new char[alfabeto.length];
+        int i = 0;
+        int k = 0;
+        while(i < chiave.length()) {
+            mappa[i] = chiave.charAt(i);
+            i++;
+        }
+        while(k < alfabeto.length) {
+            if(chiave.indexOf(alfabeto[k]) == -1) {
+                mappa[i] = alfabeto[k];
+                i++;
+            }
+            k++;
+        }
+        return new Mappatura(mappa, alfabeto);
     }
-    
 }

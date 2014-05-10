@@ -24,15 +24,20 @@ package cryptohelper;
 public class CalcolatoreCesare extends CalcolatoreMappatura {
 
     @Override
-    public Mappatura calcola(String chiave, char[] alfabeto) throws NumberFormatException {
-        int k = Integer.parseInt(chiave);
+    public Mappatura calcola(String chiaveStr, char[] alfabeto) {
+        int chiave;
+        try {
+            chiave = Integer.parseInt(chiaveStr);
+        } catch(NumberFormatException ex) {
+            return null;
+        }
         int l = alfabeto.length;
-        if(k <= 0 || k >= l) {
-            throw new NumberFormatException();
+        if(chiave <= 0 || chiave >= l) {
+            return null;
         }
         char[] mappa = new char[l];
         for(int i = 0; i < l; i++) {
-            mappa[i] = alfabeto[(i+k)%l];
+            mappa[i] = alfabeto[(i + chiave)%l];
         }
         return new Mappatura(mappa, alfabeto);
     }

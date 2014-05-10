@@ -17,6 +17,8 @@
 
 package cryptohelper;
 
+import java.util.Random;
+
 /**
  *
  * @author glaxy
@@ -24,8 +26,22 @@ package cryptohelper;
 public class CalcolatorePseudocasuale extends CalcolatoreMappatura {
 
     @Override
-    public Mappatura calcola(String chiave, char[] alfabeto) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public Mappatura calcola(String chiaveStr, char[] alfabeto) {
+        int chiave;
+        try {
+            chiave = Integer.parseInt(chiaveStr);
+        } catch(NumberFormatException ex) {
+            return null;
+        }
+        Random rnd = new Random(chiave);
+        char[] mappa = alfabeto.clone();
+        for(int i = 0; i < alfabeto.length; i++) {
+            int irnd = i + rnd.nextInt(alfabeto.length - i);
+            char tmp = mappa[irnd];
+            mappa[irnd] = mappa[i];
+            mappa[i] = tmp;
+        }
+        return new Mappatura(mappa, alfabeto);
     }
     
 }

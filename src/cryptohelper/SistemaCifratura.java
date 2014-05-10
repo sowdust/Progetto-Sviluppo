@@ -49,11 +49,6 @@ public class SistemaCifratura {
     private int id;
     private String chiave;
     private String metodo;
-    private char[] alfabeto = {
-        'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i',
-        'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r',
-        's', 't', 'u', 'v', 'w', 'x', 'y', 'z'
-    };
     private CalcolatoreMappatura calcolatore;
     private Mappatura mappatura;
     private UserInfo creatore;
@@ -81,8 +76,8 @@ public class SistemaCifratura {
         }
         this.metodo = metodo;
         this.chiave = chiave;
-        calcolatore = CalcolatoreMappatura.create(alfabeto, metodo);
-        this.mappatura = calcolatore.calcola(chiave);
+        calcolatore = CalcolatoreMappatura.create(metodo);
+        this.mappatura = calcolatore.calcola(chiave, alfabeto);
     }
     
     /*
@@ -124,7 +119,7 @@ public class SistemaCifratura {
      * un utente fa una nuova ipotesi e va aggiornata la nuova mappatura?
      */
     public void calcolaMappatura() {
-        this.mappatura = calcolatore.calcola(chiave);
+        this.mappatura = calcolatore.calcola(chiave, alfabeto);
     }
     
     public void save() throws SQLException {
