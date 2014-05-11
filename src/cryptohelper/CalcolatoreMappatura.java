@@ -23,10 +23,21 @@ package cryptohelper;
  */
 public abstract class CalcolatoreMappatura {
     
+<<<<<<< HEAD
     public static CalcolatoreMappatura create(char[] alfabeto, String metodo) {
         throw new UnsupportedOperationException("Not supported yet.");
+=======
+    public static CalcolatoreMappatura create(String metodo) {
+        String className = "Calcolatore" + metodo;
+        try {
+            CalcolatoreMappatura cm = (CalcolatoreMappatura)(Class.forName(className)).newInstance();
+            return cm;
+        } catch (ClassNotFoundException | InstantiationException | IllegalAccessException ex) {
+            return null;
+        }
+>>>>>>> 96651f2c1614158e5c7d7bf61e54bca1121840a0
     }
     
-    public abstract Mappatura calcola(String chiave);
+    public abstract Mappatura calcola(String chiave, char[] alfabeto);
     
 }

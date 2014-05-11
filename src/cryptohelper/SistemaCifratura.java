@@ -83,6 +83,7 @@ public class SistemaCifratura {
         }
         this.metodo = metodo;
         this.chiave = chiave;
+<<<<<<< HEAD
         this.calcolatore = CalcolatoreMappatura.create(alfabeto, metodo);
         this.mappatura = calcolatore.calcola(chiave);
         this.creatore = st;
@@ -91,6 +92,10 @@ public class SistemaCifratura {
     public SistemaCifratura(String chiave, String metodo) {
         
         this(chiave, metodo, (UserInfo) null);
+=======
+        calcolatore = CalcolatoreMappatura.create(metodo);
+        this.mappatura = calcolatore.calcola(chiave, alfabeto);
+>>>>>>> 96651f2c1614158e5c7d7bf61e54bca1121840a0
     }
     
     public SistemaCifratura(String chiave, String metodo, Studente st) {
@@ -129,7 +134,11 @@ public class SistemaCifratura {
      * un utente fa una nuova ipotesi e va aggiornata la nuova mappatura?
      */
     public void calcolaMappatura() {
+<<<<<<< HEAD
         throw new UnsupportedOperationException("Not supported yet.");
+=======
+        this.mappatura = calcolatore.calcola(chiave, alfabeto);
+>>>>>>> 96651f2c1614158e5c7d7bf61e54bca1121840a0
     }
     
     public void save() throws SQLException {
