@@ -23,7 +23,7 @@ package cryptohelper;
  */
 public abstract class CalcolatoreMappatura {
     
-    public static CalcolatoreMappatura create(String metodo) {
+    public static CalcolatoreMappatura create(char[] alfabeto, String metodo) {
         throw new UnsupportedOperationException("Not supported yet.");
     }
     

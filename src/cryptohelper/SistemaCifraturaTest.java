@@ -6,6 +6,7 @@
 
 package cryptohelper;
 
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
 
@@ -17,7 +18,6 @@ public class SistemaCifraturaTest  {
     
     public static void main(String[] args) throws SQLException {
         
-       Studente st = new Studente(0,"tory","","","");
         
        String testo = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec a diam lectus. Sed sit amet ipsum mauris. Maecenas congue ligula ac quam viverra nec consectetur ante hendrerit. Donec et mollis dolor. Praesent et diam eget libero egestas mattis sit amet vitae augue. Nam tincidunt congue enim, ut porta lorem lacinia consectetur. Donec ut libero sed arcu vehicula ultricies a non tortor. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean ut gravida lorem. Ut turpis felis, pulvinar a semper sed, adipiscing id dolor. Pellentesque auctor nisi id magna consequat sagittis. Curabitur dapibus enim sit amet elit pharetra tincidunt feugiat nisl imperdiet. Ut convallis libero in urna ultrices accumsan. Donec sed odio eros. Donec viverra mi quis quam pulvinar at malesuada arcu rhoncus. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. In rutrum accumsan ultricies. Mauris vitae nisi at sem facilisis semper ac in est.\n" +
 "\n" +
@@ -30,14 +30,19 @@ public class SistemaCifraturaTest  {
 "\n" +
 "Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. In euismod ultrices facilisis. Vestibulum porta sapien adipiscing augue congue id pretium lectus molestie. Proin quis dictum nisl. Morbi id quam sapien, sed vestibulum sem. Duis elementum rutrum mauris sed convallis. Proin vestibulum magna mi. Aenean tristique hendrerit magna, ac facilisis nulla hendrerit ut. Sed non tortor sodales quam auctor elementum. Donec hendrerit nunc eget elit pharetra pulvinar. Suspendisse id tempus tortor. Aenean luctus, elit commodo laoreet commodo, justo nisi consequat massa, sed vulputate quam urna quis eros. Donec vel. ";
         
+       Studente st = new Studente(0,"tory","","","");
+       System.out.println(st);
        
+       /*
        List<SistemaCifratura> sis = SistemaCifratura.caricaSistemiCifratura(st);
        System.out.println(sis);
-       
-       
-       
-       
        System.out.println(sis.get(0).prova(testo));
+        */
+
+       DBController dbc = DBController.getInstance();
+       System.out.println(dbc.executeUpdate("DELETE FROM crypto_user.SistemaCifratura WHERE id = " + 4 )); 
+       
+       
         
         
     }

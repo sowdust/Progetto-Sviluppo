@@ -17,6 +17,9 @@
 
 package cryptohelper;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
+
 /**
  *
  * @author glaxy
@@ -38,7 +41,21 @@ public class Studente {
         this.cognome = cognome;
     }
     
-    int getId() {
+    public Studente(int id) throws SQLException {
+        DBController dbc = DBController.getInstance();
+        ResultSet rs = dbc.execute("SELECT * FROM crypto_user.Studente WHERE id = " + id);
+        this.id = rs.getInt("id");
+        this.nickname = rs.getString("nickname");
+        this.password = rs.getString("password");
+        this.nome = rs.getString("nome");
+        this.cognome = rs.getString("cognome");
+    }
+    
+    public UserInfo getUserInfo() {
+        return new UserInfo(id,nome,cognome);
+    }
+    
+    public int getId() {
         return id;
     }
 

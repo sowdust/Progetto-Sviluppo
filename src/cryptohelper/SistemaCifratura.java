@@ -27,26 +27,15 @@ import java.util.List;
 /**
  * 
  * 
- * NOTE:        decidere come definire i nomi (costanti) dei sistemi
- *              di cifrature
+ * NOTE:        il creatore come e quando viene impostato??
  * 
- *              load(mittente, destinatario) al posto di load(st1, st2)
- *              in quanto viene chiamata da "Messaggio"
- * 
- *              se per fornirli alla spia vogliamo caricare tutti i sdc tra st1 e st2 
- *              abbiamo bisogno di altro metodo (da implementare)
- * 
- *              pensare di mettere gli stati di "proposta" in un array e di poterli
- *              richiamare con dei metodi. Non molto bello dover scrivere 
- *                  stato = "accepted" in una query. 
- * 
- *              il creatore come e quando viene impostato??
+ *              essendoci tanti modi diversi di costruire un sdc, forse si potrebbe usare un pattern tipo factory?
  *
  * @author mat
  */
 public class SistemaCifratura {
     
-    private int id;
+    private Integer id;
     private String chiave;
     private String metodo;
     private CalcolatoreMappatura calcolatore;
@@ -68,25 +57,51 @@ public class SistemaCifratura {
         "cesare",
         "parolachiave"
     };
-    
-    public SistemaCifratura(String chiave, String metodo) {
-        
-        if(!Arrays.asList(SISTEMI_DI_CIFRATURA).contains(metodo)) {
-            throw new IllegalArgumentException("metodo non valido");
-        }
-        this.metodo = metodo;
-        this.chiave = chiave;
-        calcolatore = CalcolatoreMappatura.create(alfabeto, metodo);
+
+    /*
+        leggermente diverso dal DSD che chiama prima un metodo 
+            SdC.load(id)
+        che restituiva un queryResult e poi con questo
+            un SdC.new(queryResult)
+        che restituiva un nuovo SdC (se ho capito bene il diagramma)
+    */
+    public SistemaCifratura(Integer id) throws SQLException {
+        DBController dbc = DBController.getInstance();
+        ResultSet rs = dbc.execute("SELECT * FROM crypto_user.SistemaCifratura WHERE id = " + id);
+        this.creatore = new Studente(rs.getInt("creatore")).getUserInfo();
+        this.metodo = rs.getString("metodo");
+        this.chiave = rs.getString("chiave");
+        this.id = new Integer(id);
+        this.calcolatore = CalcolatoreMappatura.create(alfabeto, metodo);
         this.mappatura = calcolatore.calcola(chiave);
     }
     
-    /*
-    NOTE: davvero utile?
-    */
-    public SistemaCifratura(ResultSet rs) {
-        throw new UnsupportedOperationException("Not supported yet.");
+    public SistemaCifratura(String chiave, String metodo, UserInfo st) {
+        
+        if(!Arrays.asList(SISTEMI_DI_CIFRATURA).contains(metodo)) {
+            throw new IllegalArgumentException("Sistema di Cifratura non valido");
+        }
+        this.metodo = metodo;
+        this.chiave = chiave;
+        this.calcolatore = CalcolatoreMappatura.create(alfabeto, metodo);
+        this.mappatura = calcolatore.calcola(chiave);
+        this.creatore = st;
+    }
+
+    public SistemaCifratura(String chiave, String metodo) {
+        
+        this(chiave, metodo, (UserInfo) null);
     }
     
+    public SistemaCifratura(String chiave, String metodo, Studente st) {
+        
+        this(chiave, metodo, st.getUserInfo());
+    }
+    
+    public final String[] getNomi() {
+        return SISTEMI_DI_CIFRATURA;
+    }
+   
     public static List<SistemaCifratura> caricaSistemiCifratura(Studente st) throws SQLException {
         DBController dbc = DBController.getInstance();
         ResultSet rs = dbc.execute("SELECT chiave, metodo FROM crypto_user.SistemaCifratura WHERE creatore = " + st.getId());
@@ -96,12 +111,7 @@ public class SistemaCifratura {
         }
         return lista;
     }
-    /*
-    NOTE:
-        da qualche parte dobbiamo mettere un controllo per essere sicuri che ci
-        sia sempre solo al massimo una proposta attiva tra a -> b e b -> a
-        qua non mi pare il luogo adatto. Forse in Proposta ? 
-    */
+
     public static SistemaCifratura load(Studente mittente, Studente destinatario) throws SQLException {
 
         DBController dbc = DBController.getInstance();
@@ -119,12 +129,30 @@ public class SistemaCifratura {
      * un utente fa una nuova ipotesi e va aggiornata la nuova mappatura?
      */
     public void calcolaMappatura() {
-        this.mappatura = calcolatore.calcola(chiave);
+        throw new UnsupportedOperationException("Not supported yet.");
     }
     
     public void save() throws SQLException {
+        if(null == creatore) {
+            throw new RuntimeException("Non è possibile salvare un sistema di cifratura senza associarvi un valido utente creatore");
+        }
         DBController dbc = DBController.getInstance();
         ResultSet rs = dbc.execute("INSERT INTO crypto_user.SistemaCifratura (creatore, metodo, chiave), VALUES(" + creatore.getId() + ", " + metodo + ", " + chiave + ")");
+    }
+
+    
+    /**
+     * NOTE:
+     * si basa sul valore di ritorno di executeUpdate che però potrebbe diventare int
+     */
+    public boolean elimina() throws SQLException {
+        DBController dbc = DBController.getInstance();
+        
+        if( id != null ) {
+            return dbc.executeUpdate("DELETE FROM crypto_user.SistemaCifratura WHERE id = " + id );        
+        } else {
+            return dbc.executeUpdate("DELETE FROM crypto_user.SistemaCifratura WHERE creatore = " + creatore.getId() + " AND metodo = " + metodo + " AND chiave = " + chiave);
+        }
     }
 
 }
