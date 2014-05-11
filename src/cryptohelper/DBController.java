@@ -60,5 +60,9 @@ public class DBController {
         }
         return instance;
     }
+    
+    public void close() throws SQLException{
+        conn.close();
+    }
         
 }
