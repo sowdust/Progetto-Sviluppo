@@ -17,6 +17,10 @@
 
 package cryptohelper;
 
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
+
 /**
  *
  * @author glaxy
@@ -25,23 +29,27 @@ public class CalcolatoreParolachiave extends CalcolatoreMappatura {
 
     @Override
     public Mappatura calcola(String chiave, char[] alfabeto) {
-        /* NOTE: bisogna assolutamente eliminare le doppie dalla chiave
-                 controllare se la chiave è composta unicamente da simboli dell'alfabeto ?
-        */
         char[] mappa = new char[alfabeto.length];
-        int i = 0;
         int k = 0;
-        while(i < chiave.length()) {
-            mappa[i] = chiave.charAt(i);
-            i++;
-        }
-        while(k < alfabeto.length) {
-            if(chiave.indexOf(alfabeto[k]) == -1) {
-                mappa[i] = alfabeto[k];
-                i++;
+        for(int i = 0; i < chiave.length(); i++) {
+            char c = chiave.charAt(i);
+            /* se la chiave contiene caratteri doppi verrà considerato solo l'ultimo */
+            if(chiave.substring(i+1).indexOf(c) == -1) {
+                /* controllo se appartiene all'alfabeto */
+                if(/*non è presente nell'alfabeto*/ false) {
+                    System.out.println(c + " non fa parte dell'alfabeto");
+                }
+                mappa[k] = c;
+                k++;
             }
-            k++;
+        }
+        for(int j = 0; j < alfabeto.length; j++) {
+            if(chiave.indexOf(alfabeto[j]) == -1) {
+                mappa[k] = alfabeto[j];
+                k++;
+            }
         }
         return new Mappatura(mappa, alfabeto);
     }
+    
 }

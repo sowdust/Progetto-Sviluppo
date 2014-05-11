@@ -35,7 +35,7 @@ public class CalcolatoreMappaturaTest {
         System.out.println("Pseudocasuale:\n" + pseudocasuale.calcola("5", alfabeto));
         
         CalcolatoreMappatura parolachiave = new CalcolatoreParolachiave();
-        System.out.println("Parolachiave:\n" + parolachiave.calcola("canestro", alfabeto));
+        System.out.println("Parolachiave:\n" + parolachiave.calcola("pallacanestro", alfabeto));
     }
 
 }
