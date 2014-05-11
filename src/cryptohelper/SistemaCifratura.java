@@ -72,8 +72,8 @@ public class SistemaCifratura {
         this.metodo = rs.getString("metodo");
         this.chiave = rs.getString("chiave");
         this.id = new Integer(id);
-        this.calcolatore = CalcolatoreMappatura.create(alfabeto, metodo);
-        this.mappatura = calcolatore.calcola(chiave);
+        this.calcolatore = CalcolatoreMappatura.create( metodo);
+        this.mappatura = calcolatore.calcola(chiave,alfabeto);
     }
     
     public SistemaCifratura(String chiave, String metodo, UserInfo st) {
@@ -83,19 +83,14 @@ public class SistemaCifratura {
         }
         this.metodo = metodo;
         this.chiave = chiave;
-<<<<<<< HEAD
-        this.calcolatore = CalcolatoreMappatura.create(alfabeto, metodo);
-        this.mappatura = calcolatore.calcola(chiave);
+        this.calcolatore = CalcolatoreMappatura.create(metodo);
+        this.mappatura = calcolatore.calcola(chiave,alfabeto);
         this.creatore = st;
     }
 
     public SistemaCifratura(String chiave, String metodo) {
         
         this(chiave, metodo, (UserInfo) null);
-=======
-        calcolatore = CalcolatoreMappatura.create(metodo);
-        this.mappatura = calcolatore.calcola(chiave, alfabeto);
->>>>>>> 96651f2c1614158e5c7d7bf61e54bca1121840a0
     }
     
     public SistemaCifratura(String chiave, String metodo, Studente st) {
@@ -134,11 +129,7 @@ public class SistemaCifratura {
      * un utente fa una nuova ipotesi e va aggiornata la nuova mappatura?
      */
     public void calcolaMappatura() {
-<<<<<<< HEAD
         throw new UnsupportedOperationException("Not supported yet.");
-=======
-        this.mappatura = calcolatore.calcola(chiave, alfabeto);
->>>>>>> 96651f2c1614158e5c7d7bf61e54bca1121840a0
     }
     
     public void save() throws SQLException {
@@ -157,11 +148,11 @@ public class SistemaCifratura {
     public boolean elimina() throws SQLException {
         DBController dbc = DBController.getInstance();
         
-        if( id != null ) {
-            return dbc.executeUpdate("DELETE FROM crypto_user.SistemaCifratura WHERE id = " + id );        
-        } else {
-            return dbc.executeUpdate("DELETE FROM crypto_user.SistemaCifratura WHERE creatore = " + creatore.getId() + " AND metodo = " + metodo + " AND chiave = " + chiave);
+        if( null == id ) {
+            throw new RuntimeException("Problema nell'eliminazione: SdC non identificato.");
         }
+        return dbc.executeUpdate("DELETE FROM crypto_user.SistemaCifratura WHERE id = " + id );        
+
     }
 
 }
