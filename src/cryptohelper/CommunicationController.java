@@ -30,12 +30,14 @@ public class CommunicationController {
     }
     
     public ResultSet inviaDecisione(Proposta proposta, String decisione) throws SQLException{
-        if(decisione.compareTo("accettata") == 0) {
+        if(decisione.compareTo("accepted") == 0) {
             Proposta old = Proposta.caricaAttiva(proposta.getProponente().getId(), proposta.getPartner().getId());
             if (old != null) {
                 old.setStato("expired");
                 ResultSet rs1 = old.save(); //nei DSD non sembra essere usato altrimenti
             }
+            //System.out.println("Partner: "+old.getPartner().getNome());
+            //System.out.println("Proponente: "+old.getProponente().getNome());
         }
         proposta.setStato(decisione);
         ResultSet rs2 = proposta.save();

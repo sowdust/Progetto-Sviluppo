@@ -45,8 +45,8 @@ public class Proposta {
     
     public Proposta(ResultSet queryResult) throws SQLException {
         DBController dbc = DBController.getInstance();
-        ResultSet rs1 = dbc.execute("SELECT * FROM crypto_db.Studente WHERE id = "+queryResult.getInt("proponente"));
-        ResultSet rs2 = dbc.execute("SELECT * FROM crypto_db.Studente WHERE id = "+queryResult.getInt("partner"));
+        ResultSet rs1 = dbc.execute("SELECT * FROM crypto_user.Studente WHERE id = "+queryResult.getInt("proponente"));
+        ResultSet rs2 = dbc.execute("SELECT * FROM crypto_user.Studente WHERE id = "+queryResult.getInt("partner"));
         this.proponente = new UserInfo(rs1);
         this.partner = new UserInfo(rs2);
         this.notificata = false; //TODO
@@ -70,7 +70,7 @@ public class Proposta {
         Proposta old = null; //necessario per CommunicationController.inviaDecisione
         int cont = 0;
         DBController dbc = DBController.getInstance();
-        ResultSet rs = dbc.execute("select * from crypto_user.Proposta where Proponente = "+idProp+" and Partner ="+idPartner+" and stato='accettata'");
+        ResultSet rs = dbc.execute("select * from crypto_user.Proposta where Proponente = "+idProp+" and Partner ="+idPartner+" and stato='accepted'");
         while(rs.next()) {
             if (cont != 0) {
                 throw new SQLException("ritornata più di una proposta attiva!");
