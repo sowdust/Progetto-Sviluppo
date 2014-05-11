@@ -16,7 +16,6 @@
  */
 
 package cryptohelper;
-import java.lang.IllegalArgumentException;
 
 /**
  * 
@@ -42,7 +41,7 @@ public class Mappatura {
     private final char[] mappaInversa;
     
     public Mappatura(char[] mappa, char[] mappaInversa) {
-        if(mappa.length != this.mappaInversa.length) {
+        if(mappa.length != mappaInversa.length) {
             throw new IllegalArgumentException("Lunghezza mappature non corrispondenti");
         }
         this.mappa = mappa;
@@ -84,7 +83,7 @@ public class Mappatura {
     public String toString() {
         String s = "";
         for(int i = 0; i < mappa.length; ++i ) {
-            s += "["+i+"] "+mappaInversa[i]+" -> "+mappa[i]+" \n";
+            s += mappaInversa[i]+" -> "+mappa[i]+" \n";
         }
         return s;
     }

@@ -24,8 +24,22 @@ package cryptohelper;
 public class CalcolatoreCesare extends CalcolatoreMappatura {
 
     @Override
-    public Mappatura calcola(String chiave) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public Mappatura calcola(String chiaveStr, char[] alfabeto) {
+        int chiave;
+        try {
+            chiave = Integer.parseInt(chiaveStr);
+        } catch(NumberFormatException ex) {
+            return null;
+        }
+        int l = alfabeto.length;
+        if(chiave <= 0 || chiave >= l) {
+            return null;
+        }
+        char[] mappa = new char[l];
+        for(int i = 0; i < l; i++) {
+            mappa[i] = alfabeto[(i + chiave)%l];
+        }
+        return new Mappatura(mappa, alfabeto);
     }
     
 }
