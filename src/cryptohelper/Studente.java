@@ -52,7 +52,7 @@ public class Studente {
     }
     
     public UserInfo getUserInfo() {
-        return new UserInfo(id,nome,cognome);
+        return new UserInfo(id, nome, cognome);
     }
     
     public int getId() {

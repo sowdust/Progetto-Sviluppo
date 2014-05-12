@@ -51,8 +51,8 @@ public class Proposta {
     private SistemaCifratura sdc;
 
     public Proposta(Studente proponente, Studente partner, SistemaCifratura sdc) {
-        this.proponente = new UserInfo(proponente.getId(), proponente.getNome(), proponente.getCognome());
-        this.partner = new UserInfo(partner.getId(), partner.getNome(), partner.getCognome());
+        this.proponente = proponente.getUserInfo();
+        this.partner = partner.getUserInfo();
         this.sdc = sdc;
         this.stato = "pending";
         this.notificata = false;
@@ -112,6 +112,7 @@ public class Proposta {
                 + "crypto_user.Proposta.partner = " + this.getPartner().getId());
     }
 
+    @Override
     public String toString() {
         return "Proposta: \n"
                 + stato + "\n"
