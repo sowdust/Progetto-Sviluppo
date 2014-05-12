@@ -61,7 +61,7 @@ public class SistemaCifratura {
         DBController dbc = DBController.getInstance();
         ResultSet qs = dbc.execute("SELECT nome, cognome FROM crypto_user.Studente WHERE id = " + rs.getInt("creatore"));
         qs.next();
-        this.creatore = new UserInfo(rs.getInt("id"), qs.getString("nome"), qs.getString("cognome"));
+        this.creatore = new UserInfo(rs.getInt("creatore"), qs.getString("nome"), qs.getString("cognome"));
         this.calcolatore = CalcolatoreMappatura.create(metodo);
         this.mappatura = calcolatore.calcola(chiave, alfabeto);
     }
