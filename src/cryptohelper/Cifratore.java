@@ -49,7 +49,7 @@ public class Cifratore {
 
         for (char c : testo.toCharArray()) {
             char k = Character.toLowerCase(c);
-            if (mappa.inAlphabet(Character.toLowerCase(k))) {
+            if (mappa.inAlphabet(k)) {
                 testoDeCifrato.append(mappa.inverseMap(k));
             }
         }
