@@ -64,4 +64,10 @@ public class CommunicationController {
         }
         return result;
     }
+    public ResultSet inviaProposta(Studente user, Studente partner, SistemaCifratura sdc) throws SQLException {
+        Proposta p = new Proposta(user, partner, sdc);
+        ResultSet rs = p.save();
+        return rs;
+    }
+    
 }

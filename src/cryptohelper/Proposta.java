@@ -28,7 +28,8 @@ public class Proposta {
     /* NOTE:
     - mi sembra che la save di Messaggio e questa siano differenti. Infatti il DSD vuole che questa
     ritorni una queryResult.
-    - TODO: fare costruttore da Studente, il che comporta definire meglio la classe Studente 
+    - problemi con save(): in proponiSistemaCifratura deve salvare una nuova voce nel DB; in comunicaDecisione
+    deve cambiare lo stato (una colonna) di una voce
     */
     
     /*
@@ -38,6 +39,12 @@ public class Proposta {
     richiamare con dei metodi?
     Non molto bello dover scrivere
                 stato = "accepted" in una query 
+    */
+    
+    /* 
+    
+    NOTE: rispondo a Mattia V, sono C
+    altrettanto brutto stato = "+ arrayDiStati[0] ... no? "accepted" più leggibile!
     */
     
     private String stato;
@@ -50,6 +57,8 @@ public class Proposta {
         this.proponente = new UserInfo(proponente.getId(), proponente.getNome(), proponente.getCognome());
         this.partner = new UserInfo(partner.getId(), partner.getNome(), partner.getCognome());
         this.sdc = sdc;
+        this.stato = "pending";
+        this.notificata = false; //TODO
     }
     
     public Proposta(ResultSet queryResult) throws SQLException {
@@ -59,7 +68,7 @@ public class Proposta {
         this.proponente = new UserInfo(rs1);
         this.partner = new UserInfo(rs2);
         this.notificata = false; //TODO
-        this.stato = "pending"; //TODO
+        this.stato = "pending"; 
         
     }
     
