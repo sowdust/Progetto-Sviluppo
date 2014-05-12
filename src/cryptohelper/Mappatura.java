@@ -41,9 +41,6 @@ public class Mappatura {
     private final char[] mappaInversa;
     
     public Mappatura(char[] mappa, char[] mappaInversa) {
-        if(mappa.length != mappaInversa.length) {
-            throw new IllegalArgumentException("Lunghezza mappature non corrispondenti");
-        }
         this.mappa = mappa;
         this.mappaInversa = mappaInversa;
     }

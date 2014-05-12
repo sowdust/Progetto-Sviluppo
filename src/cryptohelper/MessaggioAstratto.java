@@ -17,6 +17,8 @@
 
 package cryptohelper;
 
+import java.sql.SQLException;
+
 /**
  *
  * @author glaxy
@@ -27,6 +29,6 @@ public interface MessaggioAstratto {
     public String getTestoCifrato();
     public String getLingua();
     public String getTitolo();
-    public boolean elimina();
+    public boolean elimina() throws SQLException;
     
 }
