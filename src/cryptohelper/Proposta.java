@@ -58,7 +58,7 @@ public class Proposta {
         this.partner = new UserInfo(partner.getId(), partner.getNome(), partner.getCognome());
         this.sdc = sdc;
         this.stato = "pending";
-        this.notificata = false; //TODO
+        this.notificata = false; 
     }
     
     public Proposta(ResultSet queryResult) throws SQLException {
@@ -67,7 +67,7 @@ public class Proposta {
         ResultSet rs2 = dbc.execute("SELECT * FROM crypto_user.Studente WHERE id = "+queryResult.getInt("partner"));
         this.proponente = new UserInfo(rs1);
         this.partner = new UserInfo(rs2);
-        this.notificata = false; //TODO
+        this.notificata = false;
         this.stato = "pending"; 
         
     }

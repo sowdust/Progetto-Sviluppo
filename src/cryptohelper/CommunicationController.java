@@ -77,4 +77,17 @@ public class CommunicationController {
         return messaggio.send();
     }
     
+    public List<Proposta> getAccettazioneProposte(Studente user) throws SQLException{
+        DBController dbc = DBController.getInstance();
+        ResultSet rs = dbc.execute("SELECT * FROM crypto_user.Proposta WHERE "
+                    + "crypto_user.Proposta.id ="+user.getId()+" "
+                + "AND crypto_user.Proposta.stato = 'accepted'"
+                + "AND crypto_user.Proposta.notificata = 'false'");
+        List<Proposta> result = new ArrayList<>();
+        while(rs.next()) {
+            result.add(new Proposta(rs));
+        }
+        return result;
+    }
+    
 }
