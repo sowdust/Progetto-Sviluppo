@@ -66,4 +66,5 @@ INSERT into  CRYPTO_USER.SISTEMACIFRATURA (ID,CREATORE,METODO,CHIAVE) values (4,
 -- POPOLAMENTO TABELLA "PROPOSTA"
 INSERT INTO Proposta VALUES
     (0, 'accepted', 0, 1, 'cesare','1')
-
+INSERT INTO CRYPTO_USER.PROPOSTA (id,stato,proponente,partner,metodo,chiave)
+    VALUES (1,'pending',0,1,'pseudocasuale','2323dfd');
