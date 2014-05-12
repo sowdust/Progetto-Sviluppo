@@ -28,13 +28,13 @@ public class CalcolatoreMappaturaTest {
             'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r',
             's', 't', 'u', 'v', 'w', 'x', 'y', 'z'
         };
-        CalcolatoreMappatura cesare = new CalcolatoreCesare();
+        CalcolatoreMappatura cesare = CalcolatoreMappatura.create("cesare");
         System.out.println("Cesare:\n" + cesare.calcola("5", alfabeto));
         
-        CalcolatoreMappatura pseudocasuale = new CalcolatorePseudocasuale();
+        CalcolatoreMappatura pseudocasuale = CalcolatoreMappatura.create("pseudocasuale");
         System.out.println("Pseudocasuale:\n" + pseudocasuale.calcola("5", alfabeto));
         
-        CalcolatoreMappatura parolachiave = new CalcolatoreParolachiave();
+        CalcolatoreMappatura parolachiave = CalcolatoreMappatura.create("parolachiave");
         System.out.println("Parolachiave:\n" + parolachiave.calcola("pallacanestro", alfabeto));
     }
 
