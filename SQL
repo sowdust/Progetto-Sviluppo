@@ -8,7 +8,7 @@ DROP TABLE SistemaCifratura;
 DROP TABLE Studente;
 
 CREATE TABLE Studente (
-    id int PRIMARY KEY,
+    id int PRIMARY KEY GENERATED ALWAYS AS IDENTITY (START WITH 1, INCREMENT BY 1),
     nickname    varchar(20),
     password    varchar(32),
     nome        varchar(20),
@@ -16,13 +16,13 @@ CREATE TABLE Studente (
 );
 
 CREATE TABLE Messaggio (
-    id              int PRIMARY KEY,
+    id              int PRIMARY KEY GENERATED ALWAYS AS IDENTITY (START WITH 1, INCREMENT BY 1),
     mittente        int,
     destinatario    int,
-    testo           varchar(20),
-    testoCifrato    varchar(20),
+    testo           varchar(32672),
+    testoCifrato    varchar(32672),
     lingua          varchar(20),
-    titolo          varchar(20),
+    titolo          varchar(40),
     bozza           boolean,
     letto           boolean,
     FOREIGN KEY (mittente) REFERENCES Studente(id),
@@ -30,7 +30,7 @@ CREATE TABLE Messaggio (
 );
 
 CREATE TABLE SistemaCifratura (
-    id          int PRIMARY KEY,
+    id          int PRIMARY KEY GENERATED ALWAYS AS IDENTITY (START WITH 1, INCREMENT BY 1),
     creatore    int,
     metodo      varchar(20),
     chiave      varchar(20),
@@ -38,7 +38,7 @@ CREATE TABLE SistemaCifratura (
 );
 
 CREATE TABLE Proposta (
-    id          int PRIMARY KEY,
+    id          int PRIMARY KEY GENERATED ALWAYS AS IDENTITY (START WITH 1, INCREMENT BY 1),
     stato       varchar(20),
     proponente  int,
     partner     int,
@@ -48,23 +48,23 @@ CREATE TABLE Proposta (
     FOREIGN KEY (partner) REFERENCES Studente(id)
 );
 
-INSERT INTO Studente VALUES 
-    (0, 'tory', 'pass1', 'Pietro', 'Torasso'),
-    (1, 'felix', 'pass2', 'Felice', 'Cardone');
+INSERT INTO Studente (nickname, password, nome, cognome) VALUES
+    ('tory', 'pass1', 'Pietro', 'Torasso'),
+    ('felix', 'pass2', 'Felice', 'Cardone');
        
-INSERT INTO Messaggio VALUES
-    (0, 0, 1, 'testo in chiaro', 'testo cifrato', 'Italiano', 'Un titolo a caso', True, False);
+INSERT INTO Messaggio (mittente, destinatario, testo, testoCifrato, lingua, titolo, bozza, letto) VALUES
+    (1, 2, 'testo in chiaro', 'testo cifrato', 'Italiano', 'Un titolo a caso', True, False);
 
 
 -- POPOLAMENTO TABELLA "SISTEMACIFRATURA"
-INSERT into SISTEMACIFRATURA (id,creatore,metodo,chiave) VALUES (2, 0, 'pseudocasuale','CIPOLLA');
-INSERT into SISTEMACIFRATURA (id,creatore,metodo,chiave) VALUES (2, 0, 'cesare','1');
-INSERT into SISTEMACIFRATURA (id,creatore,metodo,chiave) VALUES (3, 1, 'pseudocasuale','55');
-INSERT into  CRYPTO_USER.SISTEMACIFRATURA (ID,CREATORE,METODO,CHIAVE) values (4,1,'parolachiave','papaslkfdkfjdfjl');
+INSERT into SISTEMACIFRATURA (creatore, metodo, chiave) VALUES
+    (1, 'pseudocasuale','CIPOLLA'),
+    (1, 'cesare','1'),
+    (2, 'pseudocasuale','55'),
+    (2, 'parolachiave','papaslkfdkfjdfjl');
 
 
 -- POPOLAMENTO TABELLA "PROPOSTA"
-INSERT INTO Proposta VALUES
-    (0, 'accepted', 0, 1, 'cesare','1')
-INSERT INTO CRYPTO_USER.PROPOSTA (id,stato,proponente,partner,metodo,chiave)
-    VALUES (1,'pending',0,1,'pseudocasuale','2323dfd');
+INSERT INTO Proposta (stato, proponente, partner, metodo, chiave) VALUES
+    ('accepted', 1, 2, 'cesare','1');
+
