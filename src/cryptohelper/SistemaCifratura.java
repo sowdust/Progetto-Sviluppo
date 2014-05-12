@@ -68,10 +68,10 @@ public class SistemaCifratura {
     public SistemaCifratura(Integer id) throws SQLException {
         DBController dbc = DBController.getInstance();
         ResultSet rs = dbc.execute("SELECT * FROM crypto_user.SistemaCifratura WHERE id = " + id);
-        this.creatore = new Studente(rs.getInt("creatore")).getUserInfo();
+        this.creatore = new UserInfo(rs.getInt("creatore"));
         this.metodo = rs.getString("metodo");
         this.chiave = rs.getString("chiave");
-        this.id = new Integer(id);
+        this.id = id;
         this.calcolatore = CalcolatoreMappatura.create( metodo);
         this.mappatura = calcolatore.calcola(chiave,alfabeto);
     }

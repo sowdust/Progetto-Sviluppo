@@ -43,6 +43,13 @@ public class UserInfo {
         this.cognome = rs.getString("cognome");
     }
     
+    public UserInfo(int id) throws SQLException { 
+        DBController dbc = DBController.getInstance();
+        ResultSet rs = dbc.execute("SELECT * FROM crypto_user.Studente WHERE id = " + id);
+        this.id = rs.getInt("id");
+        this.nome = rs.getString("nome");
+        this.cognome = rs.getString("cognome");
+    }
     public int getId() {
         return this.id;
     }
