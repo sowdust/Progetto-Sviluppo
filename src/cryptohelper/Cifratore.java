@@ -14,48 +14,46 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-
 package cryptohelper;
 
 /**
- * 
- * NOTE:    i metodi sono dichiarati statici
- *          in quanto non vedo (Mattia V.) motivo di fare altrimenti
- *          da valutare se conviene fare così oppure no
- * 
- *          la cifratura viene fatta eliminando spazi e segni di punteggiatura
- * 
- *          !! da aggiungere alla documentazione il metodo Mappatura.inAlphabet
- * 
- *          usare string buffer al posto di +=
- * 
+ *
+ * NOTE: i metodi sono dichiarati statici in quanto non vedo (Mattia V.) motivo
+ * di fare altrimenti da valutare se conviene fare così oppure no
+ *
+ * la cifratura viene fatta eliminando spazi e segni di punteggiatura
+ *
+ * !! da aggiungere alla documentazione il metodo Mappatura.inAlphabet
+ *
+ * usare string buffer al posto di +=
+ *
  * @author mat
  */
 public class Cifratore {
-    
+
     public static String cifraMonoalfabetica(Mappatura mappa, String testo) {
         String testoCifrato = "";
-        
-        for(char c : testo.toCharArray()) {
+
+        for (char c : testo.toCharArray()) {
             char k = Character.toLowerCase(c);
-            if(mappa.inAlphabet(k)) {
+            if (mappa.inAlphabet(k)) {
                 testoCifrato += mappa.map(k);
             }
         }
-        
+
         return testoCifrato;
     }
 
     public static String decifraMonoalfabetica(Mappatura mappa, String testo) {
         String testoDeCifrato = "";
-        
-        for(char c : testo.toCharArray()) {
+
+        for (char c : testo.toCharArray()) {
             char k = Character.toLowerCase(c);
-            if(mappa.inAlphabet(Character.toLowerCase(k))) {
+            if (mappa.inAlphabet(Character.toLowerCase(k))) {
                 testoDeCifrato += mappa.inverseMap(k);
             }
         }
-        
+
         return testoDeCifrato;
     }
 

@@ -14,7 +14,6 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-
 package cryptohelper;
 
 /**
@@ -27,25 +26,28 @@ public class CalcolatoreParolachiave extends CalcolatoreMappatura {
     public Mappatura calcola(String chiave, char[] alfabeto) {
         char[] mappa = new char[alfabeto.length];
         int k = 0;
-        for(int i = 0; i < chiave.length(); i++) {
+        for (int i = 0; i < chiave.length(); i++) {
             char c = chiave.charAt(i);
             /* se la chiave contiene caratteri doppi verrà considerato solo l'ultimo */
-            if(chiave.substring(i+1).indexOf(c) == -1) {
+            if (chiave.substring(i + 1).indexOf(c) == -1) {
                 /* controllo se appartiene all'alfabeto */
-                if(/*non è presente nell'alfabeto*/ false) {
+                if (/*non è presente nell'alfabeto*/false) {
                     System.out.println(c + " non fa parte dell'alfabeto");
                 }
                 mappa[k] = c;
                 k++;
             }
         }
-        for(int j = 0; j < alfabeto.length; j++) {
-            if(chiave.indexOf(alfabeto[j]) == -1) {
+        for (int j = 0; j < alfabeto.length; j++) {
+            if (chiave.indexOf(alfabeto[j]) == -1) {
                 mappa[k] = alfabeto[j];
                 k++;
             }
         }
         return new Mappatura(mappa, alfabeto);
     }
-    
+
+    public String toString() {
+        return "Parola chiave";
+    }
 }

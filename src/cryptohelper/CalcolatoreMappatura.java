@@ -14,7 +14,6 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-
 package cryptohelper;
 
 /**
@@ -22,17 +21,21 @@ package cryptohelper;
  * @author glaxy
  */
 public abstract class CalcolatoreMappatura {
-    
+
     public static CalcolatoreMappatura create(String metodo) {
-        String className = "Calcolatore" + metodo;
-        try {
-            CalcolatoreMappatura cm = (CalcolatoreMappatura)(Class.forName(className)).newInstance();
-            return cm;
-        } catch (ClassNotFoundException | InstantiationException | IllegalAccessException ex) {
-            return null;
+        if ("pseudocasuale".equals(metodo)) {
+            return new CalcolatorePseudocasuale();
         }
+        if ("parolachiave".equals(metodo)) {
+            return new CalcolatoreParolachiave();
+        }
+        if ("cesare".equals(metodo)) {
+            return new CalcolatoreCesare();
+        }
+
+        throw new RuntimeException("metodo inesistente " + metodo);
     }
-    
+
     public abstract Mappatura calcola(String chiave, char[] alfabeto);
-    
+
 }

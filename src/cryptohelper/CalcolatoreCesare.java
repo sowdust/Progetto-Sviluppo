@@ -14,7 +14,6 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-
 package cryptohelper;
 
 /**
@@ -28,18 +27,22 @@ public class CalcolatoreCesare extends CalcolatoreMappatura {
         int chiave;
         try {
             chiave = Integer.parseInt(chiaveStr);
-        } catch(NumberFormatException ex) {
+        } catch (NumberFormatException ex) {
             return null;
         }
         int l = alfabeto.length;
-        if(chiave <= 0 || chiave >= l) {
+        if (chiave <= 0 || chiave >= l) {
             return null;
         }
         char[] mappa = new char[l];
-        for(int i = 0; i < l; i++) {
-            mappa[i] = alfabeto[(i + chiave)%l];
+        for (int i = 0; i < l; i++) {
+            mappa[i] = alfabeto[(i + chiave) % l];
         }
         return new Mappatura(mappa, alfabeto);
     }
-    
+
+    public String toString() {
+        return "Cesare";
+    }
+
 }

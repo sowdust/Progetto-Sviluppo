@@ -14,7 +14,6 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-
 package cryptohelper;
 
 import java.util.Random;
@@ -30,12 +29,12 @@ public class CalcolatorePseudocasuale extends CalcolatoreMappatura {
         int chiave;
         try {
             chiave = Integer.parseInt(chiaveStr);
-        } catch(NumberFormatException ex) {
+        } catch (NumberFormatException ex) {
             return null;
         }
         Random rnd = new Random(chiave);
         char[] mappa = alfabeto.clone();
-        for(int i = 0; i < alfabeto.length; i++) {
+        for (int i = 0; i < alfabeto.length; i++) {
             int irnd = i + rnd.nextInt(alfabeto.length - i);
             char tmp = mappa[irnd];
             mappa[irnd] = mappa[i];
@@ -43,5 +42,9 @@ public class CalcolatorePseudocasuale extends CalcolatoreMappatura {
         }
         return new Mappatura(mappa, alfabeto);
     }
-    
+
+    public String toString() {
+        return "Pseudocasuale";
+    }
+
 }
