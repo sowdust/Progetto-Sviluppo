@@ -32,29 +32,29 @@ package cryptohelper;
 public class Cifratore {
 
     public static String cifraMonoalfabetica(Mappatura mappa, String testo) {
-        String testoCifrato = "";
+        StringBuilder testoCifrato = new StringBuilder(testo.length());
 
         for (char c : testo.toCharArray()) {
             char k = Character.toLowerCase(c);
             if (mappa.inAlphabet(k)) {
-                testoCifrato += mappa.map(k);
+                testoCifrato.append(mappa.map(k));
             }
         }
 
-        return testoCifrato;
+        return testoCifrato.toString();
     }
 
     public static String decifraMonoalfabetica(Mappatura mappa, String testo) {
-        String testoDeCifrato = "";
+        StringBuilder testoDeCifrato = new StringBuilder(testo.length());
 
         for (char c : testo.toCharArray()) {
             char k = Character.toLowerCase(c);
             if (mappa.inAlphabet(Character.toLowerCase(k))) {
-                testoDeCifrato += mappa.inverseMap(k);
+                testoDeCifrato.append(mappa.inverseMap(k));
             }
         }
 
-        return testoDeCifrato;
+        return testoDeCifrato.toString();
     }
 
 }
