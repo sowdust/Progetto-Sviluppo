@@ -103,7 +103,6 @@ public class Proposta {
     }
 
     public boolean save() throws SQLException { //mi sembra che la save di messaggio e questa siano diverse, dal DSD
-        ResultSet rs = null;
         DBController dbc = DBController.getInstance();
         return dbc.executeUpdate("UPDATE crypto_user.Proposta SET"
                 + "crypto_user.Proposta.stato =  '" + this.stato + "' "
