@@ -104,10 +104,13 @@ public class Proposta {
         this.stato = stato;
     }
     
-    public ResultSet save() throws SQLException { //mi sembra che la save di messaggio e questa siano diverse, dal DSD
+    public boolean save() throws SQLException { //mi sembra che la save di messaggio e questa siano diverse, dal DSD
         ResultSet rs = null;
         DBController dbc = DBController.getInstance();
-        //rs = dbc.execute(""); 
-        return rs;
+        return dbc.executeUpdate("UPDATE crypto_user.Proposta SET"
+                + "crypto_user.Proposta.stato =  '"+this.stato+"' "
+                + "crypto_user.Proposta.notificata = "+this.notificata+" "
+                + "crypto_user.Proposta.proponente = "+this.getProponente().getId()+" "
+                + "crypto_user.Proposta.partner = "+this.getPartner().getId()); 
     }
 }
