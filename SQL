@@ -49,8 +49,12 @@ CREATE TABLE Proposta (
 );
 
 INSERT INTO Studente (nickname, password, nome, cognome) VALUES
-    ('tory', 'pass1', 'Pietro', 'Torasso'),
-    ('felix', 'pass2', 'Felice', 'Cardone');
+    ('tory', 'tory', 'Pietro', 'Torasso'),
+    ('felix', 'felix', 'Felice', 'Cardone'),
+    ('rosa', 'rosa', 'Rosa', 'Blu'),
+    ('mario', 'mario', 'Mario', 'Rossi'),
+    ('rossana', 'rossana', 'Rossana', 'Verdi'),
+    ('gianni', 'gianni', 'Gianni', 'Ottimo');
        
 INSERT INTO Messaggio (mittente, destinatario, testo, testoCifrato, lingua, titolo, bozza, letto) VALUES
     (1, 2, 'testo in chiaro', 'testo cifrato', 'Italiano', 'Un titolo a caso', True, False);
@@ -66,5 +70,10 @@ INSERT into SISTEMACIFRATURA (creatore, metodo, chiave) VALUES
 
 -- POPOLAMENTO TABELLA "PROPOSTA"
 INSERT INTO Proposta (stato, proponente, partner, metodo, chiave) VALUES
-    ('accepted', 1, 2, 'cesare','1');
+    ('accepted', 1, 2, 'cesare','1'),
+    ('accepted', 4, 1, 'parolachiave','gatto'),
+    ('accepted', 1, 5, 'cesare','10'),
+    ('pending', 1, 3, 'pseudocasuale','3'),
+    ('expired', 1, 3, 'pseudocasuale','12'),
+    ('accepted', 1, 6, 'parolachiave','parolachiave');
 

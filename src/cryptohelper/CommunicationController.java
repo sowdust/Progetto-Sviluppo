@@ -17,6 +17,17 @@ public class CommunicationController {
      - La query di getDestinatari è leggermente diversa da quella indicata nel DSD: non mi sembra che
      se voglio i DESTINATARI delle proposte di un certo utente io voglia anche l'utente stesso.
      - la SAVE non modifica chiave e metodo. è giusto così?
+    penso (Ale) che la query non sia corretta:
+        - manca la relazione che lega le due tabelle
+        - non considera le proposte che mi sono state fatte (in cui sono il patner) e ho accettato
+       io credo che dovrebbe essere qualcosa del genere, ho provato e funziona
+       SELECT S.id, S.nome, S.cognome
+       FROM crypto_user.Proposta AS P JOIN crypto_user.STUDENTE AS S ON P.partner = S.id
+       WHERE P.stato = 'accepted' AND P.proponente = st.getId();
+       UNION
+       SELECT S.id, S.nome, S.cognome
+       FROM crypto_user.Proposta AS P JOIN crypto_user.STUDENTE AS S ON P.proponente = S.id
+       WHERE P.stato = 'accepted' AND P.patner = st.getId();
      */
 
     public static CommunicationController instance = null;
