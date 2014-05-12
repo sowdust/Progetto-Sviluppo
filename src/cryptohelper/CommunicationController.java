@@ -16,6 +16,7 @@ public class CommunicationController {
     /* NOTE:
     - La query di getDestinatari è leggermente diversa da quella indicata nel DSD: non mi sembra che
     se voglio i DESTINATARI delle proposte di un certo utente io voglia anche l'utente stesso.
+    - la SAVE non modifica chiave e metodo. è giusto così?
     */
     public static CommunicationController instance = null;
     
@@ -35,19 +36,21 @@ public class CommunicationController {
         return m;
     }
     
-    public ResultSet inviaDecisione(Proposta proposta, String decisione) throws SQLException{
+    public boolean inviaDecisione(Proposta proposta, String decisione) throws SQLException {
         if(decisione.compareTo("accepted") == 0) {
             Proposta old = Proposta.caricaAttiva(proposta.getProponente().getId(), proposta.getPartner().getId());
             if (old != null) {
                 old.setStato("expired");
-                ResultSet rs1 = old.save(); //nei DSD non sembra essere usato altrimenti
+                boolean saved = old.save(); //nei DSD non sembra essere usato altrimenti
+                if (saved == false) {
+                    return false;
+                }
             }
             //System.out.println("Partner: "+old.getPartner().getNome());
             //System.out.println("Proponente: "+old.getProponente().getNome());
         }
         proposta.setStato(decisione);
-        ResultSet rs2 = proposta.save();
-        return rs2;
+        return proposta.save();
     }
     
     public List<UserInfo> getDestinatari(Studente st) throws SQLException {
@@ -57,17 +60,34 @@ public class CommunicationController {
                                  + "JOIN crypto_user.STUDENTE"
                                  + "ON crypto_user.Proposta.PROPONENTE = "+st.getId()+" AND crypto_user.PROPOSTA.STATO = 'accepted'" 
                                  + "AND crypto_user.STUDENTE.ID != "+st.getId());
-        ArrayList result = new ArrayList<UserInfo>();
+        ArrayList result = new ArrayList<>();
         while(rs.next()) {
             UserInfo us = new UserInfo(rs.getInt("id"), rs.getString("nome"), rs.getString("cognome"));
             result.add(us);
         }
         return result;
     }
-    public ResultSet inviaProposta(Studente user, Studente partner, SistemaCifratura sdc) throws SQLException {
+    
+    public boolean inviaProposta(Studente user, Studente partner, SistemaCifratura sdc) throws SQLException {
         Proposta p = new Proposta(user, partner, sdc);
-        ResultSet rs = p.save();
-        return rs;
+        return p.save();
+    }
+    
+    public boolean send(Messaggio messaggio) {
+        return messaggio.send();
+    }
+    
+    public List<Proposta> getAccettazioneProposte(Studente user) throws SQLException{
+        DBController dbc = DBController.getInstance();
+        ResultSet rs = dbc.execute("SELECT * FROM crypto_user.Proposta WHERE "
+                    + "crypto_user.Proposta.id ="+user.getId()+" "
+                + "AND crypto_user.Proposta.stato = 'accepted'"
+                + "AND crypto_user.Proposta.notificata = 'false'");
+        List<Proposta> result = new ArrayList<>();
+        while(rs.next()) {
+            result.add(new Proposta(rs));
+        }
+        return result;
     }
     
 }

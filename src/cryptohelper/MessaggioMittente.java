@@ -28,4 +28,5 @@ public interface MessaggioMittente extends MessaggioAstratto {
     public boolean isBozza();
     public boolean save() throws SQLException;
     public void cifra();
+    public boolean send();
 }

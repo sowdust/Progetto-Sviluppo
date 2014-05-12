@@ -58,7 +58,7 @@ public class Proposta {
         this.partner = new UserInfo(partner.getId(), partner.getNome(), partner.getCognome());
         this.sdc = sdc;
         this.stato = "pending";
-        this.notificata = false; //TODO
+        this.notificata = false; 
     }
     
     public Proposta(ResultSet queryResult) throws SQLException {
@@ -67,7 +67,7 @@ public class Proposta {
         ResultSet rs2 = dbc.execute("SELECT * FROM crypto_user.Studente WHERE id = "+queryResult.getInt("partner"));
         this.proponente = new UserInfo(rs1);
         this.partner = new UserInfo(rs2);
-        this.notificata = false; //TODO
+        this.notificata = false;
         this.stato = "pending"; 
         
     }
@@ -104,10 +104,13 @@ public class Proposta {
         this.stato = stato;
     }
     
-    public ResultSet save() throws SQLException { //mi sembra che la save di messaggio e questa siano diverse, dal DSD
+    public boolean save() throws SQLException { //mi sembra che la save di messaggio e questa siano diverse, dal DSD
         ResultSet rs = null;
         DBController dbc = DBController.getInstance();
-        //rs = dbc.execute(""); 
-        return rs;
+        return dbc.executeUpdate("UPDATE crypto_user.Proposta SET"
+                + "crypto_user.Proposta.stato =  '"+this.stato+"' "
+                + "crypto_user.Proposta.notificata = "+this.notificata+" "
+                + "crypto_user.Proposta.proponente = "+this.getProponente().getId()+" "
+                + "crypto_user.Proposta.partner = "+this.getPartner().getId()); 
     }
 }
