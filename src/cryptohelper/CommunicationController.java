@@ -73,4 +73,8 @@ public class CommunicationController {
         return p.save();
     }
     
+    public boolean send(Messaggio messaggio) {
+        return messaggio.send();
+    }
+    
 }

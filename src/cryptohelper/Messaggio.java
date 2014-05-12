@@ -29,7 +29,11 @@ import java.util.logging.Logger;
  * @author glaxy
  */
 public class Messaggio implements MessaggioMittente, MessaggioDestinatario {
-
+    /** 
+     * NOTE:
+     * controllare il costruttore con resultSet che ora assomiglia a quello di Proposta
+     * per come gestisce la creazione di UserInfo. Per Proposta funzionava.
+     */
     private int id;
     private String testo;
     private String testoCifrato;
@@ -37,8 +41,11 @@ public class Messaggio implements MessaggioMittente, MessaggioDestinatario {
     private String titolo;
     private boolean bozza;
     private boolean letto;
+    private UserInfo mittente;
+    private UserInfo destinatario;
     
     private Messaggio(ResultSet queryResult) throws SQLException {
+        DBController dbc = DBController.getInstance();
         id = queryResult.getInt("Id");
         testo = queryResult.getString("Testo");
         testoCifrato = queryResult.getString("TestoCifrato");
@@ -46,6 +53,10 @@ public class Messaggio implements MessaggioMittente, MessaggioDestinatario {
         titolo = queryResult.getString("Titolo");
         bozza = queryResult.getBoolean("Bozza");
         letto = queryResult.getBoolean("Letto");
+        ResultSet rs1 = dbc.execute("SELECT * FROM crypto_user.Studente WHERE id = "+queryResult.getInt("mittente"));
+        ResultSet rs2 = dbc.execute("SELECT * FROM crypto_user.Studente WHERE id = "+queryResult.getInt("destinatario"));
+        this.mittente = new UserInfo(rs1);
+        this.destinatario = new UserInfo(rs2);
     }
     
     public static Messaggio load(int id) throws SQLException {
@@ -97,7 +108,14 @@ public class Messaggio implements MessaggioMittente, MessaggioDestinatario {
     public boolean save() {
         try {
             DBController dbc = DBController.getInstance();
-            dbc.execute(""); //TODO
+            dbc.execute("UPDATE crypto_user.Messaggio"
+                    + "SET crypto_user.Messaggio.testo = '"+this.getTesto()
+                    + "SET crypto_user.Messaggio.testocifrato = '"+this.getTestoCifrato()
+                    + "SET crypto_user.Messaggio.bozza ="+this.bozza
+                    + "SET crypto_user.Messaggio.lingua ="+this.getLingua()
+                    + "SET crypto_user.Messaggio.titolo ="+this.getTitolo()
+                    + "SET crypto_user.Messaggio.mittente ="+this.mittente.getId()
+                    + "SET crypto_user.Messaggio.destinatario ="+this.destinatario.getId()); //TODO
             return true;
         } catch(SQLException e) {
             return false;
@@ -143,6 +161,18 @@ public class Messaggio implements MessaggioMittente, MessaggioDestinatario {
     @Override
     public void setLetto(boolean letto) {
         this.letto = letto;
+    }
+    
+    public void setBozza(boolean isBozza) {
+        bozza = isBozza();
+    }
+    
+    @Override
+    public boolean send() {
+        setBozza(false);
+        boolean saved = save();
+        if (saved == false) return false;
+        return true;
     }
     
 }
