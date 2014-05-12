@@ -107,8 +107,8 @@ public class Proposta {
         return dbc.executeUpdate("UPDATE crypto_user.Proposta SET"
                 + "crypto_user.Proposta.stato =  '" + this.stato + "' "
                 + "crypto_user.Proposta.notificata = " + this.notificata + " "
-                + "crypto_user.Proposta.proponente = " + this.getProponente().getId() + " "
-                + "crypto_user.Proposta.partner = " + this.getPartner().getId());
+                + "crypto_user.Proposta.proponente = " + this.proponente.getId() + " "
+                + "crypto_user.Proposta.partner = " + this.partner.getId());
     }
 
     @Override
