@@ -183,9 +183,7 @@ public class Messaggio implements MessaggioMittente, MessaggioDestinatario {
     @Override
     public boolean send() {
         setBozza(false);
-        boolean saved = save();
-        if (saved == false) return false;
-        return true;
+        return save();
     }
     
 }
