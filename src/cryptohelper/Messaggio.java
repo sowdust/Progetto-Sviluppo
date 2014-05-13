@@ -21,6 +21,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -98,24 +100,42 @@ public class Messaggio implements MessaggioMittente, MessaggioDestinatario {
         return listaRicevuti;
     }
     
+    /*
+    NOTA:
+        ho messo qui i metodi cifra() e decifra() invece che dividerli in
+        cifra() solo per MessaggioMittente e decifra() solo per MessDestinatario
+        perchè ho paura che anche la spia usi questo stesso metodo di Messaggio
+        e quindi lo faccia senza discriminare tra Mittente o Destinatario.
+    
+        Ad ogni modo qualcosa va spostato: o questi metodi vanno suddivisi nelle
+        rispettive specializzazioni, o le signature vanno spostate nel più generale
+        Messagio
+    
+        Sempre da decidere bene che fare con queste benedette eccezioni
+    */
     @Override
     public void cifra() {
         if(null == sdc) {
-            testo = Cifratore.cifraMonoalfabetica(sdc.getMappatura(),testo);    
-        } else {
-            //  decidere come associare sdc a messaggio
+            try {
+                sdc = SistemaCifratura.load(mittente,destinatario);
+            } catch (SQLException ex) {
+                throw new RuntimeException("SQL exception: " + ex.getMessage());
+            }
         }
+        testo = Cifratore.cifraMonoalfabetica(sdc.getMappatura(),testo);
     }
     
+    @Override
     public void decifra() {
         if(null == sdc) {
-            testo = Cifratore.decifraMonoalfabetica(sdc.getMappatura(),testo);    
-        } else {
-            //  decidere come associare sdc a messaggio
+            try {
+                sdc = SistemaCifratura.load(mittente,destinatario);
+            } catch (SQLException ex) {
+                throw new RuntimeException("SQL exception: " + ex.getMessage());
+            }
         }
+        testo = Cifratore.decifraMonoalfabetica(sdc.getMappatura(),testo);
     }
-    
-    
 
     @Override
     public boolean isBozza() {

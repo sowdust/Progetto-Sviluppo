@@ -24,11 +24,9 @@ import java.util.List;
 
 /**
  *
- *
- * NOTE: il creatore come e quando viene impostato??
- *
- * essendoci tanti modi diversi di costruire un sdc, forse si potrebbe usare un
- * pattern tipo factory?
+ * NOTE.
+ *          save() e elimina() per ora lanciano eccezioni se creatore e id
+ *          rispettivamente non impostati. vedere se necessarie o meno
  *
  * @author mat
  */
@@ -62,14 +60,6 @@ public class SistemaCifratura {
         this.mappatura = calcolatore.calcola(chiave, alfabeto);
     }
 
-    public static SistemaCifratura load(int id) throws SQLException {
-        
-        DBController dbc = DBController.getInstance();
-        ResultSet rs = dbc.execute("SELECT chiave, metodo, creatore FROM crypto_user.SistemaCifratura WHERE id = " + id);
-        rs.next();
-        return new SistemaCifratura(rs);
-    }
-
     public SistemaCifratura(String chiave, String metodo, UserInfo st) {
         
         this.metodo = metodo;
@@ -99,6 +89,7 @@ public class SistemaCifratura {
     }
 
     public static List<SistemaCifratura> caricaSistemiCifratura(Studente st) throws SQLException {
+        
         DBController dbc = DBController.getInstance();
         ResultSet rs = dbc.execute("SELECT id, chiave, metodo, creatore FROM crypto_user.SistemaCifratura WHERE creatore = " + st.getId());
         List<SistemaCifratura> lista = new ArrayList<>();
@@ -108,12 +99,16 @@ public class SistemaCifratura {
         return lista;
     }
 
-    public static SistemaCifratura load(Studente mittente, Studente destinatario) throws SQLException {
+    //  controllare che la query sia giusta!
+    public static SistemaCifratura load(UserInfo mittente, UserInfo destinatario) throws SQLException {
 
         DBController dbc = DBController.getInstance();
-        ResultSet rs = dbc.execute("SELECT chiave, metodo FROM crypto_user.Proposta WHERE proponente = " + mittente.getId() + "AND destinatario = " + destinatario.getId() + "AND stato = 'accepted' ");
+        ResultSet rs = dbc.execute("SELECT s.id, s.chiave, s.metodo, s.creatore"
+                + "FROM crypto_user.Proposta as p JOIN crypto_user.SistemaCifratura"
+                + "as s on s.id = p.sdc WHERE p.proponente = " + mittente.getId()
+                + " AND p.PARTNER = " + destinatario.getId());
         rs.next();
-        return new SistemaCifratura(rs.getString("chiave"), rs.getString("metodo"));
+        return new SistemaCifratura(rs);
     }
 
     public Mappatura getMappatura() {
