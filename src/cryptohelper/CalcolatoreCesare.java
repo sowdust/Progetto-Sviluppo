@@ -16,7 +16,6 @@
  */
 package cryptohelper;
 
-
 /**
  *
  * @author glaxy
@@ -29,11 +28,11 @@ public class CalcolatoreCesare extends CalcolatoreMappatura {
         try {
             chiave = Integer.parseInt(chiaveStr);
         } catch (NumberFormatException ex) {
-            return null;
+            throw new IllegalArgumentException("non hai inserito un numero");
         }
         int l = alfabeto.length;
         if (chiave <= 0 || chiave >= l) {
-            return null;
+            throw new IllegalArgumentException("numero negativo o troppo grande");
         }
         char[] mappa = new char[l];
         for (int i = 0; i < l; i++) {

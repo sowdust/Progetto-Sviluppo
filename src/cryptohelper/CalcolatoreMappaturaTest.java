@@ -14,7 +14,6 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-
 package cryptohelper;
 
 /**
@@ -22,6 +21,7 @@ package cryptohelper;
  * @author glaxy
  */
 public class CalcolatoreMappaturaTest {
+
     public static void main(String[] args) {
         char[] alfabeto = {
             'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i',
@@ -30,10 +30,10 @@ public class CalcolatoreMappaturaTest {
         };
         CalcolatoreMappatura cesare = CalcolatoreMappatura.create("cesare");
         System.out.println("Cesare:\n" + cesare.calcola("5", alfabeto));
-        
+
         CalcolatoreMappatura pseudocasuale = CalcolatoreMappatura.create("pseudocasuale");
         System.out.println("Pseudocasuale:\n" + pseudocasuale.calcola("5", alfabeto));
-        
+
         CalcolatoreMappatura parolachiave = CalcolatoreMappatura.create("parolachiave");
         System.out.println("Parolachiave:\n" + parolachiave.calcola("pallacanestro", alfabeto));
     }

@@ -147,6 +147,7 @@ public class SistemaCifratura {
 
     }
 
+    @Override
     public String toString() {
         return this.metodo + "\n"
                 + this.chiave + "\n"
