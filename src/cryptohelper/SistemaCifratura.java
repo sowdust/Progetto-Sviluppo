@@ -19,7 +19,6 @@ package cryptohelper;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -67,12 +66,6 @@ public class SistemaCifratura {
         this.calcolatore = CalcolatoreMappatura.create(metodo);
         this.mappatura = calcolatore.calcola(chiave, alfabeto);
         this.creatore = st;
-    }
-
-    // probabilmente inutile
-    public SistemaCifratura(String chiave, String metodo) {
-
-        this(chiave, metodo, (UserInfo) null);
     }
 
     public SistemaCifratura(String chiave, String metodo, Studente st) {

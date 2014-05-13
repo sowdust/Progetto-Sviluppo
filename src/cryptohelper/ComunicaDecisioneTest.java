@@ -13,7 +13,7 @@ public class ComunicaDecisioneTest {
         boolean rs;
         Studente s1 = new Studente(0, "tory", "pass1", "Pietro", "Torasso");
         Studente s2 = new Studente(1, "felix", "pass2", "Felice", "Cardone");
-        SistemaCifratura sys1 = new SistemaCifratura("cacca", "pseudocasuale");
+        SistemaCifratura sys1 = new SistemaCifratura("cacca", "pseudocasuale",s1);
         Proposta p = new Proposta(s1, s2, sys1);
         CommunicationController cc = CommunicationController.getInstance();
         try {
