@@ -47,11 +47,7 @@ public class SistemaCifratura {
         's', 't', 'u', 'v', 'w', 'x', 'y', 'z'
     };
 
-    private final String[] SISTEMI_DI_CIFRATURA = {
-        "pseudocasuale",
-        "cesare",
-        "parolachiave"
-    };
+    
 
     public SistemaCifratura(ResultSet rs) throws SQLException {
 
@@ -67,6 +63,7 @@ public class SistemaCifratura {
     }
 
     public static SistemaCifratura load(int id) throws SQLException {
+        
         DBController dbc = DBController.getInstance();
         ResultSet rs = dbc.execute("SELECT chiave, metodo, creatore FROM crypto_user.SistemaCifratura WHERE id = " + id);
         rs.next();
@@ -74,10 +71,7 @@ public class SistemaCifratura {
     }
 
     public SistemaCifratura(String chiave, String metodo, UserInfo st) {
-
-        if (!Arrays.asList(SISTEMI_DI_CIFRATURA).contains(metodo)) {
-            throw new IllegalArgumentException("Sistema di Cifratura non valido");
-        }
+        
         this.metodo = metodo;
         this.chiave = chiave;
         this.calcolatore = CalcolatoreMappatura.create(metodo);
@@ -85,6 +79,7 @@ public class SistemaCifratura {
         this.creatore = st;
     }
 
+    // probabilmente inutile
     public SistemaCifratura(String chiave, String metodo) {
 
         this(chiave, metodo, (UserInfo) null);
@@ -92,6 +87,15 @@ public class SistemaCifratura {
 
     public SistemaCifratura(String chiave, String metodo, Studente st) {
         this(chiave, metodo, st.getUserInfo());
+    }
+    
+    void setChiave(String chiave) {
+        this.chiave = chiave;
+    }
+    
+    void setMetodo(String metodo) {
+        this.metodo = metodo;
+        this.calcolatore = CalcolatoreMappatura.create(metodo);
     }
 
     public static List<SistemaCifratura> caricaSistemiCifratura(Studente st) throws SQLException {
@@ -104,11 +108,6 @@ public class SistemaCifratura {
         return lista;
     }
 
-    /**
-     * NOTE:
-     *
-     * forse al posto della query accepted mettere una enum
-     */
     public static SistemaCifratura load(Studente mittente, Studente destinatario) throws SQLException {
 
         DBController dbc = DBController.getInstance();
@@ -117,16 +116,16 @@ public class SistemaCifratura {
         return new SistemaCifratura(rs.getString("chiave"), rs.getString("metodo"));
     }
 
+    public Mappatura getMappatura() {
+        return mappatura;
+    }
+
     public String prova(String testo) {
         return Cifratore.cifraMonoalfabetica(mappatura, testo);
     }
 
-    /**
-     * NOTE: probabilmente da modificare e da usare piuttosto ogni qual volta un
-     * utente fa una nuova ipotesi e va aggiornata la nuova mappatura?
-     */
     public void calcolaMappatura() {
-        throw new UnsupportedOperationException("Not supported yet.");
+        this.mappatura = calcolatore.calcola(chiave, alfabeto);
     }
 
     public boolean save() throws SQLException {
@@ -147,7 +146,9 @@ public class SistemaCifratura {
 
     }
 
+    @Override
     public String toString() {
+        
         return this.metodo + "\n"
                 + this.chiave + "\n"
                 + this.creatore + "\n"

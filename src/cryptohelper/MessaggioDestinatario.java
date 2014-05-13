@@ -25,5 +25,5 @@ public interface MessaggioDestinatario extends MessaggioAstratto {
     
     public boolean isLetto();
     public void setLetto(boolean letto);
-    
+    public void decifra();
 }

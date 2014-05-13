@@ -21,8 +21,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  *
@@ -43,6 +41,7 @@ public class Messaggio implements MessaggioMittente, MessaggioDestinatario {
     private boolean letto;
     private UserInfo mittente;
     private UserInfo destinatario;
+    private SistemaCifratura sdc;
     
     private Messaggio(ResultSet queryResult) throws SQLException {
         DBController dbc = DBController.getInstance();
@@ -98,6 +97,25 @@ public class Messaggio implements MessaggioMittente, MessaggioDestinatario {
         }
         return listaRicevuti;
     }
+    
+    @Override
+    public void cifra() {
+        if(null == sdc) {
+            testo = Cifratore.cifraMonoalfabetica(sdc.getMappatura(),testo);    
+        } else {
+            //  decidere come associare sdc a messaggio
+        }
+    }
+    
+    public void decifra() {
+        if(null == sdc) {
+            testo = Cifratore.decifraMonoalfabetica(sdc.getMappatura(),testo);    
+        } else {
+            //  decidere come associare sdc a messaggio
+        }
+    }
+    
+    
 
     @Override
     public boolean isBozza() {
@@ -120,11 +138,6 @@ public class Messaggio implements MessaggioMittente, MessaggioDestinatario {
         } catch(SQLException e) {
             return false;
         }
-    }
-
-    @Override
-    public void cifra() {
-        throw new UnsupportedOperationException("Not supported yet.");
     }
 
     @Override
