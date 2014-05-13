@@ -84,12 +84,22 @@ public class SistemaCifratura {
     public static List<SistemaCifratura> caricaSistemiCifratura(Studente st) throws SQLException {
         
         DBController dbc = DBController.getInstance();
-        ResultSet rs = dbc.execute("SELECT id, chiave, metodo, creatore FROM crypto_user.SistemaCifratura WHERE creatore = " + st.getId());
+        ResultSet rs = dbc.execute("SELECT id, chiave, metodo, creatore FROM"
+                + "crypto_user.SistemaCifratura WHERE creatore = " + st.getId());
         List<SistemaCifratura> lista = new ArrayList<>();
         while (rs.next()) {
             lista.add(new SistemaCifratura(rs));
         }
         return lista;
+    }
+
+    public static SistemaCifratura load(int id) throws SQLException {
+
+        DBController dbc = DBController.getInstance();
+        ResultSet rs = dbc.execute("SELECT * FROM crypto_user.SistemaCifratura"
+                + " WHERE id = " + id);
+        rs.next();
+        return new SistemaCifratura(rs);
     }
 
     //  controllare che la query sia giusta!
