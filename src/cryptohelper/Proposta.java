@@ -82,6 +82,9 @@ public class Proposta {
         return this.partner;
     }
 
+    /* (Ale) la query dovrebbe ritornare la proposta attiva (se c'è) tra i due partner
+    quindi: WHERE (Proponente = id1 and Partner = id2) OR (Proponente = id2 and Partner = id1)
+    */
     public static Proposta caricaAttiva(int idProp, int idPartner) throws SQLException {
         Proposta old = null; //necessario per CommunicationController.inviaDecisione
         int cont = 0;

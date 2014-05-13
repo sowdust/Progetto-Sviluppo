@@ -42,6 +42,8 @@ public class CommunicationController {
         return instance;
     }
 
+    /* (Ale) dato che sappiamo che è un messaggio ricevuto dovrebbe ritornare MessaggioDestinatario
+        in modo da avere a disposizione solo le funzionalità di un messaggio ricevuto */
     public Messaggio apriMessaggioRicevuto(int id) throws SQLException {
         Messaggio m = Messaggio.load(id);
         m.setLetto(true);
@@ -71,14 +73,14 @@ public class CommunicationController {
         int id = st.getId();
         ResultSet rs = dbc.execute("SELECT Studente.ID, nome, cognome FROM crypto_user.Proposta"
                 + "JOIN crypto_user.STUDENTE"
-                + "ON crypto_user.Proposta.PROPONENTE = " + st.getId() + " AND crypto_user.PROPOSTA.STATO = 'accepted'"
-                + "AND crypto_user.STUDENTE.ID != " + st.getId());
-        ArrayList result = new ArrayList<>();
+                + "ON crypto_user.Proposta.PROPONENTE = " + id + " AND crypto_user.PROPOSTA.STATO = 'accepted'"
+                + "AND crypto_user.STUDENTE.ID != " + id);
+        List<UserInfo> listaDest = new ArrayList<>();
         while (rs.next()) {
             UserInfo us = new UserInfo(rs.getInt("id"), rs.getString("nome"), rs.getString("cognome"));
-            result.add(us);
+            listaDest.add(us);
         }
-        return result;
+        return listaDest;
     }
 
     public boolean inviaProposta(Studente user, Studente partner, SistemaCifratura sdc) throws SQLException {
@@ -86,10 +88,11 @@ public class CommunicationController {
         return p.save();
     }
 
-    public boolean send(Messaggio messaggio) {
+    public boolean send(MessaggioMittente messaggio) {
         return messaggio.send();
     }
 
+    /* (Ale) prende l'unica proposta che ha come id lo stesso id dello studente e non considera lo stato refused*/
     public List<Proposta> getAccettazioneProposte(Studente user) throws SQLException {
         DBController dbc = DBController.getInstance();
         ResultSet rs = dbc.execute("SELECT * FROM crypto_user.Proposta WHERE "
