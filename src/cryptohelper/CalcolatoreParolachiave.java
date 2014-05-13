@@ -16,6 +16,8 @@
  */
 package cryptohelper;
 
+import java.util.Arrays;
+
 /**
  *
  * @author glaxy
@@ -31,8 +33,8 @@ public class CalcolatoreParolachiave extends CalcolatoreMappatura {
             /* se la chiave contiene caratteri doppi verrà considerato solo l'ultimo */
             if (chiave.substring(i + 1).indexOf(c) == -1) {
                 /* controllo se appartiene all'alfabeto */
-                if (/*non è presente nell'alfabeto*/false) {
-                    System.out.println(c + " non fa parte dell'alfabeto");
+                if (Arrays.binarySearch(alfabeto, c) < 0) {
+                    throw new IllegalArgumentException("hai inserito caratteri che non appartengo all'alfabeto");
                 }
                 mappa[k] = c;
                 k++;
@@ -47,6 +49,7 @@ public class CalcolatoreParolachiave extends CalcolatoreMappatura {
         return new Mappatura(mappa, alfabeto);
     }
 
+    @Override
     public String toString() {
         return "Parola chiave";
     }

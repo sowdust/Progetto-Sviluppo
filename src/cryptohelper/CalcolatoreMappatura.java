@@ -23,17 +23,12 @@ package cryptohelper;
 public abstract class CalcolatoreMappatura {
 
     public static CalcolatoreMappatura create(String metodo) {
-        if ("pseudocasuale".equals(metodo)) {
-            return new CalcolatorePseudocasuale();
+        String className = "cryptohelper.Calcolatore" + metodo.substring(0, 1).toUpperCase() + metodo.substring(1);
+        try {
+            return (CalcolatoreMappatura) Class.forName(className).newInstance();
+        } catch (InstantiationException | IllegalAccessException | ClassNotFoundException ex) {
+            throw new IllegalArgumentException();
         }
-        if ("parolachiave".equals(metodo)) {
-            return new CalcolatoreParolachiave();
-        }
-        if ("cesare".equals(metodo)) {
-            return new CalcolatoreCesare();
-        }
-
-        throw new RuntimeException("metodo inesistente " + metodo);
     }
 
     public abstract Mappatura calcola(String chiave, char[] alfabeto);

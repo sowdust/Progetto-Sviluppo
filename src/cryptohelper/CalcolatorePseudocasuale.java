@@ -30,7 +30,7 @@ public class CalcolatorePseudocasuale extends CalcolatoreMappatura {
         try {
             chiave = Integer.parseInt(chiaveStr);
         } catch (NumberFormatException ex) {
-            return null;
+            throw new IllegalArgumentException("non hai inserito un numero");
         }
         Random rnd = new Random(chiave);
         char[] mappa = alfabeto.clone();
@@ -43,6 +43,7 @@ public class CalcolatorePseudocasuale extends CalcolatoreMappatura {
         return new Mappatura(mappa, alfabeto);
     }
 
+    @Override
     public String toString() {
         return "Pseudocasuale";
     }
