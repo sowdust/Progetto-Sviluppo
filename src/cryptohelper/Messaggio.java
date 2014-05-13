@@ -21,8 +21,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  *
@@ -102,14 +100,6 @@ public class Messaggio implements MessaggioMittente, MessaggioDestinatario {
     
     /*
     NOTA:
-        ho messo qui i metodi cifra() e decifra() invece che dividerli in
-        cifra() solo per MessaggioMittente e decifra() solo per MessDestinatario
-        perchè ho paura che anche la spia usi questo stesso metodo di Messaggio
-        e quindi lo faccia senza discriminare tra Mittente o Destinatario.
-    
-        Ad ogni modo qualcosa va spostato: o questi metodi vanno suddivisi nelle
-        rispettive specializzazioni, o le signature vanno spostate nel più generale
-        Messagio
     
         Sempre da decidere bene che fare con queste benedette eccezioni
     */
