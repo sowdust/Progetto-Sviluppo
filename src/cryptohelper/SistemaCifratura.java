@@ -84,7 +84,7 @@ public class SistemaCifratura {
     public static List<SistemaCifratura> caricaSistemiCifratura(Studente st) throws SQLException {
         
         DBController dbc = DBController.getInstance();
-        ResultSet rs = dbc.execute("SELECT id, chiave, metodo, creatore FROM"
+        ResultSet rs = dbc.execute("SELECT id, chiave, metodo, creatore FROM "
                 + "crypto_user.SistemaCifratura WHERE creatore = " + st.getId());
         List<SistemaCifratura> lista = new ArrayList<>();
         while (rs.next()) {
@@ -103,13 +103,15 @@ public class SistemaCifratura {
     }
 
     //  controllare che la query sia giusta!
-    public static SistemaCifratura load(UserInfo mittente, UserInfo destinatario) throws SQLException {
+    public static SistemaCifratura load(UserInfo st1, UserInfo st2) throws SQLException {
 
         DBController dbc = DBController.getInstance();
         ResultSet rs = dbc.execute("SELECT s.id, s.chiave, s.metodo, s.creatore"
-                + "FROM crypto_user.Proposta as p JOIN crypto_user.SistemaCifratura"
-                + "as s on s.id = p.sdc WHERE p.proponente = " + mittente.getId()
-                + " AND p.PARTNER = " + destinatario.getId());
+                + "FROM crypto_user.Proposta AS p JOIN crypto_user.SistemaCifratura"
+                + "AS s ON s.id = p.sdc WHERE "
+                + "((p.proponente = " + st1.getId() + " AND p.partner = " + st2.getId() + ")"
+                + "OR (p.proponente = " + st2.getId() + " AND p.partner = " + st1.getId() + "))"
+                + "AND p.stato = 'accepted'");
         rs.next();
         return new SistemaCifratura(rs);
     }

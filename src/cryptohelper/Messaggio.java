@@ -112,7 +112,7 @@ public class Messaggio implements MessaggioMittente, MessaggioDestinatario {
                 throw new RuntimeException("SQL exception: " + ex.getMessage());
             }
         }
-        testo = Cifratore.cifraMonoalfabetica(sdc.getMappatura(),testo);
+        testoCifrato = Cifratore.cifraMonoalfabetica(sdc.getMappatura(),testo);
     }
     
     @Override
@@ -124,7 +124,7 @@ public class Messaggio implements MessaggioMittente, MessaggioDestinatario {
                 throw new RuntimeException("SQL exception: " + ex.getMessage());
             }
         }
-        testo = Cifratore.decifraMonoalfabetica(sdc.getMappatura(),testo);
+        testo = Cifratore.decifraMonoalfabetica(sdc.getMappatura(),testoCifrato);
     }
 
     @Override
