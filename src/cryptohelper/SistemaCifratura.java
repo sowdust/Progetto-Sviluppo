@@ -107,11 +107,11 @@ public class SistemaCifratura {
 
         DBController dbc = DBController.getInstance();
         ResultSet rs = dbc.execute("SELECT s.id, s.chiave, s.metodo, s.creatore"
-                + "FROM crypto_user.Proposta AS p JOIN crypto_user.SistemaCifratura"
-                + "AS s ON s.id = p.sdc WHERE "
-                + "((p.proponente = " + st1.getId() + " AND p.partner = " + st2.getId() + ")"
-                + "OR (p.proponente = " + st2.getId() + " AND p.partner = " + st1.getId() + "))"
-                + "AND p.stato = 'accepted'");
+                + " FROM crypto_user.Proposta AS p JOIN crypto_user.SistemaCifratura"
+                + " AS s ON s.id = p.sdc WHERE "
+                + " ((p.proponente = " + st1.getId() + " AND p.partner = " + st2.getId() + ")"
+                + " OR (p.proponente = " + st2.getId() + " AND p.partner = " + st1.getId() + "))"
+                + " AND p.stato = 'accepted'");
         rs.next();
         return new SistemaCifratura(rs);
     }
