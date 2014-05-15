@@ -41,8 +41,4 @@ public class CalcolatoreCesare extends CalcolatoreMappatura {
         return new Mappatura(mappa, alfabeto);
     }
 
-    public String toString() {
-        return "Cesare";
-    }
-
 }

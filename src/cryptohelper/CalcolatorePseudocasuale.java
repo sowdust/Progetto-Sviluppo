@@ -43,9 +43,4 @@ public class CalcolatorePseudocasuale extends CalcolatoreMappatura {
         return new Mappatura(mappa, alfabeto);
     }
 
-    @Override
-    public String toString() {
-        return "Pseudocasuale";
-    }
-
 }

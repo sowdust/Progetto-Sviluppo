@@ -49,8 +49,4 @@ public class CalcolatoreParolachiave extends CalcolatoreMappatura {
         return new Mappatura(mappa, alfabeto);
     }
 
-    @Override
-    public String toString() {
-        return "Parola chiave";
-    }
 }

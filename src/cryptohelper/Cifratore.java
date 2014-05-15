@@ -25,7 +25,6 @@ package cryptohelper;
  *
  * !! da aggiungere alla documentazione il metodo Mappatura.inAlphabet
  *
- * usare string buffer al posto di +=
  *
  * @author mat
  */
@@ -45,16 +44,16 @@ public class Cifratore {
     }
 
     public static String decifraMonoalfabetica(Mappatura mappa, String testo) {
-        StringBuilder testoDeCifrato = new StringBuilder(testo.length());
+        StringBuilder testoDecifrato = new StringBuilder(testo.length());
 
         for (char c : testo.toCharArray()) {
             char k = Character.toLowerCase(c);
             if (mappa.inAlphabet(k)) {
-                testoDeCifrato.append(mappa.inverseMap(k));
+                testoDecifrato.append(mappa.inverseMap(k));
             }
         }
 
-        return testoDeCifrato.toString();
+        return testoDecifrato.toString();
     }
 
 }
