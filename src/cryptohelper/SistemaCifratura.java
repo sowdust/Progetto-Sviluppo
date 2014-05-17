@@ -23,9 +23,8 @@ import java.util.List;
 
 /**
  *
- * NOTE.
- *          save() e elimina() per ora lanciano eccezioni se creatore e id
- *          rispettivamente non impostati. vedere se necessarie o meno
+ * NOTE. save() e elimina() per ora lanciano eccezioni se creatore e id
+ * rispettivamente non impostati. vedere se necessarie o meno
  *
  * @author mat
  */
@@ -44,23 +43,18 @@ public class SistemaCifratura {
         's', 't', 'u', 'v', 'w', 'x', 'y', 'z'
     };
 
-    
-
-    public SistemaCifratura(ResultSet rs) throws SQLException {
+    private SistemaCifratura(ResultSet rs) throws SQLException {
 
         this.id = rs.getInt("id");
         this.chiave = rs.getString("chiave");
         this.metodo = rs.getString("metodo");
-        DBController dbc = DBController.getInstance();
-        ResultSet qs = dbc.execute("SELECT nome, cognome FROM crypto_user.Studente WHERE id = " + rs.getInt("creatore"));
-        qs.next();
-        this.creatore = new UserInfo(rs.getInt("creatore"), qs.getString("nome"), qs.getString("cognome"));
+        this.creatore = UserInfo.load(rs.getInt("creatore"));
         this.calcolatore = CalcolatoreMappatura.create(metodo);
         this.mappatura = calcolatore.calcola(chiave, alfabeto);
     }
 
     public SistemaCifratura(String chiave, String metodo, UserInfo st) {
-        
+
         this.metodo = metodo;
         this.chiave = chiave;
         this.calcolatore = CalcolatoreMappatura.create(metodo);
@@ -71,18 +65,18 @@ public class SistemaCifratura {
     public SistemaCifratura(String chiave, String metodo, Studente st) {
         this(chiave, metodo, st.getUserInfo());
     }
-    
+
     void setChiave(String chiave) {
         this.chiave = chiave;
     }
-    
+
     void setMetodo(String metodo) {
         this.metodo = metodo;
         this.calcolatore = CalcolatoreMappatura.create(metodo);
     }
 
     public static List<SistemaCifratura> caricaSistemiCifratura(Studente st) throws SQLException {
-        
+
         DBController dbc = DBController.getInstance();
         ResultSet rs = dbc.execute("SELECT id, chiave, metodo, creatore FROM "
                 + "crypto_user.SistemaCifratura WHERE creatore = " + st.getId());
@@ -148,7 +142,7 @@ public class SistemaCifratura {
 
     @Override
     public String toString() {
-        
+
         return this.metodo + "\n"
                 + this.chiave + "\n"
                 + this.creatore + "\n"

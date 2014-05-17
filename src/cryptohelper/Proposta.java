@@ -59,12 +59,8 @@ public class Proposta {
     }
 
     public Proposta(ResultSet queryResult) throws SQLException {
-        DBController dbc = DBController.getInstance();
-        ResultSet rs1 = dbc.execute("SELECT * FROM crypto_user.Studente WHERE id = " + queryResult.getInt("proponente"));
-        ResultSet rs2 = dbc.execute("SELECT * FROM crypto_user.Studente WHERE id = " + queryResult.getInt("partner"));
-        this.proponente = new UserInfo(rs1);
-        this.partner = new UserInfo(rs2);
-
+        this.proponente = UserInfo.load(queryResult.getInt("proponente"));
+        this.partner = UserInfo.load(queryResult.getInt("partner"));
         this.notificata = false;
         this.stato = "pending";
 
@@ -83,8 +79,8 @@ public class Proposta {
     }
 
     /* (Ale) la query dovrebbe ritornare la proposta attiva (se c'è) tra i due partner
-    quindi: WHERE (Proponente = id1 and Partner = id2) OR (Proponente = id2 and Partner = id1)
-    */
+     quindi: WHERE (Proponente = id1 and Partner = id2) OR (Proponente = id2 and Partner = id1)
+     */
     public static Proposta caricaAttiva(int idProp, int idPartner) throws SQLException {
         Proposta old = null; //necessario per CommunicationController.inviaDecisione
         int cont = 0;

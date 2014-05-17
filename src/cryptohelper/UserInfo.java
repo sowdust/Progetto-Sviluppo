@@ -35,11 +35,18 @@ public class UserInfo {
         this.cognome = cognome;
     }
 
-    public UserInfo(ResultSet rs) throws SQLException {
+    private UserInfo(ResultSet rs) throws SQLException {
         rs.next();
         this.id = rs.getInt("id");
         this.nome = rs.getString("nome");
         this.cognome = rs.getString("cognome");
+    }
+
+    public static UserInfo load(int id) throws SQLException {
+        DBController dbc = DBController.getInstance();
+        ResultSet rs = dbc.execute("SELECT id, nome, cognome FROM crypto_user.Studente WHERE id = " + id);
+        rs.next();
+        return new UserInfo(rs);
     }
 
     public int getId() {

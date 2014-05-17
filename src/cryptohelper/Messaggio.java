@@ -14,7 +14,6 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-
 package cryptohelper;
 
 import java.sql.ResultSet;
@@ -27,10 +26,11 @@ import java.util.List;
  * @author glaxy
  */
 public class Messaggio implements MessaggioMittente, MessaggioDestinatario {
-    /** 
-     * NOTE:
-     * controllare il costruttore con resultSet che ora assomiglia a quello di Proposta
-     * per come gestisce la creazione di UserInfo. Per Proposta funzionava.
+
+    /**
+     * NOTE: controllare il costruttore con resultSet che ora assomiglia a
+     * quello di Proposta per come gestisce la creazione di UserInfo. Per
+     * Proposta funzionava.
      */
     private int id;
     private String testo;
@@ -42,9 +42,8 @@ public class Messaggio implements MessaggioMittente, MessaggioDestinatario {
     private UserInfo mittente;
     private UserInfo destinatario;
     private SistemaCifratura sdc;
-    
+
     private Messaggio(ResultSet queryResult) throws SQLException {
-        DBController dbc = DBController.getInstance();
         id = queryResult.getInt("Id");
         testo = queryResult.getString("Testo");
         testoCifrato = queryResult.getString("TestoCifrato");
@@ -52,12 +51,10 @@ public class Messaggio implements MessaggioMittente, MessaggioDestinatario {
         titolo = queryResult.getString("Titolo");
         bozza = queryResult.getBoolean("Bozza");
         letto = queryResult.getBoolean("Letto");
-        ResultSet rs1 = dbc.execute("SELECT * FROM crypto_user.Studente WHERE id = "+queryResult.getInt("mittente"));
-        ResultSet rs2 = dbc.execute("SELECT * FROM crypto_user.Studente WHERE id = "+queryResult.getInt("destinatario"));
-        this.mittente = new UserInfo(rs1);
-        this.destinatario = new UserInfo(rs2);
+        mittente = UserInfo.load(queryResult.getInt("mittente"));
+        destinatario = UserInfo.load(queryResult.getInt("destinatario"));
     }
-    
+
     public static Messaggio load(int id) throws SQLException {
         DBController dbc = DBController.getInstance();
         ResultSet rs = dbc.execute("SELECT * FROM crypto_user.Messaggio WHERE id = " + id);
@@ -70,61 +67,61 @@ public class Messaggio implements MessaggioMittente, MessaggioDestinatario {
         int studentId = studente.getId();
         ResultSet rs = dbc.execute("SELECT * FROM crypto_user.Messaggio WHERE mittente = " + studentId + " AND bozza = " + false);
         List<MessaggioMittente> listaInviati = new ArrayList<>();
-        while(rs.next()) {
+        while (rs.next()) {
             listaInviati.add(new Messaggio(rs));
         }
         return listaInviati;
     }
-    
+
     public static List<MessaggioMittente> caricaBozze(Studente studente) throws SQLException {
         DBController dbc = DBController.getInstance();
         int studentId = studente.getId();
         ResultSet rs = dbc.execute("SELECT * FROM crypto_user.Messaggio WHERE mittente = " + studentId + " AND bozza = " + true);
         List<MessaggioMittente> listaBozze = new ArrayList<>();
-        while(rs.next()) {
+        while (rs.next()) {
             listaBozze.add(new Messaggio(rs));
         }
         return listaBozze;
     }
-    
+
     public static List<MessaggioDestinatario> caricaRicevuti(Studente studente) throws SQLException {
         DBController dbc = DBController.getInstance();
         int studentId = studente.getId();
         ResultSet rs = dbc.execute("SELECT * FROM crypto_user.Messaggio WHERE destinatario = " + studentId);
         List<MessaggioDestinatario> listaRicevuti = new ArrayList<>();
-        while(rs.next()) {
+        while (rs.next()) {
             listaRicevuti.add(new Messaggio(rs));
         }
         return listaRicevuti;
     }
-    
+
     /*
-    NOTA:
+     NOTA:
     
-        Sempre da decidere bene che fare con queste benedette eccezioni
-    */
+     Sempre da decidere bene che fare con queste benedette eccezioni
+     */
     @Override
     public void cifra() {
-        if(null == sdc) {
+        if (null == sdc) {
             try {
-                sdc = SistemaCifratura.load(mittente,destinatario);
+                sdc = SistemaCifratura.load(mittente, destinatario);
             } catch (SQLException ex) {
                 throw new RuntimeException("SQL exception: " + ex.getMessage());
             }
         }
-        testoCifrato = Cifratore.cifraMonoalfabetica(sdc.getMappatura(),testo);
+        testoCifrato = Cifratore.cifraMonoalfabetica(sdc.getMappatura(), testo);
     }
-    
+
     @Override
     public void decifra() {
-        if(null == sdc) {
+        if (null == sdc) {
             try {
-                sdc = SistemaCifratura.load(mittente,destinatario);
+                sdc = SistemaCifratura.load(mittente, destinatario);
             } catch (SQLException ex) {
                 throw new RuntimeException("SQL exception: " + ex.getMessage());
             }
         }
-        testo = Cifratore.decifraMonoalfabetica(sdc.getMappatura(),testoCifrato);
+        testo = Cifratore.decifraMonoalfabetica(sdc.getMappatura(), testoCifrato);
     }
 
     @Override
@@ -137,15 +134,15 @@ public class Messaggio implements MessaggioMittente, MessaggioDestinatario {
         try {
             DBController dbc = DBController.getInstance();
             dbc.execute("UPDATE crypto_user.Messaggio"
-                    + "SET crypto_user.Messaggio.testo = '"+this.getTesto()
-                    + "SET crypto_user.Messaggio.testocifrato = '"+this.getTestoCifrato()
-                    + "SET crypto_user.Messaggio.bozza ="+this.bozza
-                    + "SET crypto_user.Messaggio.lingua ="+this.getLingua()
-                    + "SET crypto_user.Messaggio.titolo ="+this.getTitolo()
-                    + "SET crypto_user.Messaggio.mittente ="+this.mittente.getId()
-                    + "SET crypto_user.Messaggio.destinatario ="+this.destinatario.getId()); //TODO
+                    + "SET crypto_user.Messaggio.testo = '" + this.getTesto()
+                    + "SET crypto_user.Messaggio.testocifrato = '" + this.getTestoCifrato()
+                    + "SET crypto_user.Messaggio.bozza =" + this.bozza
+                    + "SET crypto_user.Messaggio.lingua =" + this.getLingua()
+                    + "SET crypto_user.Messaggio.titolo =" + this.getTitolo()
+                    + "SET crypto_user.Messaggio.mittente =" + this.mittente.getId()
+                    + "SET crypto_user.Messaggio.destinatario =" + this.destinatario.getId()); //TODO
             return true;
-        } catch(SQLException e) {
+        } catch (SQLException e) {
             return false;
         }
     }
@@ -180,20 +177,20 @@ public class Messaggio implements MessaggioMittente, MessaggioDestinatario {
     public boolean isLetto() {
         return letto;
     }
-    
+
     @Override
     public void setLetto(boolean letto) {
         this.letto = letto;
     }
-    
+
     public void setBozza(boolean isBozza) {
         bozza = isBozza();
     }
-    
+
     @Override
     public boolean send() {
         setBozza(false);
         return save();
     }
-    
+
 }
