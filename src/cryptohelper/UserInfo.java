@@ -36,7 +36,6 @@ public class UserInfo {
     }
 
     private UserInfo(ResultSet rs) throws SQLException {
-        rs.next();
         this.id = rs.getInt("id");
         this.nome = rs.getString("nome");
         this.cognome = rs.getString("cognome");
