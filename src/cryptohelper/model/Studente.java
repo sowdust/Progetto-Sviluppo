@@ -40,14 +40,19 @@ public class Studente {
         this.cognome = cognome;
     }
 
-    public Studente(int id) throws SQLException {
-        DBController dbc = DBController.getInstance();
-        ResultSet rs = dbc.execute("SELECT * FROM crypto_user.Studente WHERE id = " + id);
+    public Studente(ResultSet rs) throws SQLException {
         this.id = rs.getInt("id");
         this.nickname = rs.getString("nickname");
         this.password = rs.getString("password");
         this.nome = rs.getString("nome");
         this.cognome = rs.getString("cognome");
+    }
+
+    public static Studente load(int id) throws SQLException {
+        DBController dbc = DBController.getInstance();
+        ResultSet rs = dbc.execute("SELECT * FROM crypto_user.Studente WHERE id = " + id);
+        rs.next();
+        return new Studente(rs);
     }
 
     public UserInfo getUserInfo() {

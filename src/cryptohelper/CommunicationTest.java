@@ -1,8 +1,8 @@
 package cryptohelper;
 
 import cryptohelper.controller.CommunicationController;
+import cryptohelper.model.MessaggioDestinatario;
 import cryptohelper.model.Proposta;
-import cryptohelper.model.Messaggio;
 import cryptohelper.model.Studente;
 import java.sql.SQLException;
 import java.util.List;
@@ -14,7 +14,7 @@ import java.util.List;
 public class CommunicationTest {
 
     public static void main(String[] args) throws SQLException {
-        Messaggio m = null;
+        MessaggioDestinatario m = null;
         CommunicationController commC = CommunicationController.getInstance();
         try {
             m = commC.apriMessaggioRicevuto(0);
