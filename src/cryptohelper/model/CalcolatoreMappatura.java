@@ -23,7 +23,7 @@ package cryptohelper.model;
 public abstract class CalcolatoreMappatura {
 
     public static CalcolatoreMappatura create(String metodo) {
-        String className = "cryptohelper.Calcolatore" + metodo.substring(0, 1).toUpperCase() + metodo.substring(1);
+        String className = "cryptohelper.model.Calcolatore" + metodo.substring(0, 1).toUpperCase() + metodo.substring(1);
         try {
             return (CalcolatoreMappatura) Class.forName(className).newInstance();
         } catch (InstantiationException | IllegalAccessException | ClassNotFoundException ex) {

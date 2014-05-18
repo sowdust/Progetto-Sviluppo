@@ -31,12 +31,12 @@ import java.util.List;
  */
 public class SistemaCifratura {
 
-    private Integer id;
+    private int id;
     private String chiave;
     private String metodo;
+    private UserInfo creatore;
     private CalcolatoreMappatura calcolatore;
     private Mappatura mappatura;
-    private UserInfo creatore;
 
     private final char[] alfabeto = {
         'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i',
@@ -55,12 +55,12 @@ public class SistemaCifratura {
     }
 
     public SistemaCifratura(String chiave, String metodo, UserInfo st) {
-
-        this.metodo = metodo;
+        this.id = -1;
         this.chiave = chiave;
+        this.metodo = metodo;
+        this.creatore = st;
         this.calcolatore = CalcolatoreMappatura.create(metodo);
         this.mappatura = calcolatore.calcola(chiave, alfabeto);
-        this.creatore = st;
     }
 
     public SistemaCifratura(String chiave, String metodo, Studente st) {
@@ -128,13 +128,13 @@ public class SistemaCifratura {
             throw new RuntimeException("Non è possibile salvare un sistema di cifratura senza associarvi un valido utente creatore");
         }
         DBController dbc = DBController.getInstance();
-        return dbc.executeUpdate("INSERT INTO crypto_user.SistemaCifratura (creatore, metodo, chiave) VALUES(" + creatore.getId() + ", " + metodo + ", " + chiave + ")");
+        return dbc.executeUpdate("INSERT INTO SistemaCifratura (metodo, chiave, creatore) VALUES ('" + metodo + "', '" + chiave + "', " + creatore.getId() + ")");
     }
 
     public boolean elimina() throws SQLException {
         DBController dbc = DBController.getInstance();
 
-        if (null == id) {
+        if (id < 0) {
             throw new RuntimeException("Problema nell'eliminazione: SdC non identificato.");
         }
         return dbc.executeUpdate("DELETE FROM crypto_user.SistemaCifratura WHERE id = " + id);

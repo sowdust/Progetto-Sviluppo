@@ -89,7 +89,7 @@ public class Proposta {
         DBController dbc = DBController.getInstance();
         if (id < 0) {
             return dbc.executeUpdate("INSERT INTO Proposta (stato, notificata, proponente, partner, sdc) "
-                    + "VALUES ('" + stato + "', " + notificata + ", " + proponente.getId() + ", " + partner.getId() + ", " + sdc.getId() + ");");
+                    + "VALUES ('" + stato + "', " + notificata + ", " + proponente.getId() + ", " + partner.getId() + ", " + sdc.getId() + ")");
         }
         return dbc.executeUpdate("UPDATE Proposta SET "
                 + "stato =  '" + stato + "' notificata = " + notificata + " proponente = " + proponente.getId() + " partner = " + partner.getId() + " sdc = " + sdc.getId()
