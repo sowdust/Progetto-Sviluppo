@@ -50,7 +50,7 @@ public class Studente {
 
     public static Studente load(int id) throws SQLException {
         DBController dbc = DBController.getInstance();
-        ResultSet rs = dbc.execute("SELECT * FROM crypto_user.Studente WHERE id = " + id);
+        ResultSet rs = dbc.execute("SELECT * FROM crypto_user.Studente WHERE id = ?", id);
         rs.next();
         return new Studente(rs);
     }

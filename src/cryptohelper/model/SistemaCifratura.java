@@ -80,7 +80,7 @@ public class SistemaCifratura {
 
         DBController dbc = DBController.getInstance();
         ResultSet rs = dbc.execute("SELECT id, chiave, metodo, creatore FROM "
-                + "crypto_user.SistemaCifratura WHERE creatore = " + st.getId());
+                + "crypto_user.SistemaCifratura WHERE creatore = ?", st.getId());
         List<SistemaCifratura> lista = new ArrayList<>();
         while (rs.next()) {
             lista.add(new SistemaCifratura(rs));
@@ -92,7 +92,7 @@ public class SistemaCifratura {
 
         DBController dbc = DBController.getInstance();
         ResultSet rs = dbc.execute("SELECT * FROM crypto_user.SistemaCifratura"
-                + " WHERE id = " + id);
+                + " WHERE id = ?", id);
         rs.next();
         return new SistemaCifratura(rs);
     }
@@ -104,9 +104,9 @@ public class SistemaCifratura {
         ResultSet rs = dbc.execute("SELECT s.id, s.chiave, s.metodo, s.creatore"
                 + " FROM crypto_user.Proposta AS p JOIN crypto_user.SistemaCifratura"
                 + " AS s ON s.id = p.sdc WHERE "
-                + " ((p.proponente = " + st1.getId() + " AND p.partner = " + st2.getId() + ")"
-                + " OR (p.proponente = " + st2.getId() + " AND p.partner = " + st1.getId() + "))"
-                + " AND p.stato = 'accepted'");
+                + " ((p.proponente = ? AND p.partner = ?)"
+                + " OR (p.proponente = ? AND p.partner = ?))"
+                + " AND p.stato = 'accepted'", st1.getId(), st2.getId(), st2.getId(), st1.getId());
         rs.next();
         return new SistemaCifratura(rs);
     }
@@ -128,7 +128,7 @@ public class SistemaCifratura {
             throw new RuntimeException("Non è possibile salvare un sistema di cifratura senza associarvi un valido utente creatore");
         }
         DBController dbc = DBController.getInstance();
-        return dbc.executeUpdate("INSERT INTO SistemaCifratura (metodo, chiave, creatore) VALUES ('" + metodo + "', '" + chiave + "', " + creatore.getId() + ")");
+        return dbc.executeUpdate("INSERT INTO SistemaCifratura (metodo, chiave, creatore) VALUES ( ?, ?, ?)", metodo, chiave, creatore.getId());
     }
 
     public boolean elimina() throws SQLException {
@@ -137,7 +137,7 @@ public class SistemaCifratura {
         if (id < 0) {
             throw new RuntimeException("Problema nell'eliminazione: SdC non identificato.");
         }
-        return dbc.executeUpdate("DELETE FROM crypto_user.SistemaCifratura WHERE id = " + id);
+        return dbc.executeUpdate("DELETE FROM crypto_user.SistemaCifratura WHERE id = ?", id);
 
     }
 

@@ -73,8 +73,8 @@ public class Proposta {
     public static Proposta caricaAttiva(int id1, int id2) throws SQLException {
         DBController dbc = DBController.getInstance();
         ResultSet rs = dbc.execute("SELECT  FROM crypto_user.Proposta"
-                + "WHERE ((Proponente = " + id1 + " and Partner = " + id2 + ") "
-                + "OR (Proponente = " + id2 + "and Partner = " + id1 + ")) AND stato='accepted'");
+                + "WHERE ((Proponente = ? AND Partner = ?) "
+                + "OR (Proponente = ? AND Partner = ?)) AND stato='accepted'", id1, id2, id2, id1);
         if (rs.next()) {
             return new Proposta(rs);
         }
@@ -89,11 +89,11 @@ public class Proposta {
         DBController dbc = DBController.getInstance();
         if (id < 0) {
             return dbc.executeUpdate("INSERT INTO Proposta (stato, notificata, proponente, partner, sdc) "
-                    + "VALUES ('" + stato + "', " + notificata + ", " + proponente.getId() + ", " + partner.getId() + ", " + sdc.getId() + ")");
+                    + "VALUES (?, ?, ?, ?, ?)", stato, notificata, proponente.getId(), partner.getId(), sdc.getId());
         }
         return dbc.executeUpdate("UPDATE Proposta SET "
-                + "stato =  '" + stato + "' notificata = " + notificata + " proponente = " + proponente.getId() + " partner = " + partner.getId() + " sdc = " + sdc.getId()
-                + "WHERE id = " + id);
+                + "stato =  ? notificata = ? proponente = ? partner = ? sdc = ? "
+                + "WHERE id = ?", stato, notificata, proponente.getId(), partner.getId(), sdc.getId(), id);
     }
 
     public int getId() {

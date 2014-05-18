@@ -60,15 +60,14 @@ public class Messaggio implements MessaggioMittente, MessaggioDestinatario {
 
     public static Messaggio load(int id) throws SQLException {
         DBController dbc = DBController.getInstance();
-        ResultSet rs = dbc.execute("SELECT * FROM crypto_user.Messaggio WHERE id = " + id);
+        ResultSet rs = dbc.execute("SELECT * FROM Messaggio WHERE id = ?", id);
         rs.next();
         return new Messaggio(rs);
     }
 
     public static List<MessaggioMittente> caricaInviati(Studente studente) throws SQLException {
         DBController dbc = DBController.getInstance();
-        int studentId = studente.getId();
-        ResultSet rs = dbc.execute("SELECT * FROM crypto_user.Messaggio WHERE mittente = " + studentId + " AND bozza = " + false);
+        ResultSet rs = dbc.execute("SELECT * FROM Messaggio WHERE mittente = ? AND bozza = ?", studente.getId(), false);
         List<MessaggioMittente> listaInviati = new ArrayList<>();
         while (rs.next()) {
             listaInviati.add(new Messaggio(rs));
@@ -78,8 +77,7 @@ public class Messaggio implements MessaggioMittente, MessaggioDestinatario {
 
     public static List<MessaggioMittente> caricaBozze(Studente studente) throws SQLException {
         DBController dbc = DBController.getInstance();
-        int studentId = studente.getId();
-        ResultSet rs = dbc.execute("SELECT * FROM crypto_user.Messaggio WHERE mittente = " + studentId + " AND bozza = " + true);
+        ResultSet rs = dbc.execute("SELECT * FROM Messaggio WHERE mittente = ? AND bozza = ?", studente.getId(), true);
         List<MessaggioMittente> listaBozze = new ArrayList<>();
         while (rs.next()) {
             listaBozze.add(new Messaggio(rs));
@@ -89,8 +87,7 @@ public class Messaggio implements MessaggioMittente, MessaggioDestinatario {
 
     public static List<MessaggioDestinatario> caricaRicevuti(Studente studente) throws SQLException {
         DBController dbc = DBController.getInstance();
-        int studentId = studente.getId();
-        ResultSet rs = dbc.execute("SELECT * FROM crypto_user.Messaggio WHERE destinatario = " + studentId);
+        ResultSet rs = dbc.execute("SELECT * FROM crypto_user.Messaggio WHERE destinatario = ?", studente.getId());
         List<MessaggioDestinatario> listaRicevuti = new ArrayList<>();
         while (rs.next()) {
             listaRicevuti.add(new Messaggio(rs));
@@ -146,14 +143,14 @@ public class Messaggio implements MessaggioMittente, MessaggioDestinatario {
     public boolean save() {
         try {
             DBController dbc = DBController.getInstance();
-            dbc.execute("UPDATE crypto_user.Messaggio"
-                    + "SET crypto_user.Messaggio.testo = '" + this.getTesto()
-                    + "SET crypto_user.Messaggio.testocifrato = '" + this.getTestoCifrato()
-                    + "SET crypto_user.Messaggio.bozza =" + this.bozza
-                    + "SET crypto_user.Messaggio.lingua =" + this.getLingua()
-                    + "SET crypto_user.Messaggio.titolo =" + this.getTitolo()
-                    + "SET crypto_user.Messaggio.mittente =" + this.mittente.getId()
-                    + "SET crypto_user.Messaggio.destinatario =" + this.destinatario.getId()); //TODO
+            dbc.execute("UPDATE Messaggio "
+                    + "SET testo = ? " + this.getTesto()
+                    + "SET testocifrato = ? " + this.getTestoCifrato()
+                    + "SET bozza = ? " + this.bozza
+                    + "SET lingua = ? " + this.getLingua()
+                    + "SET titolo = ? " + this.getTitolo()
+                    + "SET mittente = ? " + this.mittente.getId()
+                    + "SET destinatario = ? ", testo, testoCifrato, bozza, lingua, titolo, mittente.getId(), destinatario.getId());
             return true;
         } catch (SQLException e) {
             return false;
@@ -183,7 +180,7 @@ public class Messaggio implements MessaggioMittente, MessaggioDestinatario {
     @Override
     public boolean elimina() throws SQLException {
         DBController dbc = DBController.getInstance();
-        return dbc.executeUpdate("DELETE * FROM crypto_user.Messaggio WHERE id = " + id);
+        return dbc.executeUpdate("DELETE * FROM crypto_user.Messaggio WHERE id = ?", id);
     }
 
     @Override

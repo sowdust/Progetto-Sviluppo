@@ -44,7 +44,7 @@ public class UserInfo {
 
     public static UserInfo load(int id) throws SQLException {
         DBController dbc = DBController.getInstance();
-        ResultSet rs = dbc.execute("SELECT id, nome, cognome FROM crypto_user.Studente WHERE id = " + id);
+        ResultSet rs = dbc.execute("SELECT id, nome, cognome FROM crypto_user.Studente WHERE id = ?", id);
         rs.next();
         return new UserInfo(rs);
     }

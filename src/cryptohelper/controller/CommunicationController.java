@@ -83,11 +83,11 @@ public class CommunicationController {
         int id = st.getId();
         ResultSet rs = dbc.execute("SELECT partner AS idDest "
                 + "FROM Proposta "
-                + "WHERE stato = 'accepted' AND proponente = " + id
+                + "WHERE stato = 'accepted' AND proponente = ? "
                 + "UNION "
                 + "SELECT proponente AS idDest "
                 + "FROM Proposta "
-                + "WHERE stato = 'accepted' AND partner = " + id);
+                + "WHERE stato = 'accepted' AND partner = ? ", id, id);
         List<UserInfo> listaDest = new ArrayList<>();
         while (rs.next()) {
             listaDest.add(UserInfo.load(rs.getInt("idDest")));
@@ -107,10 +107,8 @@ public class CommunicationController {
     /* (Ale) prende l'unica proposta che ha come id lo stesso id dello studente e non considera lo stato refused*/
     public List<Proposta> getAccettazioneProposte(Studente user) throws SQLException {
         DBController dbc = DBController.getInstance();
-        ResultSet rs = dbc.execute("SELECT * FROM crypto_user.Proposta WHERE "
-                + "crypto_user.Proposta.id =" + user.getId() + " "
-                + "AND crypto_user.Proposta.stato = 'accepted'"
-                + "AND crypto_user.Proposta.notificata = 'false'");
+        ResultSet rs = dbc.execute("SELECT * FROM Proposta WHERE "
+                + "proponente = ? AND stato = 'accepted' AND notificata = 'false'", user.getId());
         List<Proposta> result = new ArrayList<>();
         while (rs.next()) {
             result.add(new Proposta(rs));
@@ -120,7 +118,7 @@ public class CommunicationController {
 
     public static List<Proposta> getProposte(Studente st) throws SQLException {
         DBController dbc = DBController.getInstance();
-        ResultSet rs = dbc.execute("SELECT * FROM crypto_user.Proposta WHERE partner = " + st.getId() + " AND stato = 'pending'");
+        ResultSet rs = dbc.execute("SELECT * FROM Proposta WHERE partner = ? AND stato = 'pending'", st.getId());
         List<Proposta> lista = new ArrayList<>();
         while (rs.next()) {
             lista.add(new Proposta(rs));
