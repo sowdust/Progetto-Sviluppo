@@ -1,9 +1,10 @@
 package cryptohelper.controller;
 
-import cryptohelper.model.SistemaCifratura;
-import cryptohelper.model.Proposta;
 import cryptohelper.model.Messaggio;
+import cryptohelper.model.MessaggioDestinatario;
 import cryptohelper.model.MessaggioMittente;
+import cryptohelper.model.Proposta;
+import cryptohelper.model.SistemaCifratura;
 import cryptohelper.model.Studente;
 import cryptohelper.model.UserInfo;
 import java.sql.ResultSet;
@@ -51,12 +52,13 @@ public class CommunicationController {
     /* (Ale) dato che sappiamo che è un messaggio ricevuto dovrebbe ritornare MessaggioDestinatario
      in modo da avere a disposizione solo le funzionalità di un messaggio ricevuto
      però MessaggioDestinatario non dispone di save(), forse andrebbe in MessaggioAstrato?
+     per ora ho fatto in modo che ritorni MessaggioDestinatario anche se ha usato save
      */
-    public Messaggio apriMessaggioRicevuto(int id) throws SQLException {
+    public MessaggioDestinatario apriMessaggioRicevuto(int id) throws SQLException {
         Messaggio m = Messaggio.load(id);
         m.setLetto(true);
         m.save();
-        return m;
+        return (MessaggioDestinatario) m;
     }
 
     public boolean inviaDecisione(Proposta proposta, String decisione) throws SQLException {
