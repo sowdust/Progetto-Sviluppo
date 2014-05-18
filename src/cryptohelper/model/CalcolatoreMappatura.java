@@ -14,31 +14,23 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package cryptohelper;
+package cryptohelper.model;
 
 /**
  *
  * @author glaxy
  */
-public class CalcolatoreCesare extends CalcolatoreMappatura {
+public abstract class CalcolatoreMappatura {
 
-    @Override
-    public Mappatura calcola(String chiaveStr, char[] alfabeto) {
-        int chiave;
+    public static CalcolatoreMappatura create(String metodo) {
+        String className = "cryptohelper.Calcolatore" + metodo.substring(0, 1).toUpperCase() + metodo.substring(1);
         try {
-            chiave = Integer.parseInt(chiaveStr);
-        } catch (NumberFormatException ex) {
-            throw new IllegalArgumentException("non hai inserito un numero");
+            return (CalcolatoreMappatura) Class.forName(className).newInstance();
+        } catch (InstantiationException | IllegalAccessException | ClassNotFoundException ex) {
+            throw new IllegalArgumentException();
         }
-        int l = alfabeto.length;
-        if (chiave <= 0 || chiave >= l) {
-            throw new IllegalArgumentException("numero negativo o troppo grande");
-        }
-        char[] mappa = new char[l];
-        for (int i = 0; i < l; i++) {
-            mappa[i] = alfabeto[(i + chiave) % l];
-        }
-        return new Mappatura(mappa, alfabeto);
     }
+
+    public abstract Mappatura calcola(String chiave, char[] alfabeto);
 
 }

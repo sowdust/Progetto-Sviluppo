@@ -3,8 +3,10 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package cryptohelper;
+package cryptohelper.model;
 
+import cryptohelper.model.Mappatura;
+import cryptohelper.model.CalcolatoreCesare;
 import org.junit.After;
 import org.junit.AfterClass;
 import static org.junit.Assert.*;

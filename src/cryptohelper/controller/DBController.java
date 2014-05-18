@@ -1,5 +1,5 @@
 
-package cryptohelper;
+package cryptohelper.controller;
 
 import java.sql.Connection;
 import java.sql.DriverManager;

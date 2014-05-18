@@ -14,8 +14,9 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package cryptohelper;
+package cryptohelper.model;
 
+import cryptohelper.controller.DBController;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -43,16 +44,18 @@ public class Messaggio implements MessaggioMittente, MessaggioDestinatario {
     private UserInfo destinatario;
     private SistemaCifratura sdc;
 
+    /* costruttore usato quando si *carica* un messaggio */
     private Messaggio(ResultSet queryResult) throws SQLException {
-        id = queryResult.getInt("Id");
-        testo = queryResult.getString("Testo");
-        testoCifrato = queryResult.getString("TestoCifrato");
-        lingua = queryResult.getString("Lingua");
-        titolo = queryResult.getString("Titolo");
-        bozza = queryResult.getBoolean("Bozza");
-        letto = queryResult.getBoolean("Letto");
+        id = queryResult.getInt("id");
+        testo = queryResult.getString("testo");
+        testoCifrato = queryResult.getString("testoCifrato");
+        lingua = queryResult.getString("lingua");
+        titolo = queryResult.getString("titolo");
+        bozza = queryResult.getBoolean("bozza");
+        letto = queryResult.getBoolean("letto");
         mittente = UserInfo.load(queryResult.getInt("mittente"));
         destinatario = UserInfo.load(queryResult.getInt("destinatario"));
+        //sdc = SistemaCifratura.load(queryResult.getInt("sdc"));
     }
 
     public static Messaggio load(int id) throws SQLException {

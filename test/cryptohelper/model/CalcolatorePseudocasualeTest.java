@@ -3,8 +3,10 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package cryptohelper;
+package cryptohelper.model;
 
+import cryptohelper.model.CalcolatorePseudocasuale;
+import cryptohelper.model.Mappatura;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -16,9 +18,9 @@ import static org.junit.Assert.*;
  *
  * @author glaxy
  */
-public class CalcolatoreParolachiaveTest {
+public class CalcolatorePseudocasualeTest {
 
-    public CalcolatoreParolachiaveTest() {
+    public CalcolatorePseudocasualeTest() {
     }
 
     @BeforeClass
@@ -38,17 +40,15 @@ public class CalcolatoreParolachiaveTest {
     }
 
     /**
-     * Test of calcola method, of class CalcolatoreParolachiave.
+     * Test of calcola method, of class CalcolatorePseudocasuale.
      */
     @Test
     public void testCalcola() {
         System.out.println("calcola");
         char[] alfabeto = {'a', 'b', 'c', 'd', 'e'};
-        CalcolatoreParolachiave instance = new CalcolatoreParolachiave();
-        assertEquals(new Mappatura(new char[]{'e', 'c', 'b', 'a', 'd'}, alfabeto), instance.calcola("eebcb", alfabeto));
-        assertEquals(new Mappatura(new char[]{'c', 'a', 'd', 'e', 'b'}, alfabeto), instance.calcola("cade", alfabeto));
-        assertEquals(new Mappatura(new char[]{'d', 'c', 'a', 'b', 'e'}, alfabeto), instance.calcola("dcc", alfabeto));
-        assertEquals(new Mappatura(new char[]{'e', 'b', 'c', 'd', 'a'}, alfabeto), instance.calcola("ebcda", alfabeto));
+        CalcolatorePseudocasuale instance = new CalcolatorePseudocasuale();
+        assertEquals(new Mappatura(new char[]{'d', 'a', 'e', 'b', 'c'}, alfabeto), instance.calcola("33", alfabeto));
+        assertEquals(new Mappatura(new char[]{'a', 'e', 'd', 'b', 'c'}, alfabeto), instance.calcola("0", alfabeto));
     }
 
 }

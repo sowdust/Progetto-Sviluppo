@@ -14,9 +14,9 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
+package cryptohelper.model;
 
-package cryptohelper;
-
+import cryptohelper.controller.DBController;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
@@ -32,7 +32,6 @@ public class Studente {
     private String nome;
     private String cognome;
 
-    
     public Studente(int id, String nickname, String password, String nome, String cognome) {
         this.id = id;
         this.nickname = nickname;
@@ -40,7 +39,7 @@ public class Studente {
         this.nome = nome;
         this.cognome = cognome;
     }
-    
+
     public Studente(int id) throws SQLException {
         DBController dbc = DBController.getInstance();
         ResultSet rs = dbc.execute("SELECT * FROM crypto_user.Studente WHERE id = " + id);
@@ -50,11 +49,11 @@ public class Studente {
         this.nome = rs.getString("nome");
         this.cognome = rs.getString("cognome");
     }
-    
+
     public UserInfo getUserInfo() {
         return new UserInfo(id, nome, cognome);
     }
-    
+
     public int getId() {
         return id;
     }
@@ -86,9 +85,9 @@ public class Studente {
     public String getCognome() {
         return cognome;
     }
-    
+
     public String toString() {
         return "\nId: " + id + "\nNick: " + nickname + "\nPass: " + password + "\nNome: " + nome + "\nCognome: " + cognome;
     }
-    
+
 }

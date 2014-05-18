@@ -1,5 +1,9 @@
 package cryptohelper;
 
+import cryptohelper.controller.CommunicationController;
+import cryptohelper.model.Proposta;
+import cryptohelper.model.Messaggio;
+import cryptohelper.model.Studente;
 import java.sql.SQLException;
 import java.util.List;
 

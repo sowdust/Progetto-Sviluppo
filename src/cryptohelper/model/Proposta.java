@@ -14,8 +14,9 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package cryptohelper;
+package cryptohelper.model;
 
+import cryptohelper.controller.DBController;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
@@ -24,13 +25,6 @@ import java.sql.SQLException;
  * @author glaxy
  */
 public class Proposta {
-    /* NOTE:
-     - mi sembra che la save di Messaggio e questa siano differenti. Infatti il DSD vuole che questa
-     ritorni una queryResult.
-     - problemi con save(): in proponiSistemaCifratura deve salvare una nuova voce nel DB; in comunicaDecisione
-     deve cambiare lo stato (una colonna) di una voce
-     */
-
     /*
 
      NOTE: ( da mattia V. - usando "proposta" in SDC )
@@ -44,6 +38,7 @@ public class Proposta {
      NOTE: rispondo a Mattia V, sono C
      altrettanto brutto stato = "+ arrayDiStati[0] ... no? "accepted" più leggibile!
      */
+
     private int id;
     private String stato;
     private boolean notificata;

@@ -1,6 +1,10 @@
     
 package cryptohelper;
 
+import cryptohelper.controller.CommunicationController;
+import cryptohelper.model.SistemaCifratura;
+import cryptohelper.model.Proposta;
+import cryptohelper.model.Studente;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 

@@ -1,5 +1,11 @@
-package cryptohelper;
+package cryptohelper.controller;
 
+import cryptohelper.model.SistemaCifratura;
+import cryptohelper.model.Proposta;
+import cryptohelper.model.Messaggio;
+import cryptohelper.model.MessaggioMittente;
+import cryptohelper.model.Studente;
+import cryptohelper.model.UserInfo;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -73,14 +79,16 @@ public class CommunicationController {
     public List<UserInfo> getDestinatari(Studente st) throws SQLException {
         DBController dbc = DBController.getInstance();
         int id = st.getId();
-        ResultSet rs = dbc.execute("SELECT Studente.ID, nome, cognome FROM crypto_user.Proposta"
-                + "JOIN crypto_user.STUDENTE"
-                + "ON crypto_user.Proposta.PROPONENTE = " + id + " AND crypto_user.PROPOSTA.STATO = 'accepted'"
-                + "AND crypto_user.STUDENTE.ID != " + id);
+        ResultSet rs = dbc.execute("SELECT partner AS idDest "
+                + "FROM Proposta "
+                + "WHERE stato = 'accepted' AND proponente = " + id
+                + "UNION "
+                + "SELECT proponente AS idDest "
+                + "FROM Proposta "
+                + "WHERE stato = 'accepted' AND partner = " + id);
         List<UserInfo> listaDest = new ArrayList<>();
         while (rs.next()) {
-            UserInfo us = new UserInfo(rs.getInt("id"), rs.getString("nome"), rs.getString("cognome"));
-            listaDest.add(us);
+            listaDest.add(UserInfo.load(rs.getInt("idDest")));
         }
         return listaDest;
     }
