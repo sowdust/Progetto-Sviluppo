@@ -44,70 +44,85 @@ public class Proposta {
      NOTE: rispondo a Mattia V, sono C
      altrettanto brutto stato = "+ arrayDiStati[0] ... no? "accepted" più leggibile!
      */
+    private int id;
     private String stato;
     private boolean notificata;
     private UserInfo proponente;
     private UserInfo partner;
     private SistemaCifratura sdc;
 
+    /* costruttore usato quando si *crea* una proposta */
     public Proposta(Studente proponente, Studente partner, SistemaCifratura sdc) {
+        this.id = -1;
+        this.stato = "pending";
+        this.notificata = false;
         this.proponente = proponente.getUserInfo();
         this.partner = partner.getUserInfo();
         this.sdc = sdc;
-        this.stato = "pending";
-        this.notificata = false;
     }
 
+    /* costruttore usato quando si *carica* una proposta */
     public Proposta(ResultSet queryResult) throws SQLException {
-        this.proponente = UserInfo.load(queryResult.getInt("proponente"));
-        this.partner = UserInfo.load(queryResult.getInt("partner"));
-        this.notificata = false;
-        this.stato = "pending";
-
+        id = queryResult.getInt("id");
+        stato = queryResult.getString("stato");
+        notificata = queryResult.getBoolean("notificata");
+        proponente = UserInfo.load(queryResult.getInt("proponente"));
+        partner = UserInfo.load(queryResult.getInt("partner"));
+        sdc = SistemaCifratura.load(queryResult.getInt("sdc"));
     }
 
-    public static void load(int id) {
+    public static Proposta load(int id) {
         throw new UnsupportedOperationException("Not supported yet.");
     }
 
-    public UserInfo getProponente() {
-        return this.proponente;
-    }
-
-    public UserInfo getPartner() {
-        return this.partner;
-    }
-
-    /* (Ale) la query dovrebbe ritornare la proposta attiva (se c'è) tra i due partner
-     quindi: WHERE (Proponente = id1 and Partner = id2) OR (Proponente = id2 and Partner = id1)
-     */
-    public static Proposta caricaAttiva(int idProp, int idPartner) throws SQLException {
-        Proposta old = null; //necessario per CommunicationController.inviaDecisione
-        int cont = 0;
+    public static Proposta caricaAttiva(int id1, int id2) throws SQLException {
         DBController dbc = DBController.getInstance();
-        ResultSet rs = dbc.execute("select * from crypto_user.Proposta where Proponente = " + idProp + " and Partner =" + idPartner + " and stato='accepted'");
-        while (rs.next()) {
-            if (cont != 0) {
-                throw new SQLException("ritornata più di una proposta attiva!");
-            }
-            //id, stato, proponente, partner
-            old = new Proposta(rs);
-            cont++;
+        ResultSet rs = dbc.execute("SELECT  FROM crypto_user.Proposta"
+                + "WHERE ((Proponente = " + id1 + " and Partner = " + id2 + ") "
+                + "OR (Proponente = " + id2 + "and Partner = " + id1 + ")) AND stato='accepted'");
+        if (rs.next()) {
+            return new Proposta(rs);
         }
-        return old;
+        return null;
     }
 
     public void setStato(String stato) {
         this.stato = stato;
     }
 
-    public boolean save() throws SQLException { //mi sembra che la save di messaggio e questa siano diverse, dal DSD
+    public boolean save() throws SQLException {
         DBController dbc = DBController.getInstance();
-        return dbc.executeUpdate("UPDATE crypto_user.Proposta SET"
-                + "crypto_user.Proposta.stato =  '" + this.stato + "' "
-                + "crypto_user.Proposta.notificata = " + this.notificata + " "
-                + "crypto_user.Proposta.proponente = " + this.proponente.getId() + " "
-                + "crypto_user.Proposta.partner = " + this.partner.getId());
+        if (id < 0) {
+            return dbc.executeUpdate("INSERT INTO Proposta (stato, notificata, proponente, partner, sdc) "
+                    + "VALUES ('" + stato + "', " + notificata + ", " + proponente.getId() + ", " + partner.getId() + ", " + sdc.getId() + ");");
+        }
+        return dbc.executeUpdate("UPDATE Proposta SET "
+                + "stato =  '" + stato + "' notificata = " + notificata + " proponente = " + proponente.getId() + " partner = " + partner.getId() + " sdc = " + sdc.getId()
+                + "WHERE id = " + id);
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public String getStato() {
+        return stato;
+    }
+
+    public boolean isNotificata() {
+        return notificata;
+    }
+
+    public UserInfo getProponente() {
+        return proponente;
+    }
+
+    public UserInfo getPartner() {
+        return partner;
+    }
+
+    public SistemaCifratura getSdc() {
+        return sdc;
     }
 
     @Override

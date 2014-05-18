@@ -140,6 +140,10 @@ public class SistemaCifratura {
 
     }
 
+    public int getId() {
+        return id;
+    }
+
     @Override
     public String toString() {
 
@@ -148,4 +152,5 @@ public class SistemaCifratura {
                 + this.creatore + "\n"
                 + this.calcolatore;
     }
+
 }
