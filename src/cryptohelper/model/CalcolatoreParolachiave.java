@@ -27,6 +27,7 @@ public class CalcolatoreParolachiave extends CalcolatoreMappatura {
     @Override
     public Mappatura calcola(String chiave, char[] alfabeto) {
         char[] mappa = new char[alfabeto.length];
+        chiave = chiave.toLowerCase();
         int k = 0;
         for (int i = 0; i < chiave.length(); i++) {
             char c = chiave.charAt(i);

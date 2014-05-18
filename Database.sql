@@ -56,7 +56,7 @@ INSERT INTO Studente (nickname, password, nome, cognome) VALUES
     ('gianni', 'gianni', 'Gianni', 'Ottimo');
 
 INSERT INTO SistemaCifratura (creatore, metodo, chiave) VALUES
-    (1, 'pseudocasuale','CIPOLLA'),
+    (1, 'parolachiave','CIPOLLA'),
     (4, 'cesare','3'),
     (1, 'pseudocasuale','55'),
     (1, 'cesare','10'),

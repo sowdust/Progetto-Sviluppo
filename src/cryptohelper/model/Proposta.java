@@ -72,7 +72,7 @@ public class Proposta {
 
     public static Proposta caricaAttiva(int id1, int id2) throws SQLException {
         DBController dbc = DBController.getInstance();
-        ResultSet rs = dbc.execute("SELECT  FROM crypto_user.Proposta"
+        ResultSet rs = dbc.execute("SELECT * FROM Proposta "
                 + "WHERE ((Proponente = ? AND Partner = ?) "
                 + "OR (Proponente = ? AND Partner = ?)) AND stato='accepted'", id1, id2, id2, id1);
         if (rs.next()) {
@@ -92,7 +92,7 @@ public class Proposta {
                     + "VALUES (?, ?, ?, ?, ?)", stato, notificata, proponente.getId(), partner.getId(), sdc.getId());
         }
         return dbc.executeUpdate("UPDATE Proposta SET "
-                + "stato =  ? notificata = ? proponente = ? partner = ? sdc = ? "
+                + "stato =  ?, notificata = ?, proponente = ?, partner = ?, sdc = ? "
                 + "WHERE id = ?", stato, notificata, proponente.getId(), partner.getId(), sdc.getId(), id);
     }
 
