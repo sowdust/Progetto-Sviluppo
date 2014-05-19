@@ -14,16 +14,19 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-
 package cryptohelper.model;
+
+import java.sql.SQLException;
 
 /**
  *
  * @author glaxy
  */
 public interface MessaggioDestinatario extends MessaggioAstratto {
-    
+
     public boolean isLetto();
+
     public void setLetto(boolean letto);
-    public void decifra();
+
+    public void decifra() throws SQLException;
 }

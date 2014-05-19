@@ -111,25 +111,17 @@ public class Messaggio implements MessaggioMittente, MessaggioDestinatario {
      In ogni caso è tutto un forse, bisogna fare la GUI per capire come siamo messi
      */
     @Override
-    public void cifra() {
+    public void cifra() throws SQLException {
         if (null == sdc) {
-            try {
-                sdc = SistemaCifratura.load(mittente, destinatario);
-            } catch (SQLException ex) {
-                throw new RuntimeException("SQL exception: " + ex.getMessage());
-            }
+            sdc = SistemaCifratura.load(mittente, destinatario);
         }
         testoCifrato = Cifratore.cifraMonoalfabetica(sdc.getMappatura(), testo);
     }
 
     @Override
-    public void decifra() {
+    public void decifra() throws SQLException {
         if (null == sdc) {
-            try {
-                sdc = SistemaCifratura.load(mittente, destinatario);
-            } catch (SQLException ex) {
-                throw new RuntimeException("SQL exception: " + ex.getMessage());
-            }
+            sdc = SistemaCifratura.load(mittente, destinatario);
         }
         testo = Cifratore.decifraMonoalfabetica(sdc.getMappatura(), testoCifrato);
     }
@@ -140,21 +132,16 @@ public class Messaggio implements MessaggioMittente, MessaggioDestinatario {
     }
 
     @Override
-    public boolean save() {
-        try {
-            DBController dbc = DBController.getInstance();
-            dbc.execute("UPDATE Messaggio "
-                    + "SET testo = ? " + this.getTesto()
-                    + "SET testocifrato = ? " + this.getTestoCifrato()
-                    + "SET bozza = ? " + this.bozza
-                    + "SET lingua = ? " + this.getLingua()
-                    + "SET titolo = ? " + this.getTitolo()
-                    + "SET mittente = ? " + this.mittente.getId()
-                    + "SET destinatario = ? ", testo, testoCifrato, bozza, lingua, titolo, mittente.getId(), destinatario.getId());
-            return true;
-        } catch (SQLException e) {
-            return false;
-        }
+    public boolean save() throws SQLException {
+        DBController dbc = DBController.getInstance();
+        return dbc.executeUpdate("UPDATE Messaggio "
+                + "SET testo = ? " + this.getTesto()
+                + "SET testocifrato = ? " + this.getTestoCifrato()
+                + "SET bozza = ? " + this.bozza
+                + "SET lingua = ? " + this.getLingua()
+                + "SET titolo = ? " + this.getTitolo()
+                + "SET mittente = ? " + this.mittente.getId()
+                + "SET destinatario = ? ", testo, testoCifrato, bozza, lingua, titolo, mittente.getId(), destinatario.getId());
     }
 
     @Override
@@ -198,7 +185,7 @@ public class Messaggio implements MessaggioMittente, MessaggioDestinatario {
     }
 
     @Override
-    public boolean send() {
+    public boolean send() throws SQLException {
         setBozza(false);
         return save();
     }

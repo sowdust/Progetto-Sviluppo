@@ -14,7 +14,6 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-
 package cryptohelper.model;
 
 import java.sql.SQLException;
@@ -24,9 +23,12 @@ import java.sql.SQLException;
  * @author glaxy
  */
 public interface MessaggioMittente extends MessaggioAstratto {
-    
+
     public boolean isBozza();
+
     public boolean save() throws SQLException;
-    public void cifra();
-    public boolean send();
+
+    public void cifra() throws SQLException;
+
+    public boolean send() throws SQLException;
 }

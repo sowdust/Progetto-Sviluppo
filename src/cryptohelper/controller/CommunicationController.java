@@ -100,7 +100,7 @@ public class CommunicationController {
         return p.save();
     }
 
-    public boolean send(MessaggioMittente messaggio) {
+    public boolean send(MessaggioMittente messaggio) throws SQLException {
         return messaggio.send();
     }
 
