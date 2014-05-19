@@ -134,14 +134,9 @@ public class Messaggio implements MessaggioMittente, MessaggioDestinatario {
     @Override
     public boolean save() throws SQLException {
         DBController dbc = DBController.getInstance();
-        return dbc.executeUpdate("UPDATE Messaggio "
-                + "SET testo = ? " + this.getTesto()
-                + "SET testocifrato = ? " + this.getTestoCifrato()
-                + "SET bozza = ? " + this.bozza
-                + "SET lingua = ? " + this.getLingua()
-                + "SET titolo = ? " + this.getTitolo()
-                + "SET mittente = ? " + this.mittente.getId()
-                + "SET destinatario = ? ", testo, testoCifrato, bozza, lingua, titolo, mittente.getId(), destinatario.getId());
+        return dbc.executeUpdate("UPDATE Messaggio SET "
+                + "testo = ?, testocifrato = ?, bozza = ?, lingua = ?, "
+                + "titolo = ?, mittente = ?, destinatario = ? ", testo, testoCifrato, bozza, lingua, titolo, mittente.getId(), destinatario.getId());
     }
 
     @Override
