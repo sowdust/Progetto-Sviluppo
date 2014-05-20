@@ -2,7 +2,7 @@ Operazione:     getFrequency(num)
 Riferimenti:    uc: AnalisiDellFrequenze
 Precondizioni:  num > 0
 Postcondizioni: restituisce oggetto AnalisiDiFrequenza che contiene le informazioni statistiche richieste a seconda di "num" (lunghezza della sillaba del pattern)
-
+             
 Operazione:     modificaMappatura(azione)
 Riferimenti:    uc: AggiornaIpotesiLavoro
 Precondizioni:  ~
@@ -10,8 +10,9 @@ Postcondizioni: viene modificato l'albero delle ipotesi restituendo un feedback 
 
 Operazione:     undo(message)
 Riferimenti:    AggiornaIpotesiDiLavoro
-Precondizioni:  albero delle ipotesi non vuoto
+Precondizioni:  albero delle ipotesi non vuoto -> deve esistere una opotesi precedente a quella corrente
 Postcondizioni: si torna all'ipotesi precedente nell'albero delle ipotesi e message viene salvato nel nodo come motivazione dell'annullamento
+             -> l'Ipotesi precedente all'ultima Mossa diventa l'Ipotesi corrente. La Mossa m tale per cui ip è la successiva di m diventa l'ultima
 
 Operazione:     mostraSoluzioni(st1, st2)
 Riferimenti:    uc: GestisciSoluzioni
