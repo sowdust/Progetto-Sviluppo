@@ -14,23 +14,21 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package cryptohelper;
+
+package cryptohelper.model;
+
+import java.sql.SQLException;
 
 /**
  *
  * @author glaxy
  */
-public abstract class CalcolatoreMappatura {
-
-    public static CalcolatoreMappatura create(String metodo) {
-        String className = "cryptohelper.Calcolatore" + metodo.substring(0, 1).toUpperCase() + metodo.substring(1);
-        try {
-            return (CalcolatoreMappatura) Class.forName(className).newInstance();
-        } catch (InstantiationException | IllegalAccessException | ClassNotFoundException ex) {
-            throw new IllegalArgumentException();
-        }
-    }
-
-    public abstract Mappatura calcola(String chiave, char[] alfabeto);
-
+public interface MessaggioAstratto {
+    
+    public String getTesto();
+    public String getTestoCifrato();
+    public String getLingua();
+    public String getTitolo();
+    public boolean elimina() throws SQLException;
+    
 }

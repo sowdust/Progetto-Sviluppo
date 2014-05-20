@@ -6,6 +6,8 @@
 
 package cryptohelper;
 
+import cryptohelper.model.Mappatura;
+
 /**
  *
  * @author mat

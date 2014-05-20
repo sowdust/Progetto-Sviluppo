@@ -14,13 +14,15 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package cryptohelper;
+package cryptohelper.model;
+
+import java.util.Random;
 
 /**
  *
  * @author glaxy
  */
-public class CalcolatoreCesare extends CalcolatoreMappatura {
+public class CalcolatorePseudocasuale extends CalcolatoreMappatura {
 
     @Override
     public Mappatura calcola(String chiaveStr, char[] alfabeto) {
@@ -30,19 +32,15 @@ public class CalcolatoreCesare extends CalcolatoreMappatura {
         } catch (NumberFormatException ex) {
             throw new IllegalArgumentException("non hai inserito un numero");
         }
-        int l = alfabeto.length;
-        if (chiave <= 0 || chiave >= l) {
-            throw new IllegalArgumentException("numero negativo o troppo grande");
-        }
-        char[] mappa = new char[l];
-        for (int i = 0; i < l; i++) {
-            mappa[i] = alfabeto[(i + chiave) % l];
+        Random rnd = new Random(chiave);
+        char[] mappa = alfabeto.clone();
+        for (int i = 0; i < alfabeto.length; i++) {
+            int irnd = i + rnd.nextInt(alfabeto.length - i);
+            char tmp = mappa[irnd];
+            mappa[irnd] = mappa[i];
+            mappa[i] = tmp;
         }
         return new Mappatura(mappa, alfabeto);
-    }
-
-    public String toString() {
-        return "Cesare";
     }
 
 }

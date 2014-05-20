@@ -5,6 +5,8 @@
  */
 package cryptohelper;
 
+import cryptohelper.model.SistemaCifratura;
+import cryptohelper.model.Studente;
 import java.sql.SQLException;
 import java.util.List;
 

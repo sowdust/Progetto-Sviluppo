@@ -14,7 +14,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package cryptohelper;
+package cryptohelper.model;
 
 import java.util.Arrays;
 
@@ -27,6 +27,7 @@ public class CalcolatoreParolachiave extends CalcolatoreMappatura {
     @Override
     public Mappatura calcola(String chiave, char[] alfabeto) {
         char[] mappa = new char[alfabeto.length];
+        chiave = chiave.toLowerCase();
         int k = 0;
         for (int i = 0; i < chiave.length(); i++) {
             char c = chiave.charAt(i);
@@ -49,8 +50,4 @@ public class CalcolatoreParolachiave extends CalcolatoreMappatura {
         return new Mappatura(mappa, alfabeto);
     }
 
-    @Override
-    public String toString() {
-        return "Parola chiave";
-    }
 }

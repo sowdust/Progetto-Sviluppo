@@ -14,44 +14,21 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package cryptohelper;
+package cryptohelper.model;
 
-import java.sql.ResultSet;
 import java.sql.SQLException;
 
 /**
  *
  * @author glaxy
  */
-public class UserInfo {
+public interface MessaggioMittente extends MessaggioAstratto {
 
-    private int id;
-    private String nome;
-    private String cognome;
+    public boolean isBozza();
 
-    public UserInfo(int id, String nome, String cognome) {
-        this.id = id;
-        this.nome = nome;
-        this.cognome = cognome;
-    }
+    public boolean save() throws SQLException;
 
-    public UserInfo(ResultSet rs) throws SQLException {
-        rs.next();
-        this.id = rs.getInt("id");
-        this.nome = rs.getString("nome");
-        this.cognome = rs.getString("cognome");
-    }
+    public void cifra() throws SQLException;
 
-    public int getId() {
-        return this.id;
-    }
-
-    public String getNome() {
-        return this.nome;
-    }
-
-    public String getCognome() {
-        return this.cognome;
-    }
-
+    public boolean send() throws SQLException;
 }
