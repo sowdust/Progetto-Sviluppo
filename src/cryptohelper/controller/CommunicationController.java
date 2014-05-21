@@ -37,7 +37,7 @@ public class CommunicationController {
      WHERE P.stato = 'accepted' AND P.patner = st.getId();
      */
 
-    public static CommunicationController instance = null;
+    private static CommunicationController instance = null;
 
     private CommunicationController() {
     }

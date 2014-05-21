@@ -17,6 +17,7 @@
 package cryptohelper.model;
 
 import cryptohelper.controller.DBController;
+import java.security.MessageDigest;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
@@ -50,9 +51,18 @@ public class Studente {
 
     public static Studente load(int id) throws SQLException {
         DBController dbc = DBController.getInstance();
-        ResultSet rs = dbc.execute("SELECT * FROM crypto_user.Studente WHERE id = ?", id);
+        ResultSet rs = dbc.execute("SELECT * FROM Studente WHERE id = ?", id);
         rs.next();
         return new Studente(rs);
+    }
+
+    public static Studente login(String nickname, String password) throws SQLException {
+        DBController dbc = DBController.getInstance();
+        ResultSet rs = dbc.execute("SELECT * FROM Studente WHERE nickname = ? AND password = ?", nickname, password);
+        if (rs.next()) {
+            return new Studente(rs);
+        }
+        return null;
     }
 
     public UserInfo getUserInfo() {
