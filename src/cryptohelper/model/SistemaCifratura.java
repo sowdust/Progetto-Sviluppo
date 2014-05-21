@@ -17,10 +17,10 @@
 package cryptohelper.model;
 
 import cryptohelper.controller.DBController;
-import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import javax.sql.rowset.CachedRowSet;
 
 /**
  *
@@ -44,12 +44,12 @@ public class SistemaCifratura {
         's', 't', 'u', 'v', 'w', 'x', 'y', 'z'
     };
 
-    private SistemaCifratura(ResultSet rs) throws SQLException {
+    private SistemaCifratura(CachedRowSet crs) throws SQLException {
 
-        this.id = rs.getInt("id");
-        this.chiave = rs.getString("chiave");
-        this.metodo = rs.getString("metodo");
-        this.creatore = UserInfo.load(rs.getInt("creatore"));
+        this.id = crs.getInt("id");
+        this.chiave = crs.getString("chiave");
+        this.metodo = crs.getString("metodo");
+        this.creatore = UserInfo.load(crs.getInt("creatore"));
         this.calcolatore = CalcolatoreMappatura.create(metodo);
         this.mappatura = calcolatore.calcola(chiave, alfabeto);
     }
@@ -79,11 +79,11 @@ public class SistemaCifratura {
     public static List<SistemaCifratura> caricaSistemiCifratura(Studente st) throws SQLException {
 
         DBController dbc = DBController.getInstance();
-        ResultSet rs = dbc.execute("SELECT id, chiave, metodo, creatore FROM "
+        CachedRowSet crs = dbc.execute("SELECT id, chiave, metodo, creatore FROM "
                 + "crypto_user.SistemaCifratura WHERE creatore = ?", st.getId());
         List<SistemaCifratura> lista = new ArrayList<>();
-        while (rs.next()) {
-            lista.add(new SistemaCifratura(rs));
+        while (crs.next()) {
+            lista.add(new SistemaCifratura(crs));
         }
         return lista;
     }
@@ -91,24 +91,24 @@ public class SistemaCifratura {
     public static SistemaCifratura load(int id) throws SQLException {
 
         DBController dbc = DBController.getInstance();
-        ResultSet rs = dbc.execute("SELECT * FROM crypto_user.SistemaCifratura"
+        CachedRowSet crs = dbc.execute("SELECT * FROM crypto_user.SistemaCifratura"
                 + " WHERE id = ?", id);
-        rs.next();
-        return new SistemaCifratura(rs);
+        crs.next();
+        return new SistemaCifratura(crs);
     }
 
     //  controllare che la query sia giusta!
     public static SistemaCifratura load(UserInfo st1, UserInfo st2) throws SQLException {
 
         DBController dbc = DBController.getInstance();
-        ResultSet rs = dbc.execute("SELECT s.id, s.chiave, s.metodo, s.creatore"
+        CachedRowSet crs = dbc.execute("SELECT s.id, s.chiave, s.metodo, s.creatore"
                 + " FROM crypto_user.Proposta AS p JOIN crypto_user.SistemaCifratura"
                 + " AS s ON s.id = p.sdc WHERE "
                 + " ((p.proponente = ? AND p.partner = ?)"
                 + " OR (p.proponente = ? AND p.partner = ?))"
                 + " AND p.stato = 'accepted'", st1.getId(), st2.getId(), st2.getId(), st1.getId());
-        rs.next();
-        return new SistemaCifratura(rs);
+        crs.next();
+        return new SistemaCifratura(crs);
     }
 
     public Mappatura getMappatura() {

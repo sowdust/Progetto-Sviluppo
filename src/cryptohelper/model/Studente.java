@@ -17,7 +17,7 @@
 package cryptohelper.model;
 
 import cryptohelper.controller.DBController;
-import java.sql.ResultSet;
+import javax.sql.rowset.CachedRowSet;
 import java.sql.SQLException;
 
 /**
@@ -40,19 +40,19 @@ public class Studente {
         this.cognome = cognome;
     }
 
-    public Studente(ResultSet rs) throws SQLException {
-        this.id = rs.getInt("id");
-        this.nickname = rs.getString("nickname");
-        this.password = rs.getString("password");
-        this.nome = rs.getString("nome");
-        this.cognome = rs.getString("cognome");
+    public Studente(CachedRowSet crs) throws SQLException {
+        this.id = crs.getInt("id");
+        this.nickname = crs.getString("nickname");
+        this.password = crs.getString("password");
+        this.nome = crs.getString("nome");
+        this.cognome = crs.getString("cognome");
     }
 
     public static Studente load(int id) throws SQLException {
         DBController dbc = DBController.getInstance();
-        ResultSet rs = dbc.execute("SELECT * FROM crypto_user.Studente WHERE id = ?", id);
-        rs.next();
-        return new Studente(rs);
+        CachedRowSet crs = dbc.execute("SELECT * FROM crypto_user.Studente WHERE id = ?", id);
+        crs.next();
+        return new Studente(crs);
     }
 
     public UserInfo getUserInfo() {
