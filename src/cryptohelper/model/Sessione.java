@@ -10,6 +10,18 @@ import java.util.Stack;
 
 /**
  * 
+ * NOTE SULL'ALBERO.
+ * 
+ * Invariante è il fatto che in ogni cammino non vi siano mai due assegnazioni
+ * conflittuali ( a->x & a->y oppure a->x & b->x )
+ * 
+ * Ne derivano le seguenti proprietà:
+ * 
+ *  1) lunghezza massima di un cammino = cardinalità alfabeto
+ *  2) calcolo della mappatura dal basso verso l'alto esplorando solo il cammino corrente
+ *  3) detection di stato già visitato si ferma al primo conflitto in ogni ramo
+ * 
+ * 
  * @author mat
  */
 public class Sessione {
