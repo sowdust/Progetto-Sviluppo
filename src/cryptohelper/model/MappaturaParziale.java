@@ -28,49 +28,65 @@ public class MappaturaParziale {
         this.inverseMap = inverseMap;        
     }
     
-    public MappaturaParziale(String s) {
+    public MappaturaParziale(MappaturaParziale m) {
         this.map = new ArrayList();
-        this.inverseMap = new ArrayList(); 
-        
-        String[] split = s.split(",");
-        for(String t : split) {
-            String[] m = t.trim().split(">");
-            this.map.add(m[0].trim().charAt(0));
-            this.inverseMap.add(m[1].trim().charAt(0));
+        this.inverseMap = new ArrayList();
+        for(Character c : m.map) {
+            this.map.add(c);
+        }
+        for(Character c : m.inverseMap) {
+            this.inverseMap.add(c);
         }
     }
     
-    public void merge(MappaturaParziale newMap) {
+    public MappaturaParziale(String s) {
+        this.map = new ArrayList();
+        this.inverseMap = new ArrayList();
+        try{
+            String[] split = s.split(",");
+            for(String t : split) {
+                String[] m = t.trim().split(">");
+                this.map.add(m[0].trim().charAt(0));
+                this.inverseMap.add(m[1].trim().charAt(0));
+            }
+        }catch(Exception e) {
+            System.out.println("Stringa non valida: " + s);
+        }
+    }
+    public MappaturaParziale merge(MappaturaParziale newMap) {
+        
+        MappaturaParziale r = new MappaturaParziale(this);
+        
         for(int i = 0; i < newMap.map.size(); ++i ) {
-            int k = map.indexOf(newMap.map.get(i));
-            int j = inverseMap.indexOf(newMap.inverseMap.get(i));
+            int k = r.map.indexOf(newMap.map.get(i));
+            int j = r.inverseMap.indexOf(newMap.inverseMap.get(i));
             
             // se non ci sono conflitti
             if(k == -1 && j == -1) {
-                map.add(newMap.map.get(i));
-                inverseMap.add(newMap.inverseMap.get(i)); 
+                r.map.add(newMap.map.get(i));
+                r.inverseMap.add(newMap.inverseMap.get(i)); 
                 continue ;
             }
             
             // se c'è un'assegnazione modificata ( a->x ; a->k ==> a->k)
             if(k != -1) {
-                inverseMap.set(k,newMap.inverseMap.get(i));
+                r.inverseMap.set(k,newMap.inverseMap.get(i));
                 continue ;
             }
             
             // lettera ri-assegnata ( a->j ; b->j ==> b->j )
             if( j != -1) {
-                map.set(j,newMap.map.get(i));
+                r.map.set(j,newMap.map.get(i));
                 continue ;
             }
             
             // doppio conflitto ( a->j && b->k ; a->k ==> a->k )
-            map.remove(k);
-            inverseMap.remove(k);
-            map.set(j,newMap.map.get(i));
-            inverseMap.set(j,newMap.inverseMap.get(i));
-
+            r.map.remove(k);
+            r.inverseMap.remove(k);
+            r.map.set(j,newMap.map.get(i));
+            r.inverseMap.set(j,newMap.inverseMap.get(i));
         }
+        return r;
     }
     
     // giaDefinita || giaAssegnata
@@ -122,11 +138,11 @@ public class MappaturaParziale {
     
     @Override
     public String toString() {
-        String s = new String();
+        String s = new String("{ ");
         for (int i = 0; i < map.size(); ++i) {
-            s += map.get(i) + " -> " + inverseMap.get(i) + "\n";                    
+            s += map.get(i) + " > " + inverseMap.get(i) + ", ";                    
         }
-        return s;
+        return s + "\b\b }";
     }
 
 }

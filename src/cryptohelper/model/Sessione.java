@@ -31,34 +31,46 @@ public class Sessione {
     public Ipotesi radice;
     private Stack<Ipotesi> mosse;
     public Ipotesi ipotesiCorrente;
-    public MappaturaParziale mappaturaCorrente;
-    
+    private MappaturaParziale mappaturaCorrente;
+
+    //  TODO:
+    //  gestire costruttori in caso di nuova sessione o load da db.
+    //  mosse va inizializzato o nel costruttore o in aggiungiIpotesi nel
+    //  caso ipotesiCorrente == null
     public Sessione(UserInfo proprietario, Messaggio messaggio) {
         this.proprietario = proprietario;
         this.messaggio = messaggio;
-        this.mosse = new Stack();
     }
     
-    // da gestire le mosse
-    // e la mappatura corrente
     public void aggiungiIpotesi(MappaturaParziale map) {
+        
+        // se l'albero è ancora vuoto
         if(null == ipotesiCorrente) {
+            mosse = new Stack<>();
             ipotesiCorrente = new Ipotesi(map, null);
             radice = ipotesiCorrente;
-       }else{
-            // se la mappatura corrente contiene già la definizione,
-            // modifica(map)
-            
-            // se la lettera è già stata assegnata, dovremo fare un'altra modifica
-
-            ipotesiCorrente = ipotesiCorrente.aggiungiIpotesi(map);
+            mappaturaCorrente = map;
+            mosse.push(ipotesiCorrente);
+            return ;
         }
+        
+        // se lettera non ancora assegnata in questo cammino
+        if(!mappaturaCorrente.conflitto(map)){
+            ipotesiCorrente = ipotesiCorrente.aggiungiIpotesi(map);
+            mappaturaCorrente = mappaturaCorrente.merge(map);
+            mosse.push(ipotesiCorrente);
+            return ;
+        }
+    }
+    
+    public MappaturaParziale getStato() {
+        return new MappaturaParziale(mappaturaCorrente);
     }
     
     // metodo che prende una mappatura e risale l'albero finchè non trova il padre
     // del nodo in cui parte della mappatura era definito.
     // da lì ricopia mappatura unita a tutte le assunzioni fatte dopo
-    public void modifica(MappaturaParziale map) {
+ /*   public void modifica(MappaturaParziale map) {
         Ipotesi i = ipotesiCorrente;
         MappaturaParziale m = new MappaturaParziale();
         while(!i.map.giaDefinita(map)) {
@@ -87,5 +99,5 @@ public class Sessione {
     
     public Ipotesi raggiunto(MappaturaParziale map) {
         return radice.raggiunto(map, new MappaturaParziale());
-    }
+    }*/
 }

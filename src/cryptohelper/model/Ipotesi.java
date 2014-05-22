@@ -20,6 +20,7 @@ public class Ipotesi {
         public Ipotesi padre;
         
         public Ipotesi(MappaturaParziale map, Ipotesi padre) {
+            this.padre = padre;
             this.map = map;
             this.figli = new LinkedList<Ipotesi>();
         }
@@ -30,6 +31,14 @@ public class Ipotesi {
             return ip;
         }
         
+        public MappaturaParziale getStato() {
+            
+            if( null == padre) {
+                return new MappaturaParziale(map);
+            }
+            return map.merge(padre.getStato());
+        }
+   /*     
         public Ipotesi raggiunto(MappaturaParziale controllo, MappaturaParziale corrente) {
             MappaturaParziale m = new MappaturaParziale();
             m.merge(corrente);
@@ -49,7 +58,7 @@ public class Ipotesi {
             }
             return null;
         }
-        
+  */      
         public void stampa(int d) {
             for(int i = 0; i <= d; ++i) {
                 System.out.print("\t");

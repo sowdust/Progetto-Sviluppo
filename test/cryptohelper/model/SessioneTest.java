@@ -45,66 +45,49 @@ public class SessioneTest {
     // @Test
     // public void hello() {}
     @Test
-    public void prova() {
-        System.out.println("Inizio test sessione");
-        Sessione sess = new Sessione(null,null);
-        ArrayList map = new ArrayList<>();
-        map.add('a');
-        map.add('b');
-        ArrayList inversemap = new ArrayList<>();
-        inversemap.add('z');
-        inversemap.add('x');
-        ArrayList mapp = new ArrayList<>();
-        mapp.add('b');
-        mapp.add('a');
-        ArrayList inversemapp = new ArrayList<>();
-        inversemapp.add('x');
-        inversemapp.add('z');
-        ArrayList map2 = new ArrayList<>();
-        map2.add('c');
-        map2.add('d');
-        map2.add('a');
-        ArrayList inversemap2 = new ArrayList<>();
-        inversemap2.add('w');
-        inversemap2.add('r');        
-        inversemap2.add('t');     
-        MappaturaParziale m = new MappaturaParziale(map, inversemap);
-        MappaturaParziale m2 = new MappaturaParziale(map2, inversemap2);
-        MappaturaParziale mm = new MappaturaParziale(mapp, inversemapp);
-        System.out.println("m: " + m);
-        System.out.println("m2: " + m2);
-        System.out.println("mm: " + mm);
-        
-        assertEquals((m.equals(m2)),false);
-        assertEquals((m2.equals(m)),false);
-        assertEquals((mm.equals(m)),true);
-        
-        sess.aggiungiIpotesi(m);
-        sess.ricalcolaMappatura();
-        //System.out.println(sess.mappaturaCorrente);
-        sess.aggiungiIpotesi(m2);
-        sess.ricalcolaMappatura();
-        //System.out.println(sess.mappaturaCorrente);
+    public void testSessione() {
 
-        sess.aggiungiIpotesi(m2);
 
-        //System.out.println(m);
-        //System.out.println(m2);
-        //System.out.println(m2.giaDefinita(m));
-        //System.out.println(m2.giaAssegnata(m));
+        Sessione sess = new Sessione(null, null);
+        MappaturaParziale a = new MappaturaParziale("a > z, b > w, c > y");
         
-
-        
-        //System.out.println(m.equals(mm));
-        //System.out.println(mm);
-        //System.out.print("\t \t");
-        //System.out.println(m);
-        //System.out.println("\t prova!!");
-        //System.out.println(sess.ipotesiCorrente);
-        //sess.ipotesiCorrente.aggiungiIpotesi(m);
-        //System.out.println(sess.mappaturaCorrente);
-        
+        //  PRIMA IPOTESI
+        //  a > z, b > w, c > y
+        sess.aggiungiIpotesi(new MappaturaParziale(a));
+        assertSame(sess.ipotesiCorrente,sess.radice);
+        assertEquals(sess.radice.getStato(),a);
+        assertNotSame(sess.radice.getStato(),a);
+        assertTrue(sess.ipotesiCorrente.padre == null);
+        assertEquals(sess.getStato(),a);
+        System.out.println("Stato alla prima ipotesi:");
+        System.out.println(sess.getStato());
         sess.radice.stampa(0);
+        
+        
+        //  SECONDA IPOTESI [no conflitti]
+        //  d > x, e > u
+        MappaturaParziale b = new MappaturaParziale("d > x, e > u");
+        sess.aggiungiIpotesi(b);
+        assertEquals(sess.ipotesiCorrente.map,b);
+        assertFalse(sess.radice.figli.isEmpty());
+        assertTrue(sess.radice.figli.size() == 1);
+        assertSame(sess.radice.figli.get(0),sess.ipotesiCorrente);
+        assertFalse(sess.ipotesiCorrente.padre == null);
+        assertEquals(sess.ipotesiCorrente.getStato(), sess.getStato());
+        assertEquals(sess.getStato(), a.merge(b));
+        System.out.println("Stato alla seconda ipotesi:");
+        System.out.println(sess.getStato());
+        sess.radice.stampa(0);
+        
+        //  TERZA IPOTESI   [no conflitti]
+        MappaturaParziale c = new MappaturaParziale("f > v");
+        sess.aggiungiIpotesi(c);
+        assertEquals(sess.getStato(),a.merge(b).merge(c));
+        System.out.println("Stato alla terza ipotesi:");
+        System.out.println(sess.getStato());
+        sess.radice.stampa(0);      
+        
+
         
     }
 }
