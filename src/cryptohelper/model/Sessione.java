@@ -44,6 +44,9 @@ public class Sessione {
         this.messaggio = messaggio;
     }
     
+    //  TODO:
+    //  e se si fa l'undo su prima ipotesi?
+    //  gestire, magari con prima ipotesi vuota
     public void aggiungiIpotesi(MappaturaParziale map) {
         
         // se l'albero è ancora vuoto
@@ -63,6 +66,14 @@ public class Sessione {
             mosse.push(ipotesiCorrente);
             return ;
         }
+ 
+        // se c'e' un conflitto risaliamo
+        mappaturaCorrente = mappaturaCorrente.merge(map);
+        Ipotesi aCuiAttaccarsi = ipotesiCorrente.trovaConflitto(map).padre;
+        MappaturaParziale daAggiungere = mappaturaCorrente.sottrai(aCuiAttaccarsi.getStato());
+        ipotesiCorrente = aCuiAttaccarsi.aggiungiIpotesi(daAggiungere);
+        mosse.push(ipotesiCorrente);
+        
     }
     
     public void undo() {

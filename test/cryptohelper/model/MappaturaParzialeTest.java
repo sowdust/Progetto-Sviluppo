@@ -76,6 +76,11 @@ public class MappaturaParzialeTest {
         assertFalse(b.equals(a));
         assertEquals(a.merge(b),b.merge(a));
         
+        assertEquals(b.sottrai(a),new MappaturaParziale("e>i"));
+        assertEquals(b.sottrai(new MappaturaParziale("a > z, b > w, c > y, e > i")),new MappaturaParziale());
+
+        
+        
 
     }
 }

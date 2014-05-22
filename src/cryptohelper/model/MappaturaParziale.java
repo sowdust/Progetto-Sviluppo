@@ -53,6 +53,7 @@ public class MappaturaParziale {
             System.out.println("Stringa non valida: " + s);
         }
     }
+    
     public MappaturaParziale merge(MappaturaParziale newMap) {
         
         MappaturaParziale r = new MappaturaParziale(this);
@@ -85,6 +86,21 @@ public class MappaturaParziale {
             r.inverseMap.remove(k);
             r.map.set(j,newMap.map.get(i));
             r.inverseMap.set(j,newMap.inverseMap.get(i));
+        }
+        return r;
+    }
+    
+    public MappaturaParziale sottrai(MappaturaParziale m) {
+        int size = map.size();
+        if(m.map.size() > size) {
+            throw new RuntimeException("Impossibile sottrarre mappa");
+        }
+        MappaturaParziale r = new MappaturaParziale();
+        for(int i = 0; i < size; ++i) {
+            if(m.map.indexOf(map.get(i)) == -1) {
+                r.map.add(map.get(i));
+                r.inverseMap.add(inverseMap.get(i));
+            }
         }
         return r;
     }

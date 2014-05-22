@@ -10,6 +10,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 /**
+ *  
  * 
  * @author mat
  */
@@ -18,6 +19,7 @@ public class Ipotesi {
         public MappaturaParziale map;
         public List<Ipotesi> figli;
         public Ipotesi padre;
+        public String commento;
         
         public Ipotesi(MappaturaParziale map, Ipotesi padre) {
             this.padre = padre;
@@ -37,6 +39,16 @@ public class Ipotesi {
                 return new MappaturaParziale(map);
             }
             return map.merge(padre.getStato());
+        }
+        
+        public Ipotesi trovaConflitto(MappaturaParziale m) {
+            if(map.conflitto(m)) {
+                return this;
+            }
+            if(null == padre) {
+                return null;
+            }
+            return padre.trovaConflitto(m);
         }
     
         public void stampa(int d, Ipotesi ipotesiCorrente) {

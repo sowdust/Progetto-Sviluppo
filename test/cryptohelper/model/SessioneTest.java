@@ -50,7 +50,7 @@ public class SessioneTest {
         Sessione sess = new Sessione(null, null);
         MappaturaParziale a = new MappaturaParziale("a > z, b > w, c > y");
         
-        //  PRIMA IPOTESI
+        //  PRIMA ASSUNZIONE
         //  a > z, b > w, c > y
         sess.aggiungiIpotesi(new MappaturaParziale(a));
         assertSame(sess.ipotesiCorrente,sess.getAlbero());
@@ -63,7 +63,7 @@ public class SessioneTest {
         sess.stampaAlbero();
         
         
-        //  SECONDA IPOTESI [no conflitti]
+        //  SECONDA ASSUNZIONE [no conflitti]
         //  d > x, e > u
         MappaturaParziale b = new MappaturaParziale("d > x, e > u");
         sess.aggiungiIpotesi(b);
@@ -79,7 +79,7 @@ public class SessioneTest {
         System.out.println("Map corrente: " + sess.getStato());
         sess.stampaAlbero();
         
-        //  TERZA IPOTESI   [no conflitti]
+        //  TERZA ASSUNZIONE   [no conflitti]
         MappaturaParziale c = new MappaturaParziale("f > v");
         sess.aggiungiIpotesi(c);
         Ipotesi terza = sess.ipotesiCorrente;
@@ -100,7 +100,7 @@ public class SessioneTest {
         System.out.println("Map corrente: " + sess.getStato());
         sess.stampaAlbero();
         
-        //  TERZA IPOTESI BIS. Riassegnazione terza ipotesi
+        //  TERZA ASSUNZIONE BIS. Riassegnazione terza ipotesi
         c = new MappaturaParziale("f > t");
         sess.aggiungiIpotesi(c);
         Ipotesi terzabis = sess.ipotesiCorrente;
@@ -110,6 +110,22 @@ public class SessioneTest {
         assertSame(seconda.figli.get(0),terza);
         assertSame(seconda.figli.get(1),terzabis);
         System.out.println("Stato alla terza ipotesi:");
+        System.out.println("Map corrente: " + sess.getStato());
+        sess.stampaAlbero();    
+        
+        //  QUINTA ASSUNZIONE. Giusto per allungare
+        MappaturaParziale d = new MappaturaParziale("g > s");
+        sess.aggiungiIpotesi(d);
+        assertEquals(sess.getStato(),a.merge(b).merge(c).merge(d));
+        System.out.println("Stato alla quinta ipotesi:");
+        System.out.println("Map corrente: " + sess.getStato());
+        sess.stampaAlbero();
+        
+        //  SESTA ASSUNZIONE [ conflitto con la seconda!]
+        MappaturaParziale e = new MappaturaParziale("h > q, d > r");
+        sess.aggiungiIpotesi(e);
+        assertEquals(sess.getStato(),a.merge(b).merge(c).merge(d).merge(e));
+        System.out.println("Stato alla quarta ipotesi:");
         System.out.println("Map corrente: " + sess.getStato());
         sess.stampaAlbero();        
         
