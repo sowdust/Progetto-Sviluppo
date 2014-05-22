@@ -53,10 +53,10 @@ public class SessioneTest {
         //  PRIMA ASSUNZIONE
         //  a > z, b > w, c > y
         sess.aggiungiIpotesi(new MappaturaParziale(a));
-        assertSame(sess.ipotesiCorrente,sess.getAlbero());
-        assertEquals(sess.getAlbero().getStato(),a);
-        assertNotSame(sess.getAlbero().getStato(),a);
-        assertTrue(sess.ipotesiCorrente.padre == null);
+        assertSame(sess.ipotesiCorrente,sess.getAlbero().figli.get(0));
+        assertEquals(sess.getAlbero().figli.get(0).getStato(),a);
+        assertNotSame(sess.getAlbero().figli.get(0).getStato(),a);
+        assertTrue(sess.ipotesiCorrente.padre == sess.getAlbero());
         assertEquals(sess.getStato(),a);
         System.out.println("Stato alla prima ipotesi:");
         System.out.println("Map corrente: " + sess.getStato());
@@ -71,7 +71,7 @@ public class SessioneTest {
         assertEquals(sess.ipotesiCorrente.map,b);
         assertFalse(sess.getAlbero().figli.isEmpty());
         assertTrue(sess.getAlbero().figli.size() == 1);
-        assertSame(sess.getAlbero().figli.get(0),sess.ipotesiCorrente);
+        assertSame(sess.getAlbero().figli.get(0).figli.get(0),sess.ipotesiCorrente);
         assertFalse(sess.ipotesiCorrente.padre == null);
         assertEquals(sess.ipotesiCorrente.getStato(), sess.getStato());
         assertEquals(sess.getStato(), a.merge(b));
@@ -109,13 +109,14 @@ public class SessioneTest {
         assertTrue(terza.figli.isEmpty());
         assertSame(seconda.figli.get(0),terza);
         assertSame(seconda.figli.get(1),terzabis);
-        System.out.println("Stato alla terza ipotesi:");
+        System.out.println("Stato dopo undo terza ipotesi:");
         System.out.println("Map corrente: " + sess.getStato());
         sess.stampaAlbero();    
         
         //  QUINTA ASSUNZIONE. Giusto per allungare
         MappaturaParziale d = new MappaturaParziale("g > s");
         sess.aggiungiIpotesi(d);
+        Ipotesi quinta = sess.ipotesiCorrente;
         assertEquals(sess.getStato(),a.merge(b).merge(c).merge(d));
         System.out.println("Stato alla quinta ipotesi:");
         System.out.println("Map corrente: " + sess.getStato());
@@ -125,11 +126,33 @@ public class SessioneTest {
         MappaturaParziale e = new MappaturaParziale("h > q, d > r");
         sess.aggiungiIpotesi(e);
         assertEquals(sess.getStato(),a.merge(b).merge(c).merge(d).merge(e));
-        System.out.println("Stato alla quarta ipotesi:");
+        System.out.println("Stato alla sesta ipotesi:");
+        System.out.println("Map corrente: " + sess.getStato());
+        sess.stampaAlbero();
+        
+        //  SESTA BIS. Controlliamo che l'undo faccia il suo lavoro
+        sess.undo();
+        assertEquals(sess.getStato(),a.merge(b).merge(c).merge(d));
+        assertSame(sess.ipotesiCorrente,quinta);
+        System.out.println("Stato dopo undo sesta ipotesi:");
+        System.out.println("Map corrente: " + sess.getStato());
+        sess.stampaAlbero();
+        
+        //  TORNIAMO ALLA RADICE A FORZA DI UNDO
+        sess.undo();
+        sess.undo();
+        sess.undo();
+        sess.undo();
+        assertTrue(sess.mosse.size() == 1);
+        assertEquals(sess.ipotesiCorrente,sess.getAlbero());
+        assertEquals(sess.mosse.peek(),sess.ipotesiCorrente);
+        System.out.println("Stato dopo undo fino a radice:");
         System.out.println("Map corrente: " + sess.getStato());
         sess.stampaAlbero();        
         
-
+        
+        //  ANDIAMO IN UNO STATO GIÀ RAGGIUNTO
+        MappaturaParziale gia = new MappaturaParziale("d > x, e > u, a > z, b > w, c > y, f > t, g > s ");
         
     }
 }

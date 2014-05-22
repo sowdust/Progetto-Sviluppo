@@ -108,8 +108,9 @@ public class MappaturaParziale {
     // giaDefinita || giaAssegnata
     public boolean conflitto(MappaturaParziale m) {
         for(int i = 0; i < m.map.size(); ++i) {
-            if  (   map.indexOf(m.map.get(i)) != -1
-                ||  inverseMap.indexOf(m.inverseMap.get(i)) != -1 ) {
+            int k = map.indexOf(m.map.get(i));
+            int j = inverseMap.indexOf(m.inverseMap.get(i));
+            if  (  k != -1  ||  j != -1 ) {
                 return true;
             }
         }
@@ -134,6 +135,9 @@ public class MappaturaParziale {
     
     @Override
     public String toString() {
+        if(map.isEmpty()) {
+            return " Ø ";
+        }
         String s = "{";
         for (int i = 0; i < map.size(); ++i) {
             s += " " + map.get(i) + " > " + inverseMap.get(i) + ",";

@@ -69,28 +69,8 @@ public class Ipotesi {
             }
         }
 
-
-   /*     
-        public Ipotesi raggiunto(MappaturaParziale controllo, MappaturaParziale corrente) {
-            MappaturaParziale m = new MappaturaParziale();
-            m.merge(corrente);
-            m.merge(map);
-            if(m.equals(controllo)) {
-                return this;
-            }
-            if(figli.isEmpty()) {
-                return null;
-            }
-            Ipotesi risultato;
-            for(Ipotesi i : figli) {
-                risultato = i.raggiunto(controllo, m);
-                if(risultato != null) {
-                    return risultato;
-                }
-            }
-            return null;
-        }
-  */  
-
+    Ipotesi giaRaggiunta(MappaturaParziale mappaturaCorrente) {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
 
 }

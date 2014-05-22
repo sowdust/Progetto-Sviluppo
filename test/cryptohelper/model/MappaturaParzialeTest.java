@@ -64,12 +64,10 @@ public class MappaturaParzialeTest {
         assertEquals(a,new MappaturaParziale("a>j,b>x,c>k"));
         a = new MappaturaParziale("a>z,b>x,c>k");
         b = new MappaturaParziale("j>x");
- //       assertFalse(a.giaDefinita(b));
- //       assertTrue(a.giaAssegnata(b));
         assertTrue(a.conflitto(b));
+        assertTrue(b.conflitto(a));
         a = a.merge(b);
         assertEquals(a,new MappaturaParziale("a>z,j>x,c>k"));
- //       assertTrue(a.giaDefinita(b));
         a = new MappaturaParziale("a > z, b > w, c > y");
         b = new MappaturaParziale("a > z, b > w, c > y, e > i");
         assertFalse(a.equals(b));
@@ -78,9 +76,5 @@ public class MappaturaParzialeTest {
         
         assertEquals(b.sottrai(a),new MappaturaParziale("e>i"));
         assertEquals(b.sottrai(new MappaturaParziale("a > z, b > w, c > y, e > i")),new MappaturaParziale());
-
-        
-        
-
     }
 }

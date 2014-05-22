@@ -10,6 +10,12 @@ import java.util.Stack;
 
 /**
  * 
+ * 
+ * TODO.
+ * Metodo per serializzare intero albero e mosse (o male che vada ultimo stato)
+ * Da bravo deficiente non ho tenuto quello che avevo già fatto e funzionava.
+ * 
+ * 
  * NOTE SULL'ALBERO.
  * 
  * Invariante è il fatto che in ogni cammino non vi siano mai due assegnazioni
@@ -21,7 +27,15 @@ import java.util.Stack;
  *  2) calcolo della mappatura dal basso verso l'alto esplorando solo il cammino corrente
  *  3) detection di stato già visitato si ferma al primo conflitto in ogni ramo
  * 
- * 
+ * TODO.
+ * (1)  Pensare al miglior modo per gestire detection di stati già raggiunti.
+ *      Essendo l'ordinamento temporale e non alfabetico (e quindi non potendo fare
+ *      una detect in modo ottimo) valutare se in un uso pratico sia proprio quella
+ *      la prossima opzione aggiuntiva più utile, piuttosto che altre possibili.
+ *      Almeno una comunque da aggiungere.
+ * (2)  Una volta deciso formato di input (mappatura intera annienterebbe il vantaggio
+ *      di MappaturaParziale) gestire la remove.
+ *  
  * @author mat
  */
 public class Sessione {
@@ -35,29 +49,18 @@ public class Sessione {
     public Ipotesi ipotesiCorrente;
     private MappaturaParziale mappaturaCorrente;
 
-    //  TODO:
-    //  gestire costruttori in caso di nuova sessione o load da db.
-    //  mosse va inizializzato o nel costruttore o in aggiungiIpotesi nel
-    //  caso ipotesiCorrente == null
     public Sessione(UserInfo proprietario, Messaggio messaggio) {
+        
         this.proprietario = proprietario;
         this.messaggio = messaggio;
+        mosse = new Stack<>();
+        mappaturaCorrente = new MappaturaParziale();
+        radice = new Ipotesi(mappaturaCorrente, null);
+        ipotesiCorrente = radice;
+        mosse.push(ipotesiCorrente);
     }
     
-    //  TODO:
-    //  e se si fa l'undo su prima ipotesi?
-    //  gestire, magari con prima ipotesi vuota
     public void aggiungiIpotesi(MappaturaParziale map) {
-        
-        // se l'albero è ancora vuoto
-        if(null == ipotesiCorrente) {
-            mosse = new Stack<>();
-            ipotesiCorrente = new Ipotesi(map, null);
-            radice = ipotesiCorrente;
-            mappaturaCorrente = map;
-            mosse.push(ipotesiCorrente);
-            return ;
-        }
         
         // se lettera non ancora assegnata in questo cammino
         if(!mappaturaCorrente.conflitto(map)){
@@ -73,7 +76,6 @@ public class Sessione {
         MappaturaParziale daAggiungere = mappaturaCorrente.sottrai(aCuiAttaccarsi.getStato());
         ipotesiCorrente = aCuiAttaccarsi.aggiungiIpotesi(daAggiungere);
         mosse.push(ipotesiCorrente);
-        
     }
     
     public void undo() {
@@ -94,37 +96,12 @@ public class Sessione {
         radice.stampa(0,ipotesiCorrente);
     }
     
-    // metodo che prende una mappatura e risale l'albero finchè non trova il padre
-    // del nodo in cui parte della mappatura era definito.
-    // da lì ricopia mappatura unita a tutte le assunzioni fatte dopo
- /*   public void modifica(MappaturaParziale map) {
-        Ipotesi i = ipotesiCorrente;
-        MappaturaParziale m = new MappaturaParziale();
-        while(!i.map.giaDefinita(map)) {
-            m.merge(i.map);
-            i = i.padre;
-        }
-        m.merge(map);
-        ipotesiCorrente = i.padre.aggiungiIpotesi(m);
-        mappaturaCorrente = m;
+    public Ipotesi giaRaggiunta(){
+        //  TODO:
+        // la funzione map.conflitto(map) non deve tornare errore
+        // se stessa assegnazione (o usare altro metodo)
+        // ora smetto perchè mi sono un po' scaramellato
+        return radice.giaRaggiunta(mappaturaCorrente); 
     }
 
-    public void ricalcolaMappatura() {
-        Ipotesi i = ipotesiCorrente;
-        mappaturaCorrente = new MappaturaParziale();
-        while(i != null) {
-            mappaturaCorrente.merge(i.map);
-            i = i.padre;
-        }
-    }
-    public void undo() {
-        // se invece vogliamo mantenere l'intera history si aggiunge e non si toglie da mosse
-        mosse.pop();
-        ipotesiCorrente = mosse.peek();
-        //TODO: aggiornare mappatura corrente
-    }
-    
-    public Ipotesi raggiunto(MappaturaParziale map) {
-        return radice.raggiunto(map, new MappaturaParziale());
-    }*/
 }
