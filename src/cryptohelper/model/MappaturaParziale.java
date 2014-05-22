@@ -99,7 +99,32 @@ public class MappaturaParziale {
         }
         return false;
     }
+
+    public boolean equals(MappaturaParziale m) {
+        int i,k;
+        for(i = 0; i < m.map.size(); ++i) {
+            k = map.indexOf(m.map.get(i));
+            if(k == -1 || m.inverseMap.get(i) != inverseMap.get(k)) {
+                return false;
+            }
+        }
+        return map.size() == i;
+    }
     
+    @Override
+    public boolean equals(Object m) {
+        return this.equals((MappaturaParziale) m);
+    }
+    
+    @Override
+    public String toString() {
+        String s = "{";
+        for (int i = 0; i < map.size(); ++i) {
+            s += " " + map.get(i) + " > " + inverseMap.get(i) + ",";
+        }
+        return s + "\b }";
+    }
+ /*   
     // mi dice se una lettera della mappatura m è già definita in this
     public boolean giaDefinita(MappaturaParziale m) {
         for(char c : m.map) {
@@ -119,30 +144,5 @@ public class MappaturaParziale {
         }
         return false;
     }
-    
-    public boolean equals(MappaturaParziale m) {
-        int k;
-        for(int i = 0; i < m.map.size(); ++i) {
-            k = map.indexOf(m.map.get(i));
-            if(k != -1 && m.inverseMap.get(i) == inverseMap.get(k)) {
-                return true;
-            }
-        }
-        return false;                
-    }
-    
-    @Override
-    public boolean equals(Object m) {
-        return this.equals((MappaturaParziale) m);
-    }
-    
-    @Override
-    public String toString() {
-        String s = new String("{ ");
-        for (int i = 0; i < map.size(); ++i) {
-            s += map.get(i) + " > " + inverseMap.get(i) + ", ";                    
-        }
-        return s + "\b\b }";
-    }
-
+*/    
 }

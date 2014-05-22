@@ -26,10 +26,12 @@ import java.util.Stack;
  */
 public class Sessione {
 
+    
+    //  TODO: variabili public solo in fase di testing
     private UserInfo proprietario;
     private Messaggio messaggio;
-    public Ipotesi radice;
-    private Stack<Ipotesi> mosse;
+    private Ipotesi radice;
+    public Stack<Ipotesi> mosse;
     public Ipotesi ipotesiCorrente;
     private MappaturaParziale mappaturaCorrente;
 
@@ -63,8 +65,22 @@ public class Sessione {
         }
     }
     
+    public void undo() {
+        mosse.pop();
+        ipotesiCorrente = mosse.peek(); 
+        mappaturaCorrente = ipotesiCorrente.getStato();
+    }
+    
     public MappaturaParziale getStato() {
         return new MappaturaParziale(mappaturaCorrente);
+    }
+    
+    public Ipotesi getAlbero() {
+        return radice;
+    }
+    
+    public void stampaAlbero() {
+        radice.stampa(0,ipotesiCorrente);
     }
     
     // metodo che prende una mappatura e risale l'albero finchè non trova il padre

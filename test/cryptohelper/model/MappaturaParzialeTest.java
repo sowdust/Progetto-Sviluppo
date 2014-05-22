@@ -49,27 +49,33 @@ public class MappaturaParzialeTest {
         assertEquals(new MappaturaParziale("a > a,b>b, c     > c"), new MappaturaParziale("b>b,c>c,a>a"));
         MappaturaParziale a = new MappaturaParziale("a > z, b > w, c > y");
         MappaturaParziale b = new MappaturaParziale("d > x, e > u");
-        a.merge(b);
+        a = a.merge(b);
         assertEquals(a, new MappaturaParziale("a > z, b > w, c > y,d > x, e > u") );
         a = new MappaturaParziale("a>z,b>x");
         b = new MappaturaParziale("a>x,b>z");
         assertFalse(a.equals(b));
         assertTrue(a.conflitto(b));
-        a.merge(b);
+        a = a.merge(b);
         assertEquals(a,b);
         a = new MappaturaParziale("a>z,b>x,c>k");
         b = new MappaturaParziale("a>j");
         assertTrue(a.conflitto(b));
-        a.merge(b);
+        a = a.merge(b);
         assertEquals(a,new MappaturaParziale("a>j,b>x,c>k"));
         a = new MappaturaParziale("a>z,b>x,c>k");
         b = new MappaturaParziale("j>x");
-        assertFalse(a.giaDefinita(b));
-        assertTrue(a.giaAssegnata(b));
+ //       assertFalse(a.giaDefinita(b));
+ //       assertTrue(a.giaAssegnata(b));
         assertTrue(a.conflitto(b));
-        a.merge(b);
+        a = a.merge(b);
         assertEquals(a,new MappaturaParziale("a>z,j>x,c>k"));
-        assertTrue(a.giaDefinita(b));
+ //       assertTrue(a.giaDefinita(b));
+        a = new MappaturaParziale("a > z, b > w, c > y");
+        b = new MappaturaParziale("a > z, b > w, c > y, e > i");
+        assertFalse(a.equals(b));
+        assertFalse(b.equals(a));
+        assertEquals(a.merge(b),b.merge(a));
+        
 
     }
 }

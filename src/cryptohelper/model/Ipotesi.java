@@ -38,6 +38,26 @@ public class Ipotesi {
             }
             return map.merge(padre.getStato());
         }
+    
+        public void stampa(int d, Ipotesi ipotesiCorrente) {
+            System.out.print("  ");
+            for(int i = 0; i <= d; ++i) {
+                System.out.print("     ");
+            }
+            if(this == ipotesiCorrente) {
+                System.out.print("\b\b**");
+               
+            }
+            System.out.println(map);
+
+            for(Ipotesi i : figli) {
+                if(i!= null) {
+                    i.stampa(d + 1, ipotesiCorrente);
+                }
+            }
+        }
+
+
    /*     
         public Ipotesi raggiunto(MappaturaParziale controllo, MappaturaParziale corrente) {
             MappaturaParziale m = new MappaturaParziale();
@@ -58,17 +78,7 @@ public class Ipotesi {
             }
             return null;
         }
-  */      
-        public void stampa(int d) {
-            for(int i = 0; i <= d; ++i) {
-                System.out.print("\t");
-            }
-            System.out.println(map);
+  */  
 
-            for(Ipotesi i : figli) {
-                if(i!= null) {
-                    i.stampa(++d);
-                }
-            }
-        }
+
 }
