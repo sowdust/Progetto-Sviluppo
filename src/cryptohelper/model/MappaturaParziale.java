@@ -118,7 +118,7 @@ public class MappaturaParziale {
                 r.inverseMap.add(inverseMap.get(i));
             }else{
                 if(m.inverseMap.get(k) != inverseMap.get(i)) {
-                    throw new RuntimeException("Impossibile sottrarre mappa: conflitti");
+                    throw new IllegalArgumentException("Impossibile sottrarre mappa: conflitti");
                 }
             }
         }
@@ -131,9 +131,9 @@ public class MappaturaParziale {
      * Restituisce true anche se la stessa assegnazione compare in entrambi i lati
      * 
      * Es:
-     * ( {a > z} ∈ this && {a > z} ∈ m ==> false )
-     * ( {a > z} ∈ this && {a > y} ∈ m ==> false )
-     * ( {a > z} ∈ this && {b > z} ∈ m ==> false )
+     * ( {a > z} ∈ this && {a > z} ∈ m ==> true )
+     * ( {a > z} ∈ this && {a > y} ∈ m ==> true )
+     * ( {a > z} ∈ this && {b > z} ∈ m ==> true )
      * 
      */
     public boolean conflitto(MappaturaParziale m) {
