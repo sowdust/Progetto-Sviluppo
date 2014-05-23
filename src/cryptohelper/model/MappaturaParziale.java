@@ -1,18 +1,7 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
 package cryptohelper.model;
 
 import java.util.ArrayList;
 
-/**
- * 
- * TODO: valutare dove fare dei clone()
- * @author mat
- */
 public class MappaturaParziale {
     
     ArrayList<Character> map;
@@ -54,58 +43,99 @@ public class MappaturaParziale {
         }
     }
     
-    public MappaturaParziale merge(MappaturaParziale newMap) {
+    public int size() {
+        return map.size();
+    }
+    
+    /*
+     * Data una mappatura parziale m, la funzione merge restituisce una nuova
+     * mappatura contenente tutte le assegnazioni di m più tutte le assegnazioni
+     * di this non in conflitto con m.
+     * 
+     * Es:
+     * {a > z } merge {b > w} ==> {a > z, b > w }
+     * {a > z, b > w } merge {a > y} ==> {a > y, b > w} 
+     * {a > z, b > w } merge {c > z} ==> {c > z, b > w} 
+     * 
+     */
+    public MappaturaParziale merge(MappaturaParziale m) {
         
         MappaturaParziale r = new MappaturaParziale(this);
         
-        for(int i = 0; i < newMap.map.size(); ++i ) {
-            int k = r.map.indexOf(newMap.map.get(i));
-            int j = r.inverseMap.indexOf(newMap.inverseMap.get(i));
+        for(int i = 0; i < m.map.size(); ++i ) {
+            int k = r.map.indexOf(m.map.get(i));
+            int j = r.inverseMap.indexOf(m.inverseMap.get(i));
             
             // se non ci sono conflitti
             if(k == -1 && j == -1) {
-                r.map.add(newMap.map.get(i));
-                r.inverseMap.add(newMap.inverseMap.get(i)); 
+                r.map.add(m.map.get(i));
+                r.inverseMap.add(m.inverseMap.get(i)); 
                 continue ;
             }
             
             // se c'è un'assegnazione modificata ( a->x ; a->k ==> a->k)
             if(k != -1) {
-                r.inverseMap.set(k,newMap.inverseMap.get(i));
+                r.inverseMap.set(k,m.inverseMap.get(i));
                 continue ;
             }
             
             // lettera ri-assegnata ( a->j ; b->j ==> b->j )
             if( j != -1) {
-                r.map.set(j,newMap.map.get(i));
+                r.map.set(j,m.map.get(i));
                 continue ;
             }
             
             // doppio conflitto ( a->j && b->k ; a->k ==> a->k )
             r.map.remove(k);
             r.inverseMap.remove(k);
-            r.map.set(j,newMap.map.get(i));
-            r.inverseMap.set(j,newMap.inverseMap.get(i));
+            r.map.set(j,m.map.get(i));
+            r.inverseMap.set(j,m.inverseMap.get(i));
         }
         return r;
     }
     
+    /*
+     * Data una mappatura parziale m, ritorna una mappatura contentente gli
+     * elementi di this che non compaiono in m.
+     * Se me non è strettamente contenuta in this, IllegalArgumentException
+     * 
+     * Es:
+     * {a > z, b > y, c > w} sottrai { b > y, c > w }  ==> { a > z }
+     * {a > z, b > y} sottrai {a > z, b > w }  ==> IllegalArgumentException: conflitti
+     * {b > y, c > w} sottrai {a > z,  b > y, c > w }  ==> IllegalArgumentException: troppo lunga
+     * 
+     */
     public MappaturaParziale sottrai(MappaturaParziale m) {
-        int size = map.size();
-        if(m.map.size() > size) {
-            throw new RuntimeException("Impossibile sottrarre mappa");
+        int size = this.size();
+        if(m.size() > size) {
+            throw new IllegalArgumentException("Impossibile sottrarre mappa: troppo lunga");
         }
         MappaturaParziale r = new MappaturaParziale();
         for(int i = 0; i < size; ++i) {
-            if(m.map.indexOf(map.get(i)) == -1) {
+            int k = m.map.indexOf(map.get(i));
+            if(k == -1) {
                 r.map.add(map.get(i));
                 r.inverseMap.add(inverseMap.get(i));
+            }else{
+                if(m.inverseMap.get(k) != inverseMap.get(i)) {
+                    throw new RuntimeException("Impossibile sottrarre mappa: conflitti");
+                }
             }
         }
         return r;
     }
     
-    // giaDefinita || giaAssegnata
+    /*
+     * Data una mappatura parziale m, restituisce true se vi sono lettere già 
+     * assegnate o già definite in this, false altrimenti.
+     * Restituisce true anche se la stessa assegnazione compare in entrambi i lati
+     * 
+     * Es:
+     * ( {a > z} ∈ this && {a > z} ∈ m ==> false )
+     * ( {a > z} ∈ this && {a > y} ∈ m ==> false )
+     * ( {a > z} ∈ this && {b > z} ∈ m ==> false )
+     * 
+     */
     public boolean conflitto(MappaturaParziale m) {
         for(int i = 0; i < m.map.size(); ++i) {
             int k = map.indexOf(m.map.get(i));
@@ -116,16 +146,45 @@ public class MappaturaParziale {
         }
         return false;
     }
+    
+    /*
+     * Data una mappatura parziale m, ritorna true se m è strettamente contenuta
+     * in this.
+     * 
+     * Es:
+     * {a > z} ⊆ {a > z, b > y} ==> true
+     * {a > z} ⊆ {a > z} ==> true
+     * {a > z} ⊆ {a > y} ==> false
+     * {a > b} ⊆ {a > z} ==> false
+     * {a > z, b > y} ⊆ {a > z} ==> false
+     * 
+     */
+    public boolean subsetOf(MappaturaParziale m) {
+        try {
+            return m.sottrai(this).size() == (m.size() - this.size());
+        }catch(Exception e) {
+            return false;
+        }
+        
+    }
 
+    /*
+     * Restituisce true se tutte le assegnazioni in this sono contenute in m
+     * e viceversa.
+     * L'ordine in cui compaiono le assegnazioni non è importante.
+     *
+     * a.equals(b) <==> a ⊆ b && b ⊆ a
+     *
+     */
     public boolean equals(MappaturaParziale m) {
         int i,k;
-        for(i = 0; i < m.map.size(); ++i) {
+        for(i = 0; i < m.size(); ++i) {
             k = map.indexOf(m.map.get(i));
             if(k == -1 || m.inverseMap.get(i) != inverseMap.get(k)) {
                 return false;
             }
         }
-        return map.size() == i;
+        return this.size() == i;
     }
     
     @Override
