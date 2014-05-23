@@ -45,7 +45,6 @@ public class SistemaCifratura {
     };
 
     private SistemaCifratura(ResultSet rs) throws SQLException {
-
         this.id = rs.getInt("id");
         this.chiave = rs.getString("chiave");
         this.metodo = rs.getString("metodo");
@@ -77,7 +76,6 @@ public class SistemaCifratura {
     }
 
     public static List<SistemaCifratura> caricaSistemiCifratura(Studente st) throws SQLException {
-
         DBController dbc = DBController.getInstance();
         ResultSet rs = dbc.execute("SELECT id, chiave, metodo, creatore FROM "
                 + "crypto_user.SistemaCifratura WHERE creatore = ?", st.getId());
@@ -89,7 +87,6 @@ public class SistemaCifratura {
     }
 
     public static SistemaCifratura load(int id) throws SQLException {
-
         DBController dbc = DBController.getInstance();
         ResultSet rs = dbc.execute("SELECT * FROM crypto_user.SistemaCifratura"
                 + " WHERE id = ?", id);
@@ -99,7 +96,6 @@ public class SistemaCifratura {
 
     //  controllare che la query sia giusta!
     public static SistemaCifratura load(UserInfo st1, UserInfo st2) throws SQLException {
-
         DBController dbc = DBController.getInstance();
         ResultSet rs = dbc.execute("SELECT s.id, s.chiave, s.metodo, s.creatore"
                 + " FROM crypto_user.Proposta AS p JOIN crypto_user.SistemaCifratura"
@@ -133,7 +129,6 @@ public class SistemaCifratura {
 
     public boolean elimina() throws SQLException {
         DBController dbc = DBController.getInstance();
-
         if (id < 0) {
             throw new RuntimeException("Problema nell'eliminazione: SdC non identificato.");
         }
@@ -147,11 +142,7 @@ public class SistemaCifratura {
 
     @Override
     public String toString() {
-
-        return this.metodo + "\n"
-                + this.chiave + "\n"
-                + this.creatore + "\n"
-                + this.calcolatore;
+        return metodo + ": " + chiave;
     }
 
 }

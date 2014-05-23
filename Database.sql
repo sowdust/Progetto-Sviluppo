@@ -28,7 +28,7 @@ CREATE TABLE Proposta (
     sdc         int,
     FOREIGN KEY (proponente) REFERENCES Studente(id),
     FOREIGN KEY (partner) REFERENCES Studente(id),
-    FOREIGN KEY (sdc) REFERENCES SistemaCifratura(id)
+    FOREIGN KEY (sdc) REFERENCES SistemaCifratura(id) ON DELETE CASCADE
 );
 
 CREATE TABLE Messaggio (
@@ -44,7 +44,7 @@ CREATE TABLE Messaggio (
     sdc             int,
     FOREIGN KEY (mittente) REFERENCES Studente(id),
     FOREIGN KEY (destinatario) REFERENCES Studente(id),
-    FOREIGN KEY (sdc) REFERENCES SistemaCifratura(id)
+    FOREIGN KEY (sdc) REFERENCES SistemaCifratura(id) ON DELETE CASCADE
 );
 
 INSERT INTO Studente (nickname, password, nome, cognome) VALUES

@@ -16,8 +16,10 @@
  */
 package cryptohelper.controller;
 
+import cryptohelper.model.SistemaCifratura;
 import cryptohelper.model.Studente;
 import java.sql.SQLException;
+import java.util.List;
 
 /**
  *
@@ -26,6 +28,7 @@ import java.sql.SQLException;
 public class GUIController {
 
     private static GUIController instance = null;
+    private Studente studente = null;
 
     private GUIController() {
     }
@@ -37,7 +40,24 @@ public class GUIController {
         return instance;
     }
 
-    public Studente login(String nickname, String password) throws SQLException {
-        return Studente.login(nickname, password);
+    public boolean login(String nickname, String password) throws SQLException {
+        studente = Studente.login(nickname, password);
+        return studente != null;
+    }
+
+    public String[] ottieniMetodiDiCifratura() {
+        return new String[]{"parolachiave", "pseudocasuale", "cesare"};
+    }
+
+    public List<SistemaCifratura> elencaSistemiCifratura() throws SQLException {
+        return SistemaCifratura.caricaSistemiCifratura(studente);
+    }
+
+    /* come comportarsi se il sdc è stato proposto?
+     la cosa più ragionevole e facile da implementare (già implementata) è cancellare
+     tutti i messaggi che usano quel sdc e la proposta che lo ha proposto       
+     */
+    public boolean eliminaSistemaCifratura(SistemaCifratura sdc) throws SQLException {
+        return sdc.elimina();
     }
 }

@@ -17,11 +17,15 @@
 package cryptohelper.view;
 
 import cryptohelper.controller.GUIController;
-import cryptohelper.model.Studente;
+import cryptohelper.model.Proposta;
+import cryptohelper.model.SistemaCifratura;
 import java.awt.CardLayout;
 import java.sql.SQLException;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.DefaultListModel;
+import javax.swing.JDialog;
 
 /**
  *
@@ -34,6 +38,8 @@ public class GUI extends javax.swing.JFrame {
      */
     public GUI() {
         initComponents();
+        getRootPane().setDefaultButton(loginButton);
+        
     }
 
     /**
@@ -44,230 +50,509 @@ public class GUI extends javax.swing.JFrame {
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
+        java.awt.GridBagConstraints gridBagConstraints;
 
         loginPanel = new javax.swing.JPanel();
-        nickLoginButton = new javax.swing.JTextField();
-        passLoginButton = new javax.swing.JPasswordField();
+        loginToolBar = new javax.swing.JToolBar();
+        goToRegistrationButton = new javax.swing.JButton();
+        loginFormPanel = new javax.swing.JPanel();
+        nickLoginField = new javax.swing.JTextField();
+        passLoginField = new javax.swing.JPasswordField();
         loginButton = new javax.swing.JButton();
         errorLoginLabel = new javax.swing.JLabel();
         registrationPanel = new javax.swing.JPanel();
+        jTextField1 = new javax.swing.JTextField();
+        jTextField2 = new javax.swing.JTextField();
+        jTextField3 = new javax.swing.JTextField();
+        jPasswordField1 = new javax.swing.JPasswordField();
+        jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
+        jButton2 = new javax.swing.JButton();
         personalPanel = new javax.swing.JPanel();
-        ComunicationPanel = new javax.swing.JPanel();
-        jTabbedPane1 = new javax.swing.JTabbedPane();
-        jPanel3 = new javax.swing.JPanel();
+        comunicationPanel = new javax.swing.JPanel();
+        comunicationTabs = new javax.swing.JTabbedPane();
+        messagePanel = new javax.swing.JPanel();
+        jTabbedPane2 = new javax.swing.JTabbedPane();
         jPanel1 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
+        jPanel3 = new javax.swing.JPanel();
+        jPanel8 = new javax.swing.JPanel();
+        propostePanel = new javax.swing.JPanel();
+        jTabbedPane1 = new javax.swing.JTabbedPane();
+        jPanel6 = new javax.swing.JPanel();
+        jToolBar2 = new javax.swing.JToolBar();
+        jButton1 = new javax.swing.JButton();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jList1 = new javax.swing.JList();
+        jPanel9 = new javax.swing.JPanel();
+        jPanel7 = new javax.swing.JPanel();
+        sdcPanel = new javax.swing.JPanel();
+        sdcTabs = new javax.swing.JTabbedPane();
         jPanel4 = new javax.swing.JPanel();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        jList2 = new javax.swing.JList();
+        jToolBar1 = new javax.swing.JToolBar();
+        deleteSdcButton = new javax.swing.JButton();
         jPanel5 = new javax.swing.JPanel();
-        welcomePanel = new javax.swing.JPanel();
-        toRegistrationButton = new javax.swing.JButton();
-        toLoginButton = new javax.swing.JButton();
+        metodoCifraturaComboBox = new javax.swing.JComboBox();
+        jTextField4 = new javax.swing.JTextField();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        jTextArea1 = new javax.swing.JTextArea();
+        jButton3 = new javax.swing.JButton();
+        jButton4 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("CryptoHelper");
         getContentPane().setLayout(new java.awt.CardLayout());
 
+        loginPanel.setLayout(new java.awt.BorderLayout());
+
+        loginToolBar.setFloatable(false);
+        loginToolBar.setRollover(true);
+
+        goToRegistrationButton.setText("Registrazione");
+        goToRegistrationButton.setFocusable(false);
+        goToRegistrationButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                goToRegistrationButtonActionPerformed(evt);
+            }
+        });
+        loginToolBar.add(goToRegistrationButton);
+
+        loginPanel.add(loginToolBar, java.awt.BorderLayout.PAGE_START);
+
+        loginFormPanel.setLayout(new java.awt.GridBagLayout());
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 2;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.ipadx = 150;
+        loginFormPanel.add(nickLoginField, gridBagConstraints);
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 3;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.ipadx = 150;
+        loginFormPanel.add(passLoginField, gridBagConstraints);
+
         loginButton.setText("Login");
+        loginButton.setFocusTraversalPolicyProvider(true);
         loginButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 loginButtonActionPerformed(evt);
             }
         });
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 9;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.ipadx = 150;
+        loginFormPanel.add(loginButton, gridBagConstraints);
 
-        javax.swing.GroupLayout loginPanelLayout = new javax.swing.GroupLayout(loginPanel);
-        loginPanel.setLayout(loginPanelLayout);
-        loginPanelLayout.setHorizontalGroup(
-            loginPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(loginPanelLayout.createSequentialGroup()
-                .addGroup(loginPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(loginPanelLayout.createSequentialGroup()
-                        .addGap(91, 91, 91)
-                        .addComponent(errorLoginLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 214, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(loginPanelLayout.createSequentialGroup()
-                        .addGap(346, 346, 346)
-                        .addGroup(loginPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(passLoginButton, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(loginButton, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(nickLoginButton, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(361, Short.MAX_VALUE))
-        );
-        loginPanelLayout.setVerticalGroup(
-            loginPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(loginPanelLayout.createSequentialGroup()
-                .addGap(105, 105, 105)
-                .addComponent(nickLoginButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(passLoginButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(loginButton)
-                .addGap(12, 12, 12)
-                .addComponent(errorLoginLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 18, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(58, Short.MAX_VALUE))
-        );
+        errorLoginLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        loginFormPanel.add(errorLoginLabel, gridBagConstraints);
 
-        getContentPane().add(loginPanel, "card3");
+        loginPanel.add(loginFormPanel, java.awt.BorderLayout.CENTER);
 
-        javax.swing.GroupLayout registrationPanelLayout = new javax.swing.GroupLayout(registrationPanel);
-        registrationPanel.setLayout(registrationPanelLayout);
-        registrationPanelLayout.setHorizontalGroup(
-            registrationPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 859, Short.MAX_VALUE)
-        );
-        registrationPanelLayout.setVerticalGroup(
-            registrationPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
-        );
+        getContentPane().add(loginPanel, "card6");
+
+        registrationPanel.setLayout(new java.awt.GridBagLayout());
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 1;
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.ipadx = 150;
+        registrationPanel.add(jTextField1, gridBagConstraints);
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 1;
+        gridBagConstraints.gridy = 9;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.ipadx = 150;
+        registrationPanel.add(jTextField2, gridBagConstraints);
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 1;
+        gridBagConstraints.gridy = 8;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.ipadx = 150;
+        registrationPanel.add(jTextField3, gridBagConstraints);
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 1;
+        gridBagConstraints.gridy = 10;
+        gridBagConstraints.ipadx = 150;
+        registrationPanel.add(jPasswordField1, gridBagConstraints);
+
+        jLabel1.setText("Nome");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 0;
+        registrationPanel.add(jLabel1, gridBagConstraints);
+
+        jLabel2.setText("Cognome");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 8;
+        registrationPanel.add(jLabel2, gridBagConstraints);
+
+        jLabel3.setText("Nickname");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 9;
+        registrationPanel.add(jLabel3, gridBagConstraints);
+
+        jLabel4.setText("Password");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 10;
+        registrationPanel.add(jLabel4, gridBagConstraints);
+
+        jButton2.setText("Registrami!");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 11;
+        gridBagConstraints.gridwidth = 2;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        registrationPanel.add(jButton2, gridBagConstraints);
 
         getContentPane().add(registrationPanel, "card4");
 
         personalPanel.setLayout(new java.awt.BorderLayout());
         getContentPane().add(personalPanel, "card5");
 
-        ComunicationPanel.setLayout(new java.awt.BorderLayout());
+        comunicationPanel.setLayout(new javax.swing.BoxLayout(comunicationPanel, javax.swing.BoxLayout.LINE_AXIS));
 
-        jTabbedPane1.setTabPlacement(javax.swing.JTabbedPane.LEFT);
+        comunicationTabs.setTabPlacement(javax.swing.JTabbedPane.LEFT);
 
-        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
-        jPanel3.setLayout(jPanel3Layout);
-        jPanel3Layout.setHorizontalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 676, Short.MAX_VALUE)
-        );
-        jPanel3Layout.setVerticalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 288, Short.MAX_VALUE)
-        );
-
-        jTabbedPane1.addTab("Nuovo Messaggio", jPanel3);
+        messagePanel.setLayout(new javax.swing.BoxLayout(messagePanel, javax.swing.BoxLayout.LINE_AXIS));
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 676, Short.MAX_VALUE)
+            .addGap(0, 599, Short.MAX_VALUE)
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 288, Short.MAX_VALUE)
+            .addGap(0, 393, Short.MAX_VALUE)
         );
 
-        jTabbedPane1.addTab("Messaggi Ricevuti", jPanel1);
+        jTabbedPane2.addTab("Ricevuti", jPanel1);
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 676, Short.MAX_VALUE)
+            .addGap(0, 599, Short.MAX_VALUE)
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 288, Short.MAX_VALUE)
+            .addGap(0, 393, Short.MAX_VALUE)
         );
 
-        jTabbedPane1.addTab("Messaggi Inviati", jPanel2);
+        jTabbedPane2.addTab("Inviati", jPanel2);
 
-        javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
-        jPanel4.setLayout(jPanel4Layout);
-        jPanel4Layout.setHorizontalGroup(
-            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 676, Short.MAX_VALUE)
+        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
+        jPanel3.setLayout(jPanel3Layout);
+        jPanel3Layout.setHorizontalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 599, Short.MAX_VALUE)
         );
-        jPanel4Layout.setVerticalGroup(
-            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 288, Short.MAX_VALUE)
+        jPanel3Layout.setVerticalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 393, Short.MAX_VALUE)
         );
 
-        jTabbedPane1.addTab("Nuovo Sistema Cifratura", jPanel4);
+        jTabbedPane2.addTab("Bozze", jPanel3);
+
+        javax.swing.GroupLayout jPanel8Layout = new javax.swing.GroupLayout(jPanel8);
+        jPanel8.setLayout(jPanel8Layout);
+        jPanel8Layout.setHorizontalGroup(
+            jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 599, Short.MAX_VALUE)
+        );
+        jPanel8Layout.setVerticalGroup(
+            jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 393, Short.MAX_VALUE)
+        );
+
+        jTabbedPane2.addTab("Crea Nuovo", jPanel8);
+
+        messagePanel.add(jTabbedPane2);
+
+        comunicationTabs.addTab("Messaggi", messagePanel);
+
+        propostePanel.setLayout(new javax.swing.BoxLayout(propostePanel, javax.swing.BoxLayout.LINE_AXIS));
+
+        jPanel6.setLayout(new java.awt.BorderLayout());
+
+        jToolBar2.setFloatable(false);
+        jToolBar2.setRollover(true);
+
+        jButton1.setText("Elimina");
+        jButton1.setEnabled(false);
+        jButton1.setFocusable(false);
+        jButton1.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        jButton1.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        jToolBar2.add(jButton1);
+
+        jPanel6.add(jToolBar2, java.awt.BorderLayout.PAGE_END);
+
+        jList1.setModel(new javax.swing.DefaultListModel<Proposta>());
+        jScrollPane1.setViewportView(jList1);
+
+        jPanel6.add(jScrollPane1, java.awt.BorderLayout.CENTER);
+
+        jTabbedPane1.addTab("Da Valutare", jPanel6);
+
+        javax.swing.GroupLayout jPanel9Layout = new javax.swing.GroupLayout(jPanel9);
+        jPanel9.setLayout(jPanel9Layout);
+        jPanel9Layout.setHorizontalGroup(
+            jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 599, Short.MAX_VALUE)
+        );
+        jPanel9Layout.setVerticalGroup(
+            jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 393, Short.MAX_VALUE)
+        );
+
+        jTabbedPane1.addTab("Inviate", jPanel9);
+
+        javax.swing.GroupLayout jPanel7Layout = new javax.swing.GroupLayout(jPanel7);
+        jPanel7.setLayout(jPanel7Layout);
+        jPanel7Layout.setHorizontalGroup(
+            jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 599, Short.MAX_VALUE)
+        );
+        jPanel7Layout.setVerticalGroup(
+            jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 393, Short.MAX_VALUE)
+        );
+
+        jTabbedPane1.addTab("Crea Nuova", jPanel7);
+
+        propostePanel.add(jTabbedPane1);
+
+        comunicationTabs.addTab("Proposte", propostePanel);
+
+        sdcPanel.setLayout(new javax.swing.BoxLayout(sdcPanel, javax.swing.BoxLayout.LINE_AXIS));
+
+        jPanel4.setLayout(new java.awt.BorderLayout());
+
+        jList2.setModel(new javax.swing.DefaultListModel<SistemaCifratura>());
+        jList2.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        jList2.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jList2MouseClicked(evt);
+            }
+        });
+        jScrollPane2.setViewportView(jList2);
+
+        jPanel4.add(jScrollPane2, java.awt.BorderLayout.CENTER);
+
+        jToolBar1.setFloatable(false);
+        jToolBar1.setRollover(true);
+        jToolBar1.setBorderPainted(false);
+
+        deleteSdcButton.setText("Elimina");
+        deleteSdcButton.setEnabled(false);
+        deleteSdcButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                deleteSdcButtonActionPerformed(evt);
+            }
+        });
+        jToolBar1.add(deleteSdcButton);
+
+        jPanel4.add(jToolBar1, java.awt.BorderLayout.PAGE_END);
+
+        sdcTabs.addTab("Elenco", jPanel4);
+
+        metodoCifraturaComboBox.setModel(new javax.swing.DefaultComboBoxModel(gController.ottieniMetodiDiCifratura()));
+        metodoCifraturaComboBox.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                metodoCifraturaComboBoxActionPerformed(evt);
+            }
+        });
+
+        jTextField4.setEnabled(false);
+
+        jTextArea1.setColumns(20);
+        jTextArea1.setRows(5);
+        jScrollPane3.setViewportView(jTextArea1);
+
+        jButton3.setText("Prova");
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
+
+        jButton4.setText("Salva");
 
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
         jPanel5Layout.setHorizontalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 676, Short.MAX_VALUE)
+            .addGroup(jPanel5Layout.createSequentialGroup()
+                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel5Layout.createSequentialGroup()
+                        .addGap(26, 26, 26)
+                        .addComponent(metodoCifraturaComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 208, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, 208, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel5Layout.createSequentialGroup()
+                        .addGap(110, 110, 110)
+                        .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(95, 95, 95)
+                        .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jButton3)
+                            .addComponent(jButton4))))
+                .addContainerGap(123, Short.MAX_VALUE))
         );
         jPanel5Layout.setVerticalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 288, Short.MAX_VALUE)
+            .addGroup(jPanel5Layout.createSequentialGroup()
+                .addGap(26, 26, 26)
+                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(metodoCifraturaComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel5Layout.createSequentialGroup()
+                        .addGap(102, 102, 102)
+                        .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel5Layout.createSequentialGroup()
+                        .addGap(117, 117, 117)
+                        .addComponent(jButton3)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jButton4)))
+                .addContainerGap(127, Short.MAX_VALUE))
         );
 
-        jTabbedPane1.addTab("Nuova Proposta", jPanel5);
+        sdcTabs.addTab("Crea Nuovo", jPanel5);
 
-        ComunicationPanel.add(jTabbedPane1, java.awt.BorderLayout.CENTER);
+        sdcPanel.add(sdcTabs);
 
-        getContentPane().add(ComunicationPanel, "card6");
+        comunicationTabs.addTab("Sistemi Cifratura", sdcPanel);
 
-        toRegistrationButton.setText("Registration");
+        comunicationPanel.add(comunicationTabs);
 
-        toLoginButton.setText("Login");
-        toLoginButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                toLoginButtonActionPerformed(evt);
-            }
-        });
-
-        javax.swing.GroupLayout welcomePanelLayout = new javax.swing.GroupLayout(welcomePanel);
-        welcomePanel.setLayout(welcomePanelLayout);
-        welcomePanelLayout.setHorizontalGroup(
-            welcomePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(welcomePanelLayout.createSequentialGroup()
-                .addGap(329, 329, 329)
-                .addGroup(welcomePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(toRegistrationButton, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(toLoginButton, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(360, Short.MAX_VALUE))
-        );
-        welcomePanelLayout.setVerticalGroup(
-            welcomePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(welcomePanelLayout.createSequentialGroup()
-                .addGap(103, 103, 103)
-                .addComponent(toLoginButton)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(toRegistrationButton)
-                .addContainerGap(125, Short.MAX_VALUE))
-        );
-
-        getContentPane().add(welcomePanel, "card2");
+        getContentPane().add(comunicationPanel, "card6");
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void toLoginButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_toLoginButtonActionPerformed
-        CardLayout cl = (CardLayout) getContentPane().getLayout();
-        cl.show(getContentPane(), "card3");
-    }//GEN-LAST:event_toLoginButtonActionPerformed
-
     private void loginButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loginButtonActionPerformed
         try {
-            studente = gController.login(nickLoginButton.getText(), String.valueOf(passLoginButton.getPassword()));
-            if (studente != null) {
+            if (gController.login(nickLoginField.getText(), String.valueOf(passLoginField.getPassword()))) {
                 CardLayout cl = (CardLayout) getContentPane().getLayout();
                 cl.show(getContentPane(), "card6");
+                /* per ora va qui */
+                caricaSistemiCifratura();
             } else {
                 errorLoginLabel.setText("nickname o password errati");
             }
         } catch (SQLException ex) {
-            Logger.getLogger(GUI.class.getName()).log(Level.SEVERE, null, ex);
+            new JDialog(this, "prova ttilo", true).setVisible(true);
         }
     }//GEN-LAST:event_loginButtonActionPerformed
-
+    
+    private void goToRegistrationButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_goToRegistrationButtonActionPerformed
+        CardLayout cl = (CardLayout) getContentPane().getLayout();
+        cl.show(getContentPane(), "card4");
+    }//GEN-LAST:event_goToRegistrationButtonActionPerformed
+    
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        jTextArea1.setText(jTextArea1.getText());
+    }//GEN-LAST:event_jButton3ActionPerformed
+    
+    private void deleteSdcButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteSdcButtonActionPerformed
+        try {
+            SistemaCifratura sdc = (SistemaCifratura) jList2.getSelectedValue();
+            if (gController.eliminaSistemaCifratura(sdc)) {
+                DefaultListModel<SistemaCifratura> dlm = (DefaultListModel<SistemaCifratura>) jList2.getModel();
+                dlm.removeElement(sdc);
+                deleteSdcButton.setEnabled(false);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(GUI.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_deleteSdcButtonActionPerformed
+    
+    private void jList2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jList2MouseClicked
+        deleteSdcButton.setEnabled(true);
+    }//GEN-LAST:event_jList2MouseClicked
+    
+    private void metodoCifraturaComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_metodoCifraturaComboBoxActionPerformed
+        
+    }//GEN-LAST:event_metodoCifraturaComboBoxActionPerformed
+    
+    private void caricaSistemiCifratura() {
+        DefaultListModel<SistemaCifratura> dlm = (DefaultListModel<SistemaCifratura>) jList2.getModel();
+        List<SistemaCifratura> listasdc = null;
+        try {
+            listasdc = gController.elencaSistemiCifratura();
+        } catch (SQLException ex) {
+            Logger.getLogger(GUI.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        for (SistemaCifratura sdc : listasdc) {
+            dlm.addElement(sdc);
+        }
+    }
     private GUIController gController = GUIController.getInstance();
-    private Studente studente;
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JPanel ComunicationPanel;
-    private javax.swing.JLabel errorLoginLabel;
-    private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel2;
-    private javax.swing.JPanel jPanel3;
-    private javax.swing.JPanel jPanel4;
-    private javax.swing.JPanel jPanel5;
-    private javax.swing.JTabbedPane jTabbedPane1;
-    private javax.swing.JButton loginButton;
-    private javax.swing.JPanel loginPanel;
-    private javax.swing.JTextField nickLoginButton;
-    private javax.swing.JPasswordField passLoginButton;
-    private javax.swing.JPanel personalPanel;
-    private javax.swing.JPanel registrationPanel;
-    private javax.swing.JButton toLoginButton;
-    private javax.swing.JButton toRegistrationButton;
-    private javax.swing.JPanel welcomePanel;
+    javax.swing.JPanel comunicationPanel;
+    javax.swing.JTabbedPane comunicationTabs;
+    javax.swing.JButton deleteSdcButton;
+    javax.swing.JLabel errorLoginLabel;
+    javax.swing.JButton goToRegistrationButton;
+    javax.swing.JButton jButton1;
+    javax.swing.JButton jButton2;
+    javax.swing.JButton jButton3;
+    javax.swing.JButton jButton4;
+    javax.swing.JLabel jLabel1;
+    javax.swing.JLabel jLabel2;
+    javax.swing.JLabel jLabel3;
+    javax.swing.JLabel jLabel4;
+    javax.swing.JList jList1;
+    javax.swing.JList jList2;
+    javax.swing.JPanel jPanel1;
+    javax.swing.JPanel jPanel2;
+    javax.swing.JPanel jPanel3;
+    javax.swing.JPanel jPanel4;
+    javax.swing.JPanel jPanel5;
+    javax.swing.JPanel jPanel6;
+    javax.swing.JPanel jPanel7;
+    javax.swing.JPanel jPanel8;
+    javax.swing.JPanel jPanel9;
+    javax.swing.JPasswordField jPasswordField1;
+    javax.swing.JScrollPane jScrollPane1;
+    javax.swing.JScrollPane jScrollPane2;
+    javax.swing.JScrollPane jScrollPane3;
+    javax.swing.JTabbedPane jTabbedPane1;
+    javax.swing.JTabbedPane jTabbedPane2;
+    javax.swing.JTextArea jTextArea1;
+    javax.swing.JTextField jTextField1;
+    javax.swing.JTextField jTextField2;
+    javax.swing.JTextField jTextField3;
+    javax.swing.JTextField jTextField4;
+    javax.swing.JToolBar jToolBar1;
+    javax.swing.JToolBar jToolBar2;
+    javax.swing.JButton loginButton;
+    javax.swing.JPanel loginFormPanel;
+    javax.swing.JPanel loginPanel;
+    javax.swing.JToolBar loginToolBar;
+    javax.swing.JPanel messagePanel;
+    javax.swing.JComboBox metodoCifraturaComboBox;
+    javax.swing.JTextField nickLoginField;
+    javax.swing.JPasswordField passLoginField;
+    javax.swing.JPanel personalPanel;
+    javax.swing.JPanel propostePanel;
+    javax.swing.JPanel registrationPanel;
+    javax.swing.JPanel sdcPanel;
+    javax.swing.JTabbedPane sdcTabs;
     // End of variables declaration//GEN-END:variables
 }
