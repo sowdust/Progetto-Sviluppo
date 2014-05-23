@@ -8,14 +8,7 @@ package cryptohelper.model;
 
 import java.util.Stack;
 
-/**
- * 
- * 
- * TODO.
- * Metodo per serializzare intero albero e mosse (o male che vada ultimo stato)
- * Da bravo deficiente non ho tenuto quello che avevo già fatto e funzionava.
- * 
- * 
+/* 
  * NOTE SULL'ALBERO.
  * 
  * Invariante è il fatto che in ogni cammino non vi siano mai due assegnazioni
@@ -27,16 +20,13 @@ import java.util.Stack;
  *  2) calcolo della mappatura dal basso verso l'alto esplorando solo il cammino corrente
  *  3) detection di stato già visitato si ferma al primo conflitto in ogni ramo
  * 
- * TODO.
- * (1)  Pensare al miglior modo per gestire detection di stati già raggiunti.
- *      Essendo l'ordinamento temporale e non alfabetico (e quindi non potendo fare
- *      una detect in modo ottimo) valutare se in un uso pratico sia proprio quella
- *      la prossima opzione aggiuntiva più utile, piuttosto che altre possibili.
- *      Almeno una comunque da aggiungere.
+ * TODO:
+ *
+ * (1)  Decidere quando fare e come gestire la detect di stati già raggiunti
  * (2)  Una volta deciso formato di input (mappatura intera annienterebbe il vantaggio
  *      di MappaturaParziale) gestire la remove.
- *  
- * @author mat
+ * (3)  Metodo per serializzare intero albero e mosse (o male che vada ultimo stato)
+ *      Da bravo deficiente non ho tenuto quello che avevo già fatto e funzionava.
  */
 public class Sessione {
 
@@ -61,7 +51,7 @@ public class Sessione {
     }
     
     public void aggiungiIpotesi(MappaturaParziale map) {
-        
+                
         // se lettera non ancora assegnata in questo cammino
         if(!mappaturaCorrente.conflitto(map)){
             ipotesiCorrente = ipotesiCorrente.aggiungiIpotesi(map);
@@ -92,16 +82,11 @@ public class Sessione {
         return radice;
     }
     
+    public Ipotesi giaRaggiunta(){
+        return radice.giaRaggiunta(mappaturaCorrente, new MappaturaParziale()); 
+    }
+    
     public void stampaAlbero() {
         radice.stampa(0,ipotesiCorrente);
     }
-    
-    public Ipotesi giaRaggiunta(){
-        //  TODO:
-        // la funzione map.conflitto(map) non deve tornare errore
-        // se stessa assegnazione (o usare altro metodo)
-        // ora smetto perchè mi sono un po' scaramellato
-        return radice.giaRaggiunta(mappaturaCorrente); 
-    }
-
 }

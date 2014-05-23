@@ -152,7 +152,11 @@ public class SessioneTest {
         
         
         //  ANDIAMO IN UNO STATO GIÀ RAGGIUNTO
+        //  identico alla quinta ipotesi
         MappaturaParziale gia = new MappaturaParziale("d > x, e > u, a > z, b > w, c > y, f > t, g > s ");
+//        sess.aggiungiIpotesi(gia);
+        System.out.println("Ipotesi già raggiunta: " + sess.getAlbero().giaRaggiunta(gia, new MappaturaParziale()).getStato());
+        assertSame(sess.getAlbero().giaRaggiunta(gia, new MappaturaParziale()), quinta);
         
     }
 }

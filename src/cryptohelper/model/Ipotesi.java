@@ -1,19 +1,8 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
 package cryptohelper.model;
 
 import java.util.LinkedList;
 import java.util.List;
 
-/**
- *  
- * 
- * @author mat
- */
 public class Ipotesi {
 
     public MappaturaParziale map;
@@ -80,8 +69,24 @@ public class Ipotesi {
      * Esplorando ricorsivamente i nodi figli, restituisce, se esiste, il primo
      * in cui lo stato sia uguale a m; null altrimenti
      */
-    Ipotesi giaRaggiunta(MappaturaParziale m) {
-        throw new UnsupportedOperationException("Not supported yet.");
+    Ipotesi giaRaggiunta(MappaturaParziale m, MappaturaParziale corrente) {
+        MappaturaParziale stato = corrente.merge(map);
+        
+        // se vi è un conflitto, m non è in questo cammino
+        if(map.conflitto(m)) {
+            return null;
+        }
+        // se m è uguale allo stato dell'ipotesi in cui siamo
+        if(stato.equals(m)) {
+            return this;
+        }
+        // ripetiamo sui figli
+        for(Ipotesi i : figli) {
+            if(i.giaRaggiunta(m, stato) != null) {
+                return i.giaRaggiunta(m, stato);
+            }
+        }
+        return null;
     }
 
 }

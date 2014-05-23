@@ -127,11 +127,10 @@ public class MappaturaParziale {
     
     /*
      * Data una mappatura parziale m, restituisce true se vi sono lettere già 
-     * assegnate o già definite in this, false altrimenti.
-     * Restituisce true anche se la stessa assegnazione compare in entrambi i lati
+     * assegnate o già definite in maniera diversa in this, false altrimenti.
      * 
      * Es:
-     * ( {a > z} ∈ this && {a > z} ∈ m ==> true )
+     * ( {a > z} ∈ this && {a > z} ∈ m ==> false )
      * ( {a > z} ∈ this && {a > y} ∈ m ==> true )
      * ( {a > z} ∈ this && {b > z} ∈ m ==> true )
      * 
@@ -140,32 +139,14 @@ public class MappaturaParziale {
         for(int i = 0; i < m.map.size(); ++i) {
             int k = map.indexOf(m.map.get(i));
             int j = inverseMap.indexOf(m.inverseMap.get(i));
-            if  (  k != -1  ||  j != -1 ) {
+            if  (  k != -1  && inverseMap.get(k)!=m.inverseMap.get(i)) {
+                return true;
+            }
+            if  ( j != -1   && map.get(j)!=m.map.get(i)) {
                 return true;
             }
         }
         return false;
-    }
-    
-    /*
-     * Data una mappatura parziale m, ritorna true se m è strettamente contenuta
-     * in this.
-     * 
-     * Es:
-     * {a > z} ⊆ {a > z, b > y} ==> true
-     * {a > z} ⊆ {a > z} ==> true
-     * {a > z} ⊆ {a > y} ==> false
-     * {a > b} ⊆ {a > z} ==> false
-     * {a > z, b > y} ⊆ {a > z} ==> false
-     * 
-     */
-    public boolean subsetOf(MappaturaParziale m) {
-        try {
-            return m.sottrai(this).size() == (m.size() - this.size());
-        }catch(Exception e) {
-            return false;
-        }
-        
     }
 
     /*
@@ -203,6 +184,28 @@ public class MappaturaParziale {
         }
         return s + "\b }";
     }
+    
+    /*
+     * Data una mappatura parziale m, ritorna true se m è strettamente contenuta
+     * in this.
+     * 
+     * Es:
+     * {a > z} ⊆ {a > z, b > y} ==> true
+     * {a > z} ⊆ {a > z} ==> true
+     * {a > z} ⊆ {a > y} ==> false
+     * {a > b} ⊆ {a > z} ==> false
+     * {a > z, b > y} ⊆ {a > z} ==> false
+     * 
+     
+    public boolean subsetOf(MappaturaParziale m) {
+        try {
+            return m.sottrai(this).size() == (m.size() - this.size());
+        }catch(Exception e) {
+            return false;
+        }
+        
+    }
+    */    
  /*   
     // mi dice se una lettera della mappatura m è già definita in this
     public boolean giaDefinita(MappaturaParziale m) {
