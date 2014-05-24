@@ -49,7 +49,7 @@ Riferimenti:    uc: GestisciSessioni
 Precondizioni:  Studente st identificato 
 Postcondizioni: ritorna la lista delle sessioni create dal Studente st
 
-Operazione:     caricaSessione(s)
+Operazione:     caricaSessione(id, proprietario)
 Riferimenti:    uc: CaricaSessione
 Precondizioni:  Studente st identificato, s è una Sessione
 Postcondizioni: viene riaperta la Sessione s
