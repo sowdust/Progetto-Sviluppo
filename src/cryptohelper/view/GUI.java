@@ -110,7 +110,7 @@ public class GUI extends javax.swing.JFrame {
         jTextField6 = new javax.swing.JTextField();
         jTextField5 = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
-        jTextField4 = new javax.swing.JTextField();
+        chiaveCifraturaField = new javax.swing.JTextField();
         calcolaMappaturaButton = new javax.swing.JButton();
         metodoCifraturaComboBox = new javax.swing.JComboBox();
 
@@ -423,6 +423,7 @@ public class GUI extends javax.swing.JFrame {
         nuovoSdcPanel.setLayout(new java.awt.GridBagLayout());
 
         salvaSdcButton.setText("Salva");
+        salvaSdcButton.setEnabled(false);
         salvaSdcButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 salvaSdcButtonActionPerformed(evt);
@@ -430,6 +431,7 @@ public class GUI extends javax.swing.JFrame {
         });
 
         provaSdcButton.setText("Prova");
+        provaSdcButton.setEnabled(false);
         provaSdcButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 provaSdcButtonActionPerformed(evt);
@@ -441,7 +443,12 @@ public class GUI extends javax.swing.JFrame {
         jLabel5.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel5.setText("Scegli un metodo di cifratura");
 
-        jTextField4.setEnabled(false);
+        chiaveCifraturaField.setEnabled(false);
+        chiaveCifraturaField.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                chiaveCifraturaFieldKeyTyped(evt);
+            }
+        });
 
         calcolaMappaturaButton.setText("Calcola Mappatura");
         calcolaMappaturaButton.addActionListener(new java.awt.event.ActionListener() {
@@ -472,7 +479,7 @@ public class GUI extends javax.swing.JFrame {
             .addGroup(jPanel10Layout.createSequentialGroup()
                 .addComponent(metodoCifraturaComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 264, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jTextField4))
+                .addComponent(chiaveCifraturaField))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel10Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -489,7 +496,7 @@ public class GUI extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(metodoCifraturaComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(chiaveCifraturaField, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(calcolaMappaturaButton)
                 .addGap(99, 99, 99)
@@ -633,17 +640,24 @@ public class GUI extends javax.swing.JFrame {
 
     private void calcolaMappaturaButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_calcolaMappaturaButtonActionPerformed
         String metodo = (String) metodoCifraturaComboBox.getSelectedItem();
-        Mappatura map = guiController.generaMappatura(jTextField4.getText(), metodo);
-        System.out.println(map);
+        try {
+            Mappatura map = guiController.generaMappatura(chiaveCifraturaField.getText(), metodo);
+            System.out.println(map);
+            provaSdcButton.setEnabled(true);
+            salvaSdcButton.setEnabled(true);
+        } catch (IllegalArgumentException ex) {
+            jLabel5.setText(ex.getMessage());
+        }
     }//GEN-LAST:event_calcolaMappaturaButtonActionPerformed
 
     private void metodoCifraturaComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_metodoCifraturaComboBoxActionPerformed
         JComboBox cb = (JComboBox) evt.getSource();
         String metodo = (String) cb.getSelectedItem();
         if (metodo != null) {
-            jTextField4.setEnabled(true);
+            chiaveCifraturaField.setEnabled(true);
             jLabel5.setText(guiController.mostraSceltaChiave(metodo));
-            //controllare se è generabile una mappatura
+            provaSdcButton.setEnabled(false);
+            salvaSdcButton.setEnabled(false);
         }
     }//GEN-LAST:event_metodoCifraturaComboBoxActionPerformed
 
@@ -654,6 +668,11 @@ public class GUI extends javax.swing.JFrame {
             Logger.getLogger(GUI.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_salvaSdcButtonActionPerformed
+
+    private void chiaveCifraturaFieldKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_chiaveCifraturaFieldKeyTyped
+        provaSdcButton.setEnabled(false);
+        salvaSdcButton.setEnabled(false);
+    }//GEN-LAST:event_chiaveCifraturaFieldKeyTyped
 
     private void caricaSistemiCifratura() {
         DefaultListModel<SistemaCifratura> dlm = (DefaultListModel<SistemaCifratura>) elencoSdcList.getModel();
@@ -673,6 +692,7 @@ public class GUI extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     javax.swing.JButton accettaPropostaButton;
     javax.swing.JButton calcolaMappaturaButton;
+    javax.swing.JTextField chiaveCifraturaField;
     javax.swing.JPanel communicationPanel;
     javax.swing.JTabbedPane comunicationTabs;
     javax.swing.JButton deleteSdcButton;
@@ -705,7 +725,6 @@ public class GUI extends javax.swing.JFrame {
     javax.swing.JTextField jTextField1;
     javax.swing.JTextField jTextField2;
     javax.swing.JTextField jTextField3;
-    javax.swing.JTextField jTextField4;
     javax.swing.JTextField jTextField5;
     javax.swing.JTextField jTextField6;
     javax.swing.JToolBar jToolBar1;

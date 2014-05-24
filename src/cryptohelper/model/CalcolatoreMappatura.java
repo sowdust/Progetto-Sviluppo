@@ -27,7 +27,7 @@ public abstract class CalcolatoreMappatura {
         try {
             return (CalcolatoreMappatura) Class.forName(className).newInstance();
         } catch (InstantiationException | IllegalAccessException | ClassNotFoundException ex) {
-            throw new IllegalArgumentException();
+            throw new IllegalArgumentException("metodo non valido");
         }
     }
 

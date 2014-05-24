@@ -592,7 +592,7 @@
                                   <Group type="102" alignment="0" attributes="0">
                                       <Component id="metodoCifraturaComboBox" min="-2" pref="264" max="-2" attributes="0"/>
                                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                                      <Component id="jTextField4" max="32767" attributes="0"/>
+                                      <Component id="chiaveCifraturaField" max="32767" attributes="0"/>
                                   </Group>
                                   <Group type="102" alignment="1" attributes="0">
                                       <EmptySpace max="-2" attributes="0"/>
@@ -613,7 +613,7 @@
                                       <EmptySpace max="-2" attributes="0"/>
                                       <Group type="103" groupAlignment="3" attributes="0">
                                           <Component id="metodoCifraturaComboBox" alignment="3" min="-2" max="-2" attributes="0"/>
-                                          <Component id="jTextField4" alignment="3" min="-2" pref="31" max="-2" attributes="0"/>
+                                          <Component id="chiaveCifraturaField" alignment="3" min="-2" pref="31" max="-2" attributes="0"/>
                                       </Group>
                                       <EmptySpace max="-2" attributes="0"/>
                                       <Component id="calcolaMappaturaButton" min="-2" max="-2" attributes="0"/>
@@ -635,6 +635,7 @@
                             <Component class="javax.swing.JButton" name="salvaSdcButton">
                               <Properties>
                                 <Property name="text" type="java.lang.String" value="Salva"/>
+                                <Property name="enabled" type="boolean" value="false"/>
                               </Properties>
                               <Events>
                                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="salvaSdcButtonActionPerformed"/>
@@ -643,6 +644,7 @@
                             <Component class="javax.swing.JButton" name="provaSdcButton">
                               <Properties>
                                 <Property name="text" type="java.lang.String" value="Prova"/>
+                                <Property name="enabled" type="boolean" value="false"/>
                               </Properties>
                               <Events>
                                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="provaSdcButtonActionPerformed"/>
@@ -661,10 +663,13 @@
                                 <Property name="text" type="java.lang.String" value="Scegli un metodo di cifratura"/>
                               </Properties>
                             </Component>
-                            <Component class="javax.swing.JTextField" name="jTextField4">
+                            <Component class="javax.swing.JTextField" name="chiaveCifraturaField">
                               <Properties>
                                 <Property name="enabled" type="boolean" value="false"/>
                               </Properties>
+                              <Events>
+                                <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="chiaveCifraturaFieldKeyTyped"/>
+                              </Events>
                             </Component>
                             <Component class="javax.swing.JButton" name="calcolaMappaturaButton">
                               <Properties>

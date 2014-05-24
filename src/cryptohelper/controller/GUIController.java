@@ -31,7 +31,7 @@ public class GUIController {
 
     private static GUIController instance = null;
     private Studente studente = null;
-    private SistemaCifratura nuovoSistemaCifratura = null;
+    private SistemaCifratura nuovoSdc = null;
 
     private GUIController() {
     }
@@ -83,7 +83,7 @@ public class GUIController {
                 vincolo = "inserisci una parola (solo lettere latine)";
                 break;
             case "cesare":
-                vincolo = "inserisci un numero da 0 a 26";
+                vincolo = "inserisci un numero da 1 a 25";
                 break;
             case "pseudocasuale":
                 vincolo = "inserisci un numero";
@@ -93,20 +93,21 @@ public class GUIController {
     }
 
     public Mappatura generaMappatura(String chiave, String metodo) {
-        if (nuovoSistemaCifratura == null) {
-            nuovoSistemaCifratura = new SistemaCifratura(chiave, metodo, studente);
+        if (nuovoSdc == null) {
+            nuovoSdc = new SistemaCifratura(chiave, metodo, studente);
         } else {
-            nuovoSistemaCifratura.setChiave(chiave);
-            nuovoSistemaCifratura.setMetodo(metodo);
+            nuovoSdc.setChiave(chiave);
+            nuovoSdc.setMetodo(metodo);
+            nuovoSdc.calcolaMappatura();
         }
-        return nuovoSistemaCifratura.getMappatura();
+        return nuovoSdc.getMappatura();
     }
 
     public String cifra(String testo) {
-        return nuovoSistemaCifratura.prova(testo);
+        return nuovoSdc.prova(testo);
     }
 
     public boolean salvaSistemaCifratura() throws SQLException {
-        return nuovoSistemaCifratura.save();
+        return nuovoSdc.save();
     }
 }
