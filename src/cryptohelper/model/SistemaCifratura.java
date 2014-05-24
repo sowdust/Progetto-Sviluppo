@@ -140,9 +140,17 @@ public class SistemaCifratura {
         return id;
     }
 
+    public String getMetodo() {
+        return metodo;
+    }
+
+    public String getChiave() {
+        return chiave;
+    }
+
     @Override
     public String toString() {
-        return metodo + ": " + chiave;
+        return "metodo: " + metodo + " chiave: " + chiave;
     }
 
 }

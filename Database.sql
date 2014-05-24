@@ -66,9 +66,9 @@ INSERT INTO SistemaCifratura (creatore, metodo, chiave) VALUES
 INSERT INTO Proposta (stato, notificata, proponente, partner, sdc) VALUES
     ('accepted', true, 1, 2, 1),
     ('accepted', true, 4, 1, 2),
-    ('accepted', true, 1, 5, 3),
+    ('accepted', false, 1, 5, 3),
     ('expired', true, 1, 3, 4),
-    ('pending', false, 1, 3, 5),
+    ('pending', false, 3, 1, 5),
     ('accepted', true, 1, 6, 6);
        
 INSERT INTO Messaggio (mittente, destinatario, testo, testoCifrato, lingua, titolo, bozza, letto, sdc) VALUES

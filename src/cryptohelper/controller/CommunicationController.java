@@ -104,20 +104,22 @@ public class CommunicationController {
         return messaggio.send();
     }
 
-    /* (Ale) prende l'unica proposta che ha come id lo stesso id dello studente e non considera lo stato refused*/
     public List<Proposta> getAccettazioneProposte(Studente user) throws SQLException {
         DBController dbc = DBController.getInstance();
-        ResultSet rs = dbc.execute("SELECT * FROM Proposta WHERE "
-                + "proponente = ? AND (stato = 'accepted' OR stato = 'declined') AND notificata = 'false'", user.getId());
+        ResultSet rs = dbc.execute("SELECT * FROM Proposta "
+                + "WHERE proponente = ? AND (stato = 'accepted' OR stato = 'refused') AND notificata = 'false'", user.getId());
         List<Proposta> result = new ArrayList<>();
         while (rs.next()) {
-            result.add(new Proposta(rs));
+            Proposta p = new Proposta(rs);
+            p.setNotificata(true);
+            p.save();
+            result.add(p);
             /* da impostare notificata = vero e salvare nel DB */
         }
         return result;
     }
 
-    public static List<Proposta> getProposte(Studente st) throws SQLException {
+    public List<Proposta> getProposte(Studente st) throws SQLException {
         DBController dbc = DBController.getInstance();
         ResultSet rs = dbc.execute("SELECT * FROM Proposta WHERE partner = ? AND stato = 'pending'", st.getId());
         List<Proposta> lista = new ArrayList<>();

@@ -20,12 +20,16 @@ import cryptohelper.controller.GUIController;
 import cryptohelper.model.Proposta;
 import cryptohelper.model.SistemaCifratura;
 import java.awt.CardLayout;
+import java.awt.Component;
 import java.sql.SQLException;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.DefaultListModel;
+import javax.swing.JComboBox;
 import javax.swing.JDialog;
+import javax.swing.JList;
+import javax.swing.ListCellRenderer;
 
 /**
  *
@@ -39,7 +43,7 @@ public class GUI extends javax.swing.JFrame {
     public GUI() {
         initComponents();
         getRootPane().setDefaultButton(loginButton);
-        
+        metodoCifraturaComboBox.setSelectedIndex(-1);
     }
 
     /**
@@ -71,7 +75,7 @@ public class GUI extends javax.swing.JFrame {
         jLabel4 = new javax.swing.JLabel();
         jButton2 = new javax.swing.JButton();
         personalPanel = new javax.swing.JPanel();
-        comunicationPanel = new javax.swing.JPanel();
+        communicationPanel = new javax.swing.JPanel();
         comunicationTabs = new javax.swing.JTabbedPane();
         messagePanel = new javax.swing.JPanel();
         jTabbedPane2 = new javax.swing.JTabbedPane();
@@ -83,25 +87,31 @@ public class GUI extends javax.swing.JFrame {
         jTabbedPane1 = new javax.swing.JTabbedPane();
         jPanel6 = new javax.swing.JPanel();
         jToolBar2 = new javax.swing.JToolBar();
-        jButton1 = new javax.swing.JButton();
+        accettaPropostaButton = new javax.swing.JButton();
+        rifiutaPropostaButton = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jList1 = new javax.swing.JList();
+        elencoProposteValutare = new javax.swing.JList();
         jPanel9 = new javax.swing.JPanel();
+        jScrollPane4 = new javax.swing.JScrollPane();
+        jList1 = new javax.swing.JList();
         jPanel7 = new javax.swing.JPanel();
         sdcPanel = new javax.swing.JPanel();
         sdcTabs = new javax.swing.JTabbedPane();
         jPanel4 = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
-        jList2 = new javax.swing.JList();
+        elencoSistemiCifratura = new javax.swing.JList();
         jToolBar1 = new javax.swing.JToolBar();
         deleteSdcButton = new javax.swing.JButton();
         jPanel5 = new javax.swing.JPanel();
-        metodoCifraturaComboBox = new javax.swing.JComboBox();
-        jTextField4 = new javax.swing.JTextField();
-        jScrollPane3 = new javax.swing.JScrollPane();
-        jTextArea1 = new javax.swing.JTextArea();
-        jButton3 = new javax.swing.JButton();
+        jPanel10 = new javax.swing.JPanel();
         jButton4 = new javax.swing.JButton();
+        jButton3 = new javax.swing.JButton();
+        jTextField6 = new javax.swing.JTextField();
+        jTextField5 = new javax.swing.JTextField();
+        jLabel5 = new javax.swing.JLabel();
+        jTextField4 = new javax.swing.JTextField();
+        jButton1 = new javax.swing.JButton();
+        metodoCifraturaComboBox = new javax.swing.JComboBox();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("CryptoHelper");
@@ -224,7 +234,7 @@ public class GUI extends javax.swing.JFrame {
         personalPanel.setLayout(new java.awt.BorderLayout());
         getContentPane().add(personalPanel, "card5");
 
-        comunicationPanel.setLayout(new javax.swing.BoxLayout(comunicationPanel, javax.swing.BoxLayout.LINE_AXIS));
+        communicationPanel.setLayout(new javax.swing.BoxLayout(communicationPanel, javax.swing.BoxLayout.LINE_AXIS));
 
         comunicationTabs.setTabPlacement(javax.swing.JTabbedPane.LEFT);
 
@@ -234,7 +244,7 @@ public class GUI extends javax.swing.JFrame {
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 599, Short.MAX_VALUE)
+            .addGap(0, 556, Short.MAX_VALUE)
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -247,7 +257,7 @@ public class GUI extends javax.swing.JFrame {
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 599, Short.MAX_VALUE)
+            .addGap(0, 556, Short.MAX_VALUE)
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -260,7 +270,7 @@ public class GUI extends javax.swing.JFrame {
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 599, Short.MAX_VALUE)
+            .addGap(0, 556, Short.MAX_VALUE)
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -273,7 +283,7 @@ public class GUI extends javax.swing.JFrame {
         jPanel8.setLayout(jPanel8Layout);
         jPanel8Layout.setHorizontalGroup(
             jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 599, Short.MAX_VALUE)
+            .addGap(0, 556, Short.MAX_VALUE)
         );
         jPanel8Layout.setVerticalGroup(
             jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -293,40 +303,78 @@ public class GUI extends javax.swing.JFrame {
         jToolBar2.setFloatable(false);
         jToolBar2.setRollover(true);
 
-        jButton1.setText("Elimina");
-        jButton1.setEnabled(false);
-        jButton1.setFocusable(false);
-        jButton1.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        jButton1.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        jToolBar2.add(jButton1);
+        accettaPropostaButton.setText("Accetta");
+        accettaPropostaButton.setEnabled(false);
+        accettaPropostaButton.setFocusable(false);
+        accettaPropostaButton.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        accettaPropostaButton.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        accettaPropostaButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                accettaPropostaButtonActionPerformed(evt);
+            }
+        });
+        jToolBar2.add(accettaPropostaButton);
+
+        rifiutaPropostaButton.setText("Rifiuta");
+        rifiutaPropostaButton.setEnabled(false);
+        rifiutaPropostaButton.setFocusable(false);
+        rifiutaPropostaButton.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        rifiutaPropostaButton.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        rifiutaPropostaButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                rifiutaPropostaButtonActionPerformed(evt);
+            }
+        });
+        jToolBar2.add(rifiutaPropostaButton);
 
         jPanel6.add(jToolBar2, java.awt.BorderLayout.PAGE_END);
 
-        jList1.setModel(new javax.swing.DefaultListModel<Proposta>());
-        jScrollPane1.setViewportView(jList1);
+        elencoProposteValutare.setModel(new javax.swing.DefaultListModel<Proposta>());
+        elencoProposteValutare.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        elencoProposteValutare.addListSelectionListener(new javax.swing.event.ListSelectionListener() {
+            public void valueChanged(javax.swing.event.ListSelectionEvent evt) {
+                elencoProposteValutareValueChanged(evt);
+            }
+        });
+        elencoProposteValutare.addAncestorListener(new javax.swing.event.AncestorListener() {
+            public void ancestorMoved(javax.swing.event.AncestorEvent evt) {
+            }
+            public void ancestorAdded(javax.swing.event.AncestorEvent evt) {
+                elencoProposteValutareAncestorAdded(evt);
+            }
+            public void ancestorRemoved(javax.swing.event.AncestorEvent evt) {
+            }
+        });
+        jScrollPane1.setViewportView(elencoProposteValutare);
 
         jPanel6.add(jScrollPane1, java.awt.BorderLayout.CENTER);
 
-        jTabbedPane1.addTab("Da Valutare", jPanel6);
+        jTabbedPane1.addTab("Ricevute da valutare", jPanel6);
 
-        javax.swing.GroupLayout jPanel9Layout = new javax.swing.GroupLayout(jPanel9);
-        jPanel9.setLayout(jPanel9Layout);
-        jPanel9Layout.setHorizontalGroup(
-            jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 599, Short.MAX_VALUE)
-        );
-        jPanel9Layout.setVerticalGroup(
-            jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 393, Short.MAX_VALUE)
-        );
+        jPanel9.setLayout(new javax.swing.BoxLayout(jPanel9, javax.swing.BoxLayout.LINE_AXIS));
 
-        jTabbedPane1.addTab("Inviate", jPanel9);
+        jList1.setModel(new javax.swing.DefaultListModel<Proposta>());
+        jList1.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        jList1.addAncestorListener(new javax.swing.event.AncestorListener() {
+            public void ancestorMoved(javax.swing.event.AncestorEvent evt) {
+            }
+            public void ancestorAdded(javax.swing.event.AncestorEvent evt) {
+                jList1AncestorAdded(evt);
+            }
+            public void ancestorRemoved(javax.swing.event.AncestorEvent evt) {
+            }
+        });
+        jScrollPane4.setViewportView(jList1);
+
+        jPanel9.add(jScrollPane4);
+
+        jTabbedPane1.addTab("Inviate e valutate", jPanel9);
 
         javax.swing.GroupLayout jPanel7Layout = new javax.swing.GroupLayout(jPanel7);
         jPanel7.setLayout(jPanel7Layout);
         jPanel7Layout.setHorizontalGroup(
             jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 599, Short.MAX_VALUE)
+            .addGap(0, 556, Short.MAX_VALUE)
         );
         jPanel7Layout.setVerticalGroup(
             jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -343,14 +391,14 @@ public class GUI extends javax.swing.JFrame {
 
         jPanel4.setLayout(new java.awt.BorderLayout());
 
-        jList2.setModel(new javax.swing.DefaultListModel<SistemaCifratura>());
-        jList2.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
-        jList2.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jList2MouseClicked(evt);
+        elencoSistemiCifratura.setModel(new javax.swing.DefaultListModel<SistemaCifratura>());
+        elencoSistemiCifratura.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        elencoSistemiCifratura.addListSelectionListener(new javax.swing.event.ListSelectionListener() {
+            public void valueChanged(javax.swing.event.ListSelectionEvent evt) {
+                elencoSistemiCifraturaValueChanged(evt);
             }
         });
-        jScrollPane2.setViewportView(jList2);
+        jScrollPane2.setViewportView(elencoSistemiCifratura);
 
         jPanel4.add(jScrollPane2, java.awt.BorderLayout.CENTER);
 
@@ -371,18 +419,9 @@ public class GUI extends javax.swing.JFrame {
 
         sdcTabs.addTab("Elenco", jPanel4);
 
-        metodoCifraturaComboBox.setModel(new javax.swing.DefaultComboBoxModel(gController.ottieniMetodiDiCifratura()));
-        metodoCifraturaComboBox.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                metodoCifraturaComboBoxActionPerformed(evt);
-            }
-        });
+        jPanel5.setLayout(new java.awt.GridBagLayout());
 
-        jTextField4.setEnabled(false);
-
-        jTextArea1.setColumns(20);
-        jTextArea1.setRows(5);
-        jScrollPane3.setViewportView(jTextArea1);
+        jButton4.setText("Salva");
 
         jButton3.setText("Prova");
         jButton3.addActionListener(new java.awt.event.ActionListener() {
@@ -391,46 +430,70 @@ public class GUI extends javax.swing.JFrame {
             }
         });
 
-        jButton4.setText("Salva");
+        jLabel5.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel5.setText("Scegli un metodo di cifratura");
 
-        javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
-        jPanel5.setLayout(jPanel5Layout);
-        jPanel5Layout.setHorizontalGroup(
-            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel5Layout.createSequentialGroup()
-                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel5Layout.createSequentialGroup()
-                        .addGap(26, 26, 26)
-                        .addComponent(metodoCifraturaComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 208, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, 208, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel5Layout.createSequentialGroup()
-                        .addGap(110, 110, 110)
-                        .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(95, 95, 95)
-                        .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jButton3)
-                            .addComponent(jButton4))))
-                .addContainerGap(123, Short.MAX_VALUE))
+        jButton1.setText("Calcola Mappatura");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
+        metodoCifraturaComboBox.setModel(new javax.swing.DefaultComboBoxModel(guiController.ottieniMetodiDiCifratura()));
+        metodoCifraturaComboBox.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                metodoCifraturaComboBoxActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel10Layout = new javax.swing.GroupLayout(jPanel10);
+        jPanel10.setLayout(jPanel10Layout);
+        jPanel10Layout.setHorizontalGroup(
+            jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jTextField6)
+            .addComponent(jTextField5)
+            .addGroup(jPanel10Layout.createSequentialGroup()
+                .addGap(181, 181, 181)
+                .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
+            .addGroup(jPanel10Layout.createSequentialGroup()
+                .addComponent(metodoCifraturaComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 264, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jTextField4))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel10Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel10Layout.createSequentialGroup()
+                .addContainerGap(184, Short.MAX_VALUE)
+                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(180, 180, 180))
         );
-        jPanel5Layout.setVerticalGroup(
-            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel5Layout.createSequentialGroup()
-                .addGap(26, 26, 26)
-                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+        jPanel10Layout.setVerticalGroup(
+            jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel10Layout.createSequentialGroup()
+                .addComponent(jLabel5)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(metodoCifraturaComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel5Layout.createSequentialGroup()
-                        .addGap(102, 102, 102)
-                        .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel5Layout.createSequentialGroup()
-                        .addGap(117, 117, 117)
-                        .addComponent(jButton3)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jButton4)))
-                .addContainerGap(127, Short.MAX_VALUE))
+                    .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jButton1)
+                .addGap(99, 99, 99)
+                .addComponent(jTextField5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jTextField6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jButton4)
+                    .addComponent(jButton3))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
+
+        jPanel5.add(jPanel10, new java.awt.GridBagConstraints());
 
         sdcTabs.addTab("Crea Nuovo", jPanel5);
 
@@ -438,16 +501,16 @@ public class GUI extends javax.swing.JFrame {
 
         comunicationTabs.addTab("Sistemi Cifratura", sdcPanel);
 
-        comunicationPanel.add(comunicationTabs);
+        communicationPanel.add(comunicationTabs);
 
-        getContentPane().add(comunicationPanel, "card6");
+        getContentPane().add(communicationPanel, "card6");
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void loginButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loginButtonActionPerformed
         try {
-            if (gController.login(nickLoginField.getText(), String.valueOf(passLoginField.getPassword()))) {
+            if (guiController.login(nickLoginField.getText(), String.valueOf(passLoginField.getPassword()))) {
                 CardLayout cl = (CardLayout) getContentPane().getLayout();
                 cl.show(getContentPane(), "card6");
                 /* per ora va qui */
@@ -456,45 +519,125 @@ public class GUI extends javax.swing.JFrame {
                 errorLoginLabel.setText("nickname o password errati");
             }
         } catch (SQLException ex) {
-            new JDialog(this, "prova ttilo", true).setVisible(true);
+            Logger.getLogger(GUI.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_loginButtonActionPerformed
-    
+
     private void goToRegistrationButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_goToRegistrationButtonActionPerformed
         CardLayout cl = (CardLayout) getContentPane().getLayout();
         cl.show(getContentPane(), "card4");
     }//GEN-LAST:event_goToRegistrationButtonActionPerformed
-    
+
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-        jTextArea1.setText(jTextArea1.getText());
     }//GEN-LAST:event_jButton3ActionPerformed
-    
+
     private void deleteSdcButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteSdcButtonActionPerformed
         try {
-            SistemaCifratura sdc = (SistemaCifratura) jList2.getSelectedValue();
-            if (gController.eliminaSistemaCifratura(sdc)) {
-                DefaultListModel<SistemaCifratura> dlm = (DefaultListModel<SistemaCifratura>) jList2.getModel();
+            SistemaCifratura sdc = (SistemaCifratura) elencoSistemiCifratura.getSelectedValue();
+            if (guiController.eliminaSistemaCifratura(sdc)) {
+                DefaultListModel<SistemaCifratura> dlm = (DefaultListModel<SistemaCifratura>) elencoSistemiCifratura.getModel();
                 dlm.removeElement(sdc);
-                deleteSdcButton.setEnabled(false);
             }
         } catch (SQLException ex) {
             Logger.getLogger(GUI.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_deleteSdcButtonActionPerformed
-    
-    private void jList2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jList2MouseClicked
-        deleteSdcButton.setEnabled(true);
-    }//GEN-LAST:event_jList2MouseClicked
-    
+
+    private void elencoProposteValutareAncestorAdded(javax.swing.event.AncestorEvent evt) {//GEN-FIRST:event_elencoProposteValutareAncestorAdded
+
+        DefaultListModel<Proposta> dlm = (DefaultListModel<Proposta>) elencoProposteValutare.getModel();
+        /* metodo rozzo, pensare a questo: https://stackoverflow.com/questions/919387/how-can-i-calculate-the-difference-between-two-arraylists */
+        dlm.clear(); // rimuovo gli elementi presenti
+
+        List<Proposta> listaProposte = null;
+        try {
+            listaProposte = guiController.vediProposteSistemaCifratura();
+        } catch (SQLException ex) {
+            Logger.getLogger(GUI.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        for (Proposta p : listaProposte) {
+            dlm.addElement(p);
+        }
+    }//GEN-LAST:event_elencoProposteValutareAncestorAdded
+
+    private void accettaPropostaButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_accettaPropostaButtonActionPerformed
+        try {
+            Proposta proposta = (Proposta) elencoProposteValutare.getSelectedValue();
+            if (guiController.comunicaDecisione(proposta, "accepted")) {
+                DefaultListModel<Proposta> dlm = (DefaultListModel<Proposta>) elencoProposteValutare.getModel();
+                dlm.removeElement(proposta);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(GUI.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_accettaPropostaButtonActionPerformed
+
+    private void jList1AncestorAdded(javax.swing.event.AncestorEvent evt) {//GEN-FIRST:event_jList1AncestorAdded
+        DefaultListModel<Proposta> dlm = (DefaultListModel<Proposta>) jList1.getModel();
+        List<Proposta> listaProposteValutate = null;
+        dlm.clear(); // rimuovo gli elementi presenti
+        try {
+            listaProposteValutate = guiController.vediNotificheAccettazioneProposte();
+        } catch (SQLException ex) {
+            Logger.getLogger(GUI.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        for (Proposta p : listaProposteValutate) {
+            dlm.addElement(p);
+        }
+    }//GEN-LAST:event_jList1AncestorAdded
+
+    private void elencoProposteValutareValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_elencoProposteValutareValueChanged
+        if (evt.getValueIsAdjusting() == false) {
+            if (elencoProposteValutare.getSelectedIndex() == -1) {
+                accettaPropostaButton.setEnabled(false);
+                rifiutaPropostaButton.setEnabled(false);
+            } else {
+                accettaPropostaButton.setEnabled(true);
+                rifiutaPropostaButton.setEnabled(true);
+            }
+        }
+    }//GEN-LAST:event_elencoProposteValutareValueChanged
+
+    private void elencoSistemiCifraturaValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_elencoSistemiCifraturaValueChanged
+        if (evt.getValueIsAdjusting() == false) {
+            if (elencoSistemiCifratura.getSelectedIndex() == -1) {
+                deleteSdcButton.setEnabled(false);
+            } else {
+                deleteSdcButton.setEnabled(true);
+            }
+        }
+    }//GEN-LAST:event_elencoSistemiCifraturaValueChanged
+
+    private void rifiutaPropostaButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rifiutaPropostaButtonActionPerformed
+        try {
+            Proposta proposta = (Proposta) elencoProposteValutare.getSelectedValue();
+            if (guiController.comunicaDecisione(proposta, "refused")) {
+                DefaultListModel<Proposta> dlm = (DefaultListModel<Proposta>) elencoProposteValutare.getModel();
+                dlm.removeElement(proposta);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(GUI.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_rifiutaPropostaButtonActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton1ActionPerformed
+
     private void metodoCifraturaComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_metodoCifraturaComboBoxActionPerformed
-        
+        JComboBox cb = (JComboBox) evt.getSource();
+        String metodo = (String) cb.getSelectedItem();
+        if (metodo != null) {
+            jLabel5.setText(guiController.mostraSceltaChiave(metodo));
+        }
     }//GEN-LAST:event_metodoCifraturaComboBoxActionPerformed
-    
+
     private void caricaSistemiCifratura() {
-        DefaultListModel<SistemaCifratura> dlm = (DefaultListModel<SistemaCifratura>) jList2.getModel();
+        DefaultListModel<SistemaCifratura> dlm = (DefaultListModel<SistemaCifratura>) elencoSistemiCifratura.getModel();
         List<SistemaCifratura> listasdc = null;
         try {
-            listasdc = gController.elencaSistemiCifratura();
+            listasdc = guiController.elencaSistemiCifratura();
+
         } catch (SQLException ex) {
             Logger.getLogger(GUI.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -502,11 +645,15 @@ public class GUI extends javax.swing.JFrame {
             dlm.addElement(sdc);
         }
     }
-    private GUIController gController = GUIController.getInstance();
+    private final GUIController guiController = GUIController.getInstance();
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    javax.swing.JPanel comunicationPanel;
+    javax.swing.JButton accettaPropostaButton;
+    javax.swing.JPanel communicationPanel;
     javax.swing.JTabbedPane comunicationTabs;
     javax.swing.JButton deleteSdcButton;
+    javax.swing.JList elencoProposteValutare;
+    javax.swing.JList elencoSistemiCifratura;
     javax.swing.JLabel errorLoginLabel;
     javax.swing.JButton goToRegistrationButton;
     javax.swing.JButton jButton1;
@@ -517,9 +664,10 @@ public class GUI extends javax.swing.JFrame {
     javax.swing.JLabel jLabel2;
     javax.swing.JLabel jLabel3;
     javax.swing.JLabel jLabel4;
+    javax.swing.JLabel jLabel5;
     javax.swing.JList jList1;
-    javax.swing.JList jList2;
     javax.swing.JPanel jPanel1;
+    javax.swing.JPanel jPanel10;
     javax.swing.JPanel jPanel2;
     javax.swing.JPanel jPanel3;
     javax.swing.JPanel jPanel4;
@@ -531,14 +679,15 @@ public class GUI extends javax.swing.JFrame {
     javax.swing.JPasswordField jPasswordField1;
     javax.swing.JScrollPane jScrollPane1;
     javax.swing.JScrollPane jScrollPane2;
-    javax.swing.JScrollPane jScrollPane3;
+    javax.swing.JScrollPane jScrollPane4;
     javax.swing.JTabbedPane jTabbedPane1;
     javax.swing.JTabbedPane jTabbedPane2;
-    javax.swing.JTextArea jTextArea1;
     javax.swing.JTextField jTextField1;
     javax.swing.JTextField jTextField2;
     javax.swing.JTextField jTextField3;
     javax.swing.JTextField jTextField4;
+    javax.swing.JTextField jTextField5;
+    javax.swing.JTextField jTextField6;
     javax.swing.JToolBar jToolBar1;
     javax.swing.JToolBar jToolBar2;
     javax.swing.JButton loginButton;
@@ -552,6 +701,7 @@ public class GUI extends javax.swing.JFrame {
     javax.swing.JPanel personalPanel;
     javax.swing.JPanel propostePanel;
     javax.swing.JPanel registrationPanel;
+    javax.swing.JButton rifiutaPropostaButton;
     javax.swing.JPanel sdcPanel;
     javax.swing.JTabbedPane sdcTabs;
     // End of variables declaration//GEN-END:variables

@@ -16,6 +16,7 @@
  */
 package cryptohelper.controller;
 
+import cryptohelper.model.Proposta;
 import cryptohelper.model.SistemaCifratura;
 import cryptohelper.model.Studente;
 import java.sql.SQLException;
@@ -60,4 +61,33 @@ public class GUIController {
     public boolean eliminaSistemaCifratura(SistemaCifratura sdc) throws SQLException {
         return sdc.elimina();
     }
+
+    public List<Proposta> vediProposteSistemaCifratura() throws SQLException {
+        return CommunicationController.getInstance().getProposte(studente);
+    }
+
+    public List<Proposta> vediNotificheAccettazioneProposte() throws SQLException {
+        return CommunicationController.getInstance().getAccettazioneProposte(studente);
+    }
+
+    public boolean comunicaDecisione(Proposta proposta, String decisione) throws SQLException {
+        return CommunicationController.getInstance().inviaDecisione(proposta, decisione);
+    }
+
+    public String mostraSceltaChiave(String metodo) {
+        String vincolo = "";
+        switch (metodo) {
+            case "parolachiave":
+                vincolo = "inserisci una parola (solo lettere latine)";
+                break;
+            case "cesare":
+                vincolo = "inserisci un numero da 0 a 26";
+                break;
+            case "pseudocasuale":
+                vincolo = "inserisci un numero";
+                break;
+        }
+        return vincolo;
+    }
+
 }

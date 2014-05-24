@@ -81,10 +81,6 @@ public class Proposta {
         return null;
     }
 
-    public void setStato(String stato) {
-        this.stato = stato;
-    }
-
     public boolean save() throws SQLException {
         DBController dbc = DBController.getInstance();
         if (id < 0) {
@@ -94,6 +90,14 @@ public class Proposta {
         return dbc.executeUpdate("UPDATE Proposta SET "
                 + "stato =  ?, notificata = ?, proponente = ?, partner = ?, sdc = ? "
                 + "WHERE id = ?", stato, notificata, proponente.getId(), partner.getId(), sdc.getId(), id);
+    }
+
+    public void setStato(String stato) {
+        this.stato = stato;
+    }
+
+    public void setNotificata(boolean b) {
+        notificata = b;
     }
 
     public int getId() {
@@ -122,11 +126,6 @@ public class Proposta {
 
     @Override
     public String toString() {
-        return "Proposta: \n"
-                + stato + "\n"
-                + notificata + "\n"
-                + proponente + "\n"
-                + partner + "\n"
-                + sdc + "\n";
+        return "da: " + proponente.getNomeCognome() + " a: " + partner.getNomeCognome() + " stato: " + stato + " " + sdc;
     }
 }

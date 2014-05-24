@@ -51,7 +51,7 @@ public class CryptoHelperTest {
 
         // ora agisco nei panni dell'amico
         // guardo le proposte che mi sono state fatte
-        List<Proposta> listp = CommunicationController.getProposte(amico);
+        List<Proposta> listp = cc.getProposte(amico);
         // prendo l'ultima proposta della lista che dovrebbe essere l'ultima che mi è stata fatta
         Proposta propostaConID = listp.get(listp.size() - 1);
         // accetto la proposta
