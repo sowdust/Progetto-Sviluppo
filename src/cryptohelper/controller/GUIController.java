@@ -16,6 +16,7 @@
  */
 package cryptohelper.controller;
 
+import cryptohelper.model.Mappatura;
 import cryptohelper.model.Proposta;
 import cryptohelper.model.SistemaCifratura;
 import cryptohelper.model.Studente;
@@ -30,6 +31,7 @@ public class GUIController {
 
     private static GUIController instance = null;
     private Studente studente = null;
+    private SistemaCifratura nuovoSistemaCifratura = null;
 
     private GUIController() {
     }
@@ -90,4 +92,21 @@ public class GUIController {
         return vincolo;
     }
 
+    public Mappatura generaMappatura(String chiave, String metodo) {
+        if (nuovoSistemaCifratura == null) {
+            nuovoSistemaCifratura = new SistemaCifratura(chiave, metodo, studente);
+        } else {
+            nuovoSistemaCifratura.setChiave(chiave);
+            nuovoSistemaCifratura.setMetodo(metodo);
+        }
+        return nuovoSistemaCifratura.getMappatura();
+    }
+
+    public String cifra(String testo) {
+        return nuovoSistemaCifratura.prova(testo);
+    }
+
+    public boolean salvaSistemaCifratura() throws SQLException {
+        return nuovoSistemaCifratura.save();
+    }
 }

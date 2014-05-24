@@ -17,6 +17,7 @@
 package cryptohelper.view;
 
 import cryptohelper.controller.GUIController;
+import cryptohelper.model.Mappatura;
 import cryptohelper.model.Proposta;
 import cryptohelper.model.SistemaCifratura;
 import java.awt.CardLayout;
@@ -97,20 +98,20 @@ public class GUI extends javax.swing.JFrame {
         jPanel7 = new javax.swing.JPanel();
         sdcPanel = new javax.swing.JPanel();
         sdcTabs = new javax.swing.JTabbedPane();
-        jPanel4 = new javax.swing.JPanel();
+        elencoSdcPanel = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
-        elencoSistemiCifratura = new javax.swing.JList();
+        elencoSdcList = new javax.swing.JList();
         jToolBar1 = new javax.swing.JToolBar();
         deleteSdcButton = new javax.swing.JButton();
-        jPanel5 = new javax.swing.JPanel();
+        nuovoSdcPanel = new javax.swing.JPanel();
         jPanel10 = new javax.swing.JPanel();
-        jButton4 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
+        salvaSdcButton = new javax.swing.JButton();
+        provaSdcButton = new javax.swing.JButton();
         jTextField6 = new javax.swing.JTextField();
         jTextField5 = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
         jTextField4 = new javax.swing.JTextField();
-        jButton1 = new javax.swing.JButton();
+        calcolaMappaturaButton = new javax.swing.JButton();
         metodoCifraturaComboBox = new javax.swing.JComboBox();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -244,11 +245,11 @@ public class GUI extends javax.swing.JFrame {
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 556, Short.MAX_VALUE)
+            .addGap(0, 588, Short.MAX_VALUE)
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 393, Short.MAX_VALUE)
+            .addGap(0, 315, Short.MAX_VALUE)
         );
 
         jTabbedPane2.addTab("Ricevuti", jPanel1);
@@ -257,11 +258,11 @@ public class GUI extends javax.swing.JFrame {
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 556, Short.MAX_VALUE)
+            .addGap(0, 588, Short.MAX_VALUE)
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 393, Short.MAX_VALUE)
+            .addGap(0, 315, Short.MAX_VALUE)
         );
 
         jTabbedPane2.addTab("Inviati", jPanel2);
@@ -270,11 +271,11 @@ public class GUI extends javax.swing.JFrame {
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 556, Short.MAX_VALUE)
+            .addGap(0, 588, Short.MAX_VALUE)
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 393, Short.MAX_VALUE)
+            .addGap(0, 315, Short.MAX_VALUE)
         );
 
         jTabbedPane2.addTab("Bozze", jPanel3);
@@ -283,11 +284,11 @@ public class GUI extends javax.swing.JFrame {
         jPanel8.setLayout(jPanel8Layout);
         jPanel8Layout.setHorizontalGroup(
             jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 556, Short.MAX_VALUE)
+            .addGap(0, 588, Short.MAX_VALUE)
         );
         jPanel8Layout.setVerticalGroup(
             jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 393, Short.MAX_VALUE)
+            .addGap(0, 315, Short.MAX_VALUE)
         );
 
         jTabbedPane2.addTab("Crea Nuovo", jPanel8);
@@ -374,11 +375,11 @@ public class GUI extends javax.swing.JFrame {
         jPanel7.setLayout(jPanel7Layout);
         jPanel7Layout.setHorizontalGroup(
             jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 556, Short.MAX_VALUE)
+            .addGap(0, 588, Short.MAX_VALUE)
         );
         jPanel7Layout.setVerticalGroup(
             jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 393, Short.MAX_VALUE)
+            .addGap(0, 315, Short.MAX_VALUE)
         );
 
         jTabbedPane1.addTab("Crea Nuova", jPanel7);
@@ -389,18 +390,18 @@ public class GUI extends javax.swing.JFrame {
 
         sdcPanel.setLayout(new javax.swing.BoxLayout(sdcPanel, javax.swing.BoxLayout.LINE_AXIS));
 
-        jPanel4.setLayout(new java.awt.BorderLayout());
+        elencoSdcPanel.setLayout(new java.awt.BorderLayout());
 
-        elencoSistemiCifratura.setModel(new javax.swing.DefaultListModel<SistemaCifratura>());
-        elencoSistemiCifratura.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
-        elencoSistemiCifratura.addListSelectionListener(new javax.swing.event.ListSelectionListener() {
+        elencoSdcList.setModel(new javax.swing.DefaultListModel<SistemaCifratura>());
+        elencoSdcList.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        elencoSdcList.addListSelectionListener(new javax.swing.event.ListSelectionListener() {
             public void valueChanged(javax.swing.event.ListSelectionEvent evt) {
-                elencoSistemiCifraturaValueChanged(evt);
+                elencoSdcListValueChanged(evt);
             }
         });
-        jScrollPane2.setViewportView(elencoSistemiCifratura);
+        jScrollPane2.setViewportView(elencoSdcList);
 
-        jPanel4.add(jScrollPane2, java.awt.BorderLayout.CENTER);
+        elencoSdcPanel.add(jScrollPane2, java.awt.BorderLayout.CENTER);
 
         jToolBar1.setFloatable(false);
         jToolBar1.setRollover(true);
@@ -415,28 +416,37 @@ public class GUI extends javax.swing.JFrame {
         });
         jToolBar1.add(deleteSdcButton);
 
-        jPanel4.add(jToolBar1, java.awt.BorderLayout.PAGE_END);
+        elencoSdcPanel.add(jToolBar1, java.awt.BorderLayout.PAGE_END);
 
-        sdcTabs.addTab("Elenco", jPanel4);
+        sdcTabs.addTab("Elenco", elencoSdcPanel);
 
-        jPanel5.setLayout(new java.awt.GridBagLayout());
+        nuovoSdcPanel.setLayout(new java.awt.GridBagLayout());
 
-        jButton4.setText("Salva");
-
-        jButton3.setText("Prova");
-        jButton3.addActionListener(new java.awt.event.ActionListener() {
+        salvaSdcButton.setText("Salva");
+        salvaSdcButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton3ActionPerformed(evt);
+                salvaSdcButtonActionPerformed(evt);
             }
         });
+
+        provaSdcButton.setText("Prova");
+        provaSdcButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                provaSdcButtonActionPerformed(evt);
+            }
+        });
+
+        jTextField6.setEditable(false);
 
         jLabel5.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel5.setText("Scegli un metodo di cifratura");
 
-        jButton1.setText("Calcola Mappatura");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        jTextField4.setEnabled(false);
+
+        calcolaMappaturaButton.setText("Calcola Mappatura");
+        calcolaMappaturaButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                calcolaMappaturaButtonActionPerformed(evt);
             }
         });
 
@@ -455,9 +465,9 @@ public class GUI extends javax.swing.JFrame {
             .addComponent(jTextField5)
             .addGroup(jPanel10Layout.createSequentialGroup()
                 .addGap(181, 181, 181)
-                .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(provaSdcButton, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(salvaSdcButton, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, Short.MAX_VALUE))
             .addGroup(jPanel10Layout.createSequentialGroup()
                 .addComponent(metodoCifraturaComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 264, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -469,7 +479,7 @@ public class GUI extends javax.swing.JFrame {
                 .addContainerGap())
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel10Layout.createSequentialGroup()
                 .addContainerGap(184, Short.MAX_VALUE)
-                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(calcolaMappaturaButton, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(180, 180, 180))
         );
         jPanel10Layout.setVerticalGroup(
@@ -481,21 +491,21 @@ public class GUI extends javax.swing.JFrame {
                     .addComponent(metodoCifraturaComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton1)
+                .addComponent(calcolaMappaturaButton)
                 .addGap(99, 99, 99)
                 .addComponent(jTextField5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jTextField6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton4)
-                    .addComponent(jButton3))
+                    .addComponent(salvaSdcButton)
+                    .addComponent(provaSdcButton))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        jPanel5.add(jPanel10, new java.awt.GridBagConstraints());
+        nuovoSdcPanel.add(jPanel10, new java.awt.GridBagConstraints());
 
-        sdcTabs.addTab("Crea Nuovo", jPanel5);
+        sdcTabs.addTab("Crea Nuovo", nuovoSdcPanel);
 
         sdcPanel.add(sdcTabs);
 
@@ -528,14 +538,15 @@ public class GUI extends javax.swing.JFrame {
         cl.show(getContentPane(), "card4");
     }//GEN-LAST:event_goToRegistrationButtonActionPerformed
 
-    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-    }//GEN-LAST:event_jButton3ActionPerformed
+    private void provaSdcButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_provaSdcButtonActionPerformed
+        jTextField6.setText(guiController.cifra(jTextField5.getText()));
+    }//GEN-LAST:event_provaSdcButtonActionPerformed
 
     private void deleteSdcButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteSdcButtonActionPerformed
         try {
-            SistemaCifratura sdc = (SistemaCifratura) elencoSistemiCifratura.getSelectedValue();
+            SistemaCifratura sdc = (SistemaCifratura) elencoSdcList.getSelectedValue();
             if (guiController.eliminaSistemaCifratura(sdc)) {
-                DefaultListModel<SistemaCifratura> dlm = (DefaultListModel<SistemaCifratura>) elencoSistemiCifratura.getModel();
+                DefaultListModel<SistemaCifratura> dlm = (DefaultListModel<SistemaCifratura>) elencoSdcList.getModel();
                 dlm.removeElement(sdc);
             }
         } catch (SQLException ex) {
@@ -598,15 +609,15 @@ public class GUI extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_elencoProposteValutareValueChanged
 
-    private void elencoSistemiCifraturaValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_elencoSistemiCifraturaValueChanged
+    private void elencoSdcListValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_elencoSdcListValueChanged
         if (evt.getValueIsAdjusting() == false) {
-            if (elencoSistemiCifratura.getSelectedIndex() == -1) {
+            if (elencoSdcList.getSelectedIndex() == -1) {
                 deleteSdcButton.setEnabled(false);
             } else {
                 deleteSdcButton.setEnabled(true);
             }
         }
-    }//GEN-LAST:event_elencoSistemiCifraturaValueChanged
+    }//GEN-LAST:event_elencoSdcListValueChanged
 
     private void rifiutaPropostaButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rifiutaPropostaButtonActionPerformed
         try {
@@ -620,20 +631,32 @@ public class GUI extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_rifiutaPropostaButtonActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton1ActionPerformed
+    private void calcolaMappaturaButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_calcolaMappaturaButtonActionPerformed
+        String metodo = (String) metodoCifraturaComboBox.getSelectedItem();
+        Mappatura map = guiController.generaMappatura(jTextField4.getText(), metodo);
+        System.out.println(map);
+    }//GEN-LAST:event_calcolaMappaturaButtonActionPerformed
 
     private void metodoCifraturaComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_metodoCifraturaComboBoxActionPerformed
         JComboBox cb = (JComboBox) evt.getSource();
         String metodo = (String) cb.getSelectedItem();
         if (metodo != null) {
+            jTextField4.setEnabled(true);
             jLabel5.setText(guiController.mostraSceltaChiave(metodo));
+            //controllare se è generabile una mappatura
         }
     }//GEN-LAST:event_metodoCifraturaComboBoxActionPerformed
 
+    private void salvaSdcButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_salvaSdcButtonActionPerformed
+        try {
+            guiController.salvaSistemaCifratura();
+        } catch (SQLException ex) {
+            Logger.getLogger(GUI.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_salvaSdcButtonActionPerformed
+
     private void caricaSistemiCifratura() {
-        DefaultListModel<SistemaCifratura> dlm = (DefaultListModel<SistemaCifratura>) elencoSistemiCifratura.getModel();
+        DefaultListModel<SistemaCifratura> dlm = (DefaultListModel<SistemaCifratura>) elencoSdcList.getModel();
         List<SistemaCifratura> listasdc = null;
         try {
             listasdc = guiController.elencaSistemiCifratura();
@@ -649,17 +672,16 @@ public class GUI extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     javax.swing.JButton accettaPropostaButton;
+    javax.swing.JButton calcolaMappaturaButton;
     javax.swing.JPanel communicationPanel;
     javax.swing.JTabbedPane comunicationTabs;
     javax.swing.JButton deleteSdcButton;
     javax.swing.JList elencoProposteValutare;
-    javax.swing.JList elencoSistemiCifratura;
+    javax.swing.JList elencoSdcList;
+    javax.swing.JPanel elencoSdcPanel;
     javax.swing.JLabel errorLoginLabel;
     javax.swing.JButton goToRegistrationButton;
-    javax.swing.JButton jButton1;
     javax.swing.JButton jButton2;
-    javax.swing.JButton jButton3;
-    javax.swing.JButton jButton4;
     javax.swing.JLabel jLabel1;
     javax.swing.JLabel jLabel2;
     javax.swing.JLabel jLabel3;
@@ -670,8 +692,6 @@ public class GUI extends javax.swing.JFrame {
     javax.swing.JPanel jPanel10;
     javax.swing.JPanel jPanel2;
     javax.swing.JPanel jPanel3;
-    javax.swing.JPanel jPanel4;
-    javax.swing.JPanel jPanel5;
     javax.swing.JPanel jPanel6;
     javax.swing.JPanel jPanel7;
     javax.swing.JPanel jPanel8;
@@ -697,11 +717,14 @@ public class GUI extends javax.swing.JFrame {
     javax.swing.JPanel messagePanel;
     javax.swing.JComboBox metodoCifraturaComboBox;
     javax.swing.JTextField nickLoginField;
+    javax.swing.JPanel nuovoSdcPanel;
     javax.swing.JPasswordField passLoginField;
     javax.swing.JPanel personalPanel;
     javax.swing.JPanel propostePanel;
+    javax.swing.JButton provaSdcButton;
     javax.swing.JPanel registrationPanel;
     javax.swing.JButton rifiutaPropostaButton;
+    javax.swing.JButton salvaSdcButton;
     javax.swing.JPanel sdcPanel;
     javax.swing.JTabbedPane sdcTabs;
     // End of variables declaration//GEN-END:variables

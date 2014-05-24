@@ -66,11 +66,11 @@ public class SistemaCifratura {
         this(chiave, metodo, st.getUserInfo());
     }
 
-    void setChiave(String chiave) {
+    public void setChiave(String chiave) {
         this.chiave = chiave;
     }
 
-    void setMetodo(String metodo) {
+    public void setMetodo(String metodo) {
         this.metodo = metodo;
         this.calcolatore = CalcolatoreMappatura.create(metodo);
     }
