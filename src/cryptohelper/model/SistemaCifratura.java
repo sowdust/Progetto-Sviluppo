@@ -128,7 +128,8 @@ public class SistemaCifratura {
             throw new RuntimeException("Non è possibile salvare un sistema di cifratura senza associarvi un valido utente creatore");
         }
         DBController dbc = DBController.getInstance();
-        return dbc.executeUpdate("INSERT INTO SistemaCifratura (metodo, chiave, creatore) VALUES ( ?, ?, ?)", metodo, chiave, creatore.getId());
+        id = dbc.executeInsert("INSERT INTO SistemaCifratura (metodo, chiave, creatore) VALUES ( ?, ?, ?)", metodo, chiave, creatore.getId());
+        return id != -1;
     }
 
     public boolean elimina() throws SQLException {

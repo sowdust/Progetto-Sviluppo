@@ -79,6 +79,36 @@ public class DBController {
         return nrow != 0;
     }
 
+    public int executeInsert(String query, Object... args) throws SQLException {
+        Connection conn = null;
+        PreparedStatement stmt = null;
+        ResultSet generatedKey = null;
+        try {
+            conn = DriverManager.getConnection(url, user, pwd);
+            stmt = conn.prepareStatement(query, PreparedStatement.RETURN_GENERATED_KEYS);
+            for (int i = 0; i < args.length; i++) {
+                stmt.setObject(i + 1, args[i]);
+            }
+            stmt.executeUpdate();
+            generatedKey = stmt.getGeneratedKeys();
+            if (generatedKey.next()) {
+                return generatedKey.getInt(1);
+            } else {
+                return -1;
+            }
+        } finally {
+            if (generatedKey != null) {
+                generatedKey.close();
+            }
+            if (stmt != null) {
+                stmt.close();
+            }
+            if (conn != null) {
+                conn.close();
+            }
+        }
+    }
+
     public static DBController getInstance() throws SQLException {
         if (instance == null) {
             instance = new DBController();
