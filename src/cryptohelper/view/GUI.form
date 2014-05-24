@@ -653,9 +653,13 @@
                             <Component class="javax.swing.JTextField" name="jTextField6">
                               <Properties>
                                 <Property name="editable" type="boolean" value="false"/>
+                                <Property name="enabled" type="boolean" value="false"/>
                               </Properties>
                             </Component>
                             <Component class="javax.swing.JTextField" name="jTextField5">
+                              <Properties>
+                                <Property name="enabled" type="boolean" value="false"/>
+                              </Properties>
                             </Component>
                             <Component class="javax.swing.JLabel" name="jLabel5">
                               <Properties>

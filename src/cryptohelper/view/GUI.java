@@ -439,6 +439,9 @@ public class GUI extends javax.swing.JFrame {
         });
 
         jTextField6.setEditable(false);
+        jTextField6.setEnabled(false);
+
+        jTextField5.setEnabled(false);
 
         jLabel5.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel5.setText("Scegli un metodo di cifratura");
@@ -643,8 +646,7 @@ public class GUI extends javax.swing.JFrame {
         try {
             Mappatura map = guiController.generaMappatura(chiaveCifraturaField.getText(), metodo);
             System.out.println(map);
-            provaSdcButton.setEnabled(true);
-            salvaSdcButton.setEnabled(true);
+            setSdcWidgetEnabled(true);
         } catch (IllegalArgumentException ex) {
             jLabel5.setText(ex.getMessage());
         }
@@ -656,8 +658,7 @@ public class GUI extends javax.swing.JFrame {
         if (metodo != null) {
             chiaveCifraturaField.setEnabled(true);
             jLabel5.setText(guiController.mostraSceltaChiave(metodo));
-            provaSdcButton.setEnabled(false);
-            salvaSdcButton.setEnabled(false);
+            setSdcWidgetEnabled(false);
         }
     }//GEN-LAST:event_metodoCifraturaComboBoxActionPerformed
 
@@ -670,9 +671,15 @@ public class GUI extends javax.swing.JFrame {
     }//GEN-LAST:event_salvaSdcButtonActionPerformed
 
     private void chiaveCifraturaFieldKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_chiaveCifraturaFieldKeyTyped
-        provaSdcButton.setEnabled(false);
-        salvaSdcButton.setEnabled(false);
+        setSdcWidgetEnabled(false);
     }//GEN-LAST:event_chiaveCifraturaFieldKeyTyped
+
+    private void setSdcWidgetEnabled(boolean b) {
+        provaSdcButton.setEnabled(b);
+        salvaSdcButton.setEnabled(b);
+        jTextField5.setEnabled(b);
+        jTextField6.setEnabled(b);
+    }
 
     private void caricaSistemiCifratura() {
         DefaultListModel<SistemaCifratura> dlm = (DefaultListModel<SistemaCifratura>) elencoSdcList.getModel();
