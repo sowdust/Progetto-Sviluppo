@@ -1,9 +1,10 @@
 package cryptohelper.model;
 
+import java.io.Serializable;
 import java.util.LinkedList;
 import java.util.List;
 
-public class Ipotesi {
+public class Ipotesi implements Serializable {
 
     public MappaturaParziale map;
     public List<Ipotesi> figli;

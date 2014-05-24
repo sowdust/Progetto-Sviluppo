@@ -1,8 +1,9 @@
 package cryptohelper.model;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class MappaturaParziale {
+public class MappaturaParziale implements Serializable {
     
     ArrayList<Character> map;
     ArrayList<Character> inverseMap;

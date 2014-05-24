@@ -1,92 +1,97 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
 package cryptohelper.model;
 
-import java.util.Stack;
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
 
-/* 
- * NOTE SULL'ALBERO.
- * 
- * Invariante è il fatto che in ogni cammino non vi siano mai due assegnazioni
- * conflittuali ( a->x & a->y oppure a->x & b->x )
- * 
- * Ne derivano le seguenti proprietà:
- * 
- *  1) lunghezza massima di un cammino = cardinalità alfabeto
- *  2) calcolo della mappatura dal basso verso l'alto esplorando solo il cammino corrente
- *  3) detection di stato già visitato si ferma al primo conflitto in ogni ramo
- * 
- * TODO:
- *
- * (1)  Decidere quando fare e come gestire la detect di stati già raggiunti
- * (2)  Una volta deciso formato di input (mappatura intera annienterebbe il vantaggio
- *      di MappaturaParziale) gestire la remove.
- * (3)  Metodo per serializzare intero albero e mosse (o male che vada ultimo stato)
- *      Da bravo deficiente non ho tenuto quello che avevo già fatto e funzionava.
- */
 public class Sessione {
-
     
-    //  TODO: variabili public solo in fase di testing
-    private UserInfo proprietario;
-    private Messaggio messaggio;
-    private Ipotesi radice;
-    public Stack<Ipotesi> mosse;
-    public Ipotesi ipotesiCorrente;
-    private MappaturaParziale mappaturaCorrente;
-
+    private int id;
+    private final UserInfo proprietario;
+    private final Messaggio messaggio;
+    public AlberoIpotesi albero;
+    
     public Sessione(UserInfo proprietario, Messaggio messaggio) {
-        
+        this.id = -1;
         this.proprietario = proprietario;
-        this.messaggio = messaggio;
-        mosse = new Stack<>();
-        mappaturaCorrente = new MappaturaParziale();
-        radice = new Ipotesi(mappaturaCorrente, null);
-        ipotesiCorrente = radice;
-        mosse.push(ipotesiCorrente);
+        this.messaggio = messaggio;        
     }
     
-    public void aggiungiIpotesi(MappaturaParziale map) {
-                
-        // se lettera non ancora assegnata in questo cammino
-        if(!mappaturaCorrente.conflitto(map)){
-            ipotesiCorrente = ipotesiCorrente.aggiungiIpotesi(map);
-            mappaturaCorrente = mappaturaCorrente.merge(map);
-            mosse.push(ipotesiCorrente);
-            return ;
+    // SOLO PER TESTING!
+    public void setAlbero(AlberoIpotesi albero) {
+        this.albero = albero;
+    }
+    public void setId(int id) {
+        this.id = id;
+    }
+    
+    public static Sessione load(int id) throws SQLException, IOException, ClassNotFoundException {
+        
+        String url = "jdbc:derby://localhost:1527/crypto_db";
+        String user = "crypto_user";
+        String pwd = "crypto_pass";    
+        Connection conn = DriverManager.getConnection(url, user, pwd);
+        PreparedStatement stmt = conn.prepareStatement("SELECT * FROM sessione WHERE id = 12");
+        
+        ResultSet crs = stmt.executeQuery();
+        crs.next();
+        
+        byte[] buf = crs.getBytes("albero");
+	ObjectInputStream objectIn = null;
+        objectIn = new ObjectInputStream(new ByteArrayInputStream(buf));             
+
+        Sessione sess = new Sessione(UserInfo.load(crs.getInt("proprietario")), Messaggio.load(crs.getInt("messaggio")));
+        sess.setAlbero((AlberoIpotesi) objectIn.readObject());
+        sess.setId(crs.getInt("id"));
+        
+        crs.close();
+        return sess;
+
+    }
+    
+    public boolean save() throws SQLException, IOException {
+        
+        // Seriealizziamo l'albero
+        ByteArrayOutputStream bos = new ByteArrayOutputStream();
+        ObjectOutputStream oos = new ObjectOutputStream(bos);
+        oos.writeObject(albero);
+        oos.close();
+        
+        
+        String url = "jdbc:derby://localhost:1527/crypto_db";
+        String user = "crypto_user";
+        String pwd = "crypto_pass";
+        ArrayList a = new ArrayList();
+
+        PreparedStatement stmt;
+        Connection conn = DriverManager.getConnection(url, user, pwd);
+        
+        if(id == -1) {
+            stmt = conn.prepareStatement("INSERT INTO Sessione (proprietario, messaggio, albero) VALUES (?, ?, ?)");
+            stmt.setInt(1,messaggio.getId());
+            stmt.setInt(2,proprietario.getId());
+            stmt.setObject(3,bos.toByteArray());
+
+            //  IN QUALCHE MODO RESTITUIRE L'ID!!
+            this.id = -2;
+        } else {
+            stmt = conn.prepareStatement("UPDATE Sessione SET albero = (?) WHERE id = (?)");
+            stmt.setObject(1,bos.toByteArray());
+            stmt.setInt(2,id);
         }
- 
-        // se c'e' un conflitto risaliamo
-        mappaturaCorrente = mappaturaCorrente.merge(map);
-        Ipotesi aCuiAttaccarsi = ipotesiCorrente.trovaConflitto(map).padre;
-        MappaturaParziale daAggiungere = mappaturaCorrente.sottrai(aCuiAttaccarsi.getStato());
-        ipotesiCorrente = aCuiAttaccarsi.aggiungiIpotesi(daAggiungere);
-        mosse.push(ipotesiCorrente);
+        
+        stmt.executeUpdate();
+        stmt.close();
+        
+        return false;
     }
-    
-    public void undo() {
-        mosse.pop();
-        ipotesiCorrente = mosse.peek(); 
-        mappaturaCorrente = ipotesiCorrente.getStato();
-    }
-    
-    public MappaturaParziale getStato() {
-        return new MappaturaParziale(mappaturaCorrente);
-    }
-    
-    public Ipotesi getAlbero() {
-        return radice;
-    }
-    
-    public Ipotesi giaRaggiunta(){
-        return radice.giaRaggiunta(mappaturaCorrente, new MappaturaParziale()); 
-    }
-    
-    public void stampaAlbero() {
-        radice.stampa(0,ipotesiCorrente);
-    }
+
 }

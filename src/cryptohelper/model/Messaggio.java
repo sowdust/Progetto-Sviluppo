@@ -131,12 +131,17 @@ public class Messaggio implements MessaggioMittente, MessaggioDestinatario {
         return bozza;
     }
 
+    // NOTA!!: manca la clausola where
     @Override
     public boolean save() throws SQLException {
         DBController dbc = DBController.getInstance();
         return dbc.executeUpdate("UPDATE Messaggio SET "
                 + "testo = ?, testocifrato = ?, bozza = ?, lingua = ?, "
                 + "titolo = ?, mittente = ?, destinatario = ? ", testo, testoCifrato, bozza, lingua, titolo, mittente.getId(), destinatario.getId());
+    }
+    
+    public int getId() {
+        return id;
     }
 
     @Override
