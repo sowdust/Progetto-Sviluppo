@@ -17,8 +17,8 @@
 package cryptohelper.model;
 
 import cryptohelper.controller.DBController;
-import java.sql.ResultSet;
 import java.sql.SQLException;
+import javax.sql.rowset.CachedRowSet;
 
 /**
  *
@@ -57,7 +57,7 @@ public class Proposta {
     }
 
     /* costruttore usato quando si *carica* una proposta */
-    public Proposta(ResultSet queryResult) throws SQLException {
+    public Proposta(CachedRowSet queryResult) throws SQLException {
         id = queryResult.getInt("id");
         stato = queryResult.getString("stato");
         notificata = queryResult.getBoolean("notificata");
@@ -72,11 +72,11 @@ public class Proposta {
 
     public static Proposta caricaAttiva(int id1, int id2) throws SQLException {
         DBController dbc = DBController.getInstance();
-        ResultSet rs = dbc.execute("SELECT * FROM Proposta "
+        CachedRowSet crs = dbc.execute("SELECT * FROM Proposta "
                 + "WHERE ((Proponente = ? AND Partner = ?) "
                 + "OR (Proponente = ? AND Partner = ?)) AND stato='accepted'", id1, id2, id2, id1);
-        if (rs.next()) {
-            return new Proposta(rs);
+        if (crs.next()) {
+            return new Proposta(crs);
         }
         return null;
     }

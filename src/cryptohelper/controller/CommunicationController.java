@@ -7,7 +7,7 @@ import cryptohelper.model.Proposta;
 import cryptohelper.model.SistemaCifratura;
 import cryptohelper.model.Studente;
 import cryptohelper.model.UserInfo;
-import java.sql.ResultSet;
+import javax.sql.rowset.CachedRowSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
@@ -81,7 +81,7 @@ public class CommunicationController {
     public List<UserInfo> getDestinatari(Studente st) throws SQLException {
         DBController dbc = DBController.getInstance();
         int id = st.getId();
-        ResultSet rs = dbc.execute("SELECT partner AS idDest "
+        CachedRowSet crs = dbc.execute("SELECT partner AS idDest "
                 + "FROM Proposta "
                 + "WHERE stato = 'accepted' AND proponente = ? "
                 + "UNION "
@@ -89,8 +89,8 @@ public class CommunicationController {
                 + "FROM Proposta "
                 + "WHERE stato = 'accepted' AND partner = ? ", id, id);
         List<UserInfo> listaDest = new ArrayList<>();
-        while (rs.next()) {
-            listaDest.add(UserInfo.load(rs.getInt("idDest")));
+        while (crs.next()) {
+            listaDest.add(UserInfo.load(crs.getInt("idDest")));
         }
         return listaDest;
     }
@@ -106,14 +106,11 @@ public class CommunicationController {
 
     public List<Proposta> getAccettazioneProposte(Studente user) throws SQLException {
         DBController dbc = DBController.getInstance();
-        ResultSet rs = dbc.execute("SELECT * FROM Proposta "
-                + "WHERE proponente = ? AND (stato = 'accepted' OR stato = 'refused') AND notificata = 'false'", user.getId());
+        CachedRowSet crs = dbc.execute("SELECT * FROM Proposta WHERE "
+                + "proponente = ? AND (stato = 'accepted' OR stato = 'declined') AND notificata = 'false'", user.getId());
         List<Proposta> result = new ArrayList<>();
-        while (rs.next()) {
-            Proposta p = new Proposta(rs);
-            p.setNotificata(true);
-            p.save();
-            result.add(p);
+        while (crs.next()) {
+            result.add(new Proposta(crs));
             /* da impostare notificata = vero e salvare nel DB */
         }
         return result;
@@ -121,10 +118,10 @@ public class CommunicationController {
 
     public List<Proposta> getProposte(Studente st) throws SQLException {
         DBController dbc = DBController.getInstance();
-        ResultSet rs = dbc.execute("SELECT * FROM Proposta WHERE partner = ? AND stato = 'pending'", st.getId());
+        CachedRowSet crs = dbc.execute("SELECT * FROM Proposta WHERE partner = ? AND stato = 'pending'", st.getId());
         List<Proposta> lista = new ArrayList<>();
-        while (rs.next()) {
-            lista.add(new Proposta(rs));
+        while (crs.next()) {
+            lista.add(new Proposta(crs));
         }
         return lista;
     }

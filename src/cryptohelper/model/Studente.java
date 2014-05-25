@@ -17,8 +17,7 @@
 package cryptohelper.model;
 
 import cryptohelper.controller.DBController;
-import java.security.MessageDigest;
-import java.sql.ResultSet;
+import javax.sql.rowset.CachedRowSet;
 import java.sql.SQLException;
 
 /**
@@ -41,26 +40,26 @@ public class Studente {
         this.cognome = cognome;
     }
 
-    public Studente(ResultSet rs) throws SQLException {
-        this.id = rs.getInt("id");
-        this.nickname = rs.getString("nickname");
-        this.password = rs.getString("password");
-        this.nome = rs.getString("nome");
-        this.cognome = rs.getString("cognome");
+    public Studente(CachedRowSet crs) throws SQLException {
+        this.id = crs.getInt("id");
+        this.nickname = crs.getString("nickname");
+        this.password = crs.getString("password");
+        this.nome = crs.getString("nome");
+        this.cognome = crs.getString("cognome");
     }
 
     public static Studente load(int id) throws SQLException {
         DBController dbc = DBController.getInstance();
-        ResultSet rs = dbc.execute("SELECT * FROM Studente WHERE id = ?", id);
-        rs.next();
-        return new Studente(rs);
+        CachedRowSet crs = dbc.execute("SELECT * FROM Studente WHERE id = ?", id);
+        crs.next();
+        return new Studente(crs);
     }
 
     public static Studente login(String nickname, String password) throws SQLException {
         DBController dbc = DBController.getInstance();
-        ResultSet rs = dbc.execute("SELECT * FROM Studente WHERE nickname = ? AND password = ?", nickname, password);
-        if (rs.next()) {
-            return new Studente(rs);
+        CachedRowSet crs = dbc.execute("SELECT * FROM Studente WHERE nickname = ? AND password = ?", nickname, password);
+        if (crs.next()) {
+            return new Studente(crs);
         }
         return null;
     }

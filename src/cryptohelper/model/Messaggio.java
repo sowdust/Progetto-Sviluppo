@@ -17,10 +17,10 @@
 package cryptohelper.model;
 
 import cryptohelper.controller.DBController;
-import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import javax.sql.rowset.CachedRowSet;
 
 /**
  *
@@ -45,7 +45,7 @@ public class Messaggio implements MessaggioMittente, MessaggioDestinatario {
     private SistemaCifratura sdc;
 
     /* costruttore usato quando si *carica* un messaggio */
-    private Messaggio(ResultSet queryResult) throws SQLException {
+    private Messaggio(CachedRowSet queryResult) throws SQLException {
         id = queryResult.getInt("id");
         testo = queryResult.getString("testo");
         testoCifrato = queryResult.getString("testoCifrato");
@@ -60,37 +60,37 @@ public class Messaggio implements MessaggioMittente, MessaggioDestinatario {
 
     public static Messaggio load(int id) throws SQLException {
         DBController dbc = DBController.getInstance();
-        ResultSet rs = dbc.execute("SELECT * FROM Messaggio WHERE id = ?", id);
-        rs.next();
-        return new Messaggio(rs);
+        CachedRowSet crs = dbc.execute("SELECT * FROM Messaggio WHERE id = ?", id);
+        crs.next();
+        return new Messaggio(crs);
     }
 
     public static List<MessaggioMittente> caricaInviati(Studente studente) throws SQLException {
         DBController dbc = DBController.getInstance();
-        ResultSet rs = dbc.execute("SELECT * FROM Messaggio WHERE mittente = ? AND bozza = ?", studente.getId(), false);
+        CachedRowSet crs = dbc.execute("SELECT * FROM Messaggio WHERE mittente = ? AND bozza = ?", studente.getId(), false);
         List<MessaggioMittente> listaInviati = new ArrayList<>();
-        while (rs.next()) {
-            listaInviati.add(new Messaggio(rs));
+        while (crs.next()) {
+            listaInviati.add(new Messaggio(crs));
         }
         return listaInviati;
     }
 
     public static List<MessaggioMittente> caricaBozze(Studente studente) throws SQLException {
         DBController dbc = DBController.getInstance();
-        ResultSet rs = dbc.execute("SELECT * FROM Messaggio WHERE mittente = ? AND bozza = ?", studente.getId(), true);
+        CachedRowSet crs = dbc.execute("SELECT * FROM Messaggio WHERE mittente = ? AND bozza = ?", studente.getId(), true);
         List<MessaggioMittente> listaBozze = new ArrayList<>();
-        while (rs.next()) {
-            listaBozze.add(new Messaggio(rs));
+        while (crs.next()) {
+            listaBozze.add(new Messaggio(crs));
         }
         return listaBozze;
     }
 
     public static List<MessaggioDestinatario> caricaRicevuti(Studente studente) throws SQLException {
         DBController dbc = DBController.getInstance();
-        ResultSet rs = dbc.execute("SELECT * FROM crypto_user.Messaggio WHERE destinatario = ?", studente.getId());
+        CachedRowSet crs = dbc.execute("SELECT * FROM crypto_user.Messaggio WHERE destinatario = ?", studente.getId());
         List<MessaggioDestinatario> listaRicevuti = new ArrayList<>();
-        while (rs.next()) {
-            listaRicevuti.add(new Messaggio(rs));
+        while (crs.next()) {
+            listaRicevuti.add(new Messaggio(crs));
         }
         return listaRicevuti;
     }
