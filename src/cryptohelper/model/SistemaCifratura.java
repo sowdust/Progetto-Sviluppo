@@ -78,8 +78,20 @@ public class SistemaCifratura {
 
     public static List<SistemaCifratura> caricaSistemiCifratura(Studente st) throws SQLException {
         DBController dbc = DBController.getInstance();
-        CachedRowSet crs = dbc.execute("SELECT id, chiave, metodo, creatore FROM "
-                + "crypto_user.SistemaCifratura WHERE creatore = ?", st.getId());
+        CachedRowSet crs = dbc.execute("SELECT id, chiave, metodo, creatore "
+                + "FROM SistemaCifratura WHERE creatore = ?", st.getId());
+        List<SistemaCifratura> lista = new ArrayList<>();
+        while (crs.next()) {
+            lista.add(new SistemaCifratura(crs));
+        }
+        return lista;
+    }
+
+    public static List<SistemaCifratura> caricaSistemiCifraturaNonProposti(Studente st) throws SQLException {
+        DBController dbc = DBController.getInstance();
+        CachedRowSet crs = dbc.execute("SELECT id, chiave, metodo, creatore "
+                + "FROM SistemaCifratura "
+                + "WHERE creatore = ? AND id NOT IN (SELECT sdc FROM Proposta)", st.getId());
         List<SistemaCifratura> lista = new ArrayList<>();
         while (crs.next()) {
             lista.add(new SistemaCifratura(crs));

@@ -56,6 +56,10 @@ public class GUIController {
         return SistemaCifratura.caricaSistemiCifratura(studente);
     }
 
+    public List<SistemaCifratura> elencaSistemiCifraturaNonProposti() throws SQLException {
+        return SistemaCifratura.caricaSistemiCifraturaNonProposti(studente);
+    }
+
     /* come comportarsi se il sdc è stato proposto?
      la cosa più ragionevole e facile da implementare (già implementata) è cancellare
      tutti i messaggi che usano quel sdc e la proposta che lo ha proposto       
@@ -110,4 +114,5 @@ public class GUIController {
     public boolean salvaSistemaCifratura() throws SQLException {
         return nuovoSdc.save();
     }
+
 }

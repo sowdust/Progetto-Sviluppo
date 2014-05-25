@@ -21,18 +21,13 @@ import cryptohelper.model.Mappatura;
 import cryptohelper.model.Proposta;
 import cryptohelper.model.SistemaCifratura;
 import java.awt.CardLayout;
-import java.awt.Component;
 import java.sql.SQLException;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.DefaultListModel;
 import javax.swing.JComboBox;
-import javax.swing.JDialog;
 import javax.swing.JList;
-import javax.swing.JRootPane;
-import javax.swing.ListCellRenderer;
-import javax.swing.SwingUtilities;
 
 /**
  *
@@ -136,6 +131,12 @@ public class GUI extends javax.swing.JFrame {
         loginPanel.add(loginToolBar, java.awt.BorderLayout.PAGE_START);
 
         loginFormPanel.setLayout(new java.awt.GridBagLayout());
+
+        nickLoginField.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                nickLoginFieldActionPerformed(evt);
+            }
+        });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 2;
@@ -535,7 +536,7 @@ public class GUI extends javax.swing.JFrame {
                 CardLayout cl = (CardLayout) getContentPane().getLayout();
                 cl.show(getContentPane(), "card6");
                 /* per ora va qui */
-                caricaSistemiCifratura();
+                caricaSistemiCifratura(elencoSdcList, true);
             } else {
                 errorLoginLabel.setText("nickname o password errati");
             }
@@ -677,6 +678,10 @@ public class GUI extends javax.swing.JFrame {
         setSdcWidgetEnabled(false);
     }//GEN-LAST:event_chiaveCifraturaFieldKeyTyped
 
+    private void nickLoginFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nickLoginFieldActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_nickLoginFieldActionPerformed
+
     private void setSdcWidgetEnabled(boolean b) {
         provaSdcButton.setEnabled(b);
         salvaSdcButton.setEnabled(b);
@@ -684,11 +689,16 @@ public class GUI extends javax.swing.JFrame {
         risultatoProvaField.setEnabled(b);
     }
 
-    private void caricaSistemiCifratura() {
-        DefaultListModel<SistemaCifratura> dlm = (DefaultListModel<SistemaCifratura>) elencoSdcList.getModel();
+    private void caricaSistemiCifratura(JList elenco, boolean tutti) {
+        DefaultListModel<SistemaCifratura> dlm = (DefaultListModel<SistemaCifratura>) elenco.getModel();
         List<SistemaCifratura> listasdc = null;
         try {
-            listasdc = guiController.elencaSistemiCifratura();
+            if (tutti) {
+                listasdc = guiController.elencaSistemiCifratura();
+            } else {
+                listasdc = guiController.elencaSistemiCifraturaNonProposti();
+            }
+
         } catch (SQLException ex) {
             Logger.getLogger(GUI.class.getName()).log(Level.SEVERE, null, ex);
         }
