@@ -80,12 +80,14 @@ public class GUI extends javax.swing.JFrame {
         ricevutiPanel = new javax.swing.JPanel();
         jScrollPane6 = new javax.swing.JScrollPane();
         jList4 = new javax.swing.JList();
+        jPanel2 = new javax.swing.JPanel();
         jScrollPane9 = new javax.swing.JScrollPane();
         jTextArea1 = new javax.swing.JTextArea();
         jPanel1 = new javax.swing.JPanel();
-        jButton3 = new javax.swing.JButton();
-        jButton8 = new javax.swing.JButton();
-        jButton9 = new javax.swing.JButton();
+        jButton10 = new javax.swing.JButton();
+        jButton11 = new javax.swing.JButton();
+        jButton4 = new javax.swing.JButton();
+        jButton5 = new javax.swing.JButton();
         inviatiPanel = new javax.swing.JPanel();
         jScrollPane7 = new javax.swing.JScrollPane();
         jList5 = new javax.swing.JList();
@@ -282,42 +284,29 @@ public class GUI extends javax.swing.JFrame {
 
         ricevutiPanel.add(jScrollPane6);
 
+        jPanel2.setLayout(new java.awt.BorderLayout());
+
         jTextArea1.setColumns(20);
         jTextArea1.setRows(5);
         jScrollPane9.setViewportView(jTextArea1);
 
-        ricevutiPanel.add(jScrollPane9);
+        jPanel2.add(jScrollPane9, java.awt.BorderLayout.CENTER);
 
-        jButton3.setText("Rispondi");
+        jButton10.setText("Elimina");
+        jPanel1.add(jButton10);
 
-        jButton8.setText("Elimina");
+        jButton11.setText("Ricarica");
+        jPanel1.add(jButton11);
 
-        jButton9.setText("Ricarica");
+        jButton4.setText("Rispondi");
+        jPanel1.add(jButton4);
 
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jButton3)
-                .addGap(54, 54, 54)
-                .addComponent(jButton8)
-                .addGap(56, 56, 56)
-                .addComponent(jButton9)
-                .addContainerGap(236, Short.MAX_VALUE))
-        );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(5, 5, 5)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton8)
-                    .addComponent(jButton3)
-                    .addComponent(jButton9)))
-        );
+        jButton5.setText("Decifra");
+        jPanel1.add(jButton5);
 
-        ricevutiPanel.add(jPanel1);
+        jPanel2.add(jPanel1, java.awt.BorderLayout.PAGE_END);
+
+        ricevutiPanel.add(jPanel2);
 
         jTabbedPane2.addTab("Ricevuti", ricevutiPanel);
 
@@ -343,7 +332,7 @@ public class GUI extends javax.swing.JFrame {
                     .addGroup(inviatiPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                         .addComponent(jScrollPane7)
                         .addComponent(jTextField5, javax.swing.GroupLayout.DEFAULT_SIZE, 563, Short.MAX_VALUE)))
-                .addContainerGap(36, Short.MAX_VALUE))
+                .addContainerGap(84, Short.MAX_VALUE))
         );
         inviatiPanelLayout.setVerticalGroup(
             inviatiPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -391,7 +380,7 @@ public class GUI extends javax.swing.JFrame {
                     .addGroup(bozzePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                         .addComponent(jScrollPane8)
                         .addComponent(jTextField6, javax.swing.GroupLayout.DEFAULT_SIZE, 563, Short.MAX_VALUE)))
-                .addContainerGap(36, Short.MAX_VALUE))
+                .addContainerGap(84, Short.MAX_VALUE))
         );
         bozzePanelLayout.setVerticalGroup(
             bozzePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -892,12 +881,13 @@ public class GUI extends javax.swing.JFrame {
     javax.swing.JButton goToRegistrationButton;
     javax.swing.JPanel inviatiPanel;
     javax.swing.JButton jButton1;
+    javax.swing.JButton jButton10;
+    javax.swing.JButton jButton11;
     javax.swing.JButton jButton2;
-    javax.swing.JButton jButton3;
+    javax.swing.JButton jButton4;
+    javax.swing.JButton jButton5;
     javax.swing.JButton jButton6;
     javax.swing.JButton jButton7;
-    javax.swing.JButton jButton8;
-    javax.swing.JButton jButton9;
     javax.swing.JLabel jLabel1;
     javax.swing.JLabel jLabel2;
     javax.swing.JLabel jLabel3;
@@ -916,6 +906,7 @@ public class GUI extends javax.swing.JFrame {
     javax.swing.JPanel jPanel12;
     javax.swing.JPanel jPanel13;
     javax.swing.JPanel jPanel14;
+    javax.swing.JPanel jPanel2;
     javax.swing.JPanel jPanel4;
     javax.swing.JPanel jPanel5;
     javax.swing.JPanel jPanel6;
