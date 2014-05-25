@@ -77,10 +77,10 @@ public class GUI extends javax.swing.JFrame {
         comunicationTabs = new javax.swing.JTabbedPane();
         messagePanel = new javax.swing.JPanel();
         jTabbedPane2 = new javax.swing.JTabbedPane();
-        jPanel1 = new javax.swing.JPanel();
-        jPanel2 = new javax.swing.JPanel();
-        jPanel3 = new javax.swing.JPanel();
-        jPanel8 = new javax.swing.JPanel();
+        ricevutiPanel = new javax.swing.JPanel();
+        inviatiPanel = new javax.swing.JPanel();
+        bozzePanel = new javax.swing.JPanel();
+        creaPanel = new javax.swing.JPanel();
         propostePanel = new javax.swing.JPanel();
         jTabbedPane1 = new javax.swing.JTabbedPane();
         jPanel6 = new javax.swing.JPanel();
@@ -254,57 +254,57 @@ public class GUI extends javax.swing.JFrame {
 
         messagePanel.setLayout(new javax.swing.BoxLayout(messagePanel, javax.swing.BoxLayout.LINE_AXIS));
 
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 588, Short.MAX_VALUE)
+        javax.swing.GroupLayout ricevutiPanelLayout = new javax.swing.GroupLayout(ricevutiPanel);
+        ricevutiPanel.setLayout(ricevutiPanelLayout);
+        ricevutiPanelLayout.setHorizontalGroup(
+            ricevutiPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 620, Short.MAX_VALUE)
         );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        ricevutiPanelLayout.setVerticalGroup(
+            ricevutiPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 476, Short.MAX_VALUE)
         );
 
-        jTabbedPane2.addTab("Ricevuti", jPanel1);
+        jTabbedPane2.addTab("Ricevuti", ricevutiPanel);
 
-        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
-        jPanel2.setLayout(jPanel2Layout);
-        jPanel2Layout.setHorizontalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 588, Short.MAX_VALUE)
+        javax.swing.GroupLayout inviatiPanelLayout = new javax.swing.GroupLayout(inviatiPanel);
+        inviatiPanel.setLayout(inviatiPanelLayout);
+        inviatiPanelLayout.setHorizontalGroup(
+            inviatiPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 620, Short.MAX_VALUE)
         );
-        jPanel2Layout.setVerticalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        inviatiPanelLayout.setVerticalGroup(
+            inviatiPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 476, Short.MAX_VALUE)
         );
 
-        jTabbedPane2.addTab("Inviati", jPanel2);
+        jTabbedPane2.addTab("Inviati", inviatiPanel);
 
-        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
-        jPanel3.setLayout(jPanel3Layout);
-        jPanel3Layout.setHorizontalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 588, Short.MAX_VALUE)
+        javax.swing.GroupLayout bozzePanelLayout = new javax.swing.GroupLayout(bozzePanel);
+        bozzePanel.setLayout(bozzePanelLayout);
+        bozzePanelLayout.setHorizontalGroup(
+            bozzePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 620, Short.MAX_VALUE)
         );
-        jPanel3Layout.setVerticalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        bozzePanelLayout.setVerticalGroup(
+            bozzePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 476, Short.MAX_VALUE)
         );
 
-        jTabbedPane2.addTab("Bozze", jPanel3);
+        jTabbedPane2.addTab("Bozze", bozzePanel);
 
-        javax.swing.GroupLayout jPanel8Layout = new javax.swing.GroupLayout(jPanel8);
-        jPanel8.setLayout(jPanel8Layout);
-        jPanel8Layout.setHorizontalGroup(
-            jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 588, Short.MAX_VALUE)
+        javax.swing.GroupLayout creaPanelLayout = new javax.swing.GroupLayout(creaPanel);
+        creaPanel.setLayout(creaPanelLayout);
+        creaPanelLayout.setHorizontalGroup(
+            creaPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 620, Short.MAX_VALUE)
         );
-        jPanel8Layout.setVerticalGroup(
-            jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        creaPanelLayout.setVerticalGroup(
+            creaPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 476, Short.MAX_VALUE)
         );
 
-        jTabbedPane2.addTab("Crea Nuovo", jPanel8);
+        jTabbedPane2.addTab("Crea Nuovo", creaPanel);
 
         messagePanel.add(jTabbedPane2);
 
@@ -756,10 +756,12 @@ public class GUI extends javax.swing.JFrame {
     private final GUIController guiController = GUIController.getInstance();
     // Variables declaration - do not modify//GEN-BEGIN:variables
     javax.swing.JButton accettaPropostaButton;
+    javax.swing.JPanel bozzePanel;
     javax.swing.JButton calcolaMappaturaButton;
     javax.swing.JTextField chiaveCifraturaField;
     javax.swing.JPanel communicationPanel;
     javax.swing.JTabbedPane comunicationTabs;
+    javax.swing.JPanel creaPanel;
     javax.swing.JButton deleteSdcButton;
     javax.swing.JList elencoProposteValutare;
     javax.swing.JList elencoSdcList;
@@ -767,6 +769,7 @@ public class GUI extends javax.swing.JFrame {
     javax.swing.JLabel errorLoginLabel;
     javax.swing.JLabel feedbackNuovoSdcLabel;
     javax.swing.JButton goToRegistrationButton;
+    javax.swing.JPanel inviatiPanel;
     javax.swing.JButton jButton1;
     javax.swing.JButton jButton2;
     javax.swing.JLabel jLabel1;
@@ -778,19 +781,15 @@ public class GUI extends javax.swing.JFrame {
     javax.swing.JList jList1;
     javax.swing.JList jList2;
     javax.swing.JList jList3;
-    javax.swing.JPanel jPanel1;
     javax.swing.JPanel jPanel10;
     javax.swing.JPanel jPanel11;
     javax.swing.JPanel jPanel12;
     javax.swing.JPanel jPanel13;
     javax.swing.JPanel jPanel14;
-    javax.swing.JPanel jPanel2;
-    javax.swing.JPanel jPanel3;
     javax.swing.JPanel jPanel4;
     javax.swing.JPanel jPanel5;
     javax.swing.JPanel jPanel6;
     javax.swing.JPanel jPanel7;
-    javax.swing.JPanel jPanel8;
     javax.swing.JPanel jPanel9;
     javax.swing.JPasswordField jPasswordField1;
     javax.swing.JScrollPane jScrollPane1;
@@ -816,6 +815,7 @@ public class GUI extends javax.swing.JFrame {
     javax.swing.JPanel propostePanel;
     javax.swing.JButton provaSdcButton;
     javax.swing.JPanel registrationPanel;
+    javax.swing.JPanel ricevutiPanel;
     javax.swing.JButton rifiutaPropostaButton;
     javax.swing.JTextField risultatoProvaField;
     javax.swing.JButton salvaSdcButton;
