@@ -109,7 +109,7 @@ public class GUI extends javax.swing.JFrame {
         elencoSdcPanel = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
         elencoSdcList = new javax.swing.JList();
-        jToolBar1 = new javax.swing.JToolBar();
+        jPanel14 = new javax.swing.JPanel();
         deleteSdcButton = new javax.swing.JButton();
         nuovoSdcPanel = new javax.swing.JPanel();
         jPanel10 = new javax.swing.JPanel();
@@ -462,10 +462,6 @@ public class GUI extends javax.swing.JFrame {
 
         elencoSdcPanel.add(jScrollPane2, java.awt.BorderLayout.CENTER);
 
-        jToolBar1.setFloatable(false);
-        jToolBar1.setRollover(true);
-        jToolBar1.setBorderPainted(false);
-
         deleteSdcButton.setText("Elimina");
         deleteSdcButton.setEnabled(false);
         deleteSdcButton.addActionListener(new java.awt.event.ActionListener() {
@@ -473,9 +469,9 @@ public class GUI extends javax.swing.JFrame {
                 deleteSdcButtonActionPerformed(evt);
             }
         });
-        jToolBar1.add(deleteSdcButton);
+        jPanel14.add(deleteSdcButton);
 
-        elencoSdcPanel.add(jToolBar1, java.awt.BorderLayout.PAGE_END);
+        elencoSdcPanel.add(jPanel14, java.awt.BorderLayout.PAGE_END);
 
         sdcTabs.addTab("Elenco", elencoSdcPanel);
 
@@ -805,6 +801,7 @@ public class GUI extends javax.swing.JFrame {
     javax.swing.JPanel jPanel11;
     javax.swing.JPanel jPanel12;
     javax.swing.JPanel jPanel13;
+    javax.swing.JPanel jPanel14;
     javax.swing.JPanel jPanel2;
     javax.swing.JPanel jPanel3;
     javax.swing.JPanel jPanel4;
@@ -824,7 +821,6 @@ public class GUI extends javax.swing.JFrame {
     javax.swing.JTextField jTextField1;
     javax.swing.JTextField jTextField2;
     javax.swing.JTextField jTextField3;
-    javax.swing.JToolBar jToolBar1;
     javax.swing.JButton loginButton;
     javax.swing.JPanel loginFormPanel;
     javax.swing.JPanel loginPanel;
