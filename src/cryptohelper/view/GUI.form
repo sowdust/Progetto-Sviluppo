@@ -239,7 +239,7 @@
 
                   <Layout class="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout"/>
                   <SubComponents>
-                    <Container class="javax.swing.JPanel" name="ricevutiPanel">
+                    <Container class="javax.swing.JPanel" name="messaggiRicevutiPanel">
                       <Constraints>
                         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout" value="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout$JTabbedPaneConstraintsDescription">
                           <JTabbedPaneConstraints tabName="Ricevuti">
@@ -252,26 +252,59 @@
                         <Property name="axis" type="int" value="3"/>
                       </Layout>
                       <SubComponents>
-                        <Container class="javax.swing.JScrollPane" name="jScrollPane6">
-                          <AuxValues>
-                            <AuxValue name="autoScrollPane" type="java.lang.Boolean" value="true"/>
-                          </AuxValues>
+                        <Container class="javax.swing.JPanel" name="jPanel17">
 
-                          <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
+                          <Layout class="org.netbeans.modules.form.compat2.layouts.DesignBorderLayout"/>
                           <SubComponents>
-                            <Component class="javax.swing.JList" name="jList4">
+                            <Container class="javax.swing.JScrollPane" name="jScrollPane6">
+                              <AuxValues>
+                                <AuxValue name="autoScrollPane" type="java.lang.Boolean" value="true"/>
+                              </AuxValues>
+                              <Constraints>
+                                <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignBorderLayout" value="org.netbeans.modules.form.compat2.layouts.DesignBorderLayout$BorderConstraintsDescription">
+                                  <BorderConstraints direction="Center"/>
+                                </Constraint>
+                              </Constraints>
+
+                              <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
+                              <SubComponents>
+                                <Component class="javax.swing.JList" name="jList4">
+                                  <Properties>
+                                    <Property name="model" type="javax.swing.ListModel" editor="org.netbeans.modules.form.editors2.ListModelEditor">
+                                      <StringArray count="5">
+                                        <StringItem index="0" value="Item 1"/>
+                                        <StringItem index="1" value="Item 2"/>
+                                        <StringItem index="2" value="Item 3"/>
+                                        <StringItem index="3" value="Item 4"/>
+                                        <StringItem index="4" value="Item 5"/>
+                                      </StringArray>
+                                    </Property>
+                                  </Properties>
+                                </Component>
+                              </SubComponents>
+                            </Container>
+                            <Container class="javax.swing.JToolBar" name="jToolBar1">
                               <Properties>
-                                <Property name="model" type="javax.swing.ListModel" editor="org.netbeans.modules.form.editors2.ListModelEditor">
-                                  <StringArray count="5">
-                                    <StringItem index="0" value="Item 1"/>
-                                    <StringItem index="1" value="Item 2"/>
-                                    <StringItem index="2" value="Item 3"/>
-                                    <StringItem index="3" value="Item 4"/>
-                                    <StringItem index="4" value="Item 5"/>
-                                  </StringArray>
-                                </Property>
+                                <Property name="rollover" type="boolean" value="true"/>
                               </Properties>
-                            </Component>
+                              <Constraints>
+                                <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignBorderLayout" value="org.netbeans.modules.form.compat2.layouts.DesignBorderLayout$BorderConstraintsDescription">
+                                  <BorderConstraints direction="First"/>
+                                </Constraint>
+                              </Constraints>
+
+                              <Layout class="org.netbeans.modules.form.compat2.layouts.DesignBoxLayout"/>
+                              <SubComponents>
+                                <Component class="javax.swing.JButton" name="jButton3">
+                                  <Properties>
+                                    <Property name="text" type="java.lang.String" value="Ricarica"/>
+                                    <Property name="focusable" type="boolean" value="false"/>
+                                    <Property name="horizontalTextPosition" type="int" value="0"/>
+                                    <Property name="verticalTextPosition" type="int" value="3"/>
+                                  </Properties>
+                                </Component>
+                              </SubComponents>
+                            </Container>
                           </SubComponents>
                         </Container>
                         <Container class="javax.swing.JPanel" name="jPanel2">
@@ -312,11 +345,6 @@
                                     <Property name="text" type="java.lang.String" value="Elimina"/>
                                   </Properties>
                                 </Component>
-                                <Component class="javax.swing.JButton" name="jButton11">
-                                  <Properties>
-                                    <Property name="text" type="java.lang.String" value="Ricarica"/>
-                                  </Properties>
-                                </Component>
                                 <Component class="javax.swing.JButton" name="jButton4">
                                   <Properties>
                                     <Property name="text" type="java.lang.String" value="Rispondi"/>
@@ -333,7 +361,7 @@
                         </Container>
                       </SubComponents>
                     </Container>
-                    <Container class="javax.swing.JPanel" name="inviatiPanel">
+                    <Container class="javax.swing.JPanel" name="messaggiInviatiPanel">
                       <Constraints>
                         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout" value="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout$JTabbedPaneConstraintsDescription">
                           <JTabbedPaneConstraints tabName="Inviati">
@@ -412,7 +440,7 @@
                         </Container>
                       </SubComponents>
                     </Container>
-                    <Container class="javax.swing.JPanel" name="bozzePanel">
+                    <Container class="javax.swing.JPanel" name="messaggiBozzePanel">
                       <Constraints>
                         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout" value="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout$JTabbedPaneConstraintsDescription">
                           <JTabbedPaneConstraints tabName="Bozze">
@@ -496,7 +524,7 @@
                         </Container>
                       </SubComponents>
                     </Container>
-                    <Container class="javax.swing.JPanel" name="creaPanel">
+                    <Container class="javax.swing.JPanel" name="messaggiCreaPanel">
                       <Constraints>
                         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout" value="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout$JTabbedPaneConstraintsDescription">
                           <JTabbedPaneConstraints tabName="Crea Nuovo">

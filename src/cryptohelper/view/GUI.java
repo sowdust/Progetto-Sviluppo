@@ -77,18 +77,20 @@ public class GUI extends javax.swing.JFrame {
         comunicationTabs = new javax.swing.JTabbedPane();
         messagePanel = new javax.swing.JPanel();
         jTabbedPane2 = new javax.swing.JTabbedPane();
-        ricevutiPanel = new javax.swing.JPanel();
+        messaggiRicevutiPanel = new javax.swing.JPanel();
+        jPanel17 = new javax.swing.JPanel();
         jScrollPane6 = new javax.swing.JScrollPane();
         jList4 = new javax.swing.JList();
+        jToolBar1 = new javax.swing.JToolBar();
+        jButton3 = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
         jScrollPane9 = new javax.swing.JScrollPane();
         jTextArea1 = new javax.swing.JTextArea();
         jPanel1 = new javax.swing.JPanel();
         jButton10 = new javax.swing.JButton();
-        jButton11 = new javax.swing.JButton();
         jButton4 = new javax.swing.JButton();
         jButton5 = new javax.swing.JButton();
-        inviatiPanel = new javax.swing.JPanel();
+        messaggiInviatiPanel = new javax.swing.JPanel();
         jScrollPane11 = new javax.swing.JScrollPane();
         jList7 = new javax.swing.JList();
         jPanel3 = new javax.swing.JPanel();
@@ -96,7 +98,7 @@ public class GUI extends javax.swing.JFrame {
         jButton12 = new javax.swing.JButton();
         jScrollPane10 = new javax.swing.JScrollPane();
         jTextArea2 = new javax.swing.JTextArea();
-        bozzePanel = new javax.swing.JPanel();
+        messaggiBozzePanel = new javax.swing.JPanel();
         jScrollPane12 = new javax.swing.JScrollPane();
         jList8 = new javax.swing.JList();
         jPanel15 = new javax.swing.JPanel();
@@ -105,7 +107,7 @@ public class GUI extends javax.swing.JFrame {
         jPanel16 = new javax.swing.JPanel();
         jButton14 = new javax.swing.JButton();
         jButton15 = new javax.swing.JButton();
-        creaPanel = new javax.swing.JPanel();
+        messaggiCreaPanel = new javax.swing.JPanel();
         propostePanel = new javax.swing.JPanel();
         jTabbedPane1 = new javax.swing.JTabbedPane();
         jPanel6 = new javax.swing.JPanel();
@@ -279,7 +281,9 @@ public class GUI extends javax.swing.JFrame {
 
         messagePanel.setLayout(new javax.swing.BoxLayout(messagePanel, javax.swing.BoxLayout.LINE_AXIS));
 
-        ricevutiPanel.setLayout(new javax.swing.BoxLayout(ricevutiPanel, javax.swing.BoxLayout.PAGE_AXIS));
+        messaggiRicevutiPanel.setLayout(new javax.swing.BoxLayout(messaggiRicevutiPanel, javax.swing.BoxLayout.PAGE_AXIS));
+
+        jPanel17.setLayout(new java.awt.BorderLayout());
 
         jList4.setModel(new javax.swing.AbstractListModel() {
             String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
@@ -288,7 +292,19 @@ public class GUI extends javax.swing.JFrame {
         });
         jScrollPane6.setViewportView(jList4);
 
-        ricevutiPanel.add(jScrollPane6);
+        jPanel17.add(jScrollPane6, java.awt.BorderLayout.CENTER);
+
+        jToolBar1.setRollover(true);
+
+        jButton3.setText("Ricarica");
+        jButton3.setFocusable(false);
+        jButton3.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        jButton3.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        jToolBar1.add(jButton3);
+
+        jPanel17.add(jToolBar1, java.awt.BorderLayout.PAGE_START);
+
+        messaggiRicevutiPanel.add(jPanel17);
 
         jPanel2.setLayout(new java.awt.BorderLayout());
 
@@ -301,9 +317,6 @@ public class GUI extends javax.swing.JFrame {
         jButton10.setText("Elimina");
         jPanel1.add(jButton10);
 
-        jButton11.setText("Ricarica");
-        jPanel1.add(jButton11);
-
         jButton4.setText("Rispondi");
         jPanel1.add(jButton4);
 
@@ -312,11 +325,11 @@ public class GUI extends javax.swing.JFrame {
 
         jPanel2.add(jPanel1, java.awt.BorderLayout.PAGE_END);
 
-        ricevutiPanel.add(jPanel2);
+        messaggiRicevutiPanel.add(jPanel2);
 
-        jTabbedPane2.addTab("Ricevuti", ricevutiPanel);
+        jTabbedPane2.addTab("Ricevuti", messaggiRicevutiPanel);
 
-        inviatiPanel.setLayout(new javax.swing.BoxLayout(inviatiPanel, javax.swing.BoxLayout.PAGE_AXIS));
+        messaggiInviatiPanel.setLayout(new javax.swing.BoxLayout(messaggiInviatiPanel, javax.swing.BoxLayout.PAGE_AXIS));
 
         jList7.setModel(new javax.swing.AbstractListModel() {
             String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
@@ -325,7 +338,7 @@ public class GUI extends javax.swing.JFrame {
         });
         jScrollPane11.setViewportView(jList7);
 
-        inviatiPanel.add(jScrollPane11);
+        messaggiInviatiPanel.add(jScrollPane11);
 
         jPanel3.setLayout(new java.awt.BorderLayout());
 
@@ -340,11 +353,11 @@ public class GUI extends javax.swing.JFrame {
 
         jPanel3.add(jScrollPane10, java.awt.BorderLayout.CENTER);
 
-        inviatiPanel.add(jPanel3);
+        messaggiInviatiPanel.add(jPanel3);
 
-        jTabbedPane2.addTab("Inviati", inviatiPanel);
+        jTabbedPane2.addTab("Inviati", messaggiInviatiPanel);
 
-        bozzePanel.setLayout(new javax.swing.BoxLayout(bozzePanel, javax.swing.BoxLayout.PAGE_AXIS));
+        messaggiBozzePanel.setLayout(new javax.swing.BoxLayout(messaggiBozzePanel, javax.swing.BoxLayout.PAGE_AXIS));
 
         jList8.setModel(new javax.swing.AbstractListModel() {
             String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
@@ -353,7 +366,7 @@ public class GUI extends javax.swing.JFrame {
         });
         jScrollPane12.setViewportView(jList8);
 
-        bozzePanel.add(jScrollPane12);
+        messaggiBozzePanel.add(jScrollPane12);
 
         jPanel15.setLayout(new java.awt.BorderLayout());
 
@@ -371,22 +384,22 @@ public class GUI extends javax.swing.JFrame {
 
         jPanel15.add(jPanel16, java.awt.BorderLayout.PAGE_END);
 
-        bozzePanel.add(jPanel15);
+        messaggiBozzePanel.add(jPanel15);
 
-        jTabbedPane2.addTab("Bozze", bozzePanel);
+        jTabbedPane2.addTab("Bozze", messaggiBozzePanel);
 
-        javax.swing.GroupLayout creaPanelLayout = new javax.swing.GroupLayout(creaPanel);
-        creaPanel.setLayout(creaPanelLayout);
-        creaPanelLayout.setHorizontalGroup(
-            creaPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        javax.swing.GroupLayout messaggiCreaPanelLayout = new javax.swing.GroupLayout(messaggiCreaPanel);
+        messaggiCreaPanel.setLayout(messaggiCreaPanelLayout);
+        messaggiCreaPanelLayout.setHorizontalGroup(
+            messaggiCreaPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 0, Short.MAX_VALUE)
         );
-        creaPanelLayout.setVerticalGroup(
-            creaPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        messaggiCreaPanelLayout.setVerticalGroup(
+            messaggiCreaPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 0, Short.MAX_VALUE)
         );
 
-        jTabbedPane2.addTab("Crea Nuovo", creaPanel);
+        jTabbedPane2.addTab("Crea Nuovo", messaggiCreaPanel);
 
         messagePanel.add(jTabbedPane2);
 
@@ -838,12 +851,10 @@ public class GUI extends javax.swing.JFrame {
     private final GUIController guiController = GUIController.getInstance();
     // Variables declaration - do not modify//GEN-BEGIN:variables
     javax.swing.JButton accettaPropostaButton;
-    javax.swing.JPanel bozzePanel;
     javax.swing.JButton calcolaMappaturaButton;
     javax.swing.JTextField chiaveCifraturaField;
     javax.swing.JPanel communicationPanel;
     javax.swing.JTabbedPane comunicationTabs;
-    javax.swing.JPanel creaPanel;
     javax.swing.JButton deleteSdcButton;
     javax.swing.JList elencoProposteValutare;
     javax.swing.JList elencoSdcList;
@@ -851,14 +862,13 @@ public class GUI extends javax.swing.JFrame {
     javax.swing.JLabel errorLoginLabel;
     javax.swing.JLabel feedbackNuovoSdcLabel;
     javax.swing.JButton goToRegistrationButton;
-    javax.swing.JPanel inviatiPanel;
     javax.swing.JButton jButton1;
     javax.swing.JButton jButton10;
-    javax.swing.JButton jButton11;
     javax.swing.JButton jButton12;
     javax.swing.JButton jButton14;
     javax.swing.JButton jButton15;
     javax.swing.JButton jButton2;
+    javax.swing.JButton jButton3;
     javax.swing.JButton jButton4;
     javax.swing.JButton jButton5;
     javax.swing.JLabel jLabel1;
@@ -881,6 +891,7 @@ public class GUI extends javax.swing.JFrame {
     javax.swing.JPanel jPanel14;
     javax.swing.JPanel jPanel15;
     javax.swing.JPanel jPanel16;
+    javax.swing.JPanel jPanel17;
     javax.swing.JPanel jPanel2;
     javax.swing.JPanel jPanel3;
     javax.swing.JPanel jPanel4;
@@ -909,11 +920,16 @@ public class GUI extends javax.swing.JFrame {
     javax.swing.JTextField jTextField1;
     javax.swing.JTextField jTextField2;
     javax.swing.JTextField jTextField3;
+    javax.swing.JToolBar jToolBar1;
     javax.swing.JButton loginButton;
     javax.swing.JPanel loginFormPanel;
     javax.swing.JPanel loginPanel;
     javax.swing.JToolBar loginToolBar;
     javax.swing.JPanel messagePanel;
+    javax.swing.JPanel messaggiBozzePanel;
+    javax.swing.JPanel messaggiCreaPanel;
+    javax.swing.JPanel messaggiInviatiPanel;
+    javax.swing.JPanel messaggiRicevutiPanel;
     javax.swing.JComboBox metodoCifraturaComboBox;
     javax.swing.JTextField nickLoginField;
     javax.swing.JPanel nuovoSdcPanel;
@@ -922,7 +938,6 @@ public class GUI extends javax.swing.JFrame {
     javax.swing.JPanel propostePanel;
     javax.swing.JButton provaSdcButton;
     javax.swing.JPanel registrationPanel;
-    javax.swing.JPanel ricevutiPanel;
     javax.swing.JButton rifiutaPropostaButton;
     javax.swing.JTextField risultatoProvaField;
     javax.swing.JButton salvaSdcButton;
