@@ -372,6 +372,9 @@
                                 <Property name="enabled" type="boolean" value="false"/>
                                 <Property name="focusable" type="boolean" value="false"/>
                                 <Property name="horizontalTextPosition" type="int" value="0"/>
+                                <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+                                  <Dimension value="[65, 33]"/>
+                                </Property>
                                 <Property name="verticalTextPosition" type="int" value="3"/>
                               </Properties>
                               <Events>
@@ -384,6 +387,9 @@
                                 <Property name="enabled" type="boolean" value="false"/>
                                 <Property name="focusable" type="boolean" value="false"/>
                                 <Property name="horizontalTextPosition" type="int" value="0"/>
+                                <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+                                  <Dimension value="[65, 33]"/>
+                                </Property>
                                 <Property name="verticalTextPosition" type="int" value="3"/>
                               </Properties>
                               <Events>
@@ -414,6 +420,7 @@
                               <Events>
                                 <EventHandler event="valueChanged" listener="javax.swing.event.ListSelectionListener" parameters="javax.swing.event.ListSelectionEvent" handler="elencoProposteValutareValueChanged"/>
                                 <EventHandler event="ancestorAdded" listener="javax.swing.event.AncestorListener" parameters="javax.swing.event.AncestorEvent" handler="elencoProposteValutareAncestorAdded"/>
+                                <EventHandler event="ancestorRemoved" listener="javax.swing.event.AncestorListener" parameters="javax.swing.event.AncestorEvent" handler="elencoProposteValutareAncestorRemoved"/>
                               </Events>
                             </Component>
                           </SubComponents>
@@ -447,6 +454,7 @@
                               </Properties>
                               <Events>
                                 <EventHandler event="ancestorAdded" listener="javax.swing.event.AncestorListener" parameters="javax.swing.event.AncestorEvent" handler="jList1AncestorAdded"/>
+                                <EventHandler event="ancestorRemoved" listener="javax.swing.event.AncestorListener" parameters="javax.swing.event.AncestorEvent" handler="jList1AncestorRemoved"/>
                               </Events>
                             </Component>
                           </SubComponents>
@@ -639,6 +647,8 @@
                               </Properties>
                               <Events>
                                 <EventHandler event="valueChanged" listener="javax.swing.event.ListSelectionListener" parameters="javax.swing.event.ListSelectionEvent" handler="elencoSdcListValueChanged"/>
+                                <EventHandler event="ancestorAdded" listener="javax.swing.event.AncestorListener" parameters="javax.swing.event.AncestorEvent" handler="elencoSdcListAncestorAdded"/>
+                                <EventHandler event="ancestorRemoved" listener="javax.swing.event.AncestorListener" parameters="javax.swing.event.AncestorEvent" handler="elencoSdcListAncestorRemoved"/>
                               </Events>
                             </Component>
                           </SubComponents>

@@ -318,6 +318,7 @@ public class GUI extends javax.swing.JFrame {
         rifiutaPropostaButton.setEnabled(false);
         rifiutaPropostaButton.setFocusable(false);
         rifiutaPropostaButton.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        rifiutaPropostaButton.setPreferredSize(new java.awt.Dimension(65, 33));
         rifiutaPropostaButton.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         rifiutaPropostaButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -330,6 +331,7 @@ public class GUI extends javax.swing.JFrame {
         accettaPropostaButton.setEnabled(false);
         accettaPropostaButton.setFocusable(false);
         accettaPropostaButton.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        accettaPropostaButton.setPreferredSize(new java.awt.Dimension(65, 33));
         accettaPropostaButton.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         accettaPropostaButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -354,6 +356,7 @@ public class GUI extends javax.swing.JFrame {
                 elencoProposteValutareAncestorAdded(evt);
             }
             public void ancestorRemoved(javax.swing.event.AncestorEvent evt) {
+                elencoProposteValutareAncestorRemoved(evt);
             }
         });
         jScrollPane1.setViewportView(elencoProposteValutare);
@@ -373,6 +376,7 @@ public class GUI extends javax.swing.JFrame {
                 jList1AncestorAdded(evt);
             }
             public void ancestorRemoved(javax.swing.event.AncestorEvent evt) {
+                jList1AncestorRemoved(evt);
             }
         });
         jScrollPane4.setViewportView(jList1);
@@ -456,6 +460,16 @@ public class GUI extends javax.swing.JFrame {
         elencoSdcList.addListSelectionListener(new javax.swing.event.ListSelectionListener() {
             public void valueChanged(javax.swing.event.ListSelectionEvent evt) {
                 elencoSdcListValueChanged(evt);
+            }
+        });
+        elencoSdcList.addAncestorListener(new javax.swing.event.AncestorListener() {
+            public void ancestorMoved(javax.swing.event.AncestorEvent evt) {
+            }
+            public void ancestorAdded(javax.swing.event.AncestorEvent evt) {
+                elencoSdcListAncestorAdded(evt);
+            }
+            public void ancestorRemoved(javax.swing.event.AncestorEvent evt) {
+                elencoSdcListAncestorRemoved(evt);
             }
         });
         jScrollPane2.setViewportView(elencoSdcList);
@@ -671,7 +685,6 @@ public class GUI extends javax.swing.JFrame {
     private void jList1AncestorAdded(javax.swing.event.AncestorEvent evt) {//GEN-FIRST:event_jList1AncestorAdded
         DefaultListModel<Proposta> dlm = (DefaultListModel<Proposta>) jList1.getModel();
         List<Proposta> listaProposteValutate = null;
-        dlm.clear(); // rimuovo gli elementi presenti
         try {
             listaProposteValutate = guiController.vediNotificheAccettazioneProposte();
         } catch (SQLException ex) {
@@ -683,11 +696,7 @@ public class GUI extends javax.swing.JFrame {
     }//GEN-LAST:event_jList1AncestorAdded
 
     private void elencoProposteValutareAncestorAdded(javax.swing.event.AncestorEvent evt) {//GEN-FIRST:event_elencoProposteValutareAncestorAdded
-
         DefaultListModel<Proposta> dlm = (DefaultListModel<Proposta>) elencoProposteValutare.getModel();
-        /* metodo rozzo, pensare a questo: https://stackoverflow.com/questions/919387/how-can-i-calculate-the-difference-between-two-arraylists */
-        dlm.clear(); // rimuovo gli elementi presenti
-
         List<Proposta> listaProposte = null;
         try {
             listaProposte = guiController.vediProposteSistemaCifratura();
@@ -735,6 +744,34 @@ public class GUI extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_rifiutaPropostaButtonActionPerformed
 
+    private void jList1AncestorRemoved(javax.swing.event.AncestorEvent evt) {//GEN-FIRST:event_jList1AncestorRemoved
+        DefaultListModel<Proposta> dlm = (DefaultListModel<Proposta>) jList1.getModel();
+        dlm.clear();
+    }//GEN-LAST:event_jList1AncestorRemoved
+
+    private void elencoProposteValutareAncestorRemoved(javax.swing.event.AncestorEvent evt) {//GEN-FIRST:event_elencoProposteValutareAncestorRemoved
+        DefaultListModel<Proposta> dlm = (DefaultListModel<Proposta>) elencoProposteValutare.getModel();
+        dlm.clear();
+    }//GEN-LAST:event_elencoProposteValutareAncestorRemoved
+
+    private void elencoSdcListAncestorAdded(javax.swing.event.AncestorEvent evt) {//GEN-FIRST:event_elencoSdcListAncestorAdded
+        DefaultListModel<SistemaCifratura> dlm = (DefaultListModel<SistemaCifratura>) elencoSdcList.getModel();
+        List<SistemaCifratura> listasdc = null;
+        try {
+            listasdc = guiController.elencaSistemiCifratura();
+        } catch (SQLException ex) {
+            Logger.getLogger(GUI.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        for (SistemaCifratura sdc : listasdc) {
+            dlm.addElement(sdc);
+        }
+    }//GEN-LAST:event_elencoSdcListAncestorAdded
+
+    private void elencoSdcListAncestorRemoved(javax.swing.event.AncestorEvent evt) {//GEN-FIRST:event_elencoSdcListAncestorRemoved
+        DefaultListModel<SistemaCifratura> dlm = (DefaultListModel<SistemaCifratura>) elencoSdcList.getModel();
+        dlm.clear();
+    }//GEN-LAST:event_elencoSdcListAncestorRemoved
+
     private void setSdcWidgetEnabled(boolean b) {
         provaSdcButton.setEnabled(b);
         salvaSdcButton.setEnabled(b);
@@ -742,36 +779,7 @@ public class GUI extends javax.swing.JFrame {
         risultatoProvaField.setEnabled(b);
     }
 
-    private void caricaSistemiCifratura(JList elenco, boolean tutti) {
-        DefaultListModel<SistemaCifratura> dlm = (DefaultListModel<SistemaCifratura>) elenco.getModel();
-        List<SistemaCifratura> listasdc = null;
-        try {
-            if (tutti) {
-                listasdc = guiController.elencaSistemiCifratura();
-            } else {
-                listasdc = guiController.elencaSistemiCifraturaNonProposti();
-            }
-
-        } catch (SQLException ex) {
-            Logger.getLogger(GUI.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        for (SistemaCifratura sdc : listasdc) {
-            dlm.addElement(sdc);
-        }
-    }
-
-    private void aggiungiSistemaCifratura(SistemaCifratura sdc) {
-        DefaultListModel<SistemaCifratura> dlm = (DefaultListModel<SistemaCifratura>) elencoSdcList.getModel();
-        dlm.addElement(sdc);
-    }
-
-    private void rimuoviSistemaCifratura(SistemaCifratura sdc) {
-        DefaultListModel<SistemaCifratura> dlm = (DefaultListModel<SistemaCifratura>) elencoSdcList.getModel();
-        dlm.removeElement(sdc);
-    }
-
     private final GUIController guiController = GUIController.getInstance();
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     javax.swing.JButton accettaPropostaButton;
     javax.swing.JButton calcolaMappaturaButton;
