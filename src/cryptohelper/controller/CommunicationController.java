@@ -106,12 +106,14 @@ public class CommunicationController {
 
     public List<Proposta> getAccettazioneProposte(Studente user) throws SQLException {
         DBController dbc = DBController.getInstance();
-        CachedRowSet crs = dbc.execute("SELECT * FROM Proposta WHERE "
-                + "proponente = ? AND (stato = 'accepted' OR stato = 'declined') AND notificata = 'false'", user.getId());
+        CachedRowSet crs = dbc.execute("SELECT * FROM Proposta "
+                + "WHERE proponente = ? AND (stato = 'accepted' OR stato = 'declined') AND notificata = 'false'", user.getId());
         List<Proposta> result = new ArrayList<>();
         while (crs.next()) {
-            result.add(new Proposta(crs));
-            /* da impostare notificata = vero e salvare nel DB */
+            Proposta p = new Proposta(crs);
+            p.setNotificata(true);
+            p.save();
+            result.add(p);
         }
         return result;
     }
