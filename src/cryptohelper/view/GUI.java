@@ -85,7 +85,16 @@ public class GUI extends javax.swing.JFrame {
         jButton4 = new javax.swing.JButton();
         jButton5 = new javax.swing.JButton();
         inviatiPanel = new javax.swing.JPanel();
+        jScrollPane7 = new javax.swing.JScrollPane();
+        jList5 = new javax.swing.JList();
+        jTextField5 = new javax.swing.JTextField();
+        jButton7 = new javax.swing.JButton();
         bozzePanel = new javax.swing.JPanel();
+        jScrollPane8 = new javax.swing.JScrollPane();
+        jList6 = new javax.swing.JList();
+        jTextField6 = new javax.swing.JTextField();
+        eliminaMessaggioButton1 = new javax.swing.JButton();
+        jButton6 = new javax.swing.JButton();
         creaPanel = new javax.swing.JPanel();
         propostePanel = new javax.swing.JPanel();
         jTabbedPane1 = new javax.swing.JTabbedPane();
@@ -269,16 +278,16 @@ public class GUI extends javax.swing.JFrame {
 
         jTextField4.setText("jTextField4");
 
-        eliminaMessaggioButton.setText("jButton3");
+        eliminaMessaggioButton.setText("Rispondi");
         eliminaMessaggioButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 eliminaMessaggioButtonActionPerformed(evt);
             }
         });
 
-        jButton4.setText("jButton4");
+        jButton4.setText("Ricarica");
 
-        jButton5.setText("jButton5");
+        jButton5.setText("Elimina");
 
         javax.swing.GroupLayout ricevutiPanelLayout = new javax.swing.GroupLayout(ricevutiPanel);
         ricevutiPanel.setLayout(ricevutiPanelLayout);
@@ -291,12 +300,12 @@ public class GUI extends javax.swing.JFrame {
                         .addComponent(eliminaMessaggioButton)
                         .addGap(31, 31, 31)
                         .addComponent(jButton4)
-                        .addGap(29, 29, 29)
+                        .addGap(36, 36, 36)
                         .addComponent(jButton5))
                     .addGroup(ricevutiPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                         .addComponent(jScrollPane6)
                         .addComponent(jTextField4, javax.swing.GroupLayout.DEFAULT_SIZE, 563, Short.MAX_VALUE)))
-                .addContainerGap(36, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         ricevutiPanelLayout.setVerticalGroup(
             ricevutiPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -315,28 +324,90 @@ public class GUI extends javax.swing.JFrame {
 
         jTabbedPane2.addTab("Ricevuti", ricevutiPanel);
 
+        jList5.setModel(new javax.swing.AbstractListModel() {
+            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
+            public int getSize() { return strings.length; }
+            public Object getElementAt(int i) { return strings[i]; }
+        });
+        jScrollPane7.setViewportView(jList5);
+
+        jTextField5.setText("jTextField4");
+
+        jButton7.setText("Elimina");
+
         javax.swing.GroupLayout inviatiPanelLayout = new javax.swing.GroupLayout(inviatiPanel);
         inviatiPanel.setLayout(inviatiPanelLayout);
         inviatiPanelLayout.setHorizontalGroup(
             inviatiPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 620, Short.MAX_VALUE)
+            .addGroup(inviatiPanelLayout.createSequentialGroup()
+                .addGap(35, 35, 35)
+                .addGroup(inviatiPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jButton7)
+                    .addGroup(inviatiPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addComponent(jScrollPane7)
+                        .addComponent(jTextField5, javax.swing.GroupLayout.DEFAULT_SIZE, 563, Short.MAX_VALUE)))
+                .addContainerGap(36, Short.MAX_VALUE))
         );
         inviatiPanelLayout.setVerticalGroup(
             inviatiPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 476, Short.MAX_VALUE)
+            .addGroup(inviatiPanelLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane7, javax.swing.GroupLayout.PREFERRED_SIZE, 173, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jTextField5, javax.swing.GroupLayout.DEFAULT_SIZE, 156, Short.MAX_VALUE)
+                .addGap(9, 9, 9)
+                .addComponent(jButton7)
+                .addContainerGap())
         );
 
         jTabbedPane2.addTab("Inviati", inviatiPanel);
+
+        jList6.setModel(new javax.swing.AbstractListModel() {
+            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
+            public int getSize() { return strings.length; }
+            public Object getElementAt(int i) { return strings[i]; }
+        });
+        jScrollPane8.setViewportView(jList6);
+
+        jTextField6.setText("jTextField4");
+
+        eliminaMessaggioButton1.setText("Apri");
+        eliminaMessaggioButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                eliminaMessaggioButton1ActionPerformed(evt);
+            }
+        });
+
+        jButton6.setText("Elimina");
 
         javax.swing.GroupLayout bozzePanelLayout = new javax.swing.GroupLayout(bozzePanel);
         bozzePanel.setLayout(bozzePanelLayout);
         bozzePanelLayout.setHorizontalGroup(
             bozzePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 620, Short.MAX_VALUE)
+            .addGroup(bozzePanelLayout.createSequentialGroup()
+                .addGap(35, 35, 35)
+                .addGroup(bozzePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(bozzePanelLayout.createSequentialGroup()
+                        .addComponent(eliminaMessaggioButton1)
+                        .addGap(31, 31, 31)
+                        .addComponent(jButton6))
+                    .addGroup(bozzePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addComponent(jScrollPane8)
+                        .addComponent(jTextField6, javax.swing.GroupLayout.DEFAULT_SIZE, 563, Short.MAX_VALUE)))
+                .addContainerGap(36, Short.MAX_VALUE))
         );
         bozzePanelLayout.setVerticalGroup(
             bozzePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 476, Short.MAX_VALUE)
+            .addGroup(bozzePanelLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane8, javax.swing.GroupLayout.PREFERRED_SIZE, 173, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jTextField6, javax.swing.GroupLayout.DEFAULT_SIZE, 156, Short.MAX_VALUE)
+                .addGap(9, 9, 9)
+                .addGroup(bozzePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(eliminaMessaggioButton1)
+                    .addComponent(jButton6))
+                .addContainerGap())
         );
 
         jTabbedPane2.addTab("Bozze", bozzePanel);
@@ -345,11 +416,11 @@ public class GUI extends javax.swing.JFrame {
         creaPanel.setLayout(creaPanelLayout);
         creaPanelLayout.setHorizontalGroup(
             creaPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 620, Short.MAX_VALUE)
+            .addGap(0, 0, Short.MAX_VALUE)
         );
         creaPanelLayout.setVerticalGroup(
             creaPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 476, Short.MAX_VALUE)
+            .addGap(0, 0, Short.MAX_VALUE)
         );
 
         jTabbedPane2.addTab("Crea Nuovo", creaPanel);
@@ -798,6 +869,10 @@ public class GUI extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_eliminaMessaggioButtonActionPerformed
 
+    private void eliminaMessaggioButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_eliminaMessaggioButton1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_eliminaMessaggioButton1ActionPerformed
+
     private void setSdcWidgetEnabled(boolean b) {
         provaSdcButton.setEnabled(b);
         salvaSdcButton.setEnabled(b);
@@ -819,6 +894,7 @@ public class GUI extends javax.swing.JFrame {
     javax.swing.JList elencoSdcList;
     javax.swing.JPanel elencoSdcPanel;
     javax.swing.JButton eliminaMessaggioButton;
+    javax.swing.JButton eliminaMessaggioButton1;
     javax.swing.JLabel errorLoginLabel;
     javax.swing.JLabel feedbackNuovoSdcLabel;
     javax.swing.JButton goToRegistrationButton;
@@ -827,6 +903,8 @@ public class GUI extends javax.swing.JFrame {
     javax.swing.JButton jButton2;
     javax.swing.JButton jButton4;
     javax.swing.JButton jButton5;
+    javax.swing.JButton jButton6;
+    javax.swing.JButton jButton7;
     javax.swing.JLabel jLabel1;
     javax.swing.JLabel jLabel2;
     javax.swing.JLabel jLabel3;
@@ -837,6 +915,8 @@ public class GUI extends javax.swing.JFrame {
     javax.swing.JList jList2;
     javax.swing.JList jList3;
     javax.swing.JList jList4;
+    javax.swing.JList jList5;
+    javax.swing.JList jList6;
     javax.swing.JPanel jPanel10;
     javax.swing.JPanel jPanel11;
     javax.swing.JPanel jPanel12;
@@ -854,12 +934,16 @@ public class GUI extends javax.swing.JFrame {
     javax.swing.JScrollPane jScrollPane4;
     javax.swing.JScrollPane jScrollPane5;
     javax.swing.JScrollPane jScrollPane6;
+    javax.swing.JScrollPane jScrollPane7;
+    javax.swing.JScrollPane jScrollPane8;
     javax.swing.JTabbedPane jTabbedPane1;
     javax.swing.JTabbedPane jTabbedPane2;
     javax.swing.JTextField jTextField1;
     javax.swing.JTextField jTextField2;
     javax.swing.JTextField jTextField3;
     javax.swing.JTextField jTextField4;
+    javax.swing.JTextField jTextField5;
+    javax.swing.JTextField jTextField6;
     javax.swing.JButton loginButton;
     javax.swing.JPanel loginFormPanel;
     javax.swing.JPanel loginPanel;
