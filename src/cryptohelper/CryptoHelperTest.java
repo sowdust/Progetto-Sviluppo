@@ -36,10 +36,6 @@ public class CryptoHelperTest {
         SistemaCifratura mySDC = new SistemaCifratura("provagenerale", "parolachiave", io);
         //lo salvo nel database
         mySDC.save();
-        /*mySDC dopo il salvataggio avrà ancora id negativo, ha senso aggiornarlo?
-         tanto passare per "caricaSistemiCifratura, sceglierlo e poi proporlo
-         perciò avrò sicuramente l'id perchè lo ricarico dal db
-         */
         List<SistemaCifratura> lists = SistemaCifratura.caricaSistemiCifratura(io);
         // prendo l'ultimo creato
         mySDC = lists.get(lists.size() - 1);

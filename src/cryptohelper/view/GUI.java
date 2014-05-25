@@ -30,7 +30,9 @@ import javax.swing.DefaultListModel;
 import javax.swing.JComboBox;
 import javax.swing.JDialog;
 import javax.swing.JList;
+import javax.swing.JRootPane;
 import javax.swing.ListCellRenderer;
+import javax.swing.SwingUtilities;
 
 /**
  *
@@ -43,7 +45,7 @@ public class GUI extends javax.swing.JFrame {
      */
     public GUI() {
         initComponents();
-        getRootPane().setDefaultButton(loginButton);
+        //getRootPane().setDefaultButton(loginButton);
         metodoCifraturaComboBox.setSelectedIndex(-1);
     }
 
@@ -107,9 +109,9 @@ public class GUI extends javax.swing.JFrame {
         jPanel10 = new javax.swing.JPanel();
         salvaSdcButton = new javax.swing.JButton();
         provaSdcButton = new javax.swing.JButton();
-        jTextField6 = new javax.swing.JTextField();
-        jTextField5 = new javax.swing.JTextField();
-        jLabel5 = new javax.swing.JLabel();
+        risultatoProvaField = new javax.swing.JTextField();
+        testoProvaField = new javax.swing.JTextField();
+        feedbackNuovoSdcLabel = new javax.swing.JLabel();
         chiaveCifraturaField = new javax.swing.JTextField();
         calcolaMappaturaButton = new javax.swing.JButton();
         metodoCifraturaComboBox = new javax.swing.JComboBox();
@@ -124,7 +126,6 @@ public class GUI extends javax.swing.JFrame {
         loginToolBar.setRollover(true);
 
         goToRegistrationButton.setText("Registrazione");
-        goToRegistrationButton.setFocusable(false);
         goToRegistrationButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 goToRegistrationButtonActionPerformed(evt);
@@ -438,13 +439,13 @@ public class GUI extends javax.swing.JFrame {
             }
         });
 
-        jTextField6.setEditable(false);
-        jTextField6.setEnabled(false);
+        risultatoProvaField.setEditable(false);
+        risultatoProvaField.setEnabled(false);
 
-        jTextField5.setEnabled(false);
+        testoProvaField.setEnabled(false);
 
-        jLabel5.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel5.setText("Scegli un metodo di cifratura");
+        feedbackNuovoSdcLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        feedbackNuovoSdcLabel.setText("Scegli un metodo di cifratura");
 
         chiaveCifraturaField.setEnabled(false);
         chiaveCifraturaField.addKeyListener(new java.awt.event.KeyAdapter() {
@@ -471,8 +472,8 @@ public class GUI extends javax.swing.JFrame {
         jPanel10.setLayout(jPanel10Layout);
         jPanel10Layout.setHorizontalGroup(
             jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jTextField6)
-            .addComponent(jTextField5)
+            .addComponent(risultatoProvaField)
+            .addComponent(testoProvaField)
             .addGroup(jPanel10Layout.createSequentialGroup()
                 .addGap(181, 181, 181)
                 .addComponent(provaSdcButton, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -485,7 +486,7 @@ public class GUI extends javax.swing.JFrame {
                 .addComponent(chiaveCifraturaField))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel10Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(feedbackNuovoSdcLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel10Layout.createSequentialGroup()
                 .addContainerGap(184, Short.MAX_VALUE)
@@ -495,7 +496,7 @@ public class GUI extends javax.swing.JFrame {
         jPanel10Layout.setVerticalGroup(
             jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel10Layout.createSequentialGroup()
-                .addComponent(jLabel5)
+                .addComponent(feedbackNuovoSdcLabel)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(metodoCifraturaComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -503,9 +504,9 @@ public class GUI extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(calcolaMappaturaButton)
                 .addGap(99, 99, 99)
-                .addComponent(jTextField5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(testoProvaField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jTextField6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(risultatoProvaField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(salvaSdcButton)
@@ -549,7 +550,7 @@ public class GUI extends javax.swing.JFrame {
     }//GEN-LAST:event_goToRegistrationButtonActionPerformed
 
     private void provaSdcButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_provaSdcButtonActionPerformed
-        jTextField6.setText(guiController.cifra(jTextField5.getText()));
+        risultatoProvaField.setText(guiController.cifra(testoProvaField.getText()));
     }//GEN-LAST:event_provaSdcButtonActionPerformed
 
     private void deleteSdcButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteSdcButtonActionPerformed
@@ -645,10 +646,11 @@ public class GUI extends javax.swing.JFrame {
         String metodo = (String) metodoCifraturaComboBox.getSelectedItem();
         try {
             Mappatura map = guiController.generaMappatura(chiaveCifraturaField.getText(), metodo);
+            /* bisogna pensare a come far visualizzare la mappatura */
             System.out.println(map);
             setSdcWidgetEnabled(true);
         } catch (IllegalArgumentException ex) {
-            jLabel5.setText(ex.getMessage());
+            feedbackNuovoSdcLabel.setText(ex.getMessage());
         }
     }//GEN-LAST:event_calcolaMappaturaButtonActionPerformed
 
@@ -657,7 +659,7 @@ public class GUI extends javax.swing.JFrame {
         String metodo = (String) cb.getSelectedItem();
         if (metodo != null) {
             chiaveCifraturaField.setEnabled(true);
-            jLabel5.setText(guiController.mostraSceltaChiave(metodo));
+            feedbackNuovoSdcLabel.setText(guiController.mostraSceltaChiave(metodo));
             setSdcWidgetEnabled(false);
         }
     }//GEN-LAST:event_metodoCifraturaComboBoxActionPerformed
@@ -665,6 +667,7 @@ public class GUI extends javax.swing.JFrame {
     private void salvaSdcButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_salvaSdcButtonActionPerformed
         try {
             guiController.salvaSistemaCifratura();
+            setSdcWidgetEnabled(false);
         } catch (SQLException ex) {
             Logger.getLogger(GUI.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -677,8 +680,8 @@ public class GUI extends javax.swing.JFrame {
     private void setSdcWidgetEnabled(boolean b) {
         provaSdcButton.setEnabled(b);
         salvaSdcButton.setEnabled(b);
-        jTextField5.setEnabled(b);
-        jTextField6.setEnabled(b);
+        testoProvaField.setEnabled(b);
+        risultatoProvaField.setEnabled(b);
     }
 
     private void caricaSistemiCifratura() {
@@ -686,7 +689,6 @@ public class GUI extends javax.swing.JFrame {
         List<SistemaCifratura> listasdc = null;
         try {
             listasdc = guiController.elencaSistemiCifratura();
-
         } catch (SQLException ex) {
             Logger.getLogger(GUI.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -694,6 +696,17 @@ public class GUI extends javax.swing.JFrame {
             dlm.addElement(sdc);
         }
     }
+
+    private void aggiungiSistemaCifratura(SistemaCifratura sdc) {
+        DefaultListModel<SistemaCifratura> dlm = (DefaultListModel<SistemaCifratura>) elencoSdcList.getModel();
+        dlm.addElement(sdc);
+    }
+
+    private void rimuoviSistemaCifratura(SistemaCifratura sdc) {
+        DefaultListModel<SistemaCifratura> dlm = (DefaultListModel<SistemaCifratura>) elencoSdcList.getModel();
+        dlm.removeElement(sdc);
+    }
+
     private final GUIController guiController = GUIController.getInstance();
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -707,13 +720,13 @@ public class GUI extends javax.swing.JFrame {
     javax.swing.JList elencoSdcList;
     javax.swing.JPanel elencoSdcPanel;
     javax.swing.JLabel errorLoginLabel;
+    javax.swing.JLabel feedbackNuovoSdcLabel;
     javax.swing.JButton goToRegistrationButton;
     javax.swing.JButton jButton2;
     javax.swing.JLabel jLabel1;
     javax.swing.JLabel jLabel2;
     javax.swing.JLabel jLabel3;
     javax.swing.JLabel jLabel4;
-    javax.swing.JLabel jLabel5;
     javax.swing.JList jList1;
     javax.swing.JPanel jPanel1;
     javax.swing.JPanel jPanel10;
@@ -732,8 +745,6 @@ public class GUI extends javax.swing.JFrame {
     javax.swing.JTextField jTextField1;
     javax.swing.JTextField jTextField2;
     javax.swing.JTextField jTextField3;
-    javax.swing.JTextField jTextField5;
-    javax.swing.JTextField jTextField6;
     javax.swing.JToolBar jToolBar1;
     javax.swing.JToolBar jToolBar2;
     javax.swing.JButton loginButton;
@@ -750,8 +761,10 @@ public class GUI extends javax.swing.JFrame {
     javax.swing.JButton provaSdcButton;
     javax.swing.JPanel registrationPanel;
     javax.swing.JButton rifiutaPropostaButton;
+    javax.swing.JTextField risultatoProvaField;
     javax.swing.JButton salvaSdcButton;
     javax.swing.JPanel sdcPanel;
     javax.swing.JTabbedPane sdcTabs;
+    javax.swing.JTextField testoProvaField;
     // End of variables declaration//GEN-END:variables
 }
