@@ -19,6 +19,7 @@ package cryptohelper;
 import cryptohelper.view.GUI;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 
 /**
@@ -32,8 +33,8 @@ public class CryptoHelper {
      */
     public static void main(String[] args) {
         try {
-            javax.swing.UIManager.setLookAndFeel(
-                    javax.swing.UIManager.getSystemLookAndFeelClassName());
+            UIManager.setLookAndFeel(
+                    UIManager.getSystemLookAndFeelClassName());
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(CryptoHelper.class.getName()).log(Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {

@@ -17,8 +17,10 @@
 package cryptohelper.model;
 
 import cryptohelper.controller.DBController;
-import javax.sql.rowset.CachedRowSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
+import javax.sql.rowset.CachedRowSet;
 
 /**
  *
@@ -72,36 +74,35 @@ public class Studente {
         return id;
     }
 
-    /**
-     * @return the nickname
-     */
     public String getNickname() {
         return nickname;
     }
 
-    /**
-     * @return the password
-     */
     public String getPassword() {
         return password;
     }
 
-    /**
-     * @return the nome
-     */
     public String getNome() {
         return nome;
     }
 
-    /**
-     * @return the cognome
-     */
     public String getCognome() {
         return cognome;
     }
 
+    @Override
     public String toString() {
-        return "\nId: " + id + "\nNick: " + nickname + "\nPass: " + password + "\nNome: " + nome + "\nCognome: " + cognome;
+        return "Nome: " + nome + " Cognome: " + cognome + " Nickname: " + nickname;
+    }
+
+    public List<Studente> elencaCompagni() throws SQLException {
+        DBController dbc = DBController.getInstance();
+        CachedRowSet crs = dbc.execute("SELECT * FROM Studente WHERE id != ?", id);
+        List<Studente> lista = new ArrayList<>();
+        while (crs.next()) {
+            lista.add(new Studente(crs));
+        }
+        return lista;
     }
 
 }

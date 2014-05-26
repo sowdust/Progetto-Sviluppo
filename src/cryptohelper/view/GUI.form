@@ -66,9 +66,6 @@
           <Layout class="org.netbeans.modules.form.compat2.layouts.DesignGridBagLayout"/>
           <SubComponents>
             <Component class="javax.swing.JTextField" name="nickLoginField">
-              <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="nickLoginFieldActionPerformed"/>
-              </Events>
               <Constraints>
                 <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignGridBagLayout" value="org.netbeans.modules.form.compat2.layouts.DesignGridBagLayout$GridBagConstraintsDescription">
                   <GridBagConstraints gridX="0" gridY="2" gridWidth="1" gridHeight="1" fill="2" ipadX="150" ipadY="0" insetsTop="0" insetsLeft="0" insetsBottom="0" insetsRight="0" anchor="10" weightX="0.0" weightY="0.0"/>
@@ -387,15 +384,15 @@
 
                           <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
                           <SubComponents>
-                            <Component class="javax.swing.JList" name="jList7">
+                            <Component class="javax.swing.JList" name="messaggiInviatiList">
                               <Properties>
                                 <Property name="model" type="javax.swing.ListModel" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
                                   <Connection code="new javax.swing.DefaultListModel&lt;MessaggioMittente&gt;()" type="code"/>
                                 </Property>
                               </Properties>
                               <Events>
-                                <EventHandler event="ancestorAdded" listener="javax.swing.event.AncestorListener" parameters="javax.swing.event.AncestorEvent" handler="jList7AncestorAdded"/>
-                                <EventHandler event="ancestorRemoved" listener="javax.swing.event.AncestorListener" parameters="javax.swing.event.AncestorEvent" handler="jList7AncestorRemoved"/>
+                                <EventHandler event="ancestorAdded" listener="javax.swing.event.AncestorListener" parameters="javax.swing.event.AncestorEvent" handler="messaggiInviatiListAncestorAdded"/>
+                                <EventHandler event="ancestorRemoved" listener="javax.swing.event.AncestorListener" parameters="javax.swing.event.AncestorEvent" handler="messaggiInviatiListAncestorRemoved"/>
                               </Events>
                             </Component>
                           </SubComponents>
@@ -464,7 +461,7 @@
 
                           <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
                           <SubComponents>
-                            <Component class="javax.swing.JList" name="jList8">
+                            <Component class="javax.swing.JList" name="messaggiBozzaList">
                               <Properties>
                                 <Property name="model" type="javax.swing.ListModel" editor="org.netbeans.modules.form.editors2.ListModelEditor">
                                   <StringArray count="5">
@@ -633,7 +630,7 @@
 
                           <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
                           <SubComponents>
-                            <Component class="javax.swing.JList" name="elencoProposteValutare">
+                            <Component class="javax.swing.JList" name="proposteRicevuteValutareList">
                               <Properties>
                                 <Property name="model" type="javax.swing.ListModel" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
                                   <Connection code="new javax.swing.DefaultListModel&lt;Proposta&gt;()" type="code"/>
@@ -641,9 +638,9 @@
                                 <Property name="selectionMode" type="int" value="0"/>
                               </Properties>
                               <Events>
-                                <EventHandler event="valueChanged" listener="javax.swing.event.ListSelectionListener" parameters="javax.swing.event.ListSelectionEvent" handler="elencoProposteValutareValueChanged"/>
-                                <EventHandler event="ancestorAdded" listener="javax.swing.event.AncestorListener" parameters="javax.swing.event.AncestorEvent" handler="elencoProposteValutareAncestorAdded"/>
-                                <EventHandler event="ancestorRemoved" listener="javax.swing.event.AncestorListener" parameters="javax.swing.event.AncestorEvent" handler="elencoProposteValutareAncestorRemoved"/>
+                                <EventHandler event="valueChanged" listener="javax.swing.event.ListSelectionListener" parameters="javax.swing.event.ListSelectionEvent" handler="proposteRicevuteValutareListValueChanged"/>
+                                <EventHandler event="ancestorAdded" listener="javax.swing.event.AncestorListener" parameters="javax.swing.event.AncestorEvent" handler="proposteRicevuteValutareListAncestorAdded"/>
+                                <EventHandler event="ancestorRemoved" listener="javax.swing.event.AncestorListener" parameters="javax.swing.event.AncestorEvent" handler="proposteRicevuteValutareListAncestorRemoved"/>
                               </Events>
                             </Component>
                           </SubComponents>
@@ -668,7 +665,7 @@
 
                           <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
                           <SubComponents>
-                            <Component class="javax.swing.JList" name="jList1">
+                            <Component class="javax.swing.JList" name="proposteInviateValutateList">
                               <Properties>
                                 <Property name="model" type="javax.swing.ListModel" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
                                   <Connection code="new javax.swing.DefaultListModel&lt;Proposta&gt;()" type="code"/>
@@ -676,8 +673,8 @@
                                 <Property name="selectionMode" type="int" value="0"/>
                               </Properties>
                               <Events>
-                                <EventHandler event="ancestorAdded" listener="javax.swing.event.AncestorListener" parameters="javax.swing.event.AncestorEvent" handler="jList1AncestorAdded"/>
-                                <EventHandler event="ancestorRemoved" listener="javax.swing.event.AncestorListener" parameters="javax.swing.event.AncestorEvent" handler="jList1AncestorRemoved"/>
+                                <EventHandler event="ancestorAdded" listener="javax.swing.event.AncestorListener" parameters="javax.swing.event.AncestorEvent" handler="proposteInviateValutateListAncestorAdded"/>
+                                <EventHandler event="ancestorRemoved" listener="javax.swing.event.AncestorListener" parameters="javax.swing.event.AncestorEvent" handler="proposteInviateValutateListAncestorRemoved"/>
                               </Events>
                             </Component>
                           </SubComponents>
@@ -704,11 +701,14 @@
 
                           <Layout class="org.netbeans.modules.form.compat2.layouts.DesignFlowLayout"/>
                           <SubComponents>
-                            <Component class="javax.swing.JButton" name="jButton1">
+                            <Component class="javax.swing.JButton" name="inviaPropostaButton">
                               <Properties>
                                 <Property name="text" type="java.lang.String" value="Invia Proposta"/>
                                 <Property name="enabled" type="boolean" value="false"/>
                               </Properties>
+                              <Events>
+                                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="inviaPropostaButtonActionPerformed"/>
+                              </Events>
                             </Component>
                           </SubComponents>
                         </Container>
@@ -740,12 +740,17 @@
 
                                   <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
                                   <SubComponents>
-                                    <Component class="javax.swing.JList" name="jList2">
+                                    <Component class="javax.swing.JList" name="sdcNonPropostiList">
                                       <Properties>
-                                        <Property name="model" type="javax.swing.ListModel" editor="org.netbeans.modules.form.editors2.ListModelEditor">
-                                          <StringArray count="0"/>
+                                        <Property name="model" type="javax.swing.ListModel" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+                                          <Connection code="new javax.swing.DefaultListModel&lt;SistemaCifratura&gt;()" type="code"/>
                                         </Property>
                                       </Properties>
+                                      <Events>
+                                        <EventHandler event="valueChanged" listener="javax.swing.event.ListSelectionListener" parameters="javax.swing.event.ListSelectionEvent" handler="sdcNonPropostiListValueChanged"/>
+                                        <EventHandler event="ancestorAdded" listener="javax.swing.event.AncestorListener" parameters="javax.swing.event.AncestorEvent" handler="sdcNonPropostiListAncestorAdded"/>
+                                        <EventHandler event="ancestorRemoved" listener="javax.swing.event.AncestorListener" parameters="javax.swing.event.AncestorEvent" handler="sdcNonPropostiListAncestorRemoved"/>
+                                      </Events>
                                     </Component>
                                   </SubComponents>
                                 </Container>
@@ -770,12 +775,17 @@
 
                                   <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
                                   <SubComponents>
-                                    <Component class="javax.swing.JList" name="jList3">
+                                    <Component class="javax.swing.JList" name="compagniList">
                                       <Properties>
-                                        <Property name="model" type="javax.swing.ListModel" editor="org.netbeans.modules.form.editors2.ListModelEditor">
-                                          <StringArray count="0"/>
+                                        <Property name="model" type="javax.swing.ListModel" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+                                          <Connection code="new javax.swing.DefaultListModel&lt;Studente&gt;()" type="code"/>
                                         </Property>
                                       </Properties>
+                                      <Events>
+                                        <EventHandler event="valueChanged" listener="javax.swing.event.ListSelectionListener" parameters="javax.swing.event.ListSelectionEvent" handler="compagniListValueChanged"/>
+                                        <EventHandler event="ancestorAdded" listener="javax.swing.event.AncestorListener" parameters="javax.swing.event.AncestorEvent" handler="compagniListAncestorAdded"/>
+                                        <EventHandler event="ancestorRemoved" listener="javax.swing.event.AncestorListener" parameters="javax.swing.event.AncestorEvent" handler="compagniListAncestorRemoved"/>
+                                      </Events>
                                     </Component>
                                   </SubComponents>
                                 </Container>
@@ -827,7 +837,7 @@
 
                           <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
                           <SubComponents>
-                            <Component class="javax.swing.JList" name="elencoSdcList">
+                            <Component class="javax.swing.JList" name="sdcList">
                               <Properties>
                                 <Property name="model" type="javax.swing.ListModel" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
                                   <Connection code="new javax.swing.DefaultListModel&lt;SistemaCifratura&gt;()" type="code"/>
@@ -835,9 +845,9 @@
                                 <Property name="selectionMode" type="int" value="0"/>
                               </Properties>
                               <Events>
-                                <EventHandler event="valueChanged" listener="javax.swing.event.ListSelectionListener" parameters="javax.swing.event.ListSelectionEvent" handler="elencoSdcListValueChanged"/>
-                                <EventHandler event="ancestorAdded" listener="javax.swing.event.AncestorListener" parameters="javax.swing.event.AncestorEvent" handler="elencoSdcListAncestorAdded"/>
-                                <EventHandler event="ancestorRemoved" listener="javax.swing.event.AncestorListener" parameters="javax.swing.event.AncestorEvent" handler="elencoSdcListAncestorRemoved"/>
+                                <EventHandler event="valueChanged" listener="javax.swing.event.ListSelectionListener" parameters="javax.swing.event.ListSelectionEvent" handler="sdcListValueChanged"/>
+                                <EventHandler event="ancestorAdded" listener="javax.swing.event.AncestorListener" parameters="javax.swing.event.AncestorEvent" handler="sdcListAncestorAdded"/>
+                                <EventHandler event="ancestorRemoved" listener="javax.swing.event.AncestorListener" parameters="javax.swing.event.AncestorEvent" handler="sdcListAncestorRemoved"/>
                               </Events>
                             </Component>
                           </SubComponents>

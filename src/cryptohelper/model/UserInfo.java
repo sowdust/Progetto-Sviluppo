@@ -36,7 +36,7 @@ public class UserInfo {
         this.cognome = cognome;
     }
 
-    private UserInfo(CachedRowSet crs) throws SQLException {
+    public UserInfo(CachedRowSet crs) throws SQLException {
         this.id = crs.getInt("id");
         this.nome = crs.getString("nome");
         this.cognome = crs.getString("cognome");

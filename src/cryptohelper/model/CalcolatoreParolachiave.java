@@ -26,6 +26,9 @@ public class CalcolatoreParolachiave extends CalcolatoreMappatura {
 
     @Override
     public Mappatura calcola(String chiave, char[] alfabeto) {
+        if (chiave.equals("")) {
+            throw new IllegalArgumentException("non hai inserito nessuna parola");
+        }
         char[] mappa = new char[alfabeto.length];
         chiave = chiave.toLowerCase();
         int k = 0;

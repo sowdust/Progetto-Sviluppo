@@ -23,6 +23,7 @@ import cryptohelper.model.MessaggioMittente;
 import cryptohelper.model.Proposta;
 import cryptohelper.model.SistemaCifratura;
 import cryptohelper.model.Studente;
+import cryptohelper.model.UserInfo;
 import java.sql.SQLException;
 import java.util.List;
 
@@ -63,10 +64,14 @@ public class GUIController {
         return SistemaCifratura.caricaSistemiCifraturaNonProposti(studente);
     }
 
+    public List<Studente> elencaCompagni() throws SQLException {
+        return studente.elencaCompagni();
+    }
     /* come comportarsi se il sdc è stato proposto?
      la cosa più ragionevole e facile da implementare (già implementata) è cancellare
      tutti i messaggi che usano quel sdc e la proposta che lo ha proposto       
      */
+
     public boolean eliminaSistemaCifratura(SistemaCifratura sdc) throws SQLException {
         return sdc.elimina();
     }
@@ -115,7 +120,9 @@ public class GUIController {
     }
 
     public boolean salvaSistemaCifratura() throws SQLException {
-        return nuovoSdc.save();
+        boolean risultato = nuovoSdc.save();
+        nuovoSdc = null;
+        return risultato;
     }
 
     public List<MessaggioDestinatario> elencaMessaggiRicevuti() throws SQLException {
@@ -124,6 +131,10 @@ public class GUIController {
 
     public List<MessaggioMittente> elencaMessaggiInviati() throws SQLException {
         return Messaggio.caricaInviati(studente);
+    }
+
+    public boolean proponiSistemaCifratura(SistemaCifratura sdc, Studente st) throws SQLException {
+        return CommunicationController.getInstance().inviaProposta(studente, st, sdc);
     }
 
 }
