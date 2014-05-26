@@ -12,6 +12,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import javax.sql.rowset.CachedRowSet;
+import javax.sql.rowset.RowSetProvider;
 
 public class Sessione {
     
@@ -42,7 +43,7 @@ public class Sessione {
     public static Sessione load(int id) throws SQLException, IOException, ClassNotFoundException {
         
         DBController dbc = DBController.getInstance();
-        CachedRowSet crs = dbc.execute("SELECT * FROM sessione WHERE id = ?", id);
+        CachedRowSet crs = null;//dbc.execute("SELECT * FROM sessione WHERE id = ?", id);
         
         String url = "jdbc:derby://localhost:1527/crypto_db";
         String user = "crypto_user";
@@ -51,15 +52,26 @@ public class Sessione {
         PreparedStatement stmt = conn.prepareStatement("SELECT * FROM sessione WHERE id = " + id);
         
         ResultSet rs = stmt.executeQuery();
+//        ResultSet rs = stmt.getResultSet();
+
+        /*
+        crs = RowSetProvider.newFactory().createCachedRowSet();
+        crs.populate(rs);
+        
+        
         if(!crs.next()) {
             throw new RuntimeException("oooops1");
             
         }
+
+        byte[] buf = rs.getBytes("albero"); */
+
         if(!rs.next()) {
             throw new RuntimeException("oooops2");
             
         }
-        byte[] buf = crs.getBytes("albero");
+        byte[] buf = rs.getBytes("albero");
+        
 	ObjectInputStream objectIn = null;
         objectIn = new ObjectInputStream(new ByteArrayInputStream(buf));             
 

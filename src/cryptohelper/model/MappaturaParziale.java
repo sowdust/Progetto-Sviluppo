@@ -8,19 +8,14 @@ public class MappaturaParziale implements Serializable {
     
     ArrayList<Character> map;
     ArrayList<Character> inverseMap;
-    /* carattere della mappatura che indica la richiesta di rimozione */
+    //carattere della mappatura che indica la richiesta di rimozione
     static final char DA_RIMUOVERE = '-';
     
     public MappaturaParziale() {
         this.map = new ArrayList();
         this.inverseMap = new ArrayList();       
     }
-    
-    public MappaturaParziale(ArrayList<Character> map, ArrayList<Character> inverseMap) {
-        this.map = map;
-        this.inverseMap = inverseMap;        
-    }
-    
+
     public MappaturaParziale(MappaturaParziale m) {
         this.map = new ArrayList();
         this.inverseMap = new ArrayList();
@@ -35,15 +30,11 @@ public class MappaturaParziale implements Serializable {
     public MappaturaParziale(String s) {
         this.map = new ArrayList();
         this.inverseMap = new ArrayList();
-        try{
-            String[] split = s.split(",");
-            for(String t : split) {
-                String[] m = t.trim().split(">");
-                this.map.add(m[0].trim().charAt(0));
-                this.inverseMap.add(m[1].trim().charAt(0));
-            }
-        }catch(Exception e) {
-            System.out.println("Stringa non valida: " + s);
+        String[] split = s.split(",");
+        for(String t : split) {
+            String[] m = t.trim().split(">");
+            this.map.add(m[0].trim().charAt(0));
+            this.inverseMap.add(m[1].trim().charAt(0));
         }
     }
     
@@ -80,7 +71,7 @@ public class MappaturaParziale implements Serializable {
                 --i;
             }
         }
-        
+        // ora aggiungiamo risolvendo i conflitti
         for(int i = 0; i < m.map.size(); ++i ) {
             int k = r.map.indexOf(m.map.get(i));
             int j = r.inverseMap.indexOf(m.inverseMap.get(i));
@@ -114,10 +105,10 @@ public class MappaturaParziale implements Serializable {
             }
             
             // doppio conflitto ( a->j && b->k ; a->k ==> a->k )
-            r.map.remove(k);
-            r.inverseMap.remove(k);
-            r.map.set(j,m.map.get(i));
-            r.inverseMap.set(j,m.inverseMap.get(i));
+                r.map.remove(k);
+                r.inverseMap.remove(k);
+                r.map.set(j,m.map.get(i));
+                r.inverseMap.set(j,m.inverseMap.get(i));
 
         }
         return r;
@@ -234,7 +225,7 @@ public class MappaturaParziale implements Serializable {
     }
     
     public boolean isEmpty() {
-        return map.size() == 0;
+        return map.isEmpty();
     }
     
     @Override
