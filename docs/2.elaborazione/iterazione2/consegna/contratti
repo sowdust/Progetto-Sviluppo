@@ -19,7 +19,7 @@ Riferimenti:    uc: GestisciSoluzioni
 Precondizioni:  Studente st identificato, Studenti st1 e st2 esistenti 
 Postcondizioni: st1 ed st2 sono parametri facoltativi. se presenti, verranno mostrate le soluzioni in cui st1 o st2 sono mittente o destinatario.
 
-Operazione:     salvaSoluzione(map, msg)
+Operazione:     salvaSoluzione()
 Riferimenti:    uc: SalvaSoluzione
 Precondizioni:  Studente st identificato
 Postcondizioni: la Mappatura parziale o totale map viene associata al Messaggio msg e viene salvata una nuova Soluzione sol
@@ -49,7 +49,7 @@ Riferimenti:    uc: GestisciSessioni
 Precondizioni:  Studente st identificato 
 Postcondizioni: ritorna la lista delle sessioni create dal Studente st
 
-Operazione:     caricaSessione(s)
+Operazione:     caricaSessione(id, proprietario)
 Riferimenti:    uc: CaricaSessione
 Precondizioni:  Studente st identificato, s è una Sessione
 Postcondizioni: viene riaperta la Sessione s
