@@ -48,12 +48,12 @@ public class SessioneTest {
         
         //  PRIMA ASSUNZIONE
         //  a > z, b > w, c > y
-        albero.aggiungiIpotesi(new MappaturaParziale(a));
+        albero.faiAssunzione(new MappaturaParziale(a));
         MappaturaParziale b = new MappaturaParziale("d > x, e > u");
-        albero.aggiungiIpotesi(b);
+        albero.faiAssunzione(b);
         
         MappaturaParziale c = new MappaturaParziale("f > v");
-        albero.aggiungiIpotesi(c);
+        albero.faiAssunzione(c);
         
         Sessione sess = new Sessione(Studente.load(1).getUserInfo(),Messaggio.load(1));
         sess.setAlbero(albero);

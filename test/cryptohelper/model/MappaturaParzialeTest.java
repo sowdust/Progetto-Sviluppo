@@ -77,7 +77,23 @@ public class MappaturaParzialeTest {
         
         assertEquals(b.sottrai(a),new MappaturaParziale("e>i"));
         assertEquals(b.sottrai(new MappaturaParziale("a > z, b > w, c > y, e > i")),new MappaturaParziale());
-
+        assertFalse(new MappaturaParziale("a>z,b>y").conflitto(new MappaturaParziale("a>z,b>y")));
+        assertFalse(new MappaturaParziale("a>z,b>y,c>w").conflitto(new MappaturaParziale("a>z,b>y")));
+        
+        assertEquals(new MappaturaParziale("a>z,b>y,c>-").filtraDaRimuovere().get(0),(Character)'c');
+        assertTrue(new MappaturaParziale("c>k").contains(new MappaturaParziale("a>z,b>y,c>-").filtraDaRimuovere()));
+        a = new MappaturaParziale("a > z, b > w, c > y");
+        b = new MappaturaParziale("a > -, b > y, c > -");
+        assertEquals(a.merge(b),new MappaturaParziale(" b >    y"));
+        
+        a = new MappaturaParziale("a > z, b > w, c > y");
+        b = new MappaturaParziale("a > -, b > y");
+        assertEquals(a.merge(b),new MappaturaParziale(" b >    y"));
+        a = new MappaturaParziale("a>z,b>y,c>-");
+        a.filtraDaRimuovere();
+        assertEquals(a,new MappaturaParziale("a>z,b>y"));
+        
+        assertTrue(new MappaturaParziale(" d > x, e > u, a > z, b > w, c > y ").conflitto(new MappaturaParziale("i>x")));
 /*        
         assertTrue(new MappaturaParziale("a>s,b>y,c>z").subsetOf(new MappaturaParziale("a>s,b>y,c>z")));
         assertTrue(new MappaturaParziale("a>s,b>y").subsetOf(new MappaturaParziale("a>s,b>y,c>z")));

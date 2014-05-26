@@ -93,5 +93,9 @@ public class Sessione {
         
         return false;
     }
+    
+    public boolean faiAssunzione(MappaturaParziale map) {
+        return albero.faiAssunzione(map);
+    }
 
 }

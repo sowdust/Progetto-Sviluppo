@@ -2,11 +2,14 @@ package cryptohelper.model;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.List;
 
 public class MappaturaParziale implements Serializable {
     
     ArrayList<Character> map;
     ArrayList<Character> inverseMap;
+    /* carattere della mappatura che indica la richiesta di rimozione */
+    static final char DA_RIMUOVERE = '-';
     
     public MappaturaParziale() {
         this.map = new ArrayList();
@@ -59,9 +62,24 @@ public class MappaturaParziale implements Serializable {
      * {a > z, b > w } merge {c > z} ==> {c > z, b > w} 
      * 
      */
-    public MappaturaParziale merge(MappaturaParziale m) {
+    public MappaturaParziale merge(MappaturaParziale nMap) {
         
+        MappaturaParziale m = new MappaturaParziale(nMap);
         MappaturaParziale r = new MappaturaParziale(this);
+        
+        //  prima è necessario rimuovere 
+        for(int i = 0; i < m.map.size(); ++i ) {
+            if(m.inverseMap.get(i) == DA_RIMUOVERE) {
+                int k = r.map.indexOf(m.map.get(i));
+                if( k != -1 ) {
+                    r.map.remove(k);
+                    r.inverseMap.remove(k);
+                }
+                m.map.remove(i);
+                m.inverseMap.remove(i);
+                --i;
+            }
+        }
         
         for(int i = 0; i < m.map.size(); ++i ) {
             int k = r.map.indexOf(m.map.get(i));
@@ -76,7 +94,16 @@ public class MappaturaParziale implements Serializable {
             
             // se c'è un'assegnazione modificata ( a->x ; a->k ==> a->k)
             if(k != -1) {
-                r.inverseMap.set(k,m.inverseMap.get(i));
+                char c = m.inverseMap.get(i);
+                // prima vediamo se esiste già un'eventuale { x -> k }
+                int t = r.inverseMap.indexOf(c);
+                // asssegnamo la nuova lettera 
+                r.inverseMap.set(k,c);
+                // se la lettera era già assegnata a sx in precedenza, la rimuoviamo
+                if( t != -1 && t != k) {
+                    r.inverseMap.remove(t);
+                    r.map.remove(t);
+                }
                 continue ;
             }
             
@@ -91,6 +118,7 @@ public class MappaturaParziale implements Serializable {
             r.inverseMap.remove(k);
             r.map.set(j,m.map.get(i));
             r.inverseMap.set(j,m.inverseMap.get(i));
+
         }
         return r;
     }
@@ -169,6 +197,46 @@ public class MappaturaParziale implements Serializable {
         return this.size() == i;
     }
     
+    /*
+     * data una mappatura restituisce in una lista
+     * l'elenco dei caratteri che devono essere disassegnati
+     * Side Effect!: mappature con DA_RIMUOVERE rimosse da map
+     * 
+     * ES:
+     * 
+     * {a > z, b > DA_RIMUOVERE, c > DA_RIMUOVERE}.filtraDaRimuovere() ==> [b,c]
+     * @return 
+     */
+    public List<Character> filtraDaRimuovere() {
+        List<Character> daRimuovere = new ArrayList<>();
+        for(int i = 0; i < map.size(); ++i) {
+            if(inverseMap.get(i) == DA_RIMUOVERE) {
+                daRimuovere.add(map.get(i));
+                map.remove(i);
+                inverseMap.remove(i);
+                --i;
+            }
+        }
+        return daRimuovere;
+    }
+    
+    /*
+     * data una lista di caratteri, restituisce true se almeno di essi
+     * è già definito nella mappatura
+     */
+    boolean contains(List<Character> daRimuovere) {
+        for(Character c : daRimuovere) {
+            if(map.indexOf(c) != -1) {
+                return true;
+            }
+        }
+        return false;
+    }
+    
+    public boolean isEmpty() {
+        return map.size() == 0;
+    }
+    
     @Override
     public boolean equals(Object m) {
         return this.equals((MappaturaParziale) m);
@@ -228,4 +296,6 @@ public class MappaturaParziale implements Serializable {
         return false;
     }
 */    
+
+
 }

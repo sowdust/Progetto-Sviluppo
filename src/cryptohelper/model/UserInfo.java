@@ -26,9 +26,9 @@ import java.sql.SQLException;
  */
 public class UserInfo {
 
-    private int id;
-    private String nome;
-    private String cognome;
+    private final int id;
+    private final String nome;
+    private final String cognome;
 
     public UserInfo(int id, String nome, String cognome) {
         this.id = id;

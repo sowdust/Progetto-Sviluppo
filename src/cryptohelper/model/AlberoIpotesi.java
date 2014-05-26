@@ -1,6 +1,8 @@
 package cryptohelper.model;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Stack;
 
 /* 
@@ -40,22 +42,87 @@ public class AlberoIpotesi implements Serializable{
         mosse.push(ipotesiCorrente);
     }
     
-    public void aggiungiIpotesi(MappaturaParziale map) {
-                
-        // se lettera non ancora assegnata in questo cammino
-        if(!mappaturaCorrente.conflitto(map)){
-            ipotesiCorrente = ipotesiCorrente.aggiungiIpotesi(map);
-            mappaturaCorrente = mappaturaCorrente.merge(map);
+    // RETURN boolean false se già raggiunto
+    public boolean faiAssunzione(MappaturaParziale map) {
+        
+        MappaturaParziale nuovaMappatura = mappaturaCorrente.merge(map);
+        System.out.println("NuovaMappatura:" + nuovaMappatura);
+        System.out.println("mappaturacorrente:" + mappaturaCorrente);
+        System.out.println("mao:" + map);
+        List<Character> daRimuovere = map.filtraDaRimuovere();
+
+
+        
+        Ipotesi giaRaggiunta = giaRaggiunta(nuovaMappatura);
+        
+        if(giaRaggiunta != null) {
+            ipotesiCorrente = giaRaggiunta;
+            mappaturaCorrente = nuovaMappatura;
             mosse.push(ipotesiCorrente);
-            return ;
+            return false;            
+        }
+  
+
+        
+        // se lettera non ancora assegnata in questo cammino
+        if(!mappaturaCorrente.conflitto(map) && daRimuovere.isEmpty()){
+            ipotesiCorrente = ipotesiCorrente.aggiungiIpotesi(map);
+            mappaturaCorrente = nuovaMappatura;
+            mosse.push(ipotesiCorrente);
+            return true;
         }
  
         // se c'e' un conflitto risaliamo
-        mappaturaCorrente = mappaturaCorrente.merge(map);
-        Ipotesi aCuiAttaccarsi = ipotesiCorrente.trovaConflitto(map).padre;
-        MappaturaParziale daAggiungere = mappaturaCorrente.sottrai(aCuiAttaccarsi.getStato());
+        
+        Ipotesi aCuiAttaccarsi = ipotesiCorrente.trovaConflitto(map, daRimuovere);
+        if(null == aCuiAttaccarsi) {
+            aCuiAttaccarsi = radice;
+        } else {
+            aCuiAttaccarsi = aCuiAttaccarsi.padre;
+        }
+        MappaturaParziale daAggiungere = nuovaMappatura.sottrai(aCuiAttaccarsi.getStato());
         ipotesiCorrente = aCuiAttaccarsi.aggiungiIpotesi(daAggiungere);
+        mappaturaCorrente = nuovaMappatura;
         mosse.push(ipotesiCorrente);
+        return true;
+    
+        
+        /*
+        
+        List<Character> daRimuovere = map.filtraDaRimuovere();
+        Ipotesi giaRaggiunta = giaRaggiunta(mappaturaCorrente);
+        
+        
+        if(giaRaggiunta == null) {
+            
+            // se lettera non ancora assegnata in questo cammino
+            if(!mappaturaCorrente.conflitto(map)){
+                    ipotesiCorrente = ipotesiCorrente.aggiungiIpotesi(map);
+                    mosse.push(ipotesiCorrente);
+                    mappaturaCorrente = mappaturaCorrente.merge(map);
+                    return true;
+            }
+            
+            // se c'e' un conflitto risaliamo
+            
+            mappaturaCorrente = mappaturaCorrente.merge(map);
+
+            Ipotesi aCuiAttaccarsi = ipotesiCorrente.trovaConflitto(map, daRimuovere).padre;
+            if(aCuiAttaccarsi == null ) {
+                aCuiAttaccarsi = radice;
+            }
+            MappaturaParziale daAggiungere = mappaturaCorrente.sottrai(aCuiAttaccarsi.getStato());
+            ipotesiCorrente = aCuiAttaccarsi.aggiungiIpotesi(daAggiungere);
+            mosse.push(ipotesiCorrente);
+            return true;
+        }
+        
+        ipotesiCorrente = giaRaggiunta;
+        mosse.push(ipotesiCorrente);
+        
+        return false;
+        
+        */
     }
     
     public void undo() {
@@ -72,7 +139,8 @@ public class AlberoIpotesi implements Serializable{
         return radice;
     }
     
-    public Ipotesi giaRaggiunta(){
+    // TODO : PASSA MAPPATURA
+    public Ipotesi giaRaggiunta(MappaturaParziale mappaturaCorrente){
         return radice.giaRaggiunta(mappaturaCorrente, new MappaturaParziale()); 
     }
     
