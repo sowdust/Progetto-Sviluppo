@@ -131,15 +131,23 @@ public class Messaggio implements MessaggioMittente, MessaggioDestinatario {
         return bozza;
     }
 
-    // NOTA!!: manca la clausola where
+    // NOTA: cosa ritorniamo?
     @Override
     public boolean save() throws SQLException {
         DBController dbc = DBController.getInstance();
-        return dbc.executeUpdate("UPDATE Messaggio SET "
+        if(id == -1) {
+            String q =  "INSERT INTO Messaggio (testo, testocifrato, bozza, lingua,"
+                    +   "titolo,mittente,destinatario) VALUES (?,?,?,?,?,?,?)";
+            id = dbc.executeInsert(q, testo, testoCifrato, bozza, lingua, titolo, mittente.getId(), destinatario.getId());
+        } else {
+            dbc.executeUpdate("UPDATE Messaggio SET "
                 + "testo = ?, testocifrato = ?, bozza = ?, lingua = ?, "
-                + "titolo = ?, mittente = ?, destinatario = ? ", testo, testoCifrato, bozza, lingua, titolo, mittente.getId(), destinatario.getId());
+                + "titolo = ?, mittente = ?, destinatario = ? WHERE id = ?", testo, testoCifrato, bozza, lingua, titolo, mittente.getId(), destinatario.getId(), id);
+        }
+        return true;
     }
     
+    @Override
     public int getId() {
         return id;
     }

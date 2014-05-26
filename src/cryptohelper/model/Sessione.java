@@ -11,7 +11,6 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
 import javax.sql.rowset.CachedRowSet;
 
 public class Sessione {
@@ -85,6 +84,12 @@ public class Sessione {
     
     public boolean faiAssunzione(MappaturaParziale map) {
         return albero.faiAssunzione(map);
+    }
+    
+    public void salvaSoluzione() {
+        MappaturaParziale map = albero.getStato();
+        
+        throw new UnsupportedOperationException();
     }
 
 }

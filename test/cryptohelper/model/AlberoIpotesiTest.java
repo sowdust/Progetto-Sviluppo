@@ -93,7 +93,7 @@ public class AlberoIpotesiTest implements Serializable {
         albero.stampaAlbero();
         
         //  SEMPLICE UNDO
-        albero.undo();
+        albero.undo("");
         assertEquals(albero.getStato(), a.merge(b));
         assertSame(albero.ipotesiCorrente,seconda);
         assertSame(albero.ipotesiCorrente.figli.get(0),terza);
@@ -132,7 +132,7 @@ public class AlberoIpotesiTest implements Serializable {
         albero.stampaAlbero();
         
         //  SESTA BIS. Controlliamo che l'undo faccia il suo lavoro
-        albero.undo();
+        albero.undo("");
         assertEquals(albero.getStato(),a.merge(b).merge(c).merge(d));
         assertSame(albero.ipotesiCorrente,quinta);
         System.out.println("Stato dopo undo sesta ipotesi:");
@@ -140,10 +140,10 @@ public class AlberoIpotesiTest implements Serializable {
         albero.stampaAlbero();
         
         //  TORNIAMO ALLA RADICE A FORZA DI UNDO
-        albero.undo();
-        albero.undo();
-        albero.undo();
-        albero.undo();
+        albero.undo("");
+        albero.undo("");
+        albero.undo("");
+        albero.undo("");
         assertTrue(albero.mosse.size() == 1);
         assertEquals(albero.ipotesiCorrente,albero.getAlbero());
         assertEquals(albero.mosse.peek(),albero.ipotesiCorrente);

@@ -1,7 +1,6 @@
 package cryptohelper.model;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Stack;
 
@@ -100,7 +99,6 @@ public class AlberoIpotesi implements Serializable{
         return radice;
     }
     
-    // TODO : PASSA MAPPATURA
     public Ipotesi giaRaggiunta(MappaturaParziale mappaturaCorrente){
         return radice.giaRaggiunta(mappaturaCorrente, new MappaturaParziale()); 
     }
