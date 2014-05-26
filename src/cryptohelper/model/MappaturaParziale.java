@@ -110,6 +110,7 @@ public class MappaturaParziale implements Serializable {
                 r.inverseMap.remove(k);
                 r.map.set(j,m.map.get(i));
                 r.inverseMap.set(j,m.inverseMap.get(i));
+                continue ;
             }
         }
         return r;
