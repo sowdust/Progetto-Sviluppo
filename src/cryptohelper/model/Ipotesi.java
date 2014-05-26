@@ -17,7 +17,7 @@ public class Ipotesi implements Serializable {
         this.figli = new LinkedList<Ipotesi>();
     }
 
-    public Ipotesi aggiungiIpotesi(MappaturaParziale map) {
+    Ipotesi aggiungiIpotesi(MappaturaParziale map) {
         Ipotesi ip = new Ipotesi(map, this);
         figli.add(ip);
         return ip;
@@ -38,7 +38,7 @@ public class Ipotesi implements Serializable {
      * Percorrendo il cammino fino alla radice, restituisce il primo nodo
      * in cui vi è un assegnazione in conflitto con la mappatura m
      */
-    public Ipotesi trovaConflitto(MappaturaParziale m, List<Character> daRimuovere) {
+    Ipotesi trovaConflitto(MappaturaParziale m, List<Character> daRimuovere) {
         if(null == padre) {
             return null;
         }
@@ -49,7 +49,7 @@ public class Ipotesi implements Serializable {
         return padre.trovaConflitto(m, daRimuovere);
     }
 
-    public void stampa(int d, Ipotesi ipotesiCorrente) {
+    void stampa(int d, Ipotesi ipotesiCorrente) {
         System.out.print("  ");
         for(int i = 0; i <= d; ++i) {
             System.out.print("     ");
@@ -89,6 +89,14 @@ public class Ipotesi implements Serializable {
             }
         }
         return null;
+    }
+    
+    void setCommento(String commento) {
+        this.commento = commento;
+    }
+    
+    String getCommento() {
+        return this.commento;
     }
 
 }

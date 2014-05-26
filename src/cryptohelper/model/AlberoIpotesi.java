@@ -86,8 +86,8 @@ public class AlberoIpotesi implements Serializable{
         return true;
     }
     
-    public void undo() {
-        mosse.pop();
+    public void undo(String m) {
+        mosse.pop().setCommento(m);
         ipotesiCorrente = mosse.peek(); 
         mappaturaCorrente = ipotesiCorrente.getStato();
     }
