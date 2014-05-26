@@ -136,7 +136,9 @@ public class Messaggio implements MessaggioMittente, MessaggioDestinatario {
         DBController dbc = DBController.getInstance();
         return dbc.executeUpdate("UPDATE Messaggio SET "
                 + "testo = ?, testocifrato = ?, bozza = ?, lingua = ?, "
-                + "titolo = ?, mittente = ?, destinatario = ? ", testo, testoCifrato, bozza, lingua, titolo, mittente.getId(), destinatario.getId());
+                + "titolo = ?, mittente = ?, destinatario = ? WHERE id = ?",
+                testo, testoCifrato, bozza, lingua, titolo, mittente.getId(),
+                destinatario.getId(), id);
     }
 
     @Override
@@ -183,6 +185,11 @@ public class Messaggio implements MessaggioMittente, MessaggioDestinatario {
     public boolean send() throws SQLException {
         setBozza(false);
         return save();
+    }
+
+    public String toString() {
+        return "Mittente: " + this.mittente + "; Destinatario: " + this.destinatario
+                + "; Titolo: " + this.titolo;
     }
 
 }

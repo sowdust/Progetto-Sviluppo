@@ -18,6 +18,8 @@ package cryptohelper.view;
 
 import cryptohelper.controller.GUIController;
 import cryptohelper.model.Mappatura;
+import cryptohelper.model.MessaggioDestinatario;
+import cryptohelper.model.MessaggioMittente;
 import cryptohelper.model.Proposta;
 import cryptohelper.model.SistemaCifratura;
 import java.awt.CardLayout;
@@ -285,15 +287,27 @@ public class GUI extends javax.swing.JFrame {
 
         jPanel17.setLayout(new java.awt.BorderLayout());
 
-        messaggiRicevutiList.setModel(new javax.swing.AbstractListModel() {
-            String[] strings = { "-- todo --" };
-            public int getSize() { return strings.length; }
-            public Object getElementAt(int i) { return strings[i]; }
+        messaggiRicevutiList.setModel(new javax.swing.DefaultListModel<MessaggioDestinatario>());
+        messaggiRicevutiList.addListSelectionListener(new javax.swing.event.ListSelectionListener() {
+            public void valueChanged(javax.swing.event.ListSelectionEvent evt) {
+                messaggiRicevutiListValueChanged(evt);
+            }
+        });
+        messaggiRicevutiList.addAncestorListener(new javax.swing.event.AncestorListener() {
+            public void ancestorMoved(javax.swing.event.AncestorEvent evt) {
+            }
+            public void ancestorAdded(javax.swing.event.AncestorEvent evt) {
+                messaggiRicevutiListAncestorAdded(evt);
+            }
+            public void ancestorRemoved(javax.swing.event.AncestorEvent evt) {
+                messaggiRicevutiListAncestorRemoved(evt);
+            }
         });
         jScrollPane6.setViewportView(messaggiRicevutiList);
 
         jPanel17.add(jScrollPane6, java.awt.BorderLayout.CENTER);
 
+        jToolBar1.setFloatable(false);
         jToolBar1.setRollover(true);
 
         jButton3.setText("Ricarica");
@@ -315,12 +329,20 @@ public class GUI extends javax.swing.JFrame {
         jPanel2.add(jScrollPane9, java.awt.BorderLayout.CENTER);
 
         jButton10.setText("Elimina");
+        jButton10.setEnabled(false);
+        jButton10.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton10ActionPerformed(evt);
+            }
+        });
         jPanel1.add(jButton10);
 
         jButton4.setText("Rispondi");
+        jButton4.setEnabled(false);
         jPanel1.add(jButton4);
 
         jButton5.setText("Decifra");
+        jButton5.setEnabled(false);
         jPanel1.add(jButton5);
 
         jPanel2.add(jPanel1, java.awt.BorderLayout.PAGE_END);
@@ -331,10 +353,16 @@ public class GUI extends javax.swing.JFrame {
 
         messaggiInviatiPanel.setLayout(new javax.swing.BoxLayout(messaggiInviatiPanel, javax.swing.BoxLayout.PAGE_AXIS));
 
-        jList7.setModel(new javax.swing.AbstractListModel() {
-            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
-            public int getSize() { return strings.length; }
-            public Object getElementAt(int i) { return strings[i]; }
+        jList7.setModel(new javax.swing.DefaultListModel<MessaggioMittente>());
+        jList7.addAncestorListener(new javax.swing.event.AncestorListener() {
+            public void ancestorMoved(javax.swing.event.AncestorEvent evt) {
+            }
+            public void ancestorAdded(javax.swing.event.AncestorEvent evt) {
+                jList7AncestorAdded(evt);
+            }
+            public void ancestorRemoved(javax.swing.event.AncestorEvent evt) {
+                jList7AncestorRemoved(evt);
+            }
         });
         jScrollPane11.setViewportView(jList7);
 
@@ -840,6 +868,63 @@ public class GUI extends javax.swing.JFrame {
         DefaultListModel<SistemaCifratura> dlm = (DefaultListModel<SistemaCifratura>) elencoSdcList.getModel();
         dlm.clear();
     }//GEN-LAST:event_elencoSdcListAncestorRemoved
+
+    private void messaggiRicevutiListAncestorAdded(javax.swing.event.AncestorEvent evt) {//GEN-FIRST:event_messaggiRicevutiListAncestorAdded
+        DefaultListModel<MessaggioDestinatario> dlm = (DefaultListModel<MessaggioDestinatario>) messaggiRicevutiList.getModel();
+        List<MessaggioDestinatario> listaMessaggiRicevuti = null;
+        try {
+            listaMessaggiRicevuti = guiController.elencaMessaggiRicevuti();
+        } catch (SQLException ex) {
+            Logger.getLogger(GUI.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        for (MessaggioDestinatario m : listaMessaggiRicevuti) {
+            dlm.addElement(m);
+        }
+    }//GEN-LAST:event_messaggiRicevutiListAncestorAdded
+
+    private void messaggiRicevutiListAncestorRemoved(javax.swing.event.AncestorEvent evt) {//GEN-FIRST:event_messaggiRicevutiListAncestorRemoved
+        DefaultListModel<MessaggioDestinatario> dlm = (DefaultListModel<MessaggioDestinatario>) messaggiRicevutiList.getModel();
+        dlm.clear();
+    }//GEN-LAST:event_messaggiRicevutiListAncestorRemoved
+
+    private void jList7AncestorAdded(javax.swing.event.AncestorEvent evt) {//GEN-FIRST:event_jList7AncestorAdded
+        DefaultListModel<MessaggioMittente> dlm = (DefaultListModel<MessaggioMittente>) jList7.getModel();
+        List<MessaggioMittente> listaMessaggiInviati = null;
+        try {
+            listaMessaggiInviati = guiController.elencaMessaggiInviati();
+        } catch (SQLException ex) {
+            Logger.getLogger(GUI.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        for (MessaggioMittente m : listaMessaggiInviati) {
+            dlm.addElement(m);
+        }
+    }//GEN-LAST:event_jList7AncestorAdded
+
+    private void jList7AncestorRemoved(javax.swing.event.AncestorEvent evt) {//GEN-FIRST:event_jList7AncestorRemoved
+        DefaultListModel<MessaggioMittente> dlm = (DefaultListModel<MessaggioMittente>) jList7.getModel();
+        dlm.clear();
+    }//GEN-LAST:event_jList7AncestorRemoved
+
+    private void jButton10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton10ActionPerformed
+        
+    }//GEN-LAST:event_jButton10ActionPerformed
+
+    private void messaggiRicevutiListValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_messaggiRicevutiListValueChanged
+        if (evt.getValueIsAdjusting() == false) {
+            if (messaggiRicevutiList.getSelectedIndex() == -1) {
+                jTextArea1.setText("");
+                jButton10.setEnabled(false);
+                jButton4.setEnabled(false);
+                jButton5.setEnabled(false);
+            } else {
+                MessaggioDestinatario md = (MessaggioDestinatario) messaggiRicevutiList.getSelectedValue();
+                jTextArea1.setText(md.getTestoCifrato());
+                jButton10.setEnabled(true);
+                jButton4.setEnabled(true);
+                jButton5.setEnabled(true);
+            }
+        }
+    }//GEN-LAST:event_messaggiRicevutiListValueChanged
 
     private void setSdcWidgetEnabled(boolean b) {
         provaSdcButton.setEnabled(b);

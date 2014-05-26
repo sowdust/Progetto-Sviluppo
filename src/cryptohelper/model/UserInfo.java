@@ -61,7 +61,7 @@ public class UserInfo {
         return this.cognome;
     }
 
-    public String getNomeCognome() {
+    public String toString() {
         return nome + " " + cognome;
     }
 

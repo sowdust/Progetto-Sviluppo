@@ -73,3 +73,4 @@ INSERT INTO Proposta (stato, notificata, proponente, partner, sdc) VALUES
        
 INSERT INTO Messaggio (mittente, destinatario, testo, testoCifrato, lingua, titolo, bozza, letto, sdc) VALUES
     (1, 2, 'fede', 'alol', 'Italiano', 'Un titolo a caso', True, False, 1);
+    (2, 1, 'ciao pietro', 'pecmneltrm', 'Italiano', 'Saluti', True, False, 1);

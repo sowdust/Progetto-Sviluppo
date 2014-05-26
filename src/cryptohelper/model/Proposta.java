@@ -126,6 +126,6 @@ public class Proposta {
 
     @Override
     public String toString() {
-        return "da: " + proponente.getNomeCognome() + " a: " + partner.getNomeCognome() + " stato: " + stato + " " + sdc;
+        return "da: " + proponente + " a: " + partner + " stato: " + stato + " " + sdc;
     }
 }

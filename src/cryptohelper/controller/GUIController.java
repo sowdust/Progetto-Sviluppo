@@ -17,6 +17,9 @@
 package cryptohelper.controller;
 
 import cryptohelper.model.Mappatura;
+import cryptohelper.model.Messaggio;
+import cryptohelper.model.MessaggioDestinatario;
+import cryptohelper.model.MessaggioMittente;
 import cryptohelper.model.Proposta;
 import cryptohelper.model.SistemaCifratura;
 import cryptohelper.model.Studente;
@@ -113,6 +116,14 @@ public class GUIController {
 
     public boolean salvaSistemaCifratura() throws SQLException {
         return nuovoSdc.save();
+    }
+
+    public List<MessaggioDestinatario> elencaMessaggiRicevuti() throws SQLException {
+        return Messaggio.caricaRicevuti(studente);
+    }
+
+    public List<MessaggioMittente> elencaMessaggiInviati() throws SQLException {
+        return Messaggio.caricaInviati(studente);
     }
 
 }

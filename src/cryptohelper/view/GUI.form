@@ -270,17 +270,21 @@
                               <SubComponents>
                                 <Component class="javax.swing.JList" name="messaggiRicevutiList">
                                   <Properties>
-                                    <Property name="model" type="javax.swing.ListModel" editor="org.netbeans.modules.form.editors2.ListModelEditor">
-                                      <StringArray count="1">
-                                        <StringItem index="0" value="-- todo --"/>
-                                      </StringArray>
+                                    <Property name="model" type="javax.swing.ListModel" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+                                      <Connection code="new javax.swing.DefaultListModel&lt;MessaggioDestinatario&gt;()" type="code"/>
                                     </Property>
                                   </Properties>
+                                  <Events>
+                                    <EventHandler event="valueChanged" listener="javax.swing.event.ListSelectionListener" parameters="javax.swing.event.ListSelectionEvent" handler="messaggiRicevutiListValueChanged"/>
+                                    <EventHandler event="ancestorAdded" listener="javax.swing.event.AncestorListener" parameters="javax.swing.event.AncestorEvent" handler="messaggiRicevutiListAncestorAdded"/>
+                                    <EventHandler event="ancestorRemoved" listener="javax.swing.event.AncestorListener" parameters="javax.swing.event.AncestorEvent" handler="messaggiRicevutiListAncestorRemoved"/>
+                                  </Events>
                                 </Component>
                               </SubComponents>
                             </Container>
                             <Container class="javax.swing.JToolBar" name="jToolBar1">
                               <Properties>
+                                <Property name="floatable" type="boolean" value="false"/>
                                 <Property name="rollover" type="boolean" value="true"/>
                               </Properties>
                               <Constraints>
@@ -339,16 +343,22 @@
                                 <Component class="javax.swing.JButton" name="jButton10">
                                   <Properties>
                                     <Property name="text" type="java.lang.String" value="Elimina"/>
+                                    <Property name="enabled" type="boolean" value="false"/>
                                   </Properties>
+                                  <Events>
+                                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton10ActionPerformed"/>
+                                  </Events>
                                 </Component>
                                 <Component class="javax.swing.JButton" name="jButton4">
                                   <Properties>
                                     <Property name="text" type="java.lang.String" value="Rispondi"/>
+                                    <Property name="enabled" type="boolean" value="false"/>
                                   </Properties>
                                 </Component>
                                 <Component class="javax.swing.JButton" name="jButton5">
                                   <Properties>
                                     <Property name="text" type="java.lang.String" value="Decifra"/>
+                                    <Property name="enabled" type="boolean" value="false"/>
                                   </Properties>
                                 </Component>
                               </SubComponents>
@@ -379,16 +389,14 @@
                           <SubComponents>
                             <Component class="javax.swing.JList" name="jList7">
                               <Properties>
-                                <Property name="model" type="javax.swing.ListModel" editor="org.netbeans.modules.form.editors2.ListModelEditor">
-                                  <StringArray count="5">
-                                    <StringItem index="0" value="Item 1"/>
-                                    <StringItem index="1" value="Item 2"/>
-                                    <StringItem index="2" value="Item 3"/>
-                                    <StringItem index="3" value="Item 4"/>
-                                    <StringItem index="4" value="Item 5"/>
-                                  </StringArray>
+                                <Property name="model" type="javax.swing.ListModel" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+                                  <Connection code="new javax.swing.DefaultListModel&lt;MessaggioMittente&gt;()" type="code"/>
                                 </Property>
                               </Properties>
+                              <Events>
+                                <EventHandler event="ancestorAdded" listener="javax.swing.event.AncestorListener" parameters="javax.swing.event.AncestorEvent" handler="jList7AncestorAdded"/>
+                                <EventHandler event="ancestorRemoved" listener="javax.swing.event.AncestorListener" parameters="javax.swing.event.AncestorEvent" handler="jList7AncestorRemoved"/>
+                              </Events>
                             </Component>
                           </SubComponents>
                         </Container>
