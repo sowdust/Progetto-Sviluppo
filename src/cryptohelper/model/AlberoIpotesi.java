@@ -42,17 +42,19 @@ public class AlberoIpotesi implements Serializable{
         mosse.push(ipotesiCorrente);
     }
     
-    // RETURN boolean false se già raggiunto
+    /*
+     * Data una mappatura parziale in input, aggiorna l'albero delle ipotesi
+     * in modo da mantenerne le proprietà.
+     * Aggiorna la mappatura corrente, la lista delle mosse e il puntatore
+     * a ipotesi corrente.
+     * Ritorna false in caso lo stato corrente fosse già stato raggiunto
+     * in passato, true altrimenti
+     */
+    
     public boolean faiAssunzione(MappaturaParziale map) {
         
         MappaturaParziale nuovaMappatura = mappaturaCorrente.merge(map);
-        System.out.println("NuovaMappatura:" + nuovaMappatura);
-        System.out.println("mappaturacorrente:" + mappaturaCorrente);
-        System.out.println("mao:" + map);
         List<Character> daRimuovere = map.filtraDaRimuovere();
-
-
-        
         Ipotesi giaRaggiunta = giaRaggiunta(nuovaMappatura);
         
         if(giaRaggiunta != null) {
@@ -61,68 +63,27 @@ public class AlberoIpotesi implements Serializable{
             mosse.push(ipotesiCorrente);
             return false;            
         }
-  
 
-        
-        // se lettera non ancora assegnata in questo cammino
         if(!mappaturaCorrente.conflitto(map) && daRimuovere.isEmpty()){
+        // semplice aggiunta di un ipotesi
             ipotesiCorrente = ipotesiCorrente.aggiungiIpotesi(map);
-            mappaturaCorrente = nuovaMappatura;
-            mosse.push(ipotesiCorrente);
-            return true;
-        }
- 
-        // se c'e' un conflitto risaliamo
-        
-        Ipotesi aCuiAttaccarsi = ipotesiCorrente.trovaConflitto(map, daRimuovere);
-        if(null == aCuiAttaccarsi) {
-            aCuiAttaccarsi = radice;
+
         } else {
-            aCuiAttaccarsi = aCuiAttaccarsi.padre;
+        // aggiunta di un ipotesi ad un nodo da ricercare
+        // in seguito a modifiche o rimozioni d'assunzione
+            Ipotesi aCuiAttaccarsi = ipotesiCorrente.trovaConflitto(map, daRimuovere);
+            if(null == aCuiAttaccarsi) {
+                aCuiAttaccarsi = radice;
+            } else {
+                aCuiAttaccarsi = aCuiAttaccarsi.padre;
+            }
+            MappaturaParziale daAggiungere = nuovaMappatura.sottrai(aCuiAttaccarsi.getStato());
+            ipotesiCorrente = aCuiAttaccarsi.aggiungiIpotesi(daAggiungere);
         }
-        MappaturaParziale daAggiungere = nuovaMappatura.sottrai(aCuiAttaccarsi.getStato());
-        ipotesiCorrente = aCuiAttaccarsi.aggiungiIpotesi(daAggiungere);
+
         mappaturaCorrente = nuovaMappatura;
         mosse.push(ipotesiCorrente);
         return true;
-    
-        
-        /*
-        
-        List<Character> daRimuovere = map.filtraDaRimuovere();
-        Ipotesi giaRaggiunta = giaRaggiunta(mappaturaCorrente);
-        
-        
-        if(giaRaggiunta == null) {
-            
-            // se lettera non ancora assegnata in questo cammino
-            if(!mappaturaCorrente.conflitto(map)){
-                    ipotesiCorrente = ipotesiCorrente.aggiungiIpotesi(map);
-                    mosse.push(ipotesiCorrente);
-                    mappaturaCorrente = mappaturaCorrente.merge(map);
-                    return true;
-            }
-            
-            // se c'e' un conflitto risaliamo
-            
-            mappaturaCorrente = mappaturaCorrente.merge(map);
-
-            Ipotesi aCuiAttaccarsi = ipotesiCorrente.trovaConflitto(map, daRimuovere).padre;
-            if(aCuiAttaccarsi == null ) {
-                aCuiAttaccarsi = radice;
-            }
-            MappaturaParziale daAggiungere = mappaturaCorrente.sottrai(aCuiAttaccarsi.getStato());
-            ipotesiCorrente = aCuiAttaccarsi.aggiungiIpotesi(daAggiungere);
-            mosse.push(ipotesiCorrente);
-            return true;
-        }
-        
-        ipotesiCorrente = giaRaggiunta;
-        mosse.push(ipotesiCorrente);
-        
-        return false;
-        
-        */
     }
     
     public void undo() {
