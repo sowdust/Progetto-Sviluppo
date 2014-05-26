@@ -105,11 +105,12 @@ public class MappaturaParziale implements Serializable {
             }
             
             // doppio conflitto ( a->j && b->k ; a->k ==> a->k )
+            {
                 r.map.remove(k);
                 r.inverseMap.remove(k);
                 r.map.set(j,m.map.get(i));
                 r.inverseMap.set(j,m.inverseMap.get(i));
-
+            }
         }
         return r;
     }
