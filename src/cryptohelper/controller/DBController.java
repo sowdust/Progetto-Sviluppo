@@ -21,7 +21,7 @@ public class DBController {
      */
 
     private static DBController instance = null;
-    private final String url = "jdbc:derby://localhost:1527/crypto_db";
+    private final String url = "jdbc:derby://localhost/crypto_db";
     private final String user = "crypto_user";
     private final String pwd = "crypto_pass";
 

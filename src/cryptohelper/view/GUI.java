@@ -80,7 +80,7 @@ public class GUI extends javax.swing.JFrame {
         messaggiRicevutiPanel = new javax.swing.JPanel();
         jPanel17 = new javax.swing.JPanel();
         jScrollPane6 = new javax.swing.JScrollPane();
-        jList4 = new javax.swing.JList();
+        messaggiRicevutiList = new javax.swing.JList();
         jToolBar1 = new javax.swing.JToolBar();
         jButton3 = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
@@ -285,12 +285,12 @@ public class GUI extends javax.swing.JFrame {
 
         jPanel17.setLayout(new java.awt.BorderLayout());
 
-        jList4.setModel(new javax.swing.AbstractListModel() {
-            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
+        messaggiRicevutiList.setModel(new javax.swing.AbstractListModel() {
+            String[] strings = { "-- todo --" };
             public int getSize() { return strings.length; }
             public Object getElementAt(int i) { return strings[i]; }
         });
-        jScrollPane6.setViewportView(jList4);
+        jScrollPane6.setViewportView(messaggiRicevutiList);
 
         jPanel17.add(jScrollPane6, java.awt.BorderLayout.CENTER);
 
@@ -880,7 +880,6 @@ public class GUI extends javax.swing.JFrame {
     javax.swing.JList jList1;
     javax.swing.JList jList2;
     javax.swing.JList jList3;
-    javax.swing.JList jList4;
     javax.swing.JList jList7;
     javax.swing.JList jList8;
     javax.swing.JPanel jPanel1;
@@ -929,6 +928,7 @@ public class GUI extends javax.swing.JFrame {
     javax.swing.JPanel messaggiBozzePanel;
     javax.swing.JPanel messaggiCreaPanel;
     javax.swing.JPanel messaggiInviatiPanel;
+    javax.swing.JList messaggiRicevutiList;
     javax.swing.JPanel messaggiRicevutiPanel;
     javax.swing.JComboBox metodoCifraturaComboBox;
     javax.swing.JTextField nickLoginField;
