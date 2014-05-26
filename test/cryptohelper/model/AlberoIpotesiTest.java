@@ -48,7 +48,7 @@ public class AlberoIpotesiTest implements Serializable {
     public void testAlberoIpotesi() {
 
 
-        AlberoIpotesi albero = new AlberoIpotesi(null, null);
+        AlberoIpotesi albero = new AlberoIpotesi();
         MappaturaParziale a = new MappaturaParziale("a > z, b > w, c > y");
         
         //  PRIMA ASSUNZIONE

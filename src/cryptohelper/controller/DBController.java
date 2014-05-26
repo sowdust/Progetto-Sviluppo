@@ -5,6 +5,7 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import javax.sql.rowset.CachedRowSet;
 import javax.sql.rowset.RowSetProvider;
 
@@ -77,6 +78,34 @@ public class DBController {
             }
         }
         return nrow != 0;
+    }
+    
+    public int executeInsert(String query, Object... args) throws SQLException {
+        Connection conn = null;
+        PreparedStatement stmt = null;
+        ResultSet res = null;
+        int nrow = 0;
+        try {
+            conn = DriverManager.getConnection(url, user, pwd);
+            stmt = conn.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
+            for (int i = 0; i < args.length; i++) {
+                stmt.setObject(i + 1, args[i]);
+            }
+            nrow = stmt.executeUpdate();
+            if(nrow == 0) {
+                throw new SQLException("Inserimento fallito.");
+            }
+            res = stmt.getGeneratedKeys();
+            res.next();
+            return (int)res.getLong(1);
+        } finally {
+            if (stmt != null) {
+                stmt.close();
+            }
+            if (conn != null) {
+                conn.close();
+            }
+        }
     }
 
     public static DBController getInstance() throws SQLException {

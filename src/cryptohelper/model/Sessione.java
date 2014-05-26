@@ -1,5 +1,6 @@
 package cryptohelper.model;
 
+import cryptohelper.controller.DBController;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -11,6 +12,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import javax.sql.rowset.CachedRowSet;
 
 public class Sessione {
     
@@ -22,7 +24,12 @@ public class Sessione {
     public Sessione(UserInfo proprietario, Messaggio messaggio) {
         this.id = -1;
         this.proprietario = proprietario;
-        this.messaggio = messaggio;        
+        this.messaggio = messaggio; 
+        this.albero = new AlberoIpotesi();
+    }
+    
+    public int getId() {
+        return this.id;
     }
     
     // SOLO PER TESTING!
@@ -35,15 +42,24 @@ public class Sessione {
     
     public static Sessione load(int id) throws SQLException, IOException, ClassNotFoundException {
         
+        DBController dbc = DBController.getInstance();
+        CachedRowSet crs = dbc.execute("SELECT * FROM sessione WHERE id = ?", id);
+        
         String url = "jdbc:derby://localhost:1527/crypto_db";
         String user = "crypto_user";
         String pwd = "crypto_pass";    
         Connection conn = DriverManager.getConnection(url, user, pwd);
-        PreparedStatement stmt = conn.prepareStatement("SELECT * FROM sessione WHERE id = 12");
+        PreparedStatement stmt = conn.prepareStatement("SELECT * FROM sessione WHERE id = " + id);
         
-        ResultSet crs = stmt.executeQuery();
-        crs.next();
-        
+        ResultSet rs = stmt.executeQuery();
+        if(!crs.next()) {
+            throw new RuntimeException("oooops1");
+            
+        }
+        if(!rs.next()) {
+            throw new RuntimeException("oooops2");
+            
+        }
         byte[] buf = crs.getBytes("albero");
 	ObjectInputStream objectIn = null;
         objectIn = new ObjectInputStream(new ByteArrayInputStream(buf));             
@@ -52,46 +68,19 @@ public class Sessione {
         sess.setAlbero((AlberoIpotesi) objectIn.readObject());
         sess.setId(crs.getInt("id"));
         
-        crs.close();
+        //crs.close();
         return sess;
 
     }
     
-    public boolean save() throws SQLException, IOException {
-        
-        // Seriealizziamo l'albero
+    public void save() throws SQLException, IOException {
         ByteArrayOutputStream bos = new ByteArrayOutputStream();
-        ObjectOutputStream oos = new ObjectOutputStream(bos);
+        ObjectOutputStream  oos = new ObjectOutputStream(bos);
         oos.writeObject(albero);
         oos.close();
-        
-        
-        String url = "jdbc:derby://localhost:1527/crypto_db";
-        String user = "crypto_user";
-        String pwd = "crypto_pass";
-        ArrayList a = new ArrayList();
-
-        PreparedStatement stmt;
-        Connection conn = DriverManager.getConnection(url, user, pwd);
-        
-        if(id == -1) {
-            stmt = conn.prepareStatement("INSERT INTO Sessione (proprietario, messaggio, albero) VALUES (?, ?, ?)");
-            stmt.setInt(1,messaggio.getId());
-            stmt.setInt(2,proprietario.getId());
-            stmt.setObject(3,bos.toByteArray());
-
-            //  IN QUALCHE MODO RESTITUIRE L'ID!!
-            this.id = -2;
-        } else {
-            stmt = conn.prepareStatement("UPDATE Sessione SET albero = (?) WHERE id = (?)");
-            stmt.setObject(1,bos.toByteArray());
-            stmt.setInt(2,id);
-        }
-        
-        stmt.executeUpdate();
-        stmt.close();
-        
-        return false;
+        DBController dbc = DBController.getInstance();
+        String q = "INSERT INTO Sessione (proprietario, messaggio, albero) VALUES (?, ?, ?)";
+        id = dbc.executeInsert(q,messaggio.getId(),proprietario.getId(),bos.toByteArray());   
     }
     
     public boolean faiAssunzione(MappaturaParziale map) {

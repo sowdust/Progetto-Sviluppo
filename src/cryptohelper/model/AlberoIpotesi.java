@@ -28,12 +28,12 @@ import java.util.Stack;
 public class AlberoIpotesi implements Serializable{
 
     
-    private Ipotesi radice;
+    private final Ipotesi radice;
     public Stack<Ipotesi> mosse;
     public Ipotesi ipotesiCorrente;
     private MappaturaParziale mappaturaCorrente;
 
-    public AlberoIpotesi(String a, String b) {
+    public AlberoIpotesi() {
         
         mosse = new Stack<>();
         mappaturaCorrente = new MappaturaParziale();

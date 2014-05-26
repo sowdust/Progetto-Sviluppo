@@ -10,10 +10,10 @@ import java.io.IOException;
 import java.sql.SQLException;
 import org.junit.After;
 import org.junit.AfterClass;
+import static org.junit.Assert.assertEquals;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
-import static org.junit.Assert.*;
 
 /**
  *
@@ -43,7 +43,7 @@ public class SessioneTest {
     
     @Test
     public void save() throws SQLException, IOException, ClassNotFoundException {
-        AlberoIpotesi albero = new AlberoIpotesi(null, null);
+        AlberoIpotesi albero = new AlberoIpotesi();
         MappaturaParziale a = new MappaturaParziale("a > z, b > w, c > y");
         
         //  PRIMA ASSUNZIONE
@@ -58,13 +58,13 @@ public class SessioneTest {
         Sessione sess = new Sessione(Studente.load(1).getUserInfo(),Messaggio.load(1));
         sess.setAlbero(albero);
         sess.save();
-        
-        Sessione due = Sessione.load(15);
-        
+        System.out.println(sess.getId());
+    }
+    
+    @Test public void load() throws SQLException, IOException, ClassNotFoundException {
+        Sessione due = Sessione.load(4); 
         System.out.println("test: ");
         due.albero.stampaAlbero();
-        
-        
     }
 
     // TODO add test methods here.
