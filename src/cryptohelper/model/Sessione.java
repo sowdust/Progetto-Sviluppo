@@ -58,10 +58,7 @@ public class Sessione {
         CachedRowSet rs;
         rs = RowSetProvider.newFactory().createCachedRowSet();
         rs.populate(krs);
-        if (!rs.next()) {
-            throw new RuntimeException("oooops2");
 
-        }
         Blob bl = rs.getBlob("albero");
         byte[] buf = bl.getBytes(1, (int) bl.length());
 

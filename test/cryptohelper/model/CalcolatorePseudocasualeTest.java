@@ -5,8 +5,6 @@
  */
 package cryptohelper.model;
 
-import cryptohelper.model.CalcolatorePseudocasuale;
-import cryptohelper.model.Mappatura;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
