@@ -2,6 +2,7 @@ DROP TABLE Messaggio;
 DROP TABLE Proposta;
 DROP TABLE SistemaCifratura;
 DROP TABLE Studente;
+DROP TABLE Sessione;
 
 CREATE TABLE Studente (
     id          int PRIMARY KEY GENERATED ALWAYS AS IDENTITY (START WITH 1, INCREMENT BY 1),
@@ -45,6 +46,15 @@ CREATE TABLE Messaggio (
     FOREIGN KEY (mittente) REFERENCES Studente(id),
     FOREIGN KEY (destinatario) REFERENCES Studente(id),
     FOREIGN KEY (sdc) REFERENCES SistemaCifratura(id) ON DELETE CASCADE
+);
+
+CREATE TABLE Sessione (
+    id              int PRIMARY KEY GENERATED ALWAYS AS IDENTITY (START WITH 1, INCREMENT BY 1),
+    proprietario    int,
+    messaggio	    int,
+    albero          blob,
+    FOREIGN KEY (proprietario) REFERENCES Studente(id),
+    FOREIGN KEY (messaggio) REFERENCES Messaggio(id)
 );
 
 INSERT INTO Studente (nickname, password, nome, cognome) VALUES

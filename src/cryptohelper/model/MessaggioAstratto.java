@@ -25,6 +25,7 @@ import java.sql.SQLException;
  */
 public interface MessaggioAstratto {
     
+    public int getId();
     public String getTesto();
     public String getTestoCifrato();
     public String getLingua();
