@@ -246,6 +246,14 @@ public class MappaturaParziale implements Serializable {
         return this.equals((MappaturaParziale) m);
     }
     
+    public String serialize() {
+        String s = "";
+        for (int i = 0; i < map.size(); ++i) {
+            s += map.get(i) + ">" + inverseMap.get(i) + ",";
+        }
+        return s;
+    }
+    
     @Override
     public String toString() {
         if(map.isEmpty()) {

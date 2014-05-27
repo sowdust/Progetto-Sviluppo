@@ -1,3 +1,4 @@
+DROP TABLE Soluzione;
 DROP TABLE Sessione;
 DROP TABLE Messaggio;
 DROP TABLE Proposta;
@@ -54,6 +55,15 @@ CREATE TABLE Sessione (
     messaggio	    int,
     albero          blob,
     FOREIGN KEY (proprietario) REFERENCES Studente(id),
+    FOREIGN KEY (messaggio) REFERENCES Messaggio(id)
+);
+
+CREATE TABLE Soluzione (
+    id              int PRIMARY KEY GENERATED ALWAYS AS IDENTITY (START WITH 1, INCREMENT BY 1),
+    creatore	    int,
+    messaggio	    int,
+    mappatura       varchar(200),
+    FOREIGN KEY (creatore) REFERENCES Studente(id),
     FOREIGN KEY (messaggio) REFERENCES Messaggio(id)
 );
 
