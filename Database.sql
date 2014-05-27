@@ -1,8 +1,8 @@
+DROP TABLE Sessione;
 DROP TABLE Messaggio;
 DROP TABLE Proposta;
 DROP TABLE SistemaCifratura;
 DROP TABLE Studente;
-DROP TABLE Sessione;
 
 CREATE TABLE Studente (
     id          int PRIMARY KEY GENERATED ALWAYS AS IDENTITY (START WITH 1, INCREMENT BY 1),
