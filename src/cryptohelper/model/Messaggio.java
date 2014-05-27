@@ -19,6 +19,7 @@ package cryptohelper.model;
 import cryptohelper.controller.DBController;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 import javax.sql.rowset.CachedRowSet;
 
@@ -145,6 +146,17 @@ public class Messaggio implements MessaggioMittente, MessaggioDestinatario {
                 + "titolo = ?, mittente = ?, destinatario = ? WHERE id = ?", testo, testoCifrato, bozza, lingua, titolo, mittente.getId(), destinatario.getId(), id);
         }
         return true;
+    }
+    
+    public List<Character> getSimboli() {
+        List<Character> simboli = new LinkedList();
+        char[] cArray = testo.toCharArray();
+        for(char c : cArray) {
+            if(simboli.indexOf(c) == -1) {
+                simboli.add(c);
+            }
+        }
+        return simboli;
     }
     
     @Override

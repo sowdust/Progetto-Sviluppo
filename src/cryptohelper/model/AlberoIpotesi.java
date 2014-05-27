@@ -16,15 +16,8 @@ import java.util.Stack;
  *  2) calcolo della mappatura dal basso verso l'alto esplorando solo il cammino corrente
  *  3) detection di stato già visitato si ferma al primo conflitto in ogni ramo
  * 
- * TODO:
- *
- * (1)  Decidere quando fare e come gestire la detect di stati già raggiunti
- * (2)  Una volta deciso formato di input (mappatura intera annienterebbe il vantaggio
- *      di MappaturaParziale) gestire la remove.
- * (3)  Metodo per serializzare intero albero e mosse (o male che vada ultimo stato)
- *      Da bravo deficiente non ho tenuto quello che avevo già fatto e funzionava.
  */
-public class AlberoIpotesi implements Serializable{
+public class AlberoIpotesi implements Serializable {
 
     
     private final Ipotesi radice;

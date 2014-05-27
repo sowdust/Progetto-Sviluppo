@@ -14,7 +14,7 @@ public class Ipotesi implements Serializable {
     public Ipotesi(MappaturaParziale map, Ipotesi padre) {
         this.padre = padre;
         this.map = map;
-        this.figli = new LinkedList<Ipotesi>();
+        this.figli = new LinkedList<>();
     }
 
     Ipotesi aggiungiIpotesi(MappaturaParziale map) {
@@ -45,7 +45,6 @@ public class Ipotesi implements Serializable {
         if(map.conflitto(m)) {
             return this;
         }
-
         return padre.trovaConflitto(m, daRimuovere);
     }
 

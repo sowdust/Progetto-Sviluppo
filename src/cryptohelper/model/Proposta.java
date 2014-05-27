@@ -25,19 +25,6 @@ import javax.sql.rowset.CachedRowSet;
  * @author glaxy
  */
 public class Proposta {
-    /*
-
-     NOTE: ( da mattia V. - usando "proposta" in SDC )
-     pensare di mettere gli stati di "proposta" in un array e di poterli
-     richiamare con dei metodi?
-     Non molto bello dover scrivere
-     stato = "accepted" in una query
-     */
-    /*
-
-     NOTE: rispondo a Mattia V, sono C
-     altrettanto brutto stato = "+ arrayDiStati[0] ... no? "accepted" più leggibile!
-     */
 
     private int id;
     private String stato;
