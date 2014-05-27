@@ -40,7 +40,7 @@ public class Ipotesi implements Serializable {
      */
     Ipotesi trovaConflitto(MappaturaParziale m, List<Character> daRimuovere) {
         if(null == padre) {
-            return null;
+            return this;
         }
         if(map.conflitto(m)) {
             return this.padre;
