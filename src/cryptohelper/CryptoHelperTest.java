@@ -36,6 +36,8 @@ public class CryptoHelperTest {
         SistemaCifratura mySDC = new SistemaCifratura("provagenerale", "parolachiave", io);
         //lo salvo nel database
         mySDC.save();
+        // deve essere diverso da -1 ed avere invece l'id aggiunto
+        System.out.println(mySDC.getId());
         List<SistemaCifratura> lists = SistemaCifratura.caricaSistemiCifratura(io);
         // prendo l'ultimo creato
         mySDC = lists.get(lists.size() - 1);
