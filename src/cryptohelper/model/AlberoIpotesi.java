@@ -19,21 +19,20 @@ import java.util.Stack;
  */
 public class AlberoIpotesi implements Serializable {
 
-    
     private final Ipotesi radice;
     public Stack<Ipotesi> mosse;
     public Ipotesi ipotesiCorrente;
     private MappaturaParziale mappaturaCorrente;
 
     public AlberoIpotesi() {
-        
+
         mosse = new Stack<>();
         mappaturaCorrente = new MappaturaParziale();
         radice = new Ipotesi(mappaturaCorrente, null);
         ipotesiCorrente = radice;
         mosse.push(ipotesiCorrente);
     }
-    
+
     /*
      * Data una mappatura parziale in input, aggiorna l'albero delle ipotesi
      * in modo da mantenerne le proprietà.
@@ -42,29 +41,28 @@ public class AlberoIpotesi implements Serializable {
      * Ritorna false in caso lo stato corrente fosse già stato raggiunto
      * in passato, true altrimenti
      */
-    
     public boolean faiAssunzione(MappaturaParziale map) {
-        
+
         MappaturaParziale nuovaMappatura = mappaturaCorrente.merge(map);
         List<Character> daRimuovere = map.filtraDaRimuovere();
         Ipotesi giaRaggiunta = giaRaggiunta(nuovaMappatura);
-        
-        if(giaRaggiunta != null) {
+
+        if (giaRaggiunta != null) {
             ipotesiCorrente = giaRaggiunta;
             mappaturaCorrente = nuovaMappatura;
             mosse.push(ipotesiCorrente);
-            return false;            
+            return false;
         }
 
-        if(!mappaturaCorrente.conflitto(map) && daRimuovere.isEmpty()){
-        // semplice aggiunta di un ipotesi
+        if (!mappaturaCorrente.conflitto(map) && daRimuovere.isEmpty()) {
+            // semplice aggiunta di un ipotesi
             ipotesiCorrente = ipotesiCorrente.aggiungiIpotesi(map);
 
         } else {
         // aggiunta di un ipotesi ad un nodo da ricercare
-        // in seguito a modifiche o rimozioni d'assunzione
+            // in seguito a modifiche o rimozioni d'assunzione
             Ipotesi aCuiAttaccarsi = ipotesiCorrente.trovaConflitto(map, daRimuovere);
-            if(null == aCuiAttaccarsi) {
+            if (null == aCuiAttaccarsi) {
                 aCuiAttaccarsi = radice;
             } else {
                 aCuiAttaccarsi = aCuiAttaccarsi.padre;
@@ -77,26 +75,26 @@ public class AlberoIpotesi implements Serializable {
         mosse.push(ipotesiCorrente);
         return true;
     }
-    
+
     public void undo(String m) {
         mosse.pop().setCommento(m);
-        ipotesiCorrente = mosse.peek(); 
+        ipotesiCorrente = mosse.peek();
         mappaturaCorrente = ipotesiCorrente.getStato();
     }
-    
+
     public MappaturaParziale getStato() {
         return new MappaturaParziale(mappaturaCorrente);
     }
-    
+
     public Ipotesi getAlbero() {
         return radice;
     }
-    
-    public Ipotesi giaRaggiunta(MappaturaParziale mappaturaCorrente){
-        return radice.giaRaggiunta(mappaturaCorrente, new MappaturaParziale()); 
+
+    public Ipotesi giaRaggiunta(MappaturaParziale mappaturaCorrente) {
+        return radice.giaRaggiunta(mappaturaCorrente, new MappaturaParziale());
     }
-    
+
     public void stampaAlbero() {
-        radice.stampa(0,ipotesiCorrente);
+        radice.stampa(0, ipotesiCorrente);
     }
 }
