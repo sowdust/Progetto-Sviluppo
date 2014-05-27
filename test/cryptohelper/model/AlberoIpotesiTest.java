@@ -166,6 +166,10 @@ public class AlberoIpotesiTest implements Serializable {
         System.out.println("Map corrente: " + albero.getStato());
         albero.stampaAlbero();        
         
+        assertTrue(albero.faiAssunzione(new MappaturaParziale("f>x,d>k")));
+        System.out.println("Stato dopo doppio conflitto");
+        System.out.println("Map corrente: " + albero.getStato());
+        albero.stampaAlbero();         
         
         // ORA TOGLIAMO UN PO' DI ASSUNZIONI E ANDIAMO IN UNO STATO GIÀ RAGGIUNTO
         assertTrue(albero.faiAssunzione(new MappaturaParziale("d > - , c> z")));
@@ -196,10 +200,17 @@ public class AlberoIpotesiTest implements Serializable {
         a = new MappaturaParziale("h > -, d > x, e > u, a > z, b > w, c > y, f > t, g > -");
         assertFalse(albero.faiAssunzione(a));
         assertSame(terzabis,albero.ipotesiCorrente);
-        System.out.println("Stato dopo aver impostato manualmente");
+        System.out.println("Stato dopo aver impostato eliminato");
         System.out.println("Map corrente: " + albero.getStato());
         albero.stampaAlbero();   
         //assertSame(albero.ipotesiCorrente.padre, albero.getAlbero());
-        assertFalse(false); 
+        
+        
+        assertTrue(albero.faiAssunzione(new MappaturaParziale("f>-,d>-")));
+        System.out.println("Stato dopo aver disimpostato f e d");
+        System.out.println("Map corrente: " + albero.getStato());
+        albero.stampaAlbero();   
+        //assertSame(albero.ipotesiCorrente.padre, albero.getAlbero());
+        
     }
 }

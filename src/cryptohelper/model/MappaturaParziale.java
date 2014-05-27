@@ -140,7 +140,8 @@ public class MappaturaParziale implements Serializable {
                 r.inverseMap.add(inverseMap.get(i));
             }else{
                 if(m.inverseMap.get(k) != inverseMap.get(i)) {
-                    throw new IllegalArgumentException("Impossibile sottrarre mappa: conflitti");
+                    r.map.add(map.get(i));
+                    r.inverseMap.add(inverseMap.get(i));
                 }
             }
         }
@@ -169,6 +170,21 @@ public class MappaturaParziale implements Serializable {
             }
         }
         return false;
+    }
+    
+    public int conflitti(MappaturaParziale m) {
+        int conflitti = 0;
+        for(int i = 0; i < m.map.size(); ++i) {
+            int k = map.indexOf(m.map.get(i));
+            int j = inverseMap.indexOf(m.inverseMap.get(i));
+            if  (  k != -1  && inverseMap.get(k)!=m.inverseMap.get(i)) {
+                ++conflitti;
+            }
+            if  ( j != -1   && map.get(j)!=m.map.get(i)) {
+                ++conflitti;
+            }
+        }
+        return conflitti;
     }
 
     /*
@@ -217,13 +233,8 @@ public class MappaturaParziale implements Serializable {
      * data una lista di caratteri, restituisce true se almeno di essi
      * è già definito nella mappatura
      */
-    boolean contains(List<Character> daRimuovere) {
-        for(Character c : daRimuovere) {
-            if(map.indexOf(c) != -1) {
-                return true;
-            }
-        }
-        return false;
+    boolean contains(Character daRimuovere) {
+        return map.indexOf(daRimuovere) != -1;
     }
     
     public boolean isEmpty() {

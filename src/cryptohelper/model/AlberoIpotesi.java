@@ -44,8 +44,10 @@ public class AlberoIpotesi implements Serializable {
     public boolean faiAssunzione(MappaturaParziale map) {
 
         MappaturaParziale nuovaMappatura = mappaturaCorrente.merge(map);
-        List<Character> daRimuovere = map.filtraDaRimuovere();
+        List<Character> listaDaRimuovere = map.filtraDaRimuovere();
         Ipotesi giaRaggiunta = giaRaggiunta(nuovaMappatura);
+        int conflitti = mappaturaCorrente.conflitti(map);
+        Boolean daRimuovere = !listaDaRimuovere.isEmpty();
 
         if (giaRaggiunta != null) {
             ipotesiCorrente = giaRaggiunta;
@@ -54,17 +56,14 @@ public class AlberoIpotesi implements Serializable {
             return false;
         }
 
-        if (!mappaturaCorrente.conflitto(map) && daRimuovere.isEmpty()) {
-            // semplice aggiunta di un ipotesi
+        if (conflitti == 0 && !daRimuovere) {
+            // semplice aggiunta di un'ipotesi
             ipotesiCorrente = ipotesiCorrente.aggiungiIpotesi(map);
 
         } else {
         // aggiunta di un ipotesi ad un nodo da ricercare
             // in seguito a modifiche o rimozioni d'assunzione
-            Ipotesi aCuiAttaccarsi = ipotesiCorrente.trovaConflitto(map, daRimuovere);
-            if (null == aCuiAttaccarsi) {
-                aCuiAttaccarsi = radice;
-            }
+            Ipotesi aCuiAttaccarsi = ipotesiCorrente.trovaConflitto(map, listaDaRimuovere,conflitti,daRimuovere);
             MappaturaParziale daAggiungere = nuovaMappatura.sottrai(aCuiAttaccarsi.getStato());
             ipotesiCorrente = aCuiAttaccarsi.aggiungiIpotesi(daAggiungere);
         }

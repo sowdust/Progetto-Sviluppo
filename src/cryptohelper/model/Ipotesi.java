@@ -38,14 +38,20 @@ public class Ipotesi implements Serializable {
      * Percorrendo il cammino fino alla radice, restituisce il primo nodo
      * in cui vi è un assegnazione in conflitto con la mappatura m
      */
-    Ipotesi trovaConflitto(MappaturaParziale m, List<Character> daRimuovere) {
+    Ipotesi trovaConflitto(MappaturaParziale m, List<Character> listaDaRimuovere, int conflitti, Boolean daRimuovere) {
         if(null == padre) {
             return this;
         }
-        if(map.conflitto(m)) {
+        for(int i = 0; i < listaDaRimuovere.size() ; ++i) {
+            if(map.contains(listaDaRimuovere.get(i))) {
+                listaDaRimuovere.remove(i);
+            }
+        }
+        conflitti -= map.conflitti(m);
+        if(conflitti == 0 && listaDaRimuovere.isEmpty()) {
             return this.padre;
         }
-        return padre.trovaConflitto(m, daRimuovere);
+        return padre.trovaConflitto(m, listaDaRimuovere, conflitti, daRimuovere);
     }
 
     void stampa(int d, Ipotesi ipotesiCorrente) {
