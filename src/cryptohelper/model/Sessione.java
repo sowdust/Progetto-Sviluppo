@@ -8,6 +8,7 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.sql.Blob;
 import java.sql.SQLException;
+import java.util.List;
 import javax.sql.rowset.CachedRowSet;
 
 public class Sessione {
@@ -68,10 +69,23 @@ public class Sessione {
         return albero.faiAssunzione(map);
     }
 
-    public void salvaSoluzione() {
+    public boolean salvaSoluzione() throws SQLException {
         MappaturaParziale map = albero.getStato();
+        List<Character> listaCaratteri = messaggio.getSimboli();
+        if(map.isCompleta(listaCaratteri)) {
+            return false;
+        }
+        Soluzione s = new Soluzione(map,messaggio,proprietario);
+        if(s.save()) {
+           return this.elimina();
+        } else {
+            return false;
+        }
+    }
 
-        throw new UnsupportedOperationException();
+    private boolean elimina() throws SQLException {
+        DBController dbc = DBController.getInstance();
+        return dbc.executeUpdate("DELETE * FROM crypto_user.Sessione WHERE id = ?", id);        
     }
 
 }

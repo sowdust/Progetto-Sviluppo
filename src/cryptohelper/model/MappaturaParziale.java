@@ -241,9 +241,13 @@ public class MappaturaParziale implements Serializable {
         return map.isEmpty();
     }
     
-    @Override
-    public boolean equals(Object m) {
-        return this.equals((MappaturaParziale) m);
+    public boolean isCompleta(List<Character> listaCaratteri) {
+        for(char c : listaCaratteri) {
+            if(!inverseMap.contains(c)) {
+                return false;
+            }
+        }
+        return true;
     }
     
     public String serialize() {
@@ -253,6 +257,12 @@ public class MappaturaParziale implements Serializable {
         }
         return s;
     }
+    
+    @Override
+    public boolean equals(Object m) {
+        return this.equals((MappaturaParziale) m);
+    }
+
     
     @Override
     public String toString() {
@@ -308,6 +318,5 @@ public class MappaturaParziale implements Serializable {
         return false;
     }
 */    
-
 
 }
