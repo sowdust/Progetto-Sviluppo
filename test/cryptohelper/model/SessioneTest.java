@@ -41,7 +41,7 @@ public class SessioneTest {
     }
 
     @Test
-    public void save() throws SQLException, IOException, ClassNotFoundException {
+    public void test() throws SQLException, IOException, ClassNotFoundException {
         AlberoIpotesi albero = new AlberoIpotesi();
         MappaturaParziale a = new MappaturaParziale("a > z, b > w, c > y");
 
@@ -58,19 +58,11 @@ public class SessioneTest {
         sess.setAlbero(albero);
         sess.save();
         System.out.println(sess.getId());
-    }
-
-    @Test
-    public void load() throws SQLException, IOException, ClassNotFoundException {
+    
         Sessione due = Sessione.load(1);
         System.out.println("test: ");
         due.albero.stampaAlbero();
         System.out.println("Prima mossa: " + due.albero.mosse.get(3).getStato());
     }
-
-    // TODO add test methods here.
-    // The methods must be annotated with annotation @Test. For example:
-    //
-    // @Test
-    // public void hello() {}
+    
 }

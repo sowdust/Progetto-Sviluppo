@@ -24,7 +24,26 @@ public class Sessione {
         this.messaggio = messaggio;
         this.albero = new AlberoIpotesi();
     }
+    
+    public Sessione(CachedRowSet crs) throws SQLException, IOException, ClassNotFoundException {
+        this.id = crs.getInt("id");
+        this.messaggio = Messaggio.load(crs.getInt("messaggio"));
+        this.proprietario = UserInfo.load(crs.getInt("proprietario"));
+        Blob bl = crs.getBlob("albero");
+        byte[] buf = bl.getBytes(1, (int) bl.length());
+        ObjectInputStream objectIn;
+        objectIn = new ObjectInputStream(new ByteArrayInputStream(buf));
+        this.albero = ((AlberoIpotesi) objectIn.readObject());
+    }
 
+    public static Sessione load(int id) throws SQLException, IOException, ClassNotFoundException {
+
+        DBController dbc = DBController.getInstance();
+        CachedRowSet crs = dbc.execute("SELECT * FROM Sessione WHERE id = ?", id);
+        crs.next();
+        return new Sessione(crs);
+    }
+    
     public int getId() {
         return this.id;
     }
@@ -36,23 +55,6 @@ public class Sessione {
 
     public void setId(int id) {
         this.id = id;
-    }
-
-    public static Sessione load(int id) throws SQLException, IOException, ClassNotFoundException {
-
-        DBController dbc = DBController.getInstance();
-        CachedRowSet crs = dbc.execute("SELECT * FROM Sessione WHERE id = ?", id);
-        crs.next();
-        Blob bl = crs.getBlob("albero");
-        byte[] buf = bl.getBytes(1, (int) bl.length());
-
-        ObjectInputStream objectIn;
-        objectIn = new ObjectInputStream(new ByteArrayInputStream(buf));
-
-        Sessione sess = new Sessione(UserInfo.load(crs.getInt("proprietario")), Messaggio.load(crs.getInt("messaggio")));
-        sess.setAlbero((AlberoIpotesi) objectIn.readObject());
-        sess.setId(crs.getInt("id"));
-        return sess;
     }
 
     public void save() throws SQLException, IOException {
