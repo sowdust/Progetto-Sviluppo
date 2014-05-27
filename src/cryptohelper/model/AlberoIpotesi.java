@@ -64,8 +64,6 @@ public class AlberoIpotesi implements Serializable {
             Ipotesi aCuiAttaccarsi = ipotesiCorrente.trovaConflitto(map, daRimuovere);
             if (null == aCuiAttaccarsi) {
                 aCuiAttaccarsi = radice;
-            } else {
-                aCuiAttaccarsi = aCuiAttaccarsi.padre;
             }
             MappaturaParziale daAggiungere = nuovaMappatura.sottrai(aCuiAttaccarsi.getStato());
             ipotesiCorrente = aCuiAttaccarsi.aggiungiIpotesi(daAggiungere);

@@ -43,7 +43,7 @@ public class Ipotesi implements Serializable {
             return null;
         }
         if(map.conflitto(m)) {
-            return this;
+            return this.padre;
         }
         return padre.trovaConflitto(m, daRimuovere);
     }
