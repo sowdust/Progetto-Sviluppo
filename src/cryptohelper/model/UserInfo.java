@@ -61,6 +61,7 @@ public class UserInfo {
         return this.cognome;
     }
 
+    @Override
     public String toString() {
         return nome + " " + cognome;
     }
