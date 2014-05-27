@@ -45,30 +45,17 @@ public class Sessione {
     public static Sessione load(int id) throws SQLException, IOException, ClassNotFoundException {
 
         DBController dbc = DBController.getInstance();
-        CachedRowSet crs = null;//dbc.execute("SELECT * FROM sessione WHERE id = ?", id);
-
-        String url = "jdbc:derby://localhost:1527/crypto_db";
-        String user = "crypto_user";
-        String pwd = "crypto_pass";
-        Connection conn = DriverManager.getConnection(url, user, pwd);
-        PreparedStatement stmt = conn.prepareStatement("SELECT * FROM sessione WHERE id = ?");
-        stmt.setInt(1, id);
-        ResultSet krs = stmt.executeQuery();
-
-        CachedRowSet rs;
-        rs = RowSetProvider.newFactory().createCachedRowSet();
-        rs.populate(krs);
-
-        Blob bl = rs.getBlob("albero");
+        CachedRowSet crs = dbc.execute("SELECT * FROM Sessione WHERE id = ?", id);
+        crs.next();
+        Blob bl = crs.getBlob("albero");
         byte[] buf = bl.getBytes(1, (int) bl.length());
 
-        ObjectInputStream objectIn = null;
+        ObjectInputStream objectIn;
         objectIn = new ObjectInputStream(new ByteArrayInputStream(buf));
 
-        Sessione sess = new Sessione(UserInfo.load(rs.getInt("proprietario")), Messaggio.load(rs.getInt("messaggio")));
+        Sessione sess = new Sessione(UserInfo.load(crs.getInt("proprietario")), Messaggio.load(crs.getInt("messaggio")));
         sess.setAlbero((AlberoIpotesi) objectIn.readObject());
-        sess.setId(rs.getInt("id"));
-        //crs.close();*/
+        sess.setId(crs.getInt("id"));
         return sess;
     }
 

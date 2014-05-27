@@ -56,7 +56,7 @@ public class SessioneTest {
 
         Sessione sess = new Sessione(Studente.load(1).getUserInfo(), Messaggio.load(1));
         sess.setAlbero(albero);
-        //sess.save();
+        sess.save();
         System.out.println(sess.getId());
     }
 
