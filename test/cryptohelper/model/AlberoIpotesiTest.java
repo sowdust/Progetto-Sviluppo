@@ -165,11 +165,17 @@ public class AlberoIpotesiTest implements Serializable {
         System.out.println("Stato dopo ipotesi già raggiunta (la quinta)");
         System.out.println("Map corrente: " + albero.getStato());
         albero.stampaAlbero();        
-        
+        /*
         assertTrue(albero.faiAssunzione(new MappaturaParziale("f>x,d>k")));
         System.out.println("Stato dopo doppio conflitto");
         System.out.println("Map corrente: " + albero.getStato());
-        albero.stampaAlbero();         
+        albero.stampaAlbero();   
+        */
+                
+        assertTrue(albero.faiAssunzione(new MappaturaParziale("f>x,d>k,a>-")));
+        System.out.println("Stato dopo doppio e rimozione");
+        System.out.println("Map corrente: " + albero.getStato());
+        albero.stampaAlbero();   
         
         // ORA TOGLIAMO UN PO' DI ASSUNZIONI E ANDIAMO IN UNO STATO GIÀ RAGGIUNTO
         assertTrue(albero.faiAssunzione(new MappaturaParziale("d > - , c> z")));
