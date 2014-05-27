@@ -56,6 +56,8 @@ public class GUI extends javax.swing.JFrame {
     private void initComponents() {
         java.awt.GridBagConstraints gridBagConstraints;
 
+        jProgressBar1 = new javax.swing.JProgressBar();
+        jComboBox1 = new javax.swing.JComboBox();
         loginPanel = new javax.swing.JPanel();
         loginToolBar = new javax.swing.JToolBar();
         goToRegistrationButton = new javax.swing.JButton();
@@ -110,6 +112,20 @@ public class GUI extends javax.swing.JFrame {
         jButton14 = new javax.swing.JButton();
         jButton15 = new javax.swing.JButton();
         messaggiCreaPanel = new javax.swing.JPanel();
+        jPanel19 = new javax.swing.JPanel();
+        jPanel18 = new javax.swing.JPanel();
+        jPanel22 = new javax.swing.JPanel();
+        jPanel21 = new javax.swing.JPanel();
+        jButton7 = new javax.swing.JButton();
+        jButton6 = new javax.swing.JButton();
+        jButton1 = new javax.swing.JButton();
+        jPanel23 = new javax.swing.JPanel();
+        jPanel25 = new javax.swing.JPanel();
+        jScrollPane8 = new javax.swing.JScrollPane();
+        jTextArea5 = new javax.swing.JTextArea();
+        jPanel24 = new javax.swing.JPanel();
+        jScrollPane14 = new javax.swing.JScrollPane();
+        jTextArea6 = new javax.swing.JTextArea();
         propostePanel = new javax.swing.JPanel();
         jTabbedPane1 = new javax.swing.JTabbedPane();
         jPanel6 = new javax.swing.JPanel();
@@ -150,6 +166,8 @@ public class GUI extends javax.swing.JFrame {
         chiaveCifraturaField = new javax.swing.JTextField();
         calcolaMappaturaButton = new javax.swing.JButton();
         metodoCifraturaComboBox = new javax.swing.JComboBox();
+
+        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("CryptoHelper");
@@ -410,16 +428,62 @@ public class GUI extends javax.swing.JFrame {
 
         jTabbedPane2.addTab("Bozze", messaggiBozzePanel);
 
-        javax.swing.GroupLayout messaggiCreaPanelLayout = new javax.swing.GroupLayout(messaggiCreaPanel);
-        messaggiCreaPanel.setLayout(messaggiCreaPanelLayout);
-        messaggiCreaPanelLayout.setHorizontalGroup(
-            messaggiCreaPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
+        messaggiCreaPanel.setLayout(new javax.swing.BoxLayout(messaggiCreaPanel, javax.swing.BoxLayout.PAGE_AXIS));
+
+        javax.swing.GroupLayout jPanel19Layout = new javax.swing.GroupLayout(jPanel19);
+        jPanel19.setLayout(jPanel19Layout);
+        jPanel19Layout.setHorizontalGroup(
+            jPanel19Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 596, Short.MAX_VALUE)
         );
-        messaggiCreaPanelLayout.setVerticalGroup(
-            messaggiCreaPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
+        jPanel19Layout.setVerticalGroup(
+            jPanel19Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 185, Short.MAX_VALUE)
         );
+
+        messaggiCreaPanel.add(jPanel19);
+
+        jPanel18.setLayout(new java.awt.BorderLayout());
+
+        jPanel22.setLayout(new javax.swing.BoxLayout(jPanel22, javax.swing.BoxLayout.PAGE_AXIS));
+        jPanel18.add(jPanel22, java.awt.BorderLayout.PAGE_START);
+
+        jButton7.setText("Invia");
+        jPanel21.add(jButton7);
+
+        jButton6.setText("Elimina");
+        jPanel21.add(jButton6);
+
+        jButton1.setText("Salva come Bozza");
+        jPanel21.add(jButton1);
+
+        jPanel18.add(jPanel21, java.awt.BorderLayout.PAGE_END);
+
+        jPanel23.setLayout(new javax.swing.BoxLayout(jPanel23, javax.swing.BoxLayout.LINE_AXIS));
+
+        jPanel25.setLayout(new java.awt.BorderLayout());
+
+        jTextArea5.setColumns(20);
+        jTextArea5.setRows(5);
+        jScrollPane8.setViewportView(jTextArea5);
+
+        jPanel25.add(jScrollPane8, java.awt.BorderLayout.CENTER);
+
+        jPanel23.add(jPanel25);
+
+        jPanel24.setLayout(new java.awt.BorderLayout());
+
+        jTextArea6.setColumns(20);
+        jTextArea6.setRows(5);
+        jScrollPane14.setViewportView(jTextArea6);
+
+        jPanel24.add(jScrollPane14, java.awt.BorderLayout.CENTER);
+
+        jPanel23.add(jPanel24);
+
+        jPanel18.add(jPanel23, java.awt.BorderLayout.CENTER);
+
+        messaggiCreaPanel.add(jPanel18);
 
         jTabbedPane2.addTab("Crea Nuovo", messaggiCreaPanel);
 
@@ -1044,6 +1108,7 @@ public class GUI extends javax.swing.JFrame {
     javax.swing.JLabel feedbackNuovoSdcLabel;
     javax.swing.JButton goToRegistrationButton;
     javax.swing.JButton inviaPropostaButton;
+    javax.swing.JButton jButton1;
     javax.swing.JButton jButton10;
     javax.swing.JButton jButton12;
     javax.swing.JButton jButton14;
@@ -1052,6 +1117,9 @@ public class GUI extends javax.swing.JFrame {
     javax.swing.JButton jButton3;
     javax.swing.JButton jButton4;
     javax.swing.JButton jButton5;
+    javax.swing.JButton jButton6;
+    javax.swing.JButton jButton7;
+    javax.swing.JComboBox jComboBox1;
     javax.swing.JLabel jLabel1;
     javax.swing.JLabel jLabel2;
     javax.swing.JLabel jLabel3;
@@ -1067,7 +1135,14 @@ public class GUI extends javax.swing.JFrame {
     javax.swing.JPanel jPanel15;
     javax.swing.JPanel jPanel16;
     javax.swing.JPanel jPanel17;
+    javax.swing.JPanel jPanel18;
+    javax.swing.JPanel jPanel19;
     javax.swing.JPanel jPanel2;
+    javax.swing.JPanel jPanel21;
+    javax.swing.JPanel jPanel22;
+    javax.swing.JPanel jPanel23;
+    javax.swing.JPanel jPanel24;
+    javax.swing.JPanel jPanel25;
     javax.swing.JPanel jPanel3;
     javax.swing.JPanel jPanel4;
     javax.swing.JPanel jPanel5;
@@ -1076,22 +1151,27 @@ public class GUI extends javax.swing.JFrame {
     javax.swing.JPanel jPanel8;
     javax.swing.JPanel jPanel9;
     javax.swing.JPasswordField jPasswordField1;
+    javax.swing.JProgressBar jProgressBar1;
     javax.swing.JScrollPane jScrollPane1;
     javax.swing.JScrollPane jScrollPane10;
     javax.swing.JScrollPane jScrollPane11;
     javax.swing.JScrollPane jScrollPane12;
     javax.swing.JScrollPane jScrollPane13;
+    javax.swing.JScrollPane jScrollPane14;
     javax.swing.JScrollPane jScrollPane2;
     javax.swing.JScrollPane jScrollPane3;
     javax.swing.JScrollPane jScrollPane4;
     javax.swing.JScrollPane jScrollPane5;
     javax.swing.JScrollPane jScrollPane6;
+    javax.swing.JScrollPane jScrollPane8;
     javax.swing.JScrollPane jScrollPane9;
     javax.swing.JTabbedPane jTabbedPane1;
     javax.swing.JTabbedPane jTabbedPane2;
     javax.swing.JTextArea jTextArea1;
     javax.swing.JTextArea jTextArea2;
     javax.swing.JTextArea jTextArea3;
+    javax.swing.JTextArea jTextArea5;
+    javax.swing.JTextArea jTextArea6;
     javax.swing.JTextField jTextField1;
     javax.swing.JTextField jTextField2;
     javax.swing.JTextField jTextField3;
