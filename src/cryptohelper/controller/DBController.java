@@ -79,11 +79,11 @@ public class DBController {
         }
         return nrow != 0;
     }
-    
+
     public int executeInsert(String query, Object... args) throws SQLException {
         Connection conn = null;
         PreparedStatement stmt = null;
-        ResultSet res = null;
+        ResultSet generatedKey = null;
         int nrow = 0;
         try {
             conn = DriverManager.getConnection(url, user, pwd);
@@ -92,39 +92,12 @@ public class DBController {
                 stmt.setObject(i + 1, args[i]);
             }
             nrow = stmt.executeUpdate();
-            if(nrow == 0) {
+            if (nrow == 0) {
                 throw new SQLException("Inserimento fallito.");
             }
-            res = stmt.getGeneratedKeys();
-            res.next();
-            return (int)res.getLong(1);
-        } finally {
-            if (stmt != null) {
-                stmt.close();
-            }
-            if (conn != null) {
-                conn.close();
-            }
-        }
-    }
-
-    public int executeInsert(String query, Object... args) throws SQLException {
-        Connection conn = null;
-        PreparedStatement stmt = null;
-        ResultSet generatedKey = null;
-        try {
-            conn = DriverManager.getConnection(url, user, pwd);
-            stmt = conn.prepareStatement(query, PreparedStatement.RETURN_GENERATED_KEYS);
-            for (int i = 0; i < args.length; i++) {
-                stmt.setObject(i + 1, args[i]);
-            }
-            stmt.executeUpdate();
             generatedKey = stmt.getGeneratedKeys();
-            if (generatedKey.next()) {
-                return generatedKey.getInt(1);
-            } else {
-                return -1;
-            }
+            generatedKey.next();
+            return generatedKey.getInt(1);
         } finally {
             if (generatedKey != null) {
                 generatedKey.close();
