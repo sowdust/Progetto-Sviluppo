@@ -48,15 +48,6 @@ public class Sessione {
         return this.id;
     }
 
-    // SOLO PER TESTING!
-    public void setAlbero(AlberoIpotesi albero) {
-        this.albero = albero;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
     public void save() throws SQLException, IOException {
         ByteArrayOutputStream bos = new ByteArrayOutputStream();
         ObjectOutputStream oos = new ObjectOutputStream(bos);
