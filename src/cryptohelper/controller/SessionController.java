@@ -1,5 +1,6 @@
 package cryptohelper.controller;
 
+import cryptohelper.model.MappaturaParziale;
 import cryptohelper.model.Sessione;
 import java.io.IOException;
 import java.sql.SQLException;
@@ -21,7 +22,15 @@ public class SessionController {
         return s.salvaSoluzione();
     }
     
-    public Sessione caricaSessione(int id) throws SQLException, IOException, ClassNotFoundException {
-        return Sessione.load(id);
+    public Sessione caricaSessione(int id) {
+        try {
+            return Sessione.load(id);
+        }catch(IOException | ClassNotFoundException | SQLException e) {
+            throw new RuntimeException("Eccezione " + e.toString() + "\n" + e.getMessage());
+        }
+    }
+    
+    public boolean faiAssunzione(Sessione s, MappaturaParziale nuoveAssunzioni) {
+        return s.faiAssunzione(nuoveAssunzioni);
     }
 }

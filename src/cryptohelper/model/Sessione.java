@@ -59,8 +59,8 @@ public class Sessione {
         return id != -1;
     }
 
-    public boolean faiAssunzione(MappaturaParziale map) {
-        return albero.faiAssunzione(map);
+    public boolean faiAssunzione(MappaturaParziale nuoveAssunzioni) {
+        return albero.faiAssunzione(nuoveAssunzioni);
     }
 
     public boolean salvaSoluzione() throws SQLException {
