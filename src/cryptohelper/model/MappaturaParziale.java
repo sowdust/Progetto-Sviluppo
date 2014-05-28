@@ -71,12 +71,12 @@ public class MappaturaParziale implements Serializable {
                 --i;
             }
         }
-        // ora aggiungiamo risolvendo i conflitti
+        // ora aggiungiamo risolvendo i contaConflitti
         for(int i = 0; i < m.map.size(); ++i ) {
             int k = r.map.indexOf(m.map.get(i));
             int j = r.inverseMap.indexOf(m.inverseMap.get(i));
             
-            // se non ci sono conflitti
+            // se non ci sono contaConflitti
             if(k == -1 && j == -1) {
                 r.map.add(m.map.get(i));
                 r.inverseMap.add(m.inverseMap.get(i)); 
@@ -123,7 +123,7 @@ public class MappaturaParziale implements Serializable {
      * 
      * Es:
      * {a > z, b > y, c > w} sottrai { b > y, c > w }  ==> { a > z }
-     * {a > z, b > y} sottrai {a > z, b > w }  ==> IllegalArgumentException: conflitti
+     * {a > z, b > y} sottrai {a > z, b > w }  ==> IllegalArgumentException: contaConflitti
      * {b > y, c > w} sottrai {a > z,  b > y, c > w }  ==> IllegalArgumentException: troppo lunga
      * 
      */
@@ -172,7 +172,7 @@ public class MappaturaParziale implements Serializable {
         return false;
     }
     
-    public int conflitti(MappaturaParziale m) {
+    public int contaConflitti(MappaturaParziale m) {
         int conflitti = 0;
         for(int i = 0; i < m.map.size(); ++i) {
             int k = map.indexOf(m.map.get(i));

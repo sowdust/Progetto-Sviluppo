@@ -44,11 +44,8 @@ public class AlberoIpotesi implements Serializable {
     public boolean faiAssunzione(MappaturaParziale map) {
 
         MappaturaParziale nuovaMappatura = mappaturaCorrente.merge(map);
-        List<Character> listaDaRimuovere = map.filtraDaRimuovere();
         Ipotesi giaRaggiunta = giaRaggiunta(nuovaMappatura);
-        int conflitti = mappaturaCorrente.conflitti(map);
-        Boolean daRimuovere = !listaDaRimuovere.isEmpty();
-
+        
         //  Se l'ipotesi è già raggiunta, ci spostiamo lì e torniamo false
         if (giaRaggiunta != null) {
             ipotesiCorrente = giaRaggiunta;
@@ -56,15 +53,19 @@ public class AlberoIpotesi implements Serializable {
             mosse.push(ipotesiCorrente);
             return false;
         }
+        
+        List<Character> listaDaRimuovere = map.filtraDaRimuovere();
+        int conflitti = mappaturaCorrente.contaConflitti(map);
+        Boolean daRimuovere = !listaDaRimuovere.isEmpty();
 
         if (conflitti == 0 && !daRimuovere) {
-        //  Se non vi sono conflitti o lettere da rimuovere, semplice aggiunta d'ipotesi
+        //  Se non vi sono contaConflitti o lettere da rimuovere, semplice aggiunta d'ipotesi
             ipotesiCorrente = ipotesiCorrente.aggiungiIpotesi(map);
 
         } else {
-        // Se vi sono conflitti/rimozioni, prima è necessario cercare il nodo a cui attaccarsi
-            Ipotesi aCuiAttaccarsi = ipotesiCorrente.trovaConflitto(map,listaDaRimuovere,conflitti,daRimuovere);
-            MappaturaParziale daAggiungere = nuovaMappatura.sottrai(aCuiAttaccarsi.getStato());
+        // Se vi sono contaConflitti/rimozioni, prima è necessario cercare il nodo a cui attaccarsi
+            Ipotesi aCuiAttaccarsi = ipotesiCorrente.trovaConflitto(map,listaDaRimuovere,conflitti);
+            MappaturaParziale daAggiungere = nuovaMappatura.sottrai(aCuiAttaccarsi.getMappatura());
             ipotesiCorrente = aCuiAttaccarsi.aggiungiIpotesi(daAggiungere);
         }
 
@@ -76,7 +77,7 @@ public class AlberoIpotesi implements Serializable {
     public void undo(String m) {
         mosse.pop().setCommento(m);
         ipotesiCorrente = mosse.peek();
-        mappaturaCorrente = ipotesiCorrente.getStato();
+        mappaturaCorrente = ipotesiCorrente.getMappatura();
     }
 
     public MappaturaParziale getStato() {

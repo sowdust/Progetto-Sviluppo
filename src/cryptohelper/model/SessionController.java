@@ -9,10 +9,10 @@ public class SessionController {
      * dal modello di progetto session controller è un singleton,
      * ma non dovrebbe avere il riferimento almeno a un oggetto sessione?
      */
-    private Sessione sessione;
+    private static SessionController instance = null;
     
-    SessionController(Sessione sessione) {
-        this.sessione = sessione;
+    private SessionController() {
+        
     }
     
     /*
@@ -21,6 +21,6 @@ public class SessionController {
      * (eliminazione della sessione o salvataggio della soluzione?)
      */
     public boolean salvaSoluzione() throws SQLException {
-        return this.sessione.salvaSoluzione();        
+        throw new RuntimeException("non supportata");
     }
 }

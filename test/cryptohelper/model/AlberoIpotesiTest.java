@@ -55,8 +55,8 @@ public class AlberoIpotesiTest implements Serializable {
         //  a > z, b > w, c > y
         albero.faiAssunzione(new MappaturaParziale(a));
         assertSame(albero.ipotesiCorrente,albero.getAlbero().figli.get(0));
-        assertEquals(albero.getAlbero().figli.get(0).getStato(),a);
-        assertNotSame(albero.getAlbero().figli.get(0).getStato(),a);
+        assertEquals(albero.getAlbero().figli.get(0).getMappatura(),a);
+        assertNotSame(albero.getAlbero().figli.get(0).getMappatura(),a);
         assertTrue(albero.ipotesiCorrente.padre == albero.getAlbero());
         assertEquals(albero.getStato(),a);
         System.out.println("Stato alla prima ipotesi:");
@@ -64,23 +64,23 @@ public class AlberoIpotesiTest implements Serializable {
         albero.stampaAlbero();
         
         
-        //  SECONDA ASSUNZIONE [no conflitti]
+        //  SECONDA ASSUNZIONE [no contaConflitti]
         //  d > x, e > u
         MappaturaParziale b = new MappaturaParziale("d > x, e > u");
         albero.faiAssunzione(b);
         Ipotesi seconda = albero.ipotesiCorrente;
-        assertEquals(albero.ipotesiCorrente.map,b);
+        assertEquals(albero.ipotesiCorrente.assunzioni,b);
         assertFalse(albero.getAlbero().figli.isEmpty());
         assertTrue(albero.getAlbero().figli.size() == 1);
         assertSame(albero.getAlbero().figli.get(0).figli.get(0),albero.ipotesiCorrente);
         assertFalse(albero.ipotesiCorrente.padre == null);
-        assertEquals(albero.ipotesiCorrente.getStato(), albero.getStato());
+        assertEquals(albero.ipotesiCorrente.getMappatura(), albero.getStato());
         assertEquals(albero.getStato(), a.merge(b));
         System.out.println("Stato alla seconda ipotesi:");
         System.out.println("Map corrente: " + albero.getStato());
         albero.stampaAlbero();
         
-        //  TERZA ASSUNZIONE   [no conflitti]
+        //  TERZA ASSUNZIONE   [no contaConflitti]
         MappaturaParziale c = new MappaturaParziale("f > v");
         albero.faiAssunzione(c);
         Ipotesi terza = albero.ipotesiCorrente;
@@ -168,7 +168,7 @@ public class AlberoIpotesiTest implements Serializable {
         /*
         assertTrue(albero.faiAssunzione(new MappaturaParziale("f>x,d>k")));
         System.out.println("Stato dopo doppio conflitto");
-        System.out.println("Map corrente: " + albero.getStato());
+        System.out.println("Map corrente: " + albero.getMappatura());
         albero.stampaAlbero();   
         */
                 
