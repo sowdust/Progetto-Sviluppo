@@ -33,4 +33,8 @@ public class SessionController {
     public boolean faiAssunzione(Sessione s, MappaturaParziale nuoveAssunzioni) {
         return s.faiAssunzione(nuoveAssunzioni);
     }
+    
+    public void undo(Sessione s, String motivazione) {
+        s.undo(motivazione);
+    }
 }

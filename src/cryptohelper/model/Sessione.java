@@ -64,7 +64,7 @@ public class Sessione {
     }
 
     public boolean salvaSoluzione() throws SQLException {
-        MappaturaParziale map = albero.getStato();
+        MappaturaParziale map = albero.getMappaturaCorrente();
         List<Character> listaCaratteri = messaggio.getSimboli();
         if(map.isCompleta(listaCaratteri)) {
             throw new IllegalStateException("La mappatura non copre tutti i caratteri usati nel messaggio");
@@ -80,6 +80,10 @@ public class Sessione {
     private boolean elimina() throws SQLException {
         DBController dbc = DBController.getInstance();
         return dbc.executeUpdate("DELETE * FROM crypto_user.Sessione WHERE id = ?", id);        
+    }
+
+    public void undo(String motivazione) {
+        albero.undo(motivazione);
     }
 
 }

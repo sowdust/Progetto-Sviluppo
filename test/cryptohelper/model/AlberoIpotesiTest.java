@@ -58,9 +58,9 @@ public class AlberoIpotesiTest implements Serializable {
         assertEquals(albero.getAlbero().figli.get(0).getMappatura(),a);
         assertNotSame(albero.getAlbero().figli.get(0).getMappatura(),a);
         assertTrue(albero.ipotesiCorrente.padre == albero.getAlbero());
-        assertEquals(albero.getStato(),a);
+        assertEquals(albero.getMappaturaCorrente(),a);
         System.out.println("Stato alla prima ipotesi:");
-        System.out.println("Map corrente: " + albero.getStato());
+        System.out.println("Map corrente: " + albero.getMappaturaCorrente());
         albero.stampaAlbero();
         
         
@@ -74,69 +74,69 @@ public class AlberoIpotesiTest implements Serializable {
         assertTrue(albero.getAlbero().figli.size() == 1);
         assertSame(albero.getAlbero().figli.get(0).figli.get(0),albero.ipotesiCorrente);
         assertFalse(albero.ipotesiCorrente.padre == null);
-        assertEquals(albero.ipotesiCorrente.getMappatura(), albero.getStato());
-        assertEquals(albero.getStato(), a.merge(b));
+        assertEquals(albero.ipotesiCorrente.getMappatura(), albero.getMappaturaCorrente());
+        assertEquals(albero.getMappaturaCorrente(), a.merge(b));
         System.out.println("Stato alla seconda ipotesi:");
-        System.out.println("Map corrente: " + albero.getStato());
+        System.out.println("Map corrente: " + albero.getMappaturaCorrente());
         albero.stampaAlbero();
         
         //  TERZA ASSUNZIONE   [no contaConflitti]
         MappaturaParziale c = new MappaturaParziale("f > v");
         albero.faiAssunzione(c);
         Ipotesi terza = albero.ipotesiCorrente;
-        assertEquals(albero.getStato(),a.merge(b).merge(c));
+        assertEquals(albero.getMappaturaCorrente(),a.merge(b).merge(c));
         assertSame(albero.mosse.pop(),albero.ipotesiCorrente);
         assertSame(albero.mosse.peek(),albero.ipotesiCorrente.padre);
         assertSame(albero.mosse.push(albero.ipotesiCorrente),albero.ipotesiCorrente);
         System.out.println("Stato alla terza ipotesi:");
-        System.out.println("Map corrente: " + albero.getStato());
+        System.out.println("Map corrente: " + albero.getMappaturaCorrente());
         albero.stampaAlbero();
         
         //  SEMPLICE UNDO
         albero.undo("");
-        assertEquals(albero.getStato(), a.merge(b));
+        assertEquals(albero.getMappaturaCorrente(), a.merge(b));
         assertSame(albero.ipotesiCorrente,seconda);
         assertSame(albero.ipotesiCorrente.figli.get(0),terza);
         System.out.println("Stato dopo undo:");
-        System.out.println("Map corrente: " + albero.getStato());
+        System.out.println("Map corrente: " + albero.getMappaturaCorrente());
         albero.stampaAlbero();
         
         //  TERZA ASSUNZIONE BIS. Riassegnazione terza ipotesi
         c = new MappaturaParziale("f > t");
         albero.faiAssunzione(c);
         Ipotesi terzabis = albero.ipotesiCorrente;
-        assertEquals(albero.getStato(),a.merge(b).merge(c));
+        assertEquals(albero.getMappaturaCorrente(),a.merge(b).merge(c));
         assertSame(terzabis.padre,seconda);
         assertTrue(terza.figli.isEmpty());
         assertSame(seconda.figli.get(0),terza);
         assertSame(seconda.figli.get(1),terzabis);
         System.out.println("Stato dopo undo terza ipotesi:");
-        System.out.println("Map corrente: " + albero.getStato());
+        System.out.println("Map corrente: " + albero.getMappaturaCorrente());
         albero.stampaAlbero();    
         
         //  QUINTA ASSUNZIONE. Giusto per allungare
         MappaturaParziale d = new MappaturaParziale("g > s");
         albero.faiAssunzione(d);
         Ipotesi quinta = albero.ipotesiCorrente;
-        assertEquals(albero.getStato(),a.merge(b).merge(c).merge(d));
+        assertEquals(albero.getMappaturaCorrente(),a.merge(b).merge(c).merge(d));
         System.out.println("Stato alla quinta ipotesi:");
-        System.out.println("Map corrente: " + albero.getStato());
+        System.out.println("Map corrente: " + albero.getMappaturaCorrente());
         albero.stampaAlbero();
         
         //  SESTA ASSUNZIONE [ conflitto con la seconda!]
         MappaturaParziale e = new MappaturaParziale("h > q, d > r");
         albero.faiAssunzione(e);
-        assertEquals(albero.getStato(),a.merge(b).merge(c).merge(d).merge(e));
+        assertEquals(albero.getMappaturaCorrente(),a.merge(b).merge(c).merge(d).merge(e));
         System.out.println("Stato alla sesta ipotesi:");
-        System.out.println("Map corrente: " + albero.getStato());
+        System.out.println("Map corrente: " + albero.getMappaturaCorrente());
         albero.stampaAlbero();
         
         //  SESTA BIS. Controlliamo che l'undo faccia il suo lavoro
         albero.undo("");
-        assertEquals(albero.getStato(),a.merge(b).merge(c).merge(d));
+        assertEquals(albero.getMappaturaCorrente(),a.merge(b).merge(c).merge(d));
         assertSame(albero.ipotesiCorrente,quinta);
         System.out.println("Stato dopo undo sesta ipotesi:");
-        System.out.println("Map corrente: " + albero.getStato());
+        System.out.println("Map corrente: " + albero.getMappaturaCorrente());
         albero.stampaAlbero();
         
         //  TORNIAMO ALLA RADICE A FORZA DI UNDO
@@ -148,7 +148,7 @@ public class AlberoIpotesiTest implements Serializable {
         assertEquals(albero.ipotesiCorrente,albero.getAlbero());
         assertEquals(albero.mosse.peek(),albero.ipotesiCorrente);
         System.out.println("Stato dopo undo fino a radice:");
-        System.out.println("Map corrente: " + albero.getStato());
+        System.out.println("Map corrente: " + albero.getMappaturaCorrente());
         albero.stampaAlbero();        
         
         
@@ -163,7 +163,7 @@ public class AlberoIpotesiTest implements Serializable {
         assertSame(albero.mosse.pop(),quinta);
         albero.mosse.push(quinta);
         System.out.println("Stato dopo ipotesi già raggiunta (la quinta)");
-        System.out.println("Map corrente: " + albero.getStato());
+        System.out.println("Map corrente: " + albero.getMappaturaCorrente());
         albero.stampaAlbero();        
         /*
         assertTrue(albero.faiAssunzione(new MappaturaParziale("f>x,d>k")));
@@ -174,20 +174,20 @@ public class AlberoIpotesiTest implements Serializable {
                 
         assertTrue(albero.faiAssunzione(new MappaturaParziale("f>x,d>k,a>-")));
         System.out.println("Stato dopo doppio e rimozione");
-        System.out.println("Map corrente: " + albero.getStato());
+        System.out.println("Map corrente: " + albero.getMappaturaCorrente());
         albero.stampaAlbero();   
         
         // ORA TOGLIAMO UN PO' DI ASSUNZIONI E ANDIAMO IN UNO STATO GIÀ RAGGIUNTO
         assertTrue(albero.faiAssunzione(new MappaturaParziale("d > - , c> z")));
         System.out.println("Stato dopo aver tolto la d");
-        System.out.println("Map corrente: " + albero.getStato());
+        System.out.println("Map corrente: " + albero.getMappaturaCorrente());
         albero.stampaAlbero();   
         
 
         a = new MappaturaParziale("e > h");
         albero.faiAssunzione(a);
         System.out.println("Stato dopo aver impostato manualmente");
-        System.out.println("Map corrente: " + albero.getStato());
+        System.out.println("Map corrente: " + albero.getMappaturaCorrente());
         albero.stampaAlbero();   
         assertSame(albero.ipotesiCorrente.padre, albero.getAlbero());
         assertFalse(false);
@@ -197,7 +197,7 @@ public class AlberoIpotesiTest implements Serializable {
         //a = new MappaturaParziale("e > -");
         assertFalse(albero.faiAssunzione(a));
         System.out.println("Stato dopo aver impostato manualmente");
-        System.out.println("Map corrente: " + albero.getStato());
+        System.out.println("Map corrente: " + albero.getMappaturaCorrente());
         albero.stampaAlbero();   
         //assertSame(albero.ipotesiCorrente.padre, albero.getAlbero());
         assertFalse(false);        
@@ -207,14 +207,14 @@ public class AlberoIpotesiTest implements Serializable {
         assertFalse(albero.faiAssunzione(a));
         assertSame(terzabis,albero.ipotesiCorrente);
         System.out.println("Stato dopo aver impostato eliminato");
-        System.out.println("Map corrente: " + albero.getStato());
+        System.out.println("Map corrente: " + albero.getMappaturaCorrente());
         albero.stampaAlbero();   
         //assertSame(albero.ipotesiCorrente.padre, albero.getAlbero());
         
         
         assertTrue(albero.faiAssunzione(new MappaturaParziale("f>-,d>-")));
         System.out.println("Stato dopo aver disimpostato f e d");
-        System.out.println("Map corrente: " + albero.getStato());
+        System.out.println("Map corrente: " + albero.getMappaturaCorrente());
         albero.stampaAlbero();   
         //assertSame(albero.ipotesiCorrente.padre, albero.getAlbero());
         

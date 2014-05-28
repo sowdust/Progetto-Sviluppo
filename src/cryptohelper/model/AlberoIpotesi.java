@@ -41,9 +41,9 @@ public class AlberoIpotesi implements Serializable {
      * Ritorna false in caso lo stato corrente fosse già stato raggiunto
      * in passato, true altrimenti
      */
-    public boolean faiAssunzione(MappaturaParziale map) {
+    public boolean faiAssunzione(MappaturaParziale nuoveAssunzioni) {
 
-        MappaturaParziale nuovaMappatura = mappaturaCorrente.merge(map);
+        MappaturaParziale nuovaMappatura = mappaturaCorrente.merge(nuoveAssunzioni);
         Ipotesi giaRaggiunta = giaRaggiunta(nuovaMappatura);
         
         //  Se l'ipotesi è già raggiunta, ci spostiamo lì e torniamo false
@@ -53,35 +53,37 @@ public class AlberoIpotesi implements Serializable {
             mosse.push(ipotesiCorrente);
             return false;
         }
-        
-        List<Character> listaDaRimuovere = map.filtraDaRimuovere();
-        int conflitti = mappaturaCorrente.contaConflitti(map);
-        Boolean daRimuovere = !listaDaRimuovere.isEmpty();
 
-        if (conflitti == 0 && !daRimuovere) {
-        //  Se non vi sono contaConflitti o lettere da rimuovere, semplice aggiunta d'ipotesi
-            ipotesiCorrente = ipotesiCorrente.aggiungiIpotesi(map);
+        int nConflitti = mappaturaCorrente.contaConflitti(nuoveAssunzioni);
+        Ipotesi ipotesiACuiAttaccarsi;
+        List<Character> listaDaRimuovere = nuoveAssunzioni.filtraDaRimuovere();
+        MappaturaParziale daAggiungere;
+
+        if (nConflitti == 0 && listaDaRimuovere.isEmpty()) {
+            
+            ipotesiACuiAttaccarsi = ipotesiCorrente;
+            daAggiungere = nuoveAssunzioni;
 
         } else {
-        // Se vi sono contaConflitti/rimozioni, prima è necessario cercare il nodo a cui attaccarsi
-            Ipotesi aCuiAttaccarsi = ipotesiCorrente.trovaConflitto(map,listaDaRimuovere,conflitti);
-            MappaturaParziale daAggiungere = nuovaMappatura.sottrai(aCuiAttaccarsi.getMappatura());
-            ipotesiCorrente = aCuiAttaccarsi.aggiungiIpotesi(daAggiungere);
+
+            ipotesiACuiAttaccarsi = ipotesiCorrente.trovaConflitto(nuoveAssunzioni,listaDaRimuovere,nConflitti);
+            daAggiungere = nuovaMappatura.sottrai(ipotesiACuiAttaccarsi.getMappatura());
         }
 
+        ipotesiCorrente = ipotesiACuiAttaccarsi.aggiungiIpotesi(daAggiungere);
         mappaturaCorrente = nuovaMappatura;
         mosse.push(ipotesiCorrente);
+        
         return true;
     }
 
-    public void undo(String m) {
-        mosse.pop().setCommento(m);
+    public void undo(String motivazione) {
+        mosse.pop().setCommento(motivazione);
         ipotesiCorrente = mosse.peek();
         mappaturaCorrente = ipotesiCorrente.getMappatura();
     }
 
-    public MappaturaParziale getStato() {
-
+    public MappaturaParziale getMappaturaCorrente() {
         return new MappaturaParziale(mappaturaCorrente);
     }
 
