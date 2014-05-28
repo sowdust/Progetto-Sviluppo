@@ -48,7 +48,7 @@ public class Sessione {
         return this.id;
     }
 
-    public void save() throws SQLException, IOException {
+    public boolean save() throws SQLException, IOException {
         ByteArrayOutputStream bos = new ByteArrayOutputStream();
         ObjectOutputStream oos = new ObjectOutputStream(bos);
         oos.writeObject(albero);
@@ -56,6 +56,7 @@ public class Sessione {
         DBController dbc = DBController.getInstance();
         String q = "INSERT INTO Sessione (proprietario, messaggio, albero) VALUES (?, ?, ?)";
         id = dbc.executeInsert(q, messaggio.getId(), proprietario.getId(), bos.toByteArray());
+        return id != -1;
     }
 
     public boolean faiAssunzione(MappaturaParziale map) {
@@ -66,13 +67,13 @@ public class Sessione {
         MappaturaParziale map = albero.getStato();
         List<Character> listaCaratteri = messaggio.getSimboli();
         if(map.isCompleta(listaCaratteri)) {
-            return false;
+            throw new IllegalStateException("La mappatura non copre tutti i caratteri usati nel messaggio");
         }
         Soluzione s = new Soluzione(map,messaggio,proprietario);
         if(s.save()) {
            return this.elimina();
         } else {
-            return false;
+            throw new IllegalStateException("Problemi durante il salvataggio della soluzione nel db");
         }
     }
 
