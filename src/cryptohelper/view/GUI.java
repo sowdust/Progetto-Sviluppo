@@ -370,6 +370,11 @@ public class GUI extends javax.swing.JFrame {
 
         jButton4.setText("Rispondi");
         jButton4.setEnabled(false);
+        jButton4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton4ActionPerformed(evt);
+            }
+        });
         jPanel1.add(jButton4);
 
         jButton5.setText("Decifra");
@@ -919,12 +924,12 @@ public class GUI extends javax.swing.JFrame {
             Logger.getLogger(GUI.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_loginButtonActionPerformed
-    
+
     private void goToRegistrationButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_goToRegistrationButtonActionPerformed
         CardLayout cl = (CardLayout) getContentPane().getLayout();
         cl.show(getContentPane(), "card4");
     }//GEN-LAST:event_goToRegistrationButtonActionPerformed
-    
+
     private void metodoCifraturaComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_metodoCifraturaComboBoxActionPerformed
         JComboBox cb = (JComboBox) evt.getSource();
         String metodo = (String) cb.getSelectedItem();
@@ -934,7 +939,7 @@ public class GUI extends javax.swing.JFrame {
             setSdcWidgetEnabled(false);
         }
     }//GEN-LAST:event_metodoCifraturaComboBoxActionPerformed
-    
+
     private void calcolaMappaturaButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_calcolaMappaturaButtonActionPerformed
         String metodo = (String) metodoCifraturaComboBox.getSelectedItem();
         try {
@@ -946,15 +951,15 @@ public class GUI extends javax.swing.JFrame {
             feedbackNuovoSdcLabel.setText(ex.getMessage());
         }
     }//GEN-LAST:event_calcolaMappaturaButtonActionPerformed
-    
+
     private void chiaveCifraturaFieldKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_chiaveCifraturaFieldKeyTyped
         setSdcWidgetEnabled(false);
     }//GEN-LAST:event_chiaveCifraturaFieldKeyTyped
-    
+
     private void provaSdcButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_provaSdcButtonActionPerformed
         risultatoProvaField.setText(guiController.cifra(testoProvaField.getText()));
     }//GEN-LAST:event_provaSdcButtonActionPerformed
-    
+
     private void salvaSdcButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_salvaSdcButtonActionPerformed
         try {
             guiController.salvaSistemaCifratura();
@@ -963,7 +968,7 @@ public class GUI extends javax.swing.JFrame {
             Logger.getLogger(GUI.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_salvaSdcButtonActionPerformed
-    
+
     private void deleteSdcButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteSdcButtonActionPerformed
         try {
             SistemaCifratura sdc = (SistemaCifratura) sdcList.getSelectedValue();
@@ -975,7 +980,7 @@ public class GUI extends javax.swing.JFrame {
             Logger.getLogger(GUI.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_deleteSdcButtonActionPerformed
-    
+
     private void sdcListValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_sdcListValueChanged
         if (evt.getValueIsAdjusting() == false) {
             if (sdcList.getSelectedIndex() == -1) {
@@ -985,7 +990,7 @@ public class GUI extends javax.swing.JFrame {
             }
         }
     }//GEN-LAST:event_sdcListValueChanged
-    
+
     private void proposteInviateValutateListAncestorAdded(javax.swing.event.AncestorEvent evt) {//GEN-FIRST:event_proposteInviateValutateListAncestorAdded
         DefaultListModel<Proposta> dlm = (DefaultListModel<Proposta>) proposteInviateValutateList.getModel();
         List<Proposta> listaProposteValutate = null;
@@ -998,7 +1003,7 @@ public class GUI extends javax.swing.JFrame {
             dlm.addElement(p);
         }
     }//GEN-LAST:event_proposteInviateValutateListAncestorAdded
-    
+
     private void proposteRicevuteValutareListAncestorAdded(javax.swing.event.AncestorEvent evt) {//GEN-FIRST:event_proposteRicevuteValutareListAncestorAdded
         DefaultListModel<Proposta> dlm = (DefaultListModel<Proposta>) proposteRicevuteValutareList.getModel();
         List<Proposta> listaProposte = null;
@@ -1011,7 +1016,7 @@ public class GUI extends javax.swing.JFrame {
             dlm.addElement(p);
         }
     }//GEN-LAST:event_proposteRicevuteValutareListAncestorAdded
-    
+
     private void proposteRicevuteValutareListValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_proposteRicevuteValutareListValueChanged
         if (evt.getValueIsAdjusting() == false) {
             if (proposteRicevuteValutareList.getSelectedIndex() == -1) {
@@ -1023,7 +1028,7 @@ public class GUI extends javax.swing.JFrame {
             }
         }
     }//GEN-LAST:event_proposteRicevuteValutareListValueChanged
-    
+
     private void accettaPropostaButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_accettaPropostaButtonActionPerformed
         try {
             Proposta proposta = (Proposta) proposteRicevuteValutareList.getSelectedValue();
@@ -1035,7 +1040,7 @@ public class GUI extends javax.swing.JFrame {
             Logger.getLogger(GUI.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_accettaPropostaButtonActionPerformed
-    
+
     private void rifiutaPropostaButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rifiutaPropostaButtonActionPerformed
         try {
             Proposta proposta = (Proposta) proposteRicevuteValutareList.getSelectedValue();
@@ -1047,17 +1052,17 @@ public class GUI extends javax.swing.JFrame {
             Logger.getLogger(GUI.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_rifiutaPropostaButtonActionPerformed
-    
+
     private void proposteInviateValutateListAncestorRemoved(javax.swing.event.AncestorEvent evt) {//GEN-FIRST:event_proposteInviateValutateListAncestorRemoved
         DefaultListModel<Proposta> dlm = (DefaultListModel<Proposta>) proposteInviateValutateList.getModel();
         dlm.clear();
     }//GEN-LAST:event_proposteInviateValutateListAncestorRemoved
-    
+
     private void proposteRicevuteValutareListAncestorRemoved(javax.swing.event.AncestorEvent evt) {//GEN-FIRST:event_proposteRicevuteValutareListAncestorRemoved
         DefaultListModel<Proposta> dlm = (DefaultListModel<Proposta>) proposteRicevuteValutareList.getModel();
         dlm.clear();
     }//GEN-LAST:event_proposteRicevuteValutareListAncestorRemoved
-    
+
     private void sdcListAncestorAdded(javax.swing.event.AncestorEvent evt) {//GEN-FIRST:event_sdcListAncestorAdded
         DefaultListModel<SistemaCifratura> dlm = (DefaultListModel<SistemaCifratura>) sdcList.getModel();
         List<SistemaCifratura> listasdc = null;
@@ -1070,12 +1075,12 @@ public class GUI extends javax.swing.JFrame {
             dlm.addElement(sdc);
         }
     }//GEN-LAST:event_sdcListAncestorAdded
-    
+
     private void sdcListAncestorRemoved(javax.swing.event.AncestorEvent evt) {//GEN-FIRST:event_sdcListAncestorRemoved
         DefaultListModel<SistemaCifratura> dlm = (DefaultListModel<SistemaCifratura>) sdcList.getModel();
         dlm.clear();
     }//GEN-LAST:event_sdcListAncestorRemoved
-    
+
     private void messaggiRicevutiListAncestorAdded(javax.swing.event.AncestorEvent evt) {//GEN-FIRST:event_messaggiRicevutiListAncestorAdded
         DefaultListModel<MessaggioDestinatario> dlm = (DefaultListModel<MessaggioDestinatario>) messaggiRicevutiList.getModel();
         List<MessaggioDestinatario> listaMessaggiRicevuti = null;
@@ -1088,12 +1093,12 @@ public class GUI extends javax.swing.JFrame {
             dlm.addElement(m);
         }
     }//GEN-LAST:event_messaggiRicevutiListAncestorAdded
-    
+
     private void messaggiRicevutiListAncestorRemoved(javax.swing.event.AncestorEvent evt) {//GEN-FIRST:event_messaggiRicevutiListAncestorRemoved
         DefaultListModel<MessaggioDestinatario> dlm = (DefaultListModel<MessaggioDestinatario>) messaggiRicevutiList.getModel();
         dlm.clear();
     }//GEN-LAST:event_messaggiRicevutiListAncestorRemoved
-    
+
     private void messaggiInviatiListAncestorAdded(javax.swing.event.AncestorEvent evt) {//GEN-FIRST:event_messaggiInviatiListAncestorAdded
         DefaultListModel<MessaggioMittente> dlm = (DefaultListModel<MessaggioMittente>) messaggiInviatiList.getModel();
         List<MessaggioMittente> listaMessaggiInviati = null;
@@ -1106,12 +1111,12 @@ public class GUI extends javax.swing.JFrame {
             dlm.addElement(m);
         }
     }//GEN-LAST:event_messaggiInviatiListAncestorAdded
-    
+
     private void messaggiInviatiListAncestorRemoved(javax.swing.event.AncestorEvent evt) {//GEN-FIRST:event_messaggiInviatiListAncestorRemoved
         DefaultListModel<MessaggioMittente> dlm = (DefaultListModel<MessaggioMittente>) messaggiInviatiList.getModel();
         dlm.clear();
     }//GEN-LAST:event_messaggiInviatiListAncestorRemoved
-    
+
     private void jButton10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton10ActionPerformed
         try {
             Messaggio daCancellare = (Messaggio) messaggiRicevutiList.getSelectedValue();
@@ -1124,7 +1129,7 @@ public class GUI extends javax.swing.JFrame {
             System.out.println(e.getMessage());
         }
     }//GEN-LAST:event_jButton10ActionPerformed
-    
+
     private void messaggiRicevutiListValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_messaggiRicevutiListValueChanged
         if (evt.getValueIsAdjusting() == false) {
             if (messaggiRicevutiList.getSelectedIndex() == -1) {
@@ -1141,7 +1146,7 @@ public class GUI extends javax.swing.JFrame {
             }
         }
     }//GEN-LAST:event_messaggiRicevutiListValueChanged
-    
+
     private void sdcNonPropostiListAncestorAdded(javax.swing.event.AncestorEvent evt) {//GEN-FIRST:event_sdcNonPropostiListAncestorAdded
         DefaultListModel<SistemaCifratura> dlm = (DefaultListModel<SistemaCifratura>) sdcNonPropostiList.getModel();
         List<SistemaCifratura> listasdc = null;
@@ -1154,12 +1159,12 @@ public class GUI extends javax.swing.JFrame {
             dlm.addElement(sdc);
         }
     }//GEN-LAST:event_sdcNonPropostiListAncestorAdded
-    
+
     private void sdcNonPropostiListAncestorRemoved(javax.swing.event.AncestorEvent evt) {//GEN-FIRST:event_sdcNonPropostiListAncestorRemoved
         DefaultListModel<SistemaCifratura> dlm = (DefaultListModel<SistemaCifratura>) sdcNonPropostiList.getModel();
         dlm.clear();
     }//GEN-LAST:event_sdcNonPropostiListAncestorRemoved
-    
+
     private void compagniListAncestorAdded(javax.swing.event.AncestorEvent evt) {//GEN-FIRST:event_compagniListAncestorAdded
         DefaultListModel<Studente> dlm = (DefaultListModel<Studente>) compagniList.getModel();
         List<Studente> listaCompagni = null;
@@ -1172,12 +1177,12 @@ public class GUI extends javax.swing.JFrame {
             dlm.addElement(st);
         }
     }//GEN-LAST:event_compagniListAncestorAdded
-    
+
     private void compagniListAncestorRemoved(javax.swing.event.AncestorEvent evt) {//GEN-FIRST:event_compagniListAncestorRemoved
         DefaultListModel<SistemaCifratura> dlm = (DefaultListModel<SistemaCifratura>) compagniList.getModel();
         dlm.clear();
     }//GEN-LAST:event_compagniListAncestorRemoved
-    
+
     private void sdcNonPropostiListValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_sdcNonPropostiListValueChanged
         if (evt.getValueIsAdjusting() == false) {
             if (sdcNonPropostiList.getSelectedIndex() == -1 || compagniList.getSelectedIndex() == -1) {
@@ -1187,7 +1192,7 @@ public class GUI extends javax.swing.JFrame {
             }
         }
     }//GEN-LAST:event_sdcNonPropostiListValueChanged
-    
+
     private void compagniListValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_compagniListValueChanged
         if (evt.getValueIsAdjusting() == false) {
             if (sdcNonPropostiList.getSelectedIndex() == -1 || compagniList.getSelectedIndex() == -1) {
@@ -1197,7 +1202,7 @@ public class GUI extends javax.swing.JFrame {
             }
         }
     }//GEN-LAST:event_compagniListValueChanged
-    
+
     private void inviaPropostaButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_inviaPropostaButtonActionPerformed
         SistemaCifratura sdc = (SistemaCifratura) sdcNonPropostiList.getSelectedValue();
         Studente st = (Studente) compagniList.getSelectedValue();
@@ -1211,7 +1216,7 @@ public class GUI extends javax.swing.JFrame {
             Logger.getLogger(GUI.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_inviaPropostaButtonActionPerformed
-    
+
     private void jComboBox2AncestorAdded(javax.swing.event.AncestorEvent evt) {//GEN-FIRST:event_jComboBox2AncestorAdded
         DefaultComboBoxModel<UserInfo> dlm = (DefaultComboBoxModel<UserInfo>) jComboBox2.getModel();
         List<UserInfo> listaDestinatari = null;
@@ -1228,7 +1233,7 @@ public class GUI extends javax.swing.JFrame {
         jComboBox2.setSelectedIndex(-1);
         jComboBox2.addActionListener(myListeners[0]);
     }//GEN-LAST:event_jComboBox2AncestorAdded
-    
+
     private void jComboBox2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox2ActionPerformed
         UserInfo destinatario = (UserInfo) jComboBox2.getSelectedItem();
         if (destinatario != null) {
@@ -1244,7 +1249,7 @@ public class GUI extends javax.swing.JFrame {
             jButton1.setEnabled(true);
         }
     }//GEN-LAST:event_jComboBox2ActionPerformed
-    
+
     private void jComboBox2AncestorRemoved(javax.swing.event.AncestorEvent evt) {//GEN-FIRST:event_jComboBox2AncestorRemoved
         //salvaBozza(); //TODO
         setMessaggioEnabled(false);
@@ -1252,7 +1257,7 @@ public class GUI extends javax.swing.JFrame {
         DefaultComboBoxModel<UserInfo> dlm = (DefaultComboBoxModel<UserInfo>) jComboBox2.getModel();
         dlm.removeAllElements();
     }//GEN-LAST:event_jComboBox2AncestorRemoved
-    
+
     private void jButton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton8ActionPerformed
         try {
             messaggio.setTesto(jTextArea5.getText());
@@ -1264,7 +1269,7 @@ public class GUI extends javax.swing.JFrame {
         }
         jButton7.setEnabled(true);
     }//GEN-LAST:event_jButton8ActionPerformed
-    
+
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         try {
             messaggio.setTitolo(jTextField4.getText());
@@ -1281,7 +1286,7 @@ public class GUI extends javax.swing.JFrame {
             System.out.println(e.getMessage());
         }
     }//GEN-LAST:event_jButton1ActionPerformed
-    
+
     private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
         try {
             messaggio.setTitolo(jTextField4.getText());
@@ -1296,7 +1301,7 @@ public class GUI extends javax.swing.JFrame {
             System.out.println(e.getMessage());
         }
     }//GEN-LAST:event_jButton7ActionPerformed
-    
+
     private void messaggiInviatiListValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_messaggiInviatiListValueChanged
         if (evt.getValueIsAdjusting() == false) {
             if (messaggiInviatiList.getSelectedIndex() == -1) {
@@ -1309,7 +1314,7 @@ public class GUI extends javax.swing.JFrame {
             }
         }
     }//GEN-LAST:event_messaggiInviatiListValueChanged
-    
+
     private void jButton12ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton12ActionPerformed
         try {
             Messaggio daCancellare = (Messaggio) messaggiInviatiList.getSelectedValue();
@@ -1322,7 +1327,7 @@ public class GUI extends javax.swing.JFrame {
             System.out.println(e.getMessage());
         }
     }//GEN-LAST:event_jButton12ActionPerformed
-    
+
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         DefaultListModel<MessaggioDestinatario> dlm = (DefaultListModel<MessaggioDestinatario>) messaggiRicevutiList.getModel();
         dlm.clear();
@@ -1336,7 +1341,7 @@ public class GUI extends javax.swing.JFrame {
             dlm.addElement(m);
         }
     }//GEN-LAST:event_jButton3ActionPerformed
-    
+
     private void messaggiBozzaListAncestorAdded(javax.swing.event.AncestorEvent evt) {//GEN-FIRST:event_messaggiBozzaListAncestorAdded
         DefaultListModel<MessaggioMittente> dlm = (DefaultListModel<MessaggioMittente>) messaggiBozzaList.getModel();
         List<MessaggioMittente> listaBozze = null;
@@ -1349,12 +1354,12 @@ public class GUI extends javax.swing.JFrame {
             dlm.addElement(m);
         }
     }//GEN-LAST:event_messaggiBozzaListAncestorAdded
-    
+
     private void messaggiBozzaListAncestorRemoved(javax.swing.event.AncestorEvent evt) {//GEN-FIRST:event_messaggiBozzaListAncestorRemoved
         DefaultListModel<MessaggioMittente> dlm = (DefaultListModel<MessaggioMittente>) messaggiBozzaList.getModel();
         dlm.removeAllElements();
     }//GEN-LAST:event_messaggiBozzaListAncestorRemoved
-    
+
     private void jButton15ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton15ActionPerformed
         MessaggioMittente daCancellare = (Messaggio) messaggiBozzaList.getSelectedValue();
         DefaultListModel<MessaggioMittente> dlm = (DefaultListModel<MessaggioMittente>) messaggiBozzaList.getModel();
@@ -1367,7 +1372,7 @@ public class GUI extends javax.swing.JFrame {
             System.out.println(e.getMessage());
         }
     }//GEN-LAST:event_jButton15ActionPerformed
-    
+
     private void messaggiBozzaListValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_messaggiBozzaListValueChanged
         if (evt.getValueIsAdjusting() == false) {
             if (messaggiBozzaList.getSelectedIndex() == -1) {
@@ -1379,13 +1384,14 @@ public class GUI extends javax.swing.JFrame {
             }
         }
     }//GEN-LAST:event_messaggiBozzaListValueChanged
-    
+
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
         try {
             Messaggio oraLetto = (Messaggio) messaggiRicevutiList.getSelectedValue();
             int indiceLetto = messaggiRicevutiList.getSelectedIndex();
             guiController.decifraMessaggio(oraLetto);
             oraLetto.setLetto(true);
+            oraLetto.save();
             jTextArea1.setText(oraLetto.getTesto());
             DefaultListModel<MessaggioDestinatario> dlm = (DefaultListModel<MessaggioDestinatario>) messaggiRicevutiList.getModel();
             dlm.set(indiceLetto, oraLetto);
@@ -1393,14 +1399,19 @@ public class GUI extends javax.swing.JFrame {
             System.out.println(e.getMessage());
         }
     }//GEN-LAST:event_jButton5ActionPerformed
-    
+
+    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+        jTabbedPane2.setSelectedIndex(3);
+        jComboBox2
+    }//GEN-LAST:event_jButton4ActionPerformed
+
     private void setSdcWidgetEnabled(boolean b) {
         provaSdcButton.setEnabled(b);
         salvaSdcButton.setEnabled(b);
         testoProvaField.setEnabled(b);
         risultatoProvaField.setEnabled(b);
     }
-    
+
     private void setMessaggioEnabled(boolean b) {
         jLabel8.setEnabled(b);
         jTextField4.setEnabled(b);
@@ -1413,7 +1424,7 @@ public class GUI extends javax.swing.JFrame {
         jTextArea6.setText("");
         jTextField4.setText("");
     }
-    
+
     private final GUIController guiController = GUIController.getInstance();
     private Messaggio messaggio = null;
     // Variables declaration - do not modify//GEN-BEGIN:variables
