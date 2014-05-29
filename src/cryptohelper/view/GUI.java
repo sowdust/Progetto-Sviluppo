@@ -534,6 +534,8 @@ public class GUI extends javax.swing.JFrame {
 
         jPanel25.setLayout(new java.awt.BorderLayout());
 
+        jScrollPane8.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+
         jTextArea5.setColumns(20);
         jTextArea5.setRows(5);
         jTextArea5.setEnabled(false);
@@ -547,6 +549,7 @@ public class GUI extends javax.swing.JFrame {
 
         jTextArea6.setEditable(false);
         jTextArea6.setColumns(20);
+        jTextArea6.setLineWrap(true);
         jTextArea6.setRows(5);
         jTextArea6.setEnabled(false);
         jScrollPane14.setViewportView(jTextArea6);
@@ -1197,6 +1200,7 @@ public class GUI extends javax.swing.JFrame {
     private void jComboBox2AncestorRemoved(javax.swing.event.AncestorEvent evt) {//GEN-FIRST:event_jComboBox2AncestorRemoved
         //salvaBozza(); //TODO
         setMessaggioEnabled(false);
+        jLabel9.setText("Scegli un destinatario");
         DefaultComboBoxModel<UserInfo> dlm = (DefaultComboBoxModel<UserInfo>) jComboBox2.getModel();
         dlm.removeAllElements();
     }//GEN-LAST:event_jComboBox2AncestorRemoved
@@ -1228,7 +1232,13 @@ public class GUI extends javax.swing.JFrame {
 
     private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
         try {
-            guiController.spedisciMessaggio(messaggio);
+            boolean b = guiController.spedisciMessaggio(messaggio);
+            if (b == false) {
+                jLabel9.setText("Errore nell'invio del messaggio!");
+            } else {
+                jLabel9.setText("Messaggio Inviato! Scegli un altro destinatario");
+                setMessaggioEnabled(false);
+            }
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
