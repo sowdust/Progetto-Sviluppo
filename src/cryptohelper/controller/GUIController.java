@@ -155,7 +155,8 @@ public class GUIController {
         return messaggio.save();
     }
 
-    public void spedisciMessaggio(Messaggio messaggio) {
-        send(messaggio);
+    public boolean spedisciMessaggio(Messaggio messaggio) throws SQLException {
+        CommunicationController cc = CommunicationController.getInstance();
+        return cc.send(messaggio);
     }
 }
