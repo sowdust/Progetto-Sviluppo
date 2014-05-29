@@ -1,1 +1,28 @@
-i nostri uc3 sono davvero i migliori! 
+- una breve descrizione di come vedete il meccanismo a sfide (come se doveste “vendere” 
+il prodotto a degli utenti e voleste spiegar loro come funzionerà e perché voi credete che sia una buona soluzione)
+
+Le sfide in "a-cryptohelper" sono organizzate in 3 livelli di difficoltà: facile, normale e difficile. 
+In "facile", potrai aiutarti con la conoscenza della lingua e dei caratteri speciali all'interno del testo
+che vuoi decifrare, così come del mittente e del destinatario.
+In "normale", tutte queste informazioni non ti saranno note. Ma non temere! Il software ti fornirà se possibile un 
+messaggio i cui interlocutori già conosci, avendo decifrato altre loro conversazioni. Forse la conoscenza
+delle loro abitudini in fatto di crittografia potrebbe aiutarti nel tuo obiettivo...
+In "difficile", avrai accesso alla sfida più complessa e più stimolante. Prova a ricostruire un messaggio
+casuale, appositamente scelto per te che vuoi scoprire i tuoi limiti!
+Inoltre, ogni giorno il sistema sceglierà un brano complesso da decifrare. Tenta di scoprirne il significato!
+Se vi riesci, invia la tua soluzione! Ti verrà assegnato un punteggio in base a quanto ti sei avvicinato alla verità,
+e a quanti tentativi ti sono stati necessari. Se alla fine della giornata il tuo punteggio risulterà tra i più alti,
+avrai la possibilità di scegliere il prossimo messaggio che vuoi decifrare! Questo potrebbe aiutarti se
+due utenti particolarmente attenti e il loro stile di cifratura ti stanno dando del filo da torcere...
+
+Il nostro meccanismo di sfide invoglia gli utenti a lavorare in modo costante e via via più raffinato.
+Gli analisti in erba vorranno fare pratica con il livello "facile", in modo da impratichirsi con il software
+e costruire un "pool" di messaggi risolti. Questo tornerà loro comodo quando affronteranno il livello "normale": 
+avendo la possibilità di utilizzare i messaggi già risolti come punto di partenza per decifrarne altri,
+noteranno che possono decifrare interi scambi tra utenti, nel caso quelli non abbiano mai cambiato
+sistema di cifratura. Ma essendo il nostro software contemporaneamente un piccolo client per la messaggistica
+e uno strumento per il supporto alla decifratura di tali messaggi, saranno gli utenti stessi a variare
+più spesso i loro sistemi di cifratura, fatta questa scoperta. Questo migliorerà anche le loro abitudini in merito alla sicurezza
+informatica in generale. Una volta esperti, possono affrontare il livello "difficile", in cui non hanno più punti
+di riferimento. In questa difficoltà vengono scartati i messaggi in sistema di cifratura "di cesare", in quanto
+banali da decifrare in modo "astratto".
