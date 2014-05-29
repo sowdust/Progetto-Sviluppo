@@ -71,15 +71,6 @@ public class MappaturaParziale implements Serializable {
                 --i;
             }
         }
-<<<<<<< HEAD
-        // ora aggiungiamo risolvendo i contaConflitti
-        for(int i = 0; i < m.map.size(); ++i ) {
-            int k = r.map.indexOf(m.map.get(i));
-            int j = r.inverseMap.indexOf(m.inverseMap.get(i));
-            
-            // se non ci sono contaConflitti
-            if(k == -1 && j == -1) {
-=======
         // ora aggiungiamo risolvendo i conflitti
         for (int i = 0; i < m.map.size(); ++i) {
             int k = r.map.indexOf(m.map.get(i));
@@ -87,7 +78,6 @@ public class MappaturaParziale implements Serializable {
 
             // se non ci sono conflitti
             if (k == -1 && j == -1) {
->>>>>>> 4d7f47a118bab43057827ac372622f794a978f88
                 r.map.add(m.map.get(i));
                 r.inverseMap.add(m.inverseMap.get(i));
                 continue;
@@ -181,13 +171,9 @@ public class MappaturaParziale implements Serializable {
         }
         return false;
     }
-<<<<<<< HEAD
     
     public int contaConflitti(MappaturaParziale m) {
-=======
 
-    public int conflitti(MappaturaParziale m) {
->>>>>>> 4d7f47a118bab43057827ac372622f794a978f88
         int conflitti = 0;
         for (int i = 0; i < m.map.size(); ++i) {
             int k = map.indexOf(m.map.get(i));
@@ -255,7 +241,6 @@ public class MappaturaParziale implements Serializable {
     public boolean isEmpty() {
         return map.isEmpty();
     }
-<<<<<<< HEAD
     
     public boolean isCompleta(List<Character> listaCaratteri) {
         for(char c : listaCaratteri) {
@@ -274,18 +259,13 @@ public class MappaturaParziale implements Serializable {
         return s;
     }
     
-=======
 
->>>>>>> 4d7f47a118bab43057827ac372622f794a978f88
     @Override
     public boolean equals(Object m) {
         return this.equals((MappaturaParziale) m);
     }
 
-<<<<<<< HEAD
-    
-=======
->>>>>>> 4d7f47a118bab43057827ac372622f794a978f88
+
     @Override
     public String toString() {
         if (map.isEmpty()) {
@@ -342,16 +322,4 @@ public class MappaturaParziale implements Serializable {
     }
 */    
 
-=======
-     // mi dice se una lettera della mappatura m è già assegnata in this
-     public boolean giaAssegnata(MappaturaParziale m) {
-     for(char c : m.inverseMap) {
-     if(inverseMap.indexOf(c) != -1) {
-     return true;
-     }
-     }
-     return false;
-     }
-     */
->>>>>>> 4d7f47a118bab43057827ac372622f794a978f88
 }
