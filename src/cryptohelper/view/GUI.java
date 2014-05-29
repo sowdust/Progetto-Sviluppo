@@ -29,6 +29,7 @@ import cryptohelper.model.UserInfo;
 import java.awt.CardLayout;
 import java.awt.event.ActionListener;
 import java.awt.event.ItemListener;
+import static java.lang.Thread.sleep;
 import java.sql.SQLException;
 import java.util.List;
 import java.util.logging.Level;
@@ -470,6 +471,11 @@ public class GUI extends javax.swing.JFrame {
         jPanel15.add(jScrollPane13, java.awt.BorderLayout.CENTER);
 
         jButton14.setText("Componi");
+        jButton14.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton14ActionPerformed(evt);
+            }
+        });
         jPanel16.add(jButton14);
 
         jButton15.setText("Elimina");
@@ -1230,7 +1236,21 @@ public class GUI extends javax.swing.JFrame {
         for (UserInfo ui : listaDestinatari) {
             dlm.addElement(ui);
         }
-        jComboBox2.setSelectedIndex(-1);
+        if (idDestinatario != -1) {
+            for (int i = 0; i < jComboBox2.getItemCount(); i++) {
+                if (((UserInfo) jComboBox2.getItemAt(i)).getId() == idDestinatario) {
+                    jComboBox2.setSelectedIndex(i);
+                    jComboBox2ActionPerformed(null);
+                    if (titoloBozza != null) {
+                        jTextField4.setText(titoloBozza);
+                        titoloBozza = null;
+                    }
+                    idDestinatario = -1;
+                }
+            }
+        } else {
+            jComboBox2.setSelectedIndex(-1);
+        }
         jComboBox2.addActionListener(myListeners[0]);
     }//GEN-LAST:event_jComboBox2AncestorAdded
 
@@ -1401,9 +1421,15 @@ public class GUI extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton5ActionPerformed
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+        idDestinatario = ((Messaggio) messaggiRicevutiList.getSelectedValue()).getMittente().getId();
         jTabbedPane2.setSelectedIndex(3);
-        jComboBox2
     }//GEN-LAST:event_jButton4ActionPerformed
+
+    private void jButton14ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton14ActionPerformed
+        idDestinatario = ((Messaggio) messaggiBozzaList.getSelectedValue()).getDestinatario().getId();
+        titoloBozza = ((Messaggio) messaggiBozzaList.getSelectedValue()).getTitolo();
+        jTabbedPane2.setSelectedIndex(3);
+    }//GEN-LAST:event_jButton14ActionPerformed
 
     private void setSdcWidgetEnabled(boolean b) {
         provaSdcButton.setEnabled(b);
@@ -1427,6 +1453,8 @@ public class GUI extends javax.swing.JFrame {
 
     private final GUIController guiController = GUIController.getInstance();
     private Messaggio messaggio = null;
+    private int idDestinatario = -1;
+    private String titoloBozza = null;
     // Variables declaration - do not modify//GEN-BEGIN:variables
     javax.swing.JButton accettaPropostaButton;
     javax.swing.JButton calcolaMappaturaButton;

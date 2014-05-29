@@ -242,7 +242,14 @@ public class Messaggio implements MessaggioMittente, MessaggioDestinatario {
         } else {
             this.titolo = titolo;
         }
+    }
 
+    public UserInfo getMittente() {
+        return this.mittente;
+    }
+
+    public UserInfo getDestinatario() {
+        return this.destinatario;
     }
 
 }
