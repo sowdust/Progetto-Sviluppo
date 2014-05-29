@@ -54,6 +54,7 @@ public class AlberoIpotesi implements Serializable {
             return false;
         }
 
+<<<<<<< HEAD
         int nConflitti = mappaturaCorrente.contaConflitti(nuoveAssunzioni);
         Ipotesi ipotesiACuiAttaccarsi;
         List<Character> listaDaRimuovere = nuoveAssunzioni.filtraDaRimuovere();
@@ -68,6 +69,17 @@ public class AlberoIpotesi implements Serializable {
 
             ipotesiACuiAttaccarsi = ipotesiCorrente.trovaConflitto(nuoveAssunzioni,listaDaRimuovere,nConflitti);
             daAggiungere = nuovaMappatura.sottrai(ipotesiACuiAttaccarsi.getMappatura());
+=======
+        if (conflitti == 0 && !daRimuovere) {
+            //  Se non vi sono conflitti o lettere da rimuovere, semplice aggiunta d'ipotesi
+            ipotesiCorrente = ipotesiCorrente.aggiungiIpotesi(map);
+
+        } else {
+            // Se vi sono conflitti/rimozioni, prima è necessario cercare il nodo a cui attaccarsi
+            Ipotesi aCuiAttaccarsi = ipotesiCorrente.trovaConflitto(map, listaDaRimuovere, conflitti, daRimuovere);
+            MappaturaParziale daAggiungere = nuovaMappatura.sottrai(aCuiAttaccarsi.getStato());
+            ipotesiCorrente = aCuiAttaccarsi.aggiungiIpotesi(daAggiungere);
+>>>>>>> 4d7f47a118bab43057827ac372622f794a978f88
         }
 
         ipotesiCorrente = ipotesiACuiAttaccarsi.aggiungiIpotesi(daAggiungere);

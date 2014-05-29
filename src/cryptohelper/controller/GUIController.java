@@ -137,4 +137,26 @@ public class GUIController {
         return CommunicationController.getInstance().inviaProposta(studente, st, sdc);
     }
 
+    public void cifraMessaggio(Messaggio messaggio) throws SQLException {
+        messaggio.cifra();
+    }
+
+    public Messaggio creaMessaggio() {
+        return new Messaggio(studente);
+    }
+
+    public List<UserInfo> elencaDestinatari() throws SQLException {
+        CommunicationController cc = CommunicationController.getInstance();
+        List<UserInfo> result = cc.getDestinatari(studente);
+        return result;
+    }
+
+    public boolean salvaMessaggioBozza(Messaggio messaggio) throws SQLException {
+        return messaggio.save();
+    }
+
+    public boolean spedisciMessaggio(Messaggio messaggio) throws SQLException {
+        CommunicationController cc = CommunicationController.getInstance();
+        return cc.send(messaggio);
+    }
 }
