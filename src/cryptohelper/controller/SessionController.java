@@ -1,8 +1,10 @@
 package cryptohelper.controller;
 
 import cryptohelper.model.MappaturaParziale;
+import cryptohelper.model.Messaggio;
 import cryptohelper.model.Sessione;
-import cryptohelper.model.Studente;
+import cryptohelper.model.Soluzione;
+import cryptohelper.model.UserInfo;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -34,7 +36,7 @@ public class SessionController {
         return s.save();
     }
     
-    public List<Sessione> mostraSessioni(Studente studente) throws SQLException, IOException, ClassNotFoundException {
+    public List<Sessione> mostraSessioni(UserInfo studente) throws SQLException, IOException, ClassNotFoundException {
         DBController dbc = DBController.getInstance();
         CachedRowSet crs = dbc.execute("SELECT * FROM crypto_user.Sessione WHERE proprietario = ?", studente.getId());
         List<Sessione> listaSessioni = new ArrayList<>();
@@ -45,19 +47,33 @@ public class SessionController {
         
     }
     
+    public Sessione creaSessione(UserInfo proprietario, Messaggio messaggio) {
+        return new Sessione(proprietario, messaggio);
+    }
+    
+    public Sessione caricaSessione(int id) throws SQLException, IOException, ClassNotFoundException {
+        return Sessione.load(id);
+    }
+    
+    public boolean eliminaSessione(Sessione s) throws SQLException {
+        return s.elimina();
+    }
+    
+    public List<Soluzione> mostraSoluzioni(UserInfo st1, UserInfo st2) {
+        throw new UnsupportedOperationException();        
+    }
+    
     public boolean salvaSoluzione(Sessione s) throws SQLException {
         return s.salvaSoluzione();
     }
     
-    public Sessione caricaSessione(int id) {
-        try {
-            return Sessione.load(id);
-        }catch(IOException | ClassNotFoundException | SQLException e) {
-            throw new RuntimeException("Eccezione " + e.toString() + "\n" + e.getMessage());
-        }
+    public Soluzione caricaSoluzione() {
+        throw new UnsupportedOperationException();        
     }
     
-
+    public boolean eliminaSoluzione() {
+        throw new UnsupportedOperationException();        
+    }
     
 
 }
