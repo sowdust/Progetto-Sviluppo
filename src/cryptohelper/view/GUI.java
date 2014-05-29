@@ -16,18 +16,24 @@
  */
 package cryptohelper.view;
 
+import cryptohelper.controller.DBController;
 import cryptohelper.controller.GUIController;
 import cryptohelper.model.Mappatura;
+import cryptohelper.model.Messaggio;
 import cryptohelper.model.MessaggioDestinatario;
 import cryptohelper.model.MessaggioMittente;
 import cryptohelper.model.Proposta;
 import cryptohelper.model.SistemaCifratura;
 import cryptohelper.model.Studente;
+import cryptohelper.model.UserInfo;
 import java.awt.CardLayout;
+import java.awt.event.ActionListener;
+import java.awt.event.ItemListener;
 import java.sql.SQLException;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.DefaultListModel;
 import javax.swing.JComboBox;
 
@@ -44,6 +50,7 @@ public class GUI extends javax.swing.JFrame {
         initComponents();
         //getRootPane().setDefaultButton(loginButton);
         metodoCifraturaComboBox.setSelectedIndex(-1);
+        jComboBox2.setSelectedIndex(-1);
     }
 
     /**
@@ -113,11 +120,15 @@ public class GUI extends javax.swing.JFrame {
         jButton15 = new javax.swing.JButton();
         messaggiCreaPanel = new javax.swing.JPanel();
         jPanel19 = new javax.swing.JPanel();
+        jTextField4 = new javax.swing.JTextField();
+        jLabel7 = new javax.swing.JLabel();
+        jComboBox2 = new javax.swing.JComboBox();
+        jLabel8 = new javax.swing.JLabel();
         jPanel18 = new javax.swing.JPanel();
         jPanel22 = new javax.swing.JPanel();
         jPanel21 = new javax.swing.JPanel();
+        jButton8 = new javax.swing.JButton();
         jButton7 = new javax.swing.JButton();
-        jButton6 = new javax.swing.JButton();
         jButton1 = new javax.swing.JButton();
         jPanel23 = new javax.swing.JPanel();
         jPanel25 = new javax.swing.JPanel();
@@ -306,13 +317,13 @@ public class GUI extends javax.swing.JFrame {
             }
         });
         messaggiRicevutiList.addAncestorListener(new javax.swing.event.AncestorListener() {
-            public void ancestorMoved(javax.swing.event.AncestorEvent evt) {
-            }
             public void ancestorAdded(javax.swing.event.AncestorEvent evt) {
                 messaggiRicevutiListAncestorAdded(evt);
             }
             public void ancestorRemoved(javax.swing.event.AncestorEvent evt) {
                 messaggiRicevutiListAncestorRemoved(evt);
+            }
+            public void ancestorMoved(javax.swing.event.AncestorEvent evt) {
             }
         });
         jScrollPane6.setViewportView(messaggiRicevutiList);
@@ -367,13 +378,13 @@ public class GUI extends javax.swing.JFrame {
 
         messaggiInviatiList.setModel(new javax.swing.DefaultListModel<MessaggioMittente>());
         messaggiInviatiList.addAncestorListener(new javax.swing.event.AncestorListener() {
-            public void ancestorMoved(javax.swing.event.AncestorEvent evt) {
-            }
             public void ancestorAdded(javax.swing.event.AncestorEvent evt) {
                 messaggiInviatiListAncestorAdded(evt);
             }
             public void ancestorRemoved(javax.swing.event.AncestorEvent evt) {
                 messaggiInviatiListAncestorRemoved(evt);
+            }
+            public void ancestorMoved(javax.swing.event.AncestorEvent evt) {
             }
         });
         jScrollPane11.setViewportView(messaggiInviatiList);
@@ -430,16 +441,50 @@ public class GUI extends javax.swing.JFrame {
 
         messaggiCreaPanel.setLayout(new javax.swing.BoxLayout(messaggiCreaPanel, javax.swing.BoxLayout.PAGE_AXIS));
 
-        javax.swing.GroupLayout jPanel19Layout = new javax.swing.GroupLayout(jPanel19);
-        jPanel19.setLayout(jPanel19Layout);
-        jPanel19Layout.setHorizontalGroup(
-            jPanel19Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 596, Short.MAX_VALUE)
-        );
-        jPanel19Layout.setVerticalGroup(
-            jPanel19Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 185, Short.MAX_VALUE)
-        );
+        jPanel19.setLayout(new java.awt.GridBagLayout());
+
+        jTextField4.setEnabled(false);
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 2;
+        gridBagConstraints.gridy = 2;
+        gridBagConstraints.ipadx = 226;
+        jPanel19.add(jTextField4, gridBagConstraints);
+
+        jLabel7.setText("Destinatario:");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 0;
+        jPanel19.add(jLabel7, gridBagConstraints);
+
+        jComboBox2.setModel(new javax.swing.DefaultComboBoxModel<UserInfo>());
+        jComboBox2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jComboBox2ActionPerformed(evt);
+            }
+        });
+        jComboBox2.addAncestorListener(new javax.swing.event.AncestorListener() {
+            public void ancestorAdded(javax.swing.event.AncestorEvent evt) {
+                jComboBox2AncestorAdded(evt);
+            }
+            public void ancestorRemoved(javax.swing.event.AncestorEvent evt) {
+                jComboBox2AncestorRemoved(evt);
+            }
+            public void ancestorMoved(javax.swing.event.AncestorEvent evt) {
+            }
+        });
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 2;
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.ipadx = 216;
+        jPanel19.add(jComboBox2, gridBagConstraints);
+
+        jLabel8.setText("Titolo:");
+        jLabel8.setEnabled(false);
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 2;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_START;
+        jPanel19.add(jLabel8, gridBagConstraints);
 
         messaggiCreaPanel.add(jPanel19);
 
@@ -448,13 +493,21 @@ public class GUI extends javax.swing.JFrame {
         jPanel22.setLayout(new javax.swing.BoxLayout(jPanel22, javax.swing.BoxLayout.PAGE_AXIS));
         jPanel18.add(jPanel22, java.awt.BorderLayout.PAGE_START);
 
+        jButton8.setText("Cifra");
+        jButton8.setEnabled(false);
+        jButton8.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton8ActionPerformed(evt);
+            }
+        });
+        jPanel21.add(jButton8);
+
         jButton7.setText("Invia");
+        jButton7.setEnabled(false);
         jPanel21.add(jButton7);
 
-        jButton6.setText("Elimina");
-        jPanel21.add(jButton6);
-
         jButton1.setText("Salva come Bozza");
+        jButton1.setEnabled(false);
         jPanel21.add(jButton1);
 
         jPanel18.add(jPanel21, java.awt.BorderLayout.PAGE_END);
@@ -465,6 +518,7 @@ public class GUI extends javax.swing.JFrame {
 
         jTextArea5.setColumns(20);
         jTextArea5.setRows(5);
+        jTextArea5.setEnabled(false);
         jScrollPane8.setViewportView(jTextArea5);
 
         jPanel25.add(jScrollPane8, java.awt.BorderLayout.CENTER);
@@ -475,6 +529,7 @@ public class GUI extends javax.swing.JFrame {
 
         jTextArea6.setColumns(20);
         jTextArea6.setRows(5);
+        jTextArea6.setEnabled(false);
         jScrollPane14.setViewportView(jTextArea6);
 
         jPanel24.add(jScrollPane14, java.awt.BorderLayout.CENTER);
@@ -531,13 +586,13 @@ public class GUI extends javax.swing.JFrame {
             }
         });
         proposteRicevuteValutareList.addAncestorListener(new javax.swing.event.AncestorListener() {
-            public void ancestorMoved(javax.swing.event.AncestorEvent evt) {
-            }
             public void ancestorAdded(javax.swing.event.AncestorEvent evt) {
                 proposteRicevuteValutareListAncestorAdded(evt);
             }
             public void ancestorRemoved(javax.swing.event.AncestorEvent evt) {
                 proposteRicevuteValutareListAncestorRemoved(evt);
+            }
+            public void ancestorMoved(javax.swing.event.AncestorEvent evt) {
             }
         });
         jScrollPane1.setViewportView(proposteRicevuteValutareList);
@@ -551,13 +606,13 @@ public class GUI extends javax.swing.JFrame {
         proposteInviateValutateList.setModel(new javax.swing.DefaultListModel<Proposta>());
         proposteInviateValutateList.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         proposteInviateValutateList.addAncestorListener(new javax.swing.event.AncestorListener() {
-            public void ancestorMoved(javax.swing.event.AncestorEvent evt) {
-            }
             public void ancestorAdded(javax.swing.event.AncestorEvent evt) {
                 proposteInviateValutateListAncestorAdded(evt);
             }
             public void ancestorRemoved(javax.swing.event.AncestorEvent evt) {
                 proposteInviateValutateListAncestorRemoved(evt);
+            }
+            public void ancestorMoved(javax.swing.event.AncestorEvent evt) {
             }
         });
         jScrollPane4.setViewportView(proposteInviateValutateList);
@@ -594,13 +649,13 @@ public class GUI extends javax.swing.JFrame {
             }
         });
         sdcNonPropostiList.addAncestorListener(new javax.swing.event.AncestorListener() {
-            public void ancestorMoved(javax.swing.event.AncestorEvent evt) {
-            }
             public void ancestorAdded(javax.swing.event.AncestorEvent evt) {
                 sdcNonPropostiListAncestorAdded(evt);
             }
             public void ancestorRemoved(javax.swing.event.AncestorEvent evt) {
                 sdcNonPropostiListAncestorRemoved(evt);
+            }
+            public void ancestorMoved(javax.swing.event.AncestorEvent evt) {
             }
         });
         jScrollPane3.setViewportView(sdcNonPropostiList);
@@ -622,13 +677,13 @@ public class GUI extends javax.swing.JFrame {
             }
         });
         compagniList.addAncestorListener(new javax.swing.event.AncestorListener() {
-            public void ancestorMoved(javax.swing.event.AncestorEvent evt) {
-            }
             public void ancestorAdded(javax.swing.event.AncestorEvent evt) {
                 compagniListAncestorAdded(evt);
             }
             public void ancestorRemoved(javax.swing.event.AncestorEvent evt) {
                 compagniListAncestorRemoved(evt);
+            }
+            public void ancestorMoved(javax.swing.event.AncestorEvent evt) {
             }
         });
         jScrollPane5.setViewportView(compagniList);
@@ -657,13 +712,13 @@ public class GUI extends javax.swing.JFrame {
             }
         });
         sdcList.addAncestorListener(new javax.swing.event.AncestorListener() {
-            public void ancestorMoved(javax.swing.event.AncestorEvent evt) {
-            }
             public void ancestorAdded(javax.swing.event.AncestorEvent evt) {
                 sdcListAncestorAdded(evt);
             }
             public void ancestorRemoved(javax.swing.event.AncestorEvent evt) {
                 sdcListAncestorRemoved(evt);
+            }
+            public void ancestorMoved(javax.swing.event.AncestorEvent evt) {
             }
         });
         jScrollPane2.setViewportView(sdcList);
@@ -1087,6 +1142,58 @@ public class GUI extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_inviaPropostaButtonActionPerformed
 
+    private void jComboBox2AncestorAdded(javax.swing.event.AncestorEvent evt) {//GEN-FIRST:event_jComboBox2AncestorAdded
+        DefaultComboBoxModel<UserInfo> dlm = (DefaultComboBoxModel<UserInfo>) jComboBox2.getModel();
+        List<UserInfo> listaDestinatari = null;
+        try {
+            listaDestinatari = guiController.elencaDestinatari();
+        } catch (SQLException ex) {
+            Logger.getLogger(GUI.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        ActionListener[] myListeners = jComboBox2.getActionListeners();
+        jComboBox2.removeActionListener(myListeners[0]);
+        for (UserInfo ui : listaDestinatari) {
+            dlm.addElement(ui);
+        }
+        jComboBox2.setSelectedIndex(-1);
+        jComboBox2.addActionListener(myListeners[0]);
+    }//GEN-LAST:event_jComboBox2AncestorAdded
+
+    private void jComboBox2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox2ActionPerformed
+        UserInfo destinatario = (UserInfo) jComboBox2.getSelectedItem();
+        if (destinatario != null) {
+            String daCifrare = jTextArea6.getText();
+            messaggio = guiController.creaMessaggio();
+            try {
+                messaggio.setDestinatario(destinatario);
+            } catch (SQLException e) {
+                System.out.println(e.getMessage());
+            }
+            jLabel8.setEnabled(true);
+            jTextField4.setEnabled(true);
+            jTextArea5.setEnabled(true);
+            jTextArea6.setEnabled(true);
+            jButton8.setEnabled(true);
+        }
+    }//GEN-LAST:event_jComboBox2ActionPerformed
+
+    private void jComboBox2AncestorRemoved(javax.swing.event.AncestorEvent evt) {//GEN-FIRST:event_jComboBox2AncestorRemoved
+        //salvaBozza(); //TODO
+        setMessaggioEnabled(false);
+        DefaultComboBoxModel<UserInfo> dlm = (DefaultComboBoxModel<UserInfo>) jComboBox2.getModel();
+        dlm.removeAllElements();
+    }//GEN-LAST:event_jComboBox2AncestorRemoved
+
+    private void jButton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton8ActionPerformed
+        try {
+            guiController.cifraMessaggio(messaggio);
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+        jButton7.setEnabled(true);
+        jButton1.setEnabled(true);
+    }//GEN-LAST:event_jButton8ActionPerformed
+
     private void setSdcWidgetEnabled(boolean b) {
         provaSdcButton.setEnabled(b);
         salvaSdcButton.setEnabled(b);
@@ -1094,7 +1201,21 @@ public class GUI extends javax.swing.JFrame {
         risultatoProvaField.setEnabled(b);
     }
 
+    private void setMessaggioEnabled(boolean b) {
+        jLabel8.setEnabled(b);
+        jTextField4.setEnabled(b);
+        jTextArea5.setEnabled(b);
+        jTextArea6.setEnabled(b);
+        jButton1.setEnabled(b);
+        jButton7.setEnabled(b);
+        jButton8.setEnabled(b);
+        jTextArea5.setText("");
+        jTextArea6.setText("");
+        jTextField4.setText("");
+    }
+
     private final GUIController guiController = GUIController.getInstance();
+    private Messaggio messaggio = null;
     // Variables declaration - do not modify//GEN-BEGIN:variables
     javax.swing.JButton accettaPropostaButton;
     javax.swing.JButton calcolaMappaturaButton;
@@ -1117,15 +1238,18 @@ public class GUI extends javax.swing.JFrame {
     javax.swing.JButton jButton3;
     javax.swing.JButton jButton4;
     javax.swing.JButton jButton5;
-    javax.swing.JButton jButton6;
     javax.swing.JButton jButton7;
+    javax.swing.JButton jButton8;
     javax.swing.JComboBox jComboBox1;
+    javax.swing.JComboBox jComboBox2;
     javax.swing.JLabel jLabel1;
     javax.swing.JLabel jLabel2;
     javax.swing.JLabel jLabel3;
     javax.swing.JLabel jLabel4;
     javax.swing.JLabel jLabel5;
     javax.swing.JLabel jLabel6;
+    javax.swing.JLabel jLabel7;
+    javax.swing.JLabel jLabel8;
     javax.swing.JPanel jPanel1;
     javax.swing.JPanel jPanel10;
     javax.swing.JPanel jPanel11;
@@ -1175,6 +1299,7 @@ public class GUI extends javax.swing.JFrame {
     javax.swing.JTextField jTextField1;
     javax.swing.JTextField jTextField2;
     javax.swing.JTextField jTextField3;
+    javax.swing.JTextField jTextField4;
     javax.swing.JToolBar jToolBar1;
     javax.swing.JButton loginButton;
     javax.swing.JPanel loginFormPanel;
