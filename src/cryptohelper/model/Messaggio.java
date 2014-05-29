@@ -59,6 +59,11 @@ public class Messaggio implements MessaggioMittente, MessaggioDestinatario {
         //sdc = SistemaCifratura.load(queryResult.getInt("sdc"));
     }
 
+    public Messaggio(Studente studente) {
+        mittente = studente.getUserInfo();
+        bozza = true; //importante per il flow del DSD salvamessaggiobozza
+    }
+
     public static Messaggio load(int id) throws SQLException {
         DBController dbc = DBController.getInstance();
         CachedRowSet crs = dbc.execute("SELECT * FROM Messaggio WHERE id = ?", id);
@@ -136,29 +141,35 @@ public class Messaggio implements MessaggioMittente, MessaggioDestinatario {
     @Override
     public boolean save() throws SQLException {
         DBController dbc = DBController.getInstance();
-        if(id == -1) {
-            String q =  "INSERT INTO Messaggio (testo, testocifrato, bozza, lingua,"
-                    +   "titolo,mittente,destinatario) VALUES (?,?,?,?,?,?,?)";
+        if (id == -1) {
+            String q = "INSERT INTO Messaggio (testo, testocifrato, bozza, lingua,"
+                    + "titolo,mittente,destinatario) VALUES (?,?,?,?,?,?,?)";
             id = dbc.executeInsert(q, testo, testoCifrato, bozza, lingua, titolo, mittente.getId(), destinatario.getId());
             return id != -1;
         } else {
+<<<<<<< HEAD
             return dbc.executeUpdate("UPDATE Messaggio SET "
                 + "testo = ?, testocifrato = ?, bozza = ?, lingua = ?, "
                 + "titolo = ?, mittente = ?, destinatario = ? WHERE id = ?", testo, testoCifrato, bozza, lingua, titolo, mittente.getId(), destinatario.getId(), id);
+=======
+            dbc.executeUpdate("UPDATE Messaggio SET "
+                    + "testo = ?, testocifrato = ?, bozza = ?, lingua = ?, "
+                    + "titolo = ?, mittente = ?, destinatario = ? WHERE id = ?", testo, testoCifrato, bozza, lingua, titolo, mittente.getId(), destinatario.getId(), id);
+>>>>>>> 1e2cb351e908c28de28253b4fede56d863a6dd74
         }
     }
-    
+
     public List<Character> getSimboli() {
         List<Character> simboli = new LinkedList();
         char[] cArray = testo.toCharArray();
-        for(char c : cArray) {
-            if(simboli.indexOf(c) == -1) {
+        for (char c : cArray) {
+            if (simboli.indexOf(c) == -1) {
                 simboli.add(c);
             }
         }
         return simboli;
     }
-    
+
     @Override
     public int getId() {
         return id;
@@ -213,6 +224,14 @@ public class Messaggio implements MessaggioMittente, MessaggioDestinatario {
     public String toString() {
         return "Mittente: " + this.mittente + "; Destinatario: " + this.destinatario
                 + "; Titolo: " + this.titolo;
+    }
+
+    public void setDestinatario(UserInfo destinatario) {
+        this.destinatario = destinatario;
+    }
+
+    public void setTesto(String text) {
+        this.testo = text;
     }
 
 }

@@ -124,6 +124,7 @@ public class GUI extends javax.swing.JFrame {
         jLabel7 = new javax.swing.JLabel();
         jComboBox2 = new javax.swing.JComboBox();
         jLabel8 = new javax.swing.JLabel();
+        jLabel9 = new javax.swing.JLabel();
         jPanel18 = new javax.swing.JPanel();
         jPanel22 = new javax.swing.JPanel();
         jPanel21 = new javax.swing.JPanel();
@@ -446,14 +447,14 @@ public class GUI extends javax.swing.JFrame {
         jTextField4.setEnabled(false);
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 2;
-        gridBagConstraints.gridy = 2;
+        gridBagConstraints.gridy = 3;
         gridBagConstraints.ipadx = 226;
         jPanel19.add(jTextField4, gridBagConstraints);
 
         jLabel7.setText("Destinatario:");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 0;
+        gridBagConstraints.gridy = 2;
         jPanel19.add(jLabel7, gridBagConstraints);
 
         jComboBox2.setModel(new javax.swing.DefaultComboBoxModel<UserInfo>());
@@ -474,7 +475,7 @@ public class GUI extends javax.swing.JFrame {
         });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 2;
-        gridBagConstraints.gridy = 0;
+        gridBagConstraints.gridy = 2;
         gridBagConstraints.ipadx = 216;
         jPanel19.add(jComboBox2, gridBagConstraints);
 
@@ -482,9 +483,16 @@ public class GUI extends javax.swing.JFrame {
         jLabel8.setEnabled(false);
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 2;
+        gridBagConstraints.gridy = 3;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_START;
         jPanel19.add(jLabel8, gridBagConstraints);
+
+        jLabel9.setText("Scegli un destinatario");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.gridwidth = 3;
+        jPanel19.add(jLabel9, gridBagConstraints);
 
         messaggiCreaPanel.add(jPanel19);
 
@@ -504,10 +512,20 @@ public class GUI extends javax.swing.JFrame {
 
         jButton7.setText("Invia");
         jButton7.setEnabled(false);
+        jButton7.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton7ActionPerformed(evt);
+            }
+        });
         jPanel21.add(jButton7);
 
         jButton1.setText("Salva come Bozza");
         jButton1.setEnabled(false);
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
         jPanel21.add(jButton1);
 
         jPanel18.add(jPanel21, java.awt.BorderLayout.PAGE_END);
@@ -527,6 +545,7 @@ public class GUI extends javax.swing.JFrame {
 
         jPanel24.setLayout(new java.awt.BorderLayout());
 
+        jTextArea6.setEditable(false);
         jTextArea6.setColumns(20);
         jTextArea6.setRows(5);
         jTextArea6.setEnabled(false);
@@ -1164,16 +1183,14 @@ public class GUI extends javax.swing.JFrame {
         if (destinatario != null) {
             String daCifrare = jTextArea6.getText();
             messaggio = guiController.creaMessaggio();
-            try {
-                messaggio.setDestinatario(destinatario);
-            } catch (SQLException e) {
-                System.out.println(e.getMessage());
-            }
+            messaggio.setDestinatario(destinatario);
+            jLabel9.setText("Componi il messaggio e cifralo");
             jLabel8.setEnabled(true);
             jTextField4.setEnabled(true);
             jTextArea5.setEnabled(true);
             jTextArea6.setEnabled(true);
             jButton8.setEnabled(true);
+            jButton1.setEnabled(true);
         }
     }//GEN-LAST:event_jComboBox2ActionPerformed
 
@@ -1186,13 +1203,36 @@ public class GUI extends javax.swing.JFrame {
 
     private void jButton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton8ActionPerformed
         try {
+            messaggio.setTesto(jTextArea5.getText());
             guiController.cifraMessaggio(messaggio);
+            jTextArea6.setText(messaggio.getTestoCifrato());
+            jLabel9.setText("Continua a comporre, oppure invia");
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
         jButton7.setEnabled(true);
-        jButton1.setEnabled(true);
     }//GEN-LAST:event_jButton8ActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        try {
+            boolean b = guiController.salvaMessaggioBozza(messaggio);
+            if (b == false) {
+                jLabel9.setText("Errore nel salvataggio bozza!");
+            } else {
+                jLabel9.setText("Salvato come bozza!");
+            }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
+        try {
+            guiController.spedisciMessaggio(messaggio);
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+    }//GEN-LAST:event_jButton7ActionPerformed
 
     private void setSdcWidgetEnabled(boolean b) {
         provaSdcButton.setEnabled(b);
@@ -1250,6 +1290,7 @@ public class GUI extends javax.swing.JFrame {
     javax.swing.JLabel jLabel6;
     javax.swing.JLabel jLabel7;
     javax.swing.JLabel jLabel8;
+    javax.swing.JLabel jLabel9;
     javax.swing.JPanel jPanel1;
     javax.swing.JPanel jPanel10;
     javax.swing.JPanel jPanel11;
