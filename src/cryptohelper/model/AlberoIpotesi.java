@@ -58,12 +58,12 @@ public class AlberoIpotesi implements Serializable {
         }
 
         if (conflitti == 0 && !daRimuovere) {
-        //  Se non vi sono conflitti o lettere da rimuovere, semplice aggiunta d'ipotesi
+            //  Se non vi sono conflitti o lettere da rimuovere, semplice aggiunta d'ipotesi
             ipotesiCorrente = ipotesiCorrente.aggiungiIpotesi(map);
 
         } else {
-        // Se vi sono conflitti/rimozioni, prima è necessario cercare il nodo a cui attaccarsi
-            Ipotesi aCuiAttaccarsi = ipotesiCorrente.trovaConflitto(map,listaDaRimuovere,conflitti,daRimuovere);
+            // Se vi sono conflitti/rimozioni, prima è necessario cercare il nodo a cui attaccarsi
+            Ipotesi aCuiAttaccarsi = ipotesiCorrente.trovaConflitto(map, listaDaRimuovere, conflitti, daRimuovere);
             MappaturaParziale daAggiungere = nuovaMappatura.sottrai(aCuiAttaccarsi.getStato());
             ipotesiCorrente = aCuiAttaccarsi.aggiungiIpotesi(daAggiungere);
         }
