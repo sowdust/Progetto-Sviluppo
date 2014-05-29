@@ -159,4 +159,24 @@ public class GUIController {
         CommunicationController cc = CommunicationController.getInstance();
         return cc.send(messaggio);
     }
+
+    public boolean eliminaMessaggioInviato(Messaggio messaggio) throws SQLException {
+        return messaggio.elimina();
+    }
+
+    public boolean eliminaMessaggioRicevuto(Messaggio messaggio) throws SQLException {
+        return messaggio.elimina();
+    }
+
+    public List<MessaggioMittente> elencaBozze() throws SQLException {
+        return Messaggio.caricaBozze(studente);
+    }
+
+    public boolean eliminaMessaggioBozza(MessaggioMittente messaggio) throws SQLException {
+        return messaggio.elimina();
+    }
+
+    public void decifraMessaggio(Messaggio messaggio) throws SQLException {
+        messaggio.decifra();
+    }
 }

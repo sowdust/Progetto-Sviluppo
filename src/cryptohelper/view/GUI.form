@@ -286,6 +286,7 @@
                                     <Property name="model" type="javax.swing.ListModel" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
                                       <Connection code="new javax.swing.DefaultListModel&lt;MessaggioDestinatario&gt;()" type="code"/>
                                     </Property>
+                                    <Property name="selectionMode" type="int" value="0"/>
                                   </Properties>
                                   <Events>
                                     <EventHandler event="valueChanged" listener="javax.swing.event.ListSelectionListener" parameters="javax.swing.event.ListSelectionEvent" handler="messaggiRicevutiListValueChanged"/>
@@ -315,6 +316,9 @@
                                     <Property name="horizontalTextPosition" type="int" value="0"/>
                                     <Property name="verticalTextPosition" type="int" value="3"/>
                                   </Properties>
+                                  <Events>
+                                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton3ActionPerformed"/>
+                                  </Events>
                                 </Component>
                               </SubComponents>
                             </Container>
@@ -339,6 +343,7 @@
                                 <Component class="javax.swing.JTextArea" name="jTextArea1">
                                   <Properties>
                                     <Property name="columns" type="int" value="20"/>
+                                    <Property name="lineWrap" type="boolean" value="true"/>
                                     <Property name="rows" type="int" value="5"/>
                                   </Properties>
                                 </Component>
@@ -373,6 +378,9 @@
                                     <Property name="text" type="java.lang.String" value="Decifra"/>
                                     <Property name="enabled" type="boolean" value="false"/>
                                   </Properties>
+                                  <Events>
+                                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton5ActionPerformed"/>
+                                  </Events>
                                 </Component>
                               </SubComponents>
                             </Container>
@@ -405,8 +413,10 @@
                                 <Property name="model" type="javax.swing.ListModel" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
                                   <Connection code="new javax.swing.DefaultListModel&lt;MessaggioMittente&gt;()" type="code"/>
                                 </Property>
+                                <Property name="selectionMode" type="int" value="0"/>
                               </Properties>
                               <Events>
+                                <EventHandler event="valueChanged" listener="javax.swing.event.ListSelectionListener" parameters="javax.swing.event.ListSelectionEvent" handler="messaggiInviatiListValueChanged"/>
                                 <EventHandler event="ancestorAdded" listener="javax.swing.event.AncestorListener" parameters="javax.swing.event.AncestorEvent" handler="messaggiInviatiListAncestorAdded"/>
                                 <EventHandler event="ancestorRemoved" listener="javax.swing.event.AncestorListener" parameters="javax.swing.event.AncestorEvent" handler="messaggiInviatiListAncestorRemoved"/>
                               </Events>
@@ -430,6 +440,9 @@
                                   <Properties>
                                     <Property name="text" type="java.lang.String" value="Elimina"/>
                                   </Properties>
+                                  <Events>
+                                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton12ActionPerformed"/>
+                                  </Events>
                                 </Component>
                               </SubComponents>
                             </Container>
@@ -448,6 +461,7 @@
                                 <Component class="javax.swing.JTextArea" name="jTextArea2">
                                   <Properties>
                                     <Property name="columns" type="int" value="20"/>
+                                    <Property name="lineWrap" type="boolean" value="true"/>
                                     <Property name="rows" type="int" value="5"/>
                                   </Properties>
                                 </Component>
@@ -479,16 +493,16 @@
                           <SubComponents>
                             <Component class="javax.swing.JList" name="messaggiBozzaList">
                               <Properties>
-                                <Property name="model" type="javax.swing.ListModel" editor="org.netbeans.modules.form.editors2.ListModelEditor">
-                                  <StringArray count="5">
-                                    <StringItem index="0" value="Item 1"/>
-                                    <StringItem index="1" value="Item 2"/>
-                                    <StringItem index="2" value="Item 3"/>
-                                    <StringItem index="3" value="Item 4"/>
-                                    <StringItem index="4" value="Item 5"/>
-                                  </StringArray>
+                                <Property name="model" type="javax.swing.ListModel" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+                                  <Connection code="new javax.swing.DefaultListModel&lt;MessaggioMittente&gt;()" type="code"/>
                                 </Property>
+                                <Property name="selectionMode" type="int" value="0"/>
                               </Properties>
+                              <Events>
+                                <EventHandler event="valueChanged" listener="javax.swing.event.ListSelectionListener" parameters="javax.swing.event.ListSelectionEvent" handler="messaggiBozzaListValueChanged"/>
+                                <EventHandler event="ancestorAdded" listener="javax.swing.event.AncestorListener" parameters="javax.swing.event.AncestorEvent" handler="messaggiBozzaListAncestorAdded"/>
+                                <EventHandler event="ancestorRemoved" listener="javax.swing.event.AncestorListener" parameters="javax.swing.event.AncestorEvent" handler="messaggiBozzaListAncestorRemoved"/>
+                              </Events>
                             </Component>
                           </SubComponents>
                         </Container>
@@ -534,6 +548,9 @@
                                   <Properties>
                                     <Property name="text" type="java.lang.String" value="Elimina"/>
                                   </Properties>
+                                  <Events>
+                                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton15ActionPerformed"/>
+                                  </Events>
                                 </Component>
                               </SubComponents>
                             </Container>
@@ -685,9 +702,6 @@
                                   <Layout class="org.netbeans.modules.form.compat2.layouts.DesignBorderLayout"/>
                                   <SubComponents>
                                     <Container class="javax.swing.JScrollPane" name="jScrollPane8">
-                                      <Properties>
-                                        <Property name="horizontalScrollBarPolicy" type="int" value="31"/>
-                                      </Properties>
                                       <AuxValues>
                                         <AuxValue name="autoScrollPane" type="java.lang.Boolean" value="true"/>
                                       </AuxValues>
