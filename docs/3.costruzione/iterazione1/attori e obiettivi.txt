@@ -10,4 +10,10 @@ ATTORE: Analista/Spia
 
 OBIETTIVO: Violare un messaggio cifrato
 
-***nessun cambiamento rispetto agli UC2***
+ATTORE: Insegnante/Coordinatore
+
+OBIETTIVO: Fornire nuovi Brani per le sfide dei Giocatori
+
+ATTORE: Giocatore
+
+OBIETTIVO: Risolvere le Sfide ottenendo il punteggio più alto possibile
