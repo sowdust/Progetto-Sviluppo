@@ -31,66 +31,8 @@ import java.util.Arrays;
  *
  * @author mat
  */
-public class Mappatura {
-
-    private final char[] mappa;
-    private final char[] mappaInversa;
-
-    public Mappatura(char[] mappa, char[] mappaInversa) {
-        this.mappa = mappa;
-        this.mappaInversa = mappaInversa;
-    }
-
-    public char map(char c) {
-        int i = 0;
-        for (char k : mappaInversa) {
-            if (c == k) {
-                return mappa[i];
-            }
-            ++i;
-        }
-        throw new IllegalArgumentException(c + " non in alfabeto");
-    }
-
-    public char inverseMap(char c) {
-        int i = 0;
-        for (char k : mappa) {
-            if (c == k) {
-                return mappaInversa[i];
-            }
-            ++i;
-        }
-        throw new IllegalArgumentException(c + " non in alfabeto");
-    }
-
-    public boolean inAlphabet(char c) {
-        for (char k : mappaInversa) {
-            if (k == c) {
-                return true;
-            }
-        }
-        return false;
-    }
-
-    @Override
-    public boolean equals(Object obj) {
-        if (obj == this) {
-            return true;
-        }
-        if (obj == null || obj.getClass() != this.getClass()) {
-            return false;
-        }
-        Mappatura m = (Mappatura) obj;
-        return Arrays.equals(mappa, m.mappa) && Arrays.equals(mappaInversa, m.mappaInversa);
-    }
-
-    @Override
-    public String toString() {
-        String s = "";
-        for (int i = 0; i < mappa.length; ++i) {
-            s += mappaInversa[i] + " -> " + mappa[i] + " \n";
-        }
-        return s;
-    }
-
+public interface Mappatura {
+    
+    public Character map(char c);
+    public Character inverseMap(char c);
 }

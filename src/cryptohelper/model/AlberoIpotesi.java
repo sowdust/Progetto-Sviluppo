@@ -4,18 +4,18 @@ import java.io.Serializable;
 import java.util.List;
 import java.util.Stack;
 
-/* 
+/*
  * NOTE SULL'ALBERO.
- * 
+ *
  * Invariante è il fatto che in ogni cammino non vi siano mai due assegnazioni
  * conflittuali ( a->x & a->y oppure a->x & b->x )
- * 
+ *
  * Ne derivano le seguenti proprietà:
- * 
+ *
  *  1) lunghezza massima di un cammino = cardinalità alfabeto
  *  2) calcolo della mappatura dal basso verso l'alto esplorando solo il cammino corrente
  *  3) detection di stato già visitato si ferma al primo conflitto in ogni ramo
- * 
+ *
  */
 public class AlberoIpotesi implements Serializable {
 
@@ -27,7 +27,7 @@ public class AlberoIpotesi implements Serializable {
     public AlberoIpotesi() {
 
         mosse = new Stack<>();
-        mappaturaCorrente = new MappaturaParziale();
+        mappaturaCorrente = new MappaturaImpl();
         radice = new Ipotesi(mappaturaCorrente, null);
         ipotesiCorrente = radice;
         mosse.push(ipotesiCorrente);
@@ -45,7 +45,7 @@ public class AlberoIpotesi implements Serializable {
 
         MappaturaParziale nuovaMappatura = mappaturaCorrente.merge(nuoveAssunzioni);
         Ipotesi giaRaggiunta = giaRaggiunta(nuovaMappatura);
-        
+
         //  Se l'ipotesi è già raggiunta, ci spostiamo lì e torniamo false
         if (giaRaggiunta != null) {
             ipotesiCorrente = giaRaggiunta;
@@ -53,7 +53,6 @@ public class AlberoIpotesi implements Serializable {
             mosse.push(ipotesiCorrente);
             return false;
         }
-
 
         int nConflitti = mappaturaCorrente.contaConflitti(nuoveAssunzioni);
         Ipotesi ipotesiACuiAttaccarsi;
@@ -63,20 +62,20 @@ public class AlberoIpotesi implements Serializable {
         MappaturaParziale daAggiungere;
 
         if (nConflitti == 0 && listaDaRimuovere.isEmpty()) {
-            
+
             ipotesiACuiAttaccarsi = ipotesiCorrente;
             daAggiungere = nuoveAssunzioni;
 
         } else {
 
-            ipotesiACuiAttaccarsi = ipotesiCorrente.trovaConflitto(nuoveAssunzioni,listaDaRimuovere,nConflitti);
+            ipotesiACuiAttaccarsi = ipotesiCorrente.trovaConflitto(nuoveAssunzioni, listaDaRimuovere, nConflitti);
             daAggiungere = nuovaMappatura.sottrai(ipotesiACuiAttaccarsi.getMappatura());
         }
 
         ipotesiCorrente = ipotesiACuiAttaccarsi.aggiungiIpotesi(daAggiungere);
         mappaturaCorrente = nuovaMappatura;
         mosse.push(ipotesiCorrente);
-        
+
         return true;
     }
 
@@ -87,7 +86,7 @@ public class AlberoIpotesi implements Serializable {
     }
 
     public MappaturaParziale getMappaturaCorrente() {
-        return new MappaturaParziale(mappaturaCorrente);
+        return new MappaturaImpl(mappaturaCorrente);
     }
 
     public Ipotesi getAlbero() {
@@ -95,7 +94,7 @@ public class AlberoIpotesi implements Serializable {
     }
 
     public Ipotesi giaRaggiunta(MappaturaParziale mappaturaCorrente) {
-        return radice.giaRaggiunta(mappaturaCorrente, new MappaturaParziale());
+        return radice.giaRaggiunta(mappaturaCorrente, new MappaturaImpl());
     }
 
     public void stampaAlbero() {

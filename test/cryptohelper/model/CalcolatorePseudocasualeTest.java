@@ -45,8 +45,8 @@ public class CalcolatorePseudocasualeTest {
         System.out.println("calcola");
         char[] alfabeto = {'a', 'b', 'c', 'd', 'e'};
         CalcolatorePseudocasuale instance = new CalcolatorePseudocasuale();
-        assertEquals(new Mappatura(new char[]{'d', 'a', 'e', 'b', 'c'}, alfabeto), instance.calcola("33", alfabeto));
-        assertEquals(new Mappatura(new char[]{'a', 'e', 'd', 'b', 'c'}, alfabeto), instance.calcola("0", alfabeto));
+        assertEquals(new MappaturaImpl(new char[]{'d', 'a', 'e', 'b', 'c'}, alfabeto), instance.calcola("33", alfabeto));
+        assertEquals(new MappaturaImpl(new char[]{'a', 'e', 'd', 'b', 'c'}, alfabeto), instance.calcola("0", alfabeto));
     }
 
 }

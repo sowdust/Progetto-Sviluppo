@@ -5,7 +5,7 @@
  */
 package cryptohelper.model;
 
-import cryptohelper.model.Mappatura;
+import cryptohelper.model.MappaturaImpl;
 import cryptohelper.model.CalcolatoreParolachiave;
 import org.junit.After;
 import org.junit.AfterClass;
@@ -47,10 +47,10 @@ public class CalcolatoreParolachiaveTest {
         System.out.println("calcola");
         char[] alfabeto = {'a', 'b', 'c', 'd', 'e'};
         CalcolatoreParolachiave instance = new CalcolatoreParolachiave();
-        assertEquals(new Mappatura(new char[]{'e', 'c', 'b', 'a', 'd'}, alfabeto), instance.calcola("eebcb", alfabeto));
-        assertEquals(new Mappatura(new char[]{'c', 'a', 'd', 'e', 'b'}, alfabeto), instance.calcola("cade", alfabeto));
-        assertEquals(new Mappatura(new char[]{'d', 'c', 'a', 'b', 'e'}, alfabeto), instance.calcola("dcc", alfabeto));
-        assertEquals(new Mappatura(new char[]{'e', 'b', 'c', 'd', 'a'}, alfabeto), instance.calcola("ebcda", alfabeto));
+        assertEquals(new MappaturaImpl(new char[]{'e', 'c', 'b', 'a', 'd'}, alfabeto), instance.calcola("eebcb", alfabeto));
+        assertEquals(new MappaturaImpl(new char[]{'c', 'a', 'd', 'e', 'b'}, alfabeto), instance.calcola("cade", alfabeto));
+        assertEquals(new MappaturaImpl(new char[]{'d', 'c', 'a', 'b', 'e'}, alfabeto), instance.calcola("dcc", alfabeto));
+        assertEquals(new MappaturaImpl(new char[]{'e', 'b', 'c', 'd', 'a'}, alfabeto), instance.calcola("ebcda", alfabeto));
     }
 
 }

@@ -22,7 +22,7 @@ public class Soluzione {
         this.id = crs.getInt("id");
         this.creatore = UserInfo.load(crs.getInt("creatore"));
         this.messaggio = Messaggio.load(crs.getInt("messaggio"));
-        this.mappatura = new MappaturaParziale(crs.getString("mappatura"));
+        this.mappatura = new MappaturaImpl(crs.getString("mappatura"));
     }
     public boolean save() throws SQLException {
         DBController dbc = DBController.getInstance();
@@ -46,6 +46,11 @@ public class Soluzione {
     
     public MappaturaParziale getMappatura() {
         return mappatura;
+    }
+    
+    public boolean elimina() throws SQLException {
+        DBController dbc = DBController.getInstance();
+        return dbc.executeUpdate("DELETE * FROM crypto_user.Soluzione WHERE id = ?", id);        
     }
      
 }

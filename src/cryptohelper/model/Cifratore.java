@@ -33,9 +33,10 @@ public class Cifratore {
     public static String cifraMonoalfabetica(Mappatura mappa, String testo) {
         StringBuilder testoCifrato = new StringBuilder(testo.length());
 
-        for (char c : testo.toCharArray()) {
-            char k = Character.toLowerCase(c);
-            if (mappa.inAlphabet(k)) {
+        for (Character c : testo.toCharArray()) {
+            Character k = Character.toLowerCase(c);
+            k = mappa.map(k);
+            if (k != null) {
                 testoCifrato.append(mappa.map(k));
             }
         }
@@ -46,11 +47,12 @@ public class Cifratore {
     public static String decifraMonoalfabetica(Mappatura mappa, String testo) {
         StringBuilder testoDecifrato = new StringBuilder(testo.length());
 
-        for (char c : testo.toCharArray()) {
-            char k = Character.toLowerCase(c);
-            if (mappa.inAlphabet(k)) {
+        for (Character c : testo.toCharArray()) {
+            Character k = Character.toLowerCase(c);
+            k = mappa.inverseMap(k);
+            if( k != null ) {
                 testoDecifrato.append(mappa.inverseMap(k));
-            }
+            }            
         }
 
         return testoDecifrato.toString();

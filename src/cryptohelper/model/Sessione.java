@@ -86,4 +86,8 @@ public class Sessione {
         albero.undo(motivazione);
     }
 
+    public boolean caricaSoluzione(Soluzione sol) {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
 }

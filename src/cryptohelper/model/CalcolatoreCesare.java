@@ -38,7 +38,7 @@ public class CalcolatoreCesare extends CalcolatoreMappatura {
         for (int i = 0; i < l; i++) {
             mappa[i] = alfabeto[(i + chiave) % l];
         }
-        return new Mappatura(mappa, alfabeto);
+        return new MappaturaImpl(mappa, alfabeto);
     }
 
 }

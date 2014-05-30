@@ -50,7 +50,7 @@ public class CalcolatoreParolachiave extends CalcolatoreMappatura {
                 k++;
             }
         }
-        return new Mappatura(mappa, alfabeto);
+        return new MappaturaImpl(mappa, alfabeto);
     }
 
 }

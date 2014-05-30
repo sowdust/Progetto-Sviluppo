@@ -3,30 +3,29 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package cryptohelper;
 
-import cryptohelper.model.Mappatura;
+import cryptohelper.model.MappaturaParziale;
+import cryptohelper.model.MappaturaImpl;
 
 /**
  *
  * @author mat
  */
 public class MappaturaTest {
+
     public static void main(String args[]) {
         char[] m = {
-        'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i',
-        'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r',
-        's', 't', 'u', 'v', 'w', 'x', 'y', 'z','a'
+            'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i',
+            'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r',
+            's', 't', 'u', 'v', 'w', 'x', 'y', 'z', 'a'
         };
-        Mappatura map = new Mappatura(m,m);
+        MappaturaParziale map = new MappaturaImpl(m, m);
         System.out.println(map);
         System.out.println(map.map('a'));
         System.out.println(map.inverseMap('a'));
         System.out.println();
         System.out.println(map.map('z'));
         System.out.println(map.inverseMap('z'));
-        System.out.println(map.inAlphabet('!'));
-        System.out.println(map.inAlphabet('k'));
     }
 }

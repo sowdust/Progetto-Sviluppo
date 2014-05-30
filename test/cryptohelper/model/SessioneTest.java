@@ -43,25 +43,25 @@ public class SessioneTest {
     @Test
     public void test() throws SQLException, IOException, ClassNotFoundException {
         AlberoIpotesi albero = new AlberoIpotesi();
-        MappaturaParziale a = new MappaturaParziale("a > z, b > w, c > y");
+        MappaturaImpl a = new MappaturaImpl("a > z, b > w, c > y");
 
         //  PRIMA ASSUNZIONE
         //  a > z, b > w, c > y
-        albero.faiAssunzione(new MappaturaParziale(a));
-        MappaturaParziale b = new MappaturaParziale("d > x, e > u");
+        albero.faiAssunzione(new MappaturaImpl(a));
+        MappaturaImpl b = new MappaturaImpl("d > x, e > u");
         albero.faiAssunzione(b);
 
-        MappaturaParziale c = new MappaturaParziale("f > v");
+        MappaturaImpl c = new MappaturaImpl("f > v");
         albero.faiAssunzione(c);
 
         Sessione sess = new Sessione(Studente.load(1).getUserInfo(), Messaggio.load(1));
         sess.save();
         System.out.println(sess.getId());
-    
+
         Sessione due = Sessione.load(1);
         System.out.println("test: ");
         due.albero.stampaAlbero();
         System.out.println("Prima mossa: " + due.albero.mosse.get(3).getMappatura());
     }
-    
+
 }

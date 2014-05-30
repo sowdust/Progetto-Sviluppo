@@ -29,7 +29,7 @@ public class Ipotesi implements Serializable {
      */
     public MappaturaParziale getMappatura() {
         if( null == padre) {
-            return new MappaturaParziale(assunzioni);
+            return new MappaturaImpl(assunzioni);
         }
         return assunzioni.merge(padre.getMappatura());
     }
