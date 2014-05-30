@@ -263,13 +263,10 @@ public class MappaturaParziale implements Serializable {
         return s;
     }
     
-
-
     @Override
     public boolean equals(Object m) {
         return this.equals((MappaturaParziale) m);
     }
-
 
     @Override
     public String toString() {
