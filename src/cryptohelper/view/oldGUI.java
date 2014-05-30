@@ -42,12 +42,12 @@ import javax.swing.JComboBox;
  *
  * @author glaxy
  */
-public class GUI extends javax.swing.JFrame {
+public class oldGUI extends javax.swing.JFrame {
 
     /**
      * Creates new form GUI
      */
-    public GUI() {
+    public oldGUI() {
         initComponents();
         //getRootPane().setDefaultButton(loginButton);
         metodoCifraturaComboBox.setSelectedIndex(-1);
