@@ -12,7 +12,7 @@ OBIETTIVO: Violare un messaggio cifrato
 
 ATTORE: Insegnante/Coordinatore
 
-OBIETTIVO: Fornire nuovi Brani per le sfide dei Giocatori
+OBIETTIVO: Scegliere quali Messaggi costituiscano le sfide dei Giocatori
 
 ATTORE: Giocatore
 
