@@ -1,0 +1,13 @@
+﻿ATTORE: Mittente
+
+OBIETTIVO: Mandare messaggi cifrati
+
+ATTORE: Destinatario
+
+OBIETTIVO: Ricevere messaggi cifrati
+
+ATTORE: Analista/Spia
+
+OBIETTIVO: Violare un messaggio cifrato
+
+***nessun cambiamento rispetto agli UC2***
