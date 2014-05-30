@@ -1,60 +1,37 @@
+ATTORE: Giocatore
+OBIETTIVO Giocatore 1: Risolvere le Sfide
 
-ATTORE: Analista/Spia
-OBIETTIVO Spia 1: Violare un messaggio cifrato
+    USE CASE: Effettua Sfida
+    Il Giocatore indica la difficoltà preferita: facile, normale o difficile
+    Viene scelto un Brano a caso tra quelli disponibili, applicando al messaggio delle modifiche a seconda della difficoltà scelta
+    <<include>> Effettua ciclo di analisi 
+    <<include>> Salva Risultato
 
-    USE CASE: Effettua sessione di lavoro
-    Inizia una sessione di lavoro  (<<include>> _Assegnamento Messaggio_)
-	oppure	Continua una sessione di lavoro (<<include>> Carica Sessione)
-	oppure	Scegli un messaggio da analizzare (<<include>> _Scegli Messaggio_)
-    Entra nel ciclo di analisi (<<include>> Effettua ciclo di analisi)
-    Termina il ciclo di analisi o perché salva ed esce (<<include>> Gestisci Sessione di Lavoro - Salva Sessione) o perché trova la soluzione (<<include>>Gestisci Soluzione - Salva Soluzione)
+    USE CASE: Gestisci Risultati
+    <<include>> Visualizza Risultati
+    <<include>> Salva Risultato
 
-****USE CASE: Gestisci Concorso Giornaliero
-     <<extends>> Partecipa a concorso giornaliero
-     <<extends>> Ricevi punteggio
-     <<extends>> Verifica Performance
+    USE CASE: Salva Risultato
+    L'utente invia la sua soluzione
+    Il sistema ne calcola il punteggio
+    
+    USE CASE: Visualizza Risultati
+    Si visualizza la lista delle sfide e se ne sceglie una
+    Si visualizza la classifica dei punteggi della sfida scelta
 
-****USE CASE: Partecipa a concorso giornaliero
-	<<include>> _Carica Messaggio Concorso_
-	<<include>> Effettua ciclo di analisi
-	Termina il ciclo perché salva -> <<include>> _Gestisci Concorso_
-                                                     - Salva Entry
-        Termina il ciclo perché decide che la soluzione sia stata trovata ->
-                                   _Gestisci Concorso_ - Spedisci Entry 
-	<<extends>> - se entry è stata spedita: Ricevi punteggio
-        
+ATTORE: Coordinatore
+OBIETTIVO Coordinatore 1: Selezionare i Messaggi per le Sfide
 
-****USE CASE: Assegnamento Messaggio
-	Seleziona una difficolta (facile - normale - difficile)
-    <<include>> _Seleziona un Messaggio Facile_
-	oppure <<include>> _Seleziona un Messaggio Normale_
-	oppure <<include>> _Seleziona un Messaggio Difficile_
+    USE CASE: Gestisci Sfida
+    <<include>> Crea Sfida
+    <<include>> Chiudi Sfida
+    <<include>> Visualizza Risultati
 
-****USE CASE: Seleziona un Messaggio Facile
-    Seleziona un messaggio tra quelli scambiati tra tutti gli utenti
-    Modifica il testo cifrato inserendo spazi e punteggiatura, in modo
-concorde con il testo originale
+    USE CASE: Crea Sfida
+    Visualizza tutti i Messaggi scambiati tra gli Studenti
+    Seleziona un Messaggio da visualizzare, di cui vengono mostrate tutte le informazioni
+    Decide se rendere tale Messaggio una Sfida
 
-****USE CASE: Seleziona un Messaggio Normale
-    Seleziona un messaggio con mittente e destinatario uguali ad altri
-messaggi già presenti nelle soluzioni della Spia
-
-****USE CASE: Seleziona un Messaggio Difficile
-    Seleziona un messaggio tra quelli scambiati tra tutti gli utenti
-    con sistema di cifratura diverso da quello di Cesare
-
-    USE CASE: Effettua ciclo di analisi
-    Analizza lo stato attuale (usando eventualmente strumenti di supporto)
-    Aggiorna l’ipotesi corrente
-
-    USE CASE: Gestisci sessione di lavoro
-    <<include>> Salva Sessione di lavoro (Rende persistente una sessione di analisi)
-    <<include>> Apri Sessione di lavoro (Recupera una sessione di analisi precedentemente salvata)
-    <<include>> Elimina Sessione di lavoro (Elimina una sessione di analisi precedentemente salvata)
-
-    USE CASE: Gestisci soluzione
-    <<include>> Salva Soluzione (Rende persistente una soluzione - cioè una mappatura per una coppia mittente+destinatario)
-    <<include>> Apri Soluzione (Recupera una soluzione precedentemente salvata)
-    <<include>> Elimina Soluzione (Elimina una soluzione precedentemente salvata)
-
-	
+    USE CASE: Chiudi Sfida
+    Visualizza tutte le Sfide create
+    Seleziona una Sfida e ha la possibilità di renderla non più giocabile
