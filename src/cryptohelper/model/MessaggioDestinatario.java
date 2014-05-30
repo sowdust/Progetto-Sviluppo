@@ -29,4 +29,6 @@ public interface MessaggioDestinatario extends MessaggioAstratto {
     public void setLetto(boolean letto);
 
     public void decifra() throws SQLException;
+
+    public UserInfo getMittente();
 }

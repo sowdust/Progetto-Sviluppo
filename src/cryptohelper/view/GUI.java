@@ -29,6 +29,7 @@ import cryptohelper.model.UserInfo;
 import java.awt.CardLayout;
 import java.awt.event.ActionListener;
 import java.awt.event.ItemListener;
+import static java.lang.Thread.sleep;
 import java.sql.SQLException;
 import java.util.List;
 import java.util.logging.Level;
@@ -312,6 +313,7 @@ public class GUI extends javax.swing.JFrame {
         jPanel17.setLayout(new java.awt.BorderLayout());
 
         messaggiRicevutiList.setModel(new javax.swing.DefaultListModel<MessaggioDestinatario>());
+        messaggiRicevutiList.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         messaggiRicevutiList.addListSelectionListener(new javax.swing.event.ListSelectionListener() {
             public void valueChanged(javax.swing.event.ListSelectionEvent evt) {
                 messaggiRicevutiListValueChanged(evt);
@@ -338,6 +340,11 @@ public class GUI extends javax.swing.JFrame {
         jButton3.setFocusable(false);
         jButton3.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jButton3.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
         jToolBar1.add(jButton3);
 
         jPanel17.add(jToolBar1, java.awt.BorderLayout.PAGE_START);
@@ -347,6 +354,7 @@ public class GUI extends javax.swing.JFrame {
         jPanel2.setLayout(new java.awt.BorderLayout());
 
         jTextArea1.setColumns(20);
+        jTextArea1.setLineWrap(true);
         jTextArea1.setRows(5);
         jScrollPane9.setViewportView(jTextArea1);
 
@@ -363,10 +371,20 @@ public class GUI extends javax.swing.JFrame {
 
         jButton4.setText("Rispondi");
         jButton4.setEnabled(false);
+        jButton4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton4ActionPerformed(evt);
+            }
+        });
         jPanel1.add(jButton4);
 
         jButton5.setText("Decifra");
         jButton5.setEnabled(false);
+        jButton5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton5ActionPerformed(evt);
+            }
+        });
         jPanel1.add(jButton5);
 
         jPanel2.add(jPanel1, java.awt.BorderLayout.PAGE_END);
@@ -378,6 +396,12 @@ public class GUI extends javax.swing.JFrame {
         messaggiInviatiPanel.setLayout(new javax.swing.BoxLayout(messaggiInviatiPanel, javax.swing.BoxLayout.PAGE_AXIS));
 
         messaggiInviatiList.setModel(new javax.swing.DefaultListModel<MessaggioMittente>());
+        messaggiInviatiList.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        messaggiInviatiList.addListSelectionListener(new javax.swing.event.ListSelectionListener() {
+            public void valueChanged(javax.swing.event.ListSelectionEvent evt) {
+                messaggiInviatiListValueChanged(evt);
+            }
+        });
         messaggiInviatiList.addAncestorListener(new javax.swing.event.AncestorListener() {
             public void ancestorAdded(javax.swing.event.AncestorEvent evt) {
                 messaggiInviatiListAncestorAdded(evt);
@@ -395,11 +419,17 @@ public class GUI extends javax.swing.JFrame {
         jPanel3.setLayout(new java.awt.BorderLayout());
 
         jButton12.setText("Elimina");
+        jButton12.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton12ActionPerformed(evt);
+            }
+        });
         jPanel8.add(jButton12);
 
         jPanel3.add(jPanel8, java.awt.BorderLayout.PAGE_END);
 
         jTextArea2.setColumns(20);
+        jTextArea2.setLineWrap(true);
         jTextArea2.setRows(5);
         jScrollPane10.setViewportView(jTextArea2);
 
@@ -411,10 +441,22 @@ public class GUI extends javax.swing.JFrame {
 
         messaggiBozzePanel.setLayout(new javax.swing.BoxLayout(messaggiBozzePanel, javax.swing.BoxLayout.PAGE_AXIS));
 
-        messaggiBozzaList.setModel(new javax.swing.AbstractListModel() {
-            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
-            public int getSize() { return strings.length; }
-            public Object getElementAt(int i) { return strings[i]; }
+        messaggiBozzaList.setModel(new javax.swing.DefaultListModel<MessaggioMittente>());
+        messaggiBozzaList.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        messaggiBozzaList.addListSelectionListener(new javax.swing.event.ListSelectionListener() {
+            public void valueChanged(javax.swing.event.ListSelectionEvent evt) {
+                messaggiBozzaListValueChanged(evt);
+            }
+        });
+        messaggiBozzaList.addAncestorListener(new javax.swing.event.AncestorListener() {
+            public void ancestorAdded(javax.swing.event.AncestorEvent evt) {
+                messaggiBozzaListAncestorAdded(evt);
+            }
+            public void ancestorRemoved(javax.swing.event.AncestorEvent evt) {
+                messaggiBozzaListAncestorRemoved(evt);
+            }
+            public void ancestorMoved(javax.swing.event.AncestorEvent evt) {
+            }
         });
         jScrollPane12.setViewportView(messaggiBozzaList);
 
@@ -429,9 +471,19 @@ public class GUI extends javax.swing.JFrame {
         jPanel15.add(jScrollPane13, java.awt.BorderLayout.CENTER);
 
         jButton14.setText("Componi");
+        jButton14.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton14ActionPerformed(evt);
+            }
+        });
         jPanel16.add(jButton14);
 
         jButton15.setText("Elimina");
+        jButton15.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton15ActionPerformed(evt);
+            }
+        });
         jPanel16.add(jButton15);
 
         jPanel15.add(jPanel16, java.awt.BorderLayout.PAGE_END);
@@ -533,8 +585,6 @@ public class GUI extends javax.swing.JFrame {
         jPanel23.setLayout(new javax.swing.BoxLayout(jPanel23, javax.swing.BoxLayout.LINE_AXIS));
 
         jPanel25.setLayout(new java.awt.BorderLayout());
-
-        jScrollPane8.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 
         jTextArea5.setColumns(20);
         jTextArea5.setRows(5);
@@ -1074,7 +1124,16 @@ public class GUI extends javax.swing.JFrame {
     }//GEN-LAST:event_messaggiInviatiListAncestorRemoved
 
     private void jButton10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton10ActionPerformed
-
+        try {
+            Messaggio daCancellare = (Messaggio) messaggiRicevutiList.getSelectedValue();
+            boolean b = guiController.eliminaMessaggioRicevuto(daCancellare);
+            if (b == true) {
+                DefaultListModel<MessaggioDestinatario> dlm = (DefaultListModel<MessaggioDestinatario>) messaggiRicevutiList.getModel();
+                dlm.removeElement(daCancellare);
+            }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
     }//GEN-LAST:event_jButton10ActionPerformed
 
     private void messaggiRicevutiListValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_messaggiRicevutiListValueChanged
@@ -1177,7 +1236,21 @@ public class GUI extends javax.swing.JFrame {
         for (UserInfo ui : listaDestinatari) {
             dlm.addElement(ui);
         }
-        jComboBox2.setSelectedIndex(-1);
+        if (idDestinatario != -1) {
+            for (int i = 0; i < jComboBox2.getItemCount(); i++) {
+                if (((UserInfo) jComboBox2.getItemAt(i)).getId() == idDestinatario) {
+                    jComboBox2.setSelectedIndex(i);
+                    jComboBox2ActionPerformed(null);
+                    if (titoloBozza != null) {
+                        jTextField4.setText(titoloBozza);
+                        titoloBozza = null;
+                    }
+                    idDestinatario = -1;
+                }
+            }
+        } else {
+            jComboBox2.setSelectedIndex(-1);
+        }
         jComboBox2.addActionListener(myListeners[0]);
     }//GEN-LAST:event_jComboBox2AncestorAdded
 
@@ -1219,6 +1292,10 @@ public class GUI extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         try {
+            messaggio.setTitolo(jTextField4.getText());
+            if (jTextArea5.getText().equals("")) {
+                messaggio.setTesto("** testo vuoto **");
+            }
             boolean b = guiController.salvaMessaggioBozza(messaggio);
             if (b == false) {
                 jLabel9.setText("Errore nel salvataggio bozza!");
@@ -1232,6 +1309,7 @@ public class GUI extends javax.swing.JFrame {
 
     private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
         try {
+            messaggio.setTitolo(jTextField4.getText());
             boolean b = guiController.spedisciMessaggio(messaggio);
             if (b == false) {
                 jLabel9.setText("Errore nell'invio del messaggio!");
@@ -1243,6 +1321,115 @@ public class GUI extends javax.swing.JFrame {
             System.out.println(e.getMessage());
         }
     }//GEN-LAST:event_jButton7ActionPerformed
+
+    private void messaggiInviatiListValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_messaggiInviatiListValueChanged
+        if (evt.getValueIsAdjusting() == false) {
+            if (messaggiInviatiList.getSelectedIndex() == -1) {
+                jTextArea2.setText("");
+                jButton12.setEnabled(false);
+            } else {
+                MessaggioMittente md = (MessaggioMittente) messaggiInviatiList.getSelectedValue();
+                jTextArea2.setText(md.getTesto());
+                jButton12.setEnabled(true);
+            }
+        }
+    }//GEN-LAST:event_messaggiInviatiListValueChanged
+
+    private void jButton12ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton12ActionPerformed
+        try {
+            Messaggio daCancellare = (Messaggio) messaggiInviatiList.getSelectedValue();
+            boolean b = guiController.eliminaMessaggioInviato(daCancellare);
+            if (b == true) {
+                DefaultListModel<MessaggioMittente> dlm = (DefaultListModel<MessaggioMittente>) messaggiInviatiList.getModel();
+                dlm.removeElement(daCancellare);
+            }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+    }//GEN-LAST:event_jButton12ActionPerformed
+
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        DefaultListModel<MessaggioDestinatario> dlm = (DefaultListModel<MessaggioDestinatario>) messaggiRicevutiList.getModel();
+        dlm.clear();
+        List<MessaggioDestinatario> listaMessaggiRicevuti = null;
+        try {
+            listaMessaggiRicevuti = guiController.elencaMessaggiRicevuti();
+        } catch (SQLException ex) {
+            Logger.getLogger(GUI.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        for (MessaggioDestinatario m : listaMessaggiRicevuti) {
+            dlm.addElement(m);
+        }
+    }//GEN-LAST:event_jButton3ActionPerformed
+
+    private void messaggiBozzaListAncestorAdded(javax.swing.event.AncestorEvent evt) {//GEN-FIRST:event_messaggiBozzaListAncestorAdded
+        DefaultListModel<MessaggioMittente> dlm = (DefaultListModel<MessaggioMittente>) messaggiBozzaList.getModel();
+        List<MessaggioMittente> listaBozze = null;
+        try {
+            listaBozze = guiController.elencaBozze();
+        } catch (SQLException ex) {
+            Logger.getLogger(GUI.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        for (MessaggioMittente m : listaBozze) {
+            dlm.addElement(m);
+        }
+    }//GEN-LAST:event_messaggiBozzaListAncestorAdded
+
+    private void messaggiBozzaListAncestorRemoved(javax.swing.event.AncestorEvent evt) {//GEN-FIRST:event_messaggiBozzaListAncestorRemoved
+        DefaultListModel<MessaggioMittente> dlm = (DefaultListModel<MessaggioMittente>) messaggiBozzaList.getModel();
+        dlm.removeAllElements();
+    }//GEN-LAST:event_messaggiBozzaListAncestorRemoved
+
+    private void jButton15ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton15ActionPerformed
+        MessaggioMittente daCancellare = (Messaggio) messaggiBozzaList.getSelectedValue();
+        DefaultListModel<MessaggioMittente> dlm = (DefaultListModel<MessaggioMittente>) messaggiBozzaList.getModel();
+        try {
+            boolean b = guiController.eliminaMessaggioBozza(daCancellare);
+            if (b == true) {
+                dlm.removeElement(daCancellare);
+            }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+    }//GEN-LAST:event_jButton15ActionPerformed
+
+    private void messaggiBozzaListValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_messaggiBozzaListValueChanged
+        if (evt.getValueIsAdjusting() == false) {
+            if (messaggiBozzaList.getSelectedIndex() == -1) {
+                jTextArea3.setText("");
+            } else {
+                MessaggioMittente md = (MessaggioMittente) messaggiBozzaList.getSelectedValue();
+                jTextArea3.setText(md.getTesto());
+                jButton12.setEnabled(true);
+            }
+        }
+    }//GEN-LAST:event_messaggiBozzaListValueChanged
+
+    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
+        try {
+            Messaggio oraLetto = (Messaggio) messaggiRicevutiList.getSelectedValue();
+            int indiceLetto = messaggiRicevutiList.getSelectedIndex();
+            guiController.decifraMessaggio(oraLetto);
+            oraLetto.setLetto(true);
+            oraLetto.save();
+            jTextArea1.setText(oraLetto.getTesto());
+            DefaultListModel<MessaggioDestinatario> dlm = (DefaultListModel<MessaggioDestinatario>) messaggiRicevutiList.getModel();
+            dlm.set(indiceLetto, oraLetto);
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+    }//GEN-LAST:event_jButton5ActionPerformed
+
+    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+        idDestinatario = ((Messaggio) messaggiRicevutiList.getSelectedValue()).getMittente().getId();
+        jTabbedPane2.setSelectedIndex(3);
+    }//GEN-LAST:event_jButton4ActionPerformed
+
+    private void jButton14ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton14ActionPerformed
+        idDestinatario = ((Messaggio) messaggiBozzaList.getSelectedValue()).getDestinatario().getId();
+        titoloBozza = ((Messaggio) messaggiBozzaList.getSelectedValue()).getTitolo();
+        jTabbedPane2.setSelectedIndex(3);
+    }//GEN-LAST:event_jButton14ActionPerformed
 
     private void setSdcWidgetEnabled(boolean b) {
         provaSdcButton.setEnabled(b);
@@ -1266,6 +1453,8 @@ public class GUI extends javax.swing.JFrame {
 
     private final GUIController guiController = GUIController.getInstance();
     private Messaggio messaggio = null;
+    private int idDestinatario = -1;
+    private String titoloBozza = null;
     // Variables declaration - do not modify//GEN-BEGIN:variables
     javax.swing.JButton accettaPropostaButton;
     javax.swing.JButton calcolaMappaturaButton;

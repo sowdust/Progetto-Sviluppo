@@ -62,6 +62,12 @@ public class Messaggio implements MessaggioMittente, MessaggioDestinatario {
     public Messaggio(Studente studente) {
         mittente = studente.getUserInfo();
         bozza = true; //importante per il flow del DSD salvamessaggiobozza
+        id = -1;
+        titolo = "**senza titolo**";
+        testo = "";
+        testoCifrato = "";
+        lingua = "Inglese"; //eh eh
+        letto = false;
     }
 
     public static Messaggio load(int id) throws SQLException {
@@ -194,7 +200,7 @@ public class Messaggio implements MessaggioMittente, MessaggioDestinatario {
     @Override
     public boolean elimina() throws SQLException {
         DBController dbc = DBController.getInstance();
-        return dbc.executeUpdate("DELETE * FROM crypto_user.Messaggio WHERE id = ?", id);
+        return dbc.executeUpdate("DELETE FROM Messaggio WHERE id = ?", id);
     }
 
     @Override
@@ -218,16 +224,33 @@ public class Messaggio implements MessaggioMittente, MessaggioDestinatario {
     }
 
     public String toString() {
-        return "Mittente: " + this.mittente + "; Destinatario: " + this.destinatario
+        String result = "Mittente: " + this.mittente + "; Destinatario: " + this.destinatario
                 + "; Titolo: " + this.titolo;
+        return !letto ? "**" + result : result;
     }
 
     public void setDestinatario(UserInfo destinatario) {
         this.destinatario = destinatario;
     }
 
-    public void setTesto(String text) {
-        this.testo = text;
+    public void setTesto(String testo) {
+        this.testo = testo;
+    }
+
+    public void setTitolo(String titolo) {
+        if (titolo.equals("")) {
+            this.titolo = "** senza titolo **";
+        } else {
+            this.titolo = titolo;
+        }
+    }
+
+    public UserInfo getMittente() {
+        return this.mittente;
+    }
+
+    public UserInfo getDestinatario() {
+        return this.destinatario;
     }
 
 }
