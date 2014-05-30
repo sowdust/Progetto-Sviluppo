@@ -1245,6 +1245,11 @@ public class GUI extends javax.swing.JFrame {
                         jTextField4.setText(titoloBozza);
                         titoloBozza = null;
                     }
+                    if (testoBozza != null) {
+                        System.out.println("ciaoo");
+                        jTextArea5.setText(testoBozza);
+                        testoBozza = null;
+                    }
                     idDestinatario = -1;
                 }
             }
@@ -1428,6 +1433,7 @@ public class GUI extends javax.swing.JFrame {
     private void jButton14ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton14ActionPerformed
         idDestinatario = ((Messaggio) messaggiBozzaList.getSelectedValue()).getDestinatario().getId();
         titoloBozza = ((Messaggio) messaggiBozzaList.getSelectedValue()).getTitolo();
+        testoBozza = jTextArea3.getText();
         jTabbedPane2.setSelectedIndex(3);
     }//GEN-LAST:event_jButton14ActionPerformed
 
@@ -1455,6 +1461,7 @@ public class GUI extends javax.swing.JFrame {
     private Messaggio messaggio = null;
     private int idDestinatario = -1;
     private String titoloBozza = null;
+    private String testoBozza = null;
     // Variables declaration - do not modify//GEN-BEGIN:variables
     javax.swing.JButton accettaPropostaButton;
     javax.swing.JButton calcolaMappaturaButton;
