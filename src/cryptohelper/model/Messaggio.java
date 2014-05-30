@@ -147,15 +147,11 @@ public class Messaggio implements MessaggioMittente, MessaggioDestinatario {
             id = dbc.executeInsert(q, testo, testoCifrato, bozza, lingua, titolo, mittente.getId(), destinatario.getId());
             return id != -1;
         } else {
-<<<<<<< HEAD
+
             return dbc.executeUpdate("UPDATE Messaggio SET "
                 + "testo = ?, testocifrato = ?, bozza = ?, lingua = ?, "
                 + "titolo = ?, mittente = ?, destinatario = ? WHERE id = ?", testo, testoCifrato, bozza, lingua, titolo, mittente.getId(), destinatario.getId(), id);
-=======
-            dbc.executeUpdate("UPDATE Messaggio SET "
-                    + "testo = ?, testocifrato = ?, bozza = ?, lingua = ?, "
-                    + "titolo = ?, mittente = ?, destinatario = ? WHERE id = ?", testo, testoCifrato, bozza, lingua, titolo, mittente.getId(), destinatario.getId(), id);
->>>>>>> 1e2cb351e908c28de28253b4fede56d863a6dd74
+
         }
     }
 

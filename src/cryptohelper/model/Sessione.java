@@ -77,7 +77,7 @@ public class Sessione {
         }
     }
 
-    private boolean elimina() throws SQLException {
+    public boolean elimina() throws SQLException {
         DBController dbc = DBController.getInstance();
         return dbc.executeUpdate("DELETE * FROM crypto_user.Sessione WHERE id = ?", id);        
     }
