@@ -2,7 +2,6 @@ package cryptohelper.model;
 
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 public class Mappatura implements Serializable {
@@ -18,8 +17,13 @@ public class Mappatura implements Serializable {
     }
 
     public Mappatura(char[] map, char[] inverseMap) {
-        this.map = new ArrayList(Arrays.asList(map));
-        this.inverseMap = new ArrayList(Arrays.asList(inverseMap));
+        this.map = new ArrayList<>();
+        this.inverseMap = new ArrayList<>();
+        /* non il più furbo dei metodi? */
+        for (int i = 0; i < map.length; i++) {
+            this.map.add(map[i]);
+            this.inverseMap.add(inverseMap[i]);
+        }
     }
 
     public Mappatura(Mappatura m) {
@@ -296,14 +300,27 @@ public class Mappatura implements Serializable {
 
     @Override
     public String toString() {
-        if (map.isEmpty()) {
-            return " Ø ";
+        String s = "";
+        for (char c : inverseMap) {
+            s += c + " ";
         }
-        String s = "{";
-        for (int i = 0; i < map.size(); ++i) {
-            s += " " + map.get(i) + " > " + inverseMap.get(i) + ",";
+        s += "\n";
+        for (char c : map) {
+            s += c + " ";
         }
-        return s + "\b }";
+        return s;
+    }
+
+    public void stampa() {
+        String s = " Ø ";
+        if (!map.isEmpty()) {
+            s = "{";
+            for (int i = 0; i < map.size(); ++i) {
+                s += " " + map.get(i) + " > " + inverseMap.get(i) + ",";
+            }
+            s += "\b }";
+        }
+        System.out.println(s);
     }
 
     /*

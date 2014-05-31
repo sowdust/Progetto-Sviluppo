@@ -28,7 +28,7 @@ public class Ipotesi implements Serializable {
      * alla radice, facendo una merge con ogni mappatura incontrata
      */
     public Mappatura getMappatura() {
-        if( null == padre) {
+        if (null == padre) {
             return new Mappatura(assunzioni);
         }
         return assunzioni.merge(padre.getMappatura());
@@ -39,16 +39,16 @@ public class Ipotesi implements Serializable {
      * in cui vi è un assegnazione in conflitto con la mappatura m
      */
     Ipotesi trovaConflitto(Mappatura m, List<Character> listaDaRimuovere, int conflitti) {
-        if(null == padre) {
+        if (null == padre) {
             return this;
         }
-        for(int i = 0; i < listaDaRimuovere.size() ; ++i) {
-            if(assunzioni.contains(listaDaRimuovere.get(i))) {
+        for (int i = 0; i < listaDaRimuovere.size(); ++i) {
+            if (assunzioni.contains(listaDaRimuovere.get(i))) {
                 listaDaRimuovere.remove(i);
             }
         }
         conflitti -= assunzioni.contaConflitti(m);
-        if(conflitti == 0 && listaDaRimuovere.isEmpty()) {
+        if (conflitti == 0 && listaDaRimuovere.isEmpty()) {
             return this.padre;
         }
         return padre.trovaConflitto(m, listaDaRimuovere, conflitti);
@@ -56,17 +56,17 @@ public class Ipotesi implements Serializable {
 
     void stampa(int d, Ipotesi ipotesiCorrente) {
         System.out.print("  ");
-        for(int i = 0; i <= d; ++i) {
+        for (int i = 0; i <= d; ++i) {
             System.out.print("     ");
         }
-        if(this == ipotesiCorrente) {
+        if (this == ipotesiCorrente) {
             System.out.print("\b\b**");
 
         }
-        System.out.println(assunzioni);
+        assunzioni.stampa();
 
-        for(Ipotesi i : figli) {
-            if(i!= null) {
+        for (Ipotesi i : figli) {
+            if (i != null) {
                 i.stampa(d + 1, ipotesiCorrente);
             }
         }
@@ -78,28 +78,28 @@ public class Ipotesi implements Serializable {
      */
     Ipotesi giaRaggiunta(Mappatura m, Mappatura corrente) {
         Mappatura stato = corrente.merge(assunzioni);
-        
+
         // se vi è un conflitto, m non è in questo cammino
-        if(assunzioni.conflitto(m)) {
+        if (assunzioni.conflitto(m)) {
             return null;
         }
         // se m è uguale allo stato dell'ipotesi in cui siamo
-        if(stato.equals(m)) {
+        if (stato.equals(m)) {
             return this;
         }
         // ripetiamo sui figli
-        for(Ipotesi i : figli) {
-            if(i.giaRaggiunta(m, stato) != null) {
+        for (Ipotesi i : figli) {
+            if (i.giaRaggiunta(m, stato) != null) {
                 return i.giaRaggiunta(m, stato);
             }
         }
         return null;
     }
-    
+
     void setCommento(String commento) {
         this.commento = commento;
     }
-    
+
     String getCommento() {
         return this.commento;
     }
