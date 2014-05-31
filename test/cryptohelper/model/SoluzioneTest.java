@@ -39,7 +39,7 @@ public class SoluzioneTest {
 
     @Test
     public void Soluzione() throws SQLException {
-        MappaturaImpl m = new MappaturaImpl("a > z, b > w, c > y");
+        Mappatura m = new Mappatura("a > z, b > w, c > y");
         Soluzione s = new Soluzione(m, Messaggio.load(1), Studente.load(1).getUserInfo());
 
         s.save();

@@ -40,7 +40,7 @@ public class CalcolatorePseudocasuale extends CalcolatoreMappatura {
             mappa[irnd] = mappa[i];
             mappa[i] = tmp;
         }
-        return new MappaturaImpl(mappa, alfabeto);
+        return new Mappatura(mappa, alfabeto);
     }
 
 }

@@ -5,7 +5,7 @@
  */
 package cryptohelper.model;
 
-import cryptohelper.model.MappaturaImpl;
+import cryptohelper.model.Mappatura;
 import cryptohelper.model.Cifratore;
 import org.junit.After;
 import org.junit.AfterClass;
@@ -23,7 +23,7 @@ public class CifratoreTest {
     public CifratoreTest() {
     }
 
-    private MappaturaImpl mappa;
+    private Mappatura mappa;
     private String testo;
     private String testoCifrato;
     private String testoDecifrato;
@@ -38,7 +38,7 @@ public class CifratoreTest {
 
     @Before
     public void setUp() {
-        mappa = new MappaturaImpl(
+        mappa = new Mappatura(
                 new char[]{
                     'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i',
                     'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r',

@@ -5,8 +5,8 @@
  */
 package cryptohelper;
 
-import cryptohelper.model.MappaturaParziale;
-import cryptohelper.model.MappaturaImpl;
+import cryptohelper.model.Mappatura;
+import cryptohelper.model.Mappatura;
 
 /**
  *
@@ -20,7 +20,7 @@ public class MappaturaTest {
             'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r',
             's', 't', 'u', 'v', 'w', 'x', 'y', 'z', 'a'
         };
-        MappaturaParziale map = new MappaturaImpl(m, m);
+        Mappatura map = new Mappatura(m, m);
         System.out.println(map);
         System.out.println(map.map('a'));
         System.out.println(map.inverseMap('a'));

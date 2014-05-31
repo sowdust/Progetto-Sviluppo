@@ -43,15 +43,15 @@ public class SessioneTest {
     @Test
     public void test() throws SQLException, IOException, ClassNotFoundException {
         AlberoIpotesi albero = new AlberoIpotesi();
-        MappaturaImpl a = new MappaturaImpl("a > z, b > w, c > y");
+        Mappatura a = new Mappatura("a > z, b > w, c > y");
 
         //  PRIMA ASSUNZIONE
         //  a > z, b > w, c > y
-        albero.faiAssunzione(new MappaturaImpl(a));
-        MappaturaImpl b = new MappaturaImpl("d > x, e > u");
+        albero.faiAssunzione(new Mappatura(a));
+        Mappatura b = new Mappatura("d > x, e > u");
         albero.faiAssunzione(b);
 
-        MappaturaImpl c = new MappaturaImpl("f > v");
+        Mappatura c = new Mappatura("f > v");
         albero.faiAssunzione(c);
 
         Sessione sess = new Sessione(Studente.load(1).getUserInfo(), Messaggio.load(1));

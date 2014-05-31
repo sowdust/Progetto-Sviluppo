@@ -59,12 +59,12 @@ public class Sessione {
         return id != -1;
     }
 
-    public boolean faiAssunzione(MappaturaParziale nuoveAssunzioni) {
+    public boolean faiAssunzione(Mappatura nuoveAssunzioni) {
         return albero.faiAssunzione(nuoveAssunzioni);
     }
 
     public boolean salvaSoluzione() throws SQLException {
-        MappaturaParziale map = albero.getMappaturaCorrente();
+        Mappatura map = albero.getMappaturaCorrente();
         List<Character> listaCaratteri = messaggio.getSimboli();
         if(map.isCompleta(listaCaratteri)) {
             throw new IllegalStateException("La mappatura non copre tutti i caratteri usati nel messaggio");

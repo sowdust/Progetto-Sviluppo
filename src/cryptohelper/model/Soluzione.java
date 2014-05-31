@@ -7,11 +7,11 @@ import javax.sql.rowset.CachedRowSet;
 public class Soluzione {
     
     private int id;
-    private final MappaturaParziale mappatura;
+    private final Mappatura mappatura;
     private final Messaggio messaggio;
     private final UserInfo creatore;
     
-    public Soluzione(MappaturaParziale mappatura, Messaggio messaggio, UserInfo creatore) {
+    public Soluzione(Mappatura mappatura, Messaggio messaggio, UserInfo creatore) {
         this.id = -1;
         this.creatore = creatore;
         this.mappatura = mappatura;
@@ -22,7 +22,7 @@ public class Soluzione {
         this.id = crs.getInt("id");
         this.creatore = UserInfo.load(crs.getInt("creatore"));
         this.messaggio = Messaggio.load(crs.getInt("messaggio"));
-        this.mappatura = new MappaturaImpl(crs.getString("mappatura"));
+        this.mappatura = new Mappatura(crs.getString("mappatura"));
     }
     public boolean save() throws SQLException {
         DBController dbc = DBController.getInstance();
@@ -44,7 +44,7 @@ public class Soluzione {
         return new Soluzione(crs);
     }
     
-    public MappaturaParziale getMappatura() {
+    public Mappatura getMappatura() {
         return mappatura;
     }
     

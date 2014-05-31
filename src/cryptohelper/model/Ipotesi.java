@@ -6,18 +6,18 @@ import java.util.List;
 
 public class Ipotesi implements Serializable {
 
-    public MappaturaParziale assunzioni;
+    public Mappatura assunzioni;
     public List<Ipotesi> figli;
     public Ipotesi padre;
     public String commento;
 
-    public Ipotesi(MappaturaParziale map, Ipotesi padre) {
+    public Ipotesi(Mappatura map, Ipotesi padre) {
         this.padre = padre;
         this.assunzioni = map;
         this.figli = new LinkedList<>();
     }
 
-    Ipotesi aggiungiIpotesi(MappaturaParziale map) {
+    Ipotesi aggiungiIpotesi(Mappatura map) {
         Ipotesi ip = new Ipotesi(map, this);
         figli.add(ip);
         return ip;
@@ -27,9 +27,9 @@ public class Ipotesi implements Serializable {
      * Ritorna la mappatura completa calcolata risalendo il cammino fino
      * alla radice, facendo una merge con ogni mappatura incontrata
      */
-    public MappaturaParziale getMappatura() {
+    public Mappatura getMappatura() {
         if( null == padre) {
-            return new MappaturaImpl(assunzioni);
+            return new Mappatura(assunzioni);
         }
         return assunzioni.merge(padre.getMappatura());
     }
@@ -38,7 +38,7 @@ public class Ipotesi implements Serializable {
      * Percorrendo il cammino fino alla radice, restituisce il primo nodo
      * in cui vi è un assegnazione in conflitto con la mappatura m
      */
-    Ipotesi trovaConflitto(MappaturaParziale m, List<Character> listaDaRimuovere, int conflitti) {
+    Ipotesi trovaConflitto(Mappatura m, List<Character> listaDaRimuovere, int conflitti) {
         if(null == padre) {
             return this;
         }
@@ -76,8 +76,8 @@ public class Ipotesi implements Serializable {
      * Esplorando ricorsivamente i nodi figli, restituisce, se esiste, il primo
      * in cui lo stato sia uguale a m; null altrimenti
      */
-    Ipotesi giaRaggiunta(MappaturaParziale m, MappaturaParziale corrente) {
-        MappaturaParziale stato = corrente.merge(assunzioni);
+    Ipotesi giaRaggiunta(Mappatura m, Mappatura corrente) {
+        Mappatura stato = corrente.merge(assunzioni);
         
         // se vi è un conflitto, m non è in questo cammino
         if(assunzioni.conflitto(m)) {

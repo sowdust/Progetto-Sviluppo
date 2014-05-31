@@ -22,12 +22,12 @@ public class AlberoIpotesi implements Serializable {
     private final Ipotesi radice;
     public Stack<Ipotesi> mosse;
     public Ipotesi ipotesiCorrente;
-    private MappaturaParziale mappaturaCorrente;
+    private Mappatura mappaturaCorrente;
 
     public AlberoIpotesi() {
 
         mosse = new Stack<>();
-        mappaturaCorrente = new MappaturaImpl();
+        mappaturaCorrente = new Mappatura();
         radice = new Ipotesi(mappaturaCorrente, null);
         ipotesiCorrente = radice;
         mosse.push(ipotesiCorrente);
@@ -41,9 +41,9 @@ public class AlberoIpotesi implements Serializable {
      * Ritorna false in caso lo stato corrente fosse già stato raggiunto
      * in passato, true altrimenti
      */
-    public boolean faiAssunzione(MappaturaParziale nuoveAssunzioni) {
+    public boolean faiAssunzione(Mappatura nuoveAssunzioni) {
 
-        MappaturaParziale nuovaMappatura = mappaturaCorrente.merge(nuoveAssunzioni);
+        Mappatura nuovaMappatura = mappaturaCorrente.merge(nuoveAssunzioni);
         Ipotesi giaRaggiunta = giaRaggiunta(nuovaMappatura);
 
         //  Se l'ipotesi è già raggiunta, ci spostiamo lì e torniamo false
@@ -59,7 +59,7 @@ public class AlberoIpotesi implements Serializable {
         // filtraDaRimuovere ha side effect su nuoveAssunzioni:
         // rimuove tutte quelle della forma { x > - }
         List<Character> listaDaRimuovere = nuoveAssunzioni.filtraDaRimuovere();
-        MappaturaParziale daAggiungere;
+        Mappatura daAggiungere;
 
         if (nConflitti == 0 && listaDaRimuovere.isEmpty()) {
 
@@ -85,16 +85,16 @@ public class AlberoIpotesi implements Serializable {
         mappaturaCorrente = ipotesiCorrente.getMappatura();
     }
 
-    public MappaturaParziale getMappaturaCorrente() {
-        return new MappaturaImpl(mappaturaCorrente);
+    public Mappatura getMappaturaCorrente() {
+        return new Mappatura(mappaturaCorrente);
     }
 
     public Ipotesi getAlbero() {
         return radice;
     }
 
-    public Ipotesi giaRaggiunta(MappaturaParziale mappaturaCorrente) {
-        return radice.giaRaggiunta(mappaturaCorrente, new MappaturaImpl());
+    public Ipotesi giaRaggiunta(Mappatura mappaturaCorrente) {
+        return radice.giaRaggiunta(mappaturaCorrente, new Mappatura());
     }
 
     public void stampaAlbero() {

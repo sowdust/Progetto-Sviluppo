@@ -5,7 +5,7 @@
  */
 package cryptohelper.model;
 
-import cryptohelper.model.MappaturaImpl;
+import cryptohelper.model.Mappatura;
 import cryptohelper.model.CalcolatoreCesare;
 import org.junit.After;
 import org.junit.AfterClass;
@@ -53,10 +53,10 @@ public class CalcolatoreCesareTest {
         System.out.println("calcola");
         char[] alfabeto = {'a', 'b', 'c', 'd', 'e'};
         CalcolatoreCesare instance = new CalcolatoreCesare();
-        assertEquals(new MappaturaImpl(new char[]{'b', 'c', 'd', 'e', 'a'}, alfabeto), instance.calcola("1", alfabeto));
-        assertEquals(new MappaturaImpl(new char[]{'c', 'd', 'e', 'a', 'b'}, alfabeto), instance.calcola("2", alfabeto));
-        assertEquals(new MappaturaImpl(new char[]{'d', 'e', 'a', 'b', 'c'}, alfabeto), instance.calcola("3", alfabeto));
-        assertEquals(new MappaturaImpl(new char[]{'e', 'a', 'b', 'c', 'd'}, alfabeto), instance.calcola("4", alfabeto));
+        assertEquals(new Mappatura(new char[]{'b', 'c', 'd', 'e', 'a'}, alfabeto), instance.calcola("1", alfabeto));
+        assertEquals(new Mappatura(new char[]{'c', 'd', 'e', 'a', 'b'}, alfabeto), instance.calcola("2", alfabeto));
+        assertEquals(new Mappatura(new char[]{'d', 'e', 'a', 'b', 'c'}, alfabeto), instance.calcola("3", alfabeto));
+        assertEquals(new Mappatura(new char[]{'e', 'a', 'b', 'c', 'd'}, alfabeto), instance.calcola("4", alfabeto));
         /*
          thrown.expect(IllegalArgumentException.class);
          thrown = ExpectedException.none();

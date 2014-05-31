@@ -1,6 +1,6 @@
 package cryptohelper.controller;
 
-import cryptohelper.model.MappaturaParziale;
+import cryptohelper.model.Mappatura;
 import cryptohelper.model.Messaggio;
 import cryptohelper.model.Sessione;
 import cryptohelper.model.Soluzione;
@@ -25,7 +25,7 @@ public class SessionController {
         return instance;
     }
 
-    public boolean faiAssunzione(Sessione s, MappaturaParziale nuoveAssunzioni) {
+    public boolean faiAssunzione(Sessione s, Mappatura nuoveAssunzioni) {
         return s.faiAssunzione(nuoveAssunzioni);
     }
 
