@@ -1,0 +1,19 @@
+﻿ATTORE: Mittente
+
+OBIETTIVO: Mandare messaggi cifrati
+
+ATTORE: Destinatario
+
+OBIETTIVO: Ricevere messaggi cifrati
+
+ATTORE: Analista/Spia
+
+OBIETTIVO: Violare un messaggio cifrato
+
+ATTORE: Insegnante/Coordinatore
+
+OBIETTIVO: Scegliere quali Messaggi costituiscano le sfide dei Giocatori
+
+ATTORE: Giocatore
+
+OBIETTIVO: Risolvere le Sfide ottenendo il punteggio più alto possibile
