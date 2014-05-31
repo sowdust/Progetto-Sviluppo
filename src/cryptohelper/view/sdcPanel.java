@@ -37,6 +37,7 @@ public class sdcPanel extends javax.swing.JPanel {
      */
     public sdcPanel() {
         initComponents();
+        metodoCifraturaComboBox.setSelectedIndex(-1);
     }
 
     /**
@@ -64,6 +65,8 @@ public class sdcPanel extends javax.swing.JPanel {
         chiaveCifraturaField = new javax.swing.JTextField();
         calcolaMappaturaButton = new javax.swing.JButton();
         metodoCifraturaComboBox = new javax.swing.JComboBox();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        showMap = new javax.swing.JTextArea();
 
         elencoSdcPanel.setLayout(new java.awt.BorderLayout());
 
@@ -75,13 +78,13 @@ public class sdcPanel extends javax.swing.JPanel {
             }
         });
         sdcList.addAncestorListener(new javax.swing.event.AncestorListener() {
-            public void ancestorMoved(javax.swing.event.AncestorEvent evt) {
-            }
             public void ancestorAdded(javax.swing.event.AncestorEvent evt) {
                 sdcListAncestorAdded(evt);
             }
             public void ancestorRemoved(javax.swing.event.AncestorEvent evt) {
                 sdcListAncestorRemoved(evt);
+            }
+            public void ancestorMoved(javax.swing.event.AncestorEvent evt) {
             }
         });
         jScrollPane2.setViewportView(sdcList);
@@ -135,6 +138,7 @@ public class sdcPanel extends javax.swing.JPanel {
         });
 
         calcolaMappaturaButton.setText("Calcola Mappatura");
+        calcolaMappaturaButton.setEnabled(false);
         calcolaMappaturaButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 calcolaMappaturaButtonActionPerformed(evt);
@@ -148,12 +152,18 @@ public class sdcPanel extends javax.swing.JPanel {
             }
         });
 
+        showMap.setEditable(false);
+        showMap.setColumns(20);
+        showMap.setFont(new java.awt.Font("Liberation Mono", 0, 15)); // NOI18N
+        showMap.setRows(2);
+        showMap.setEnabled(false);
+        jScrollPane1.setViewportView(showMap);
+
         javax.swing.GroupLayout jPanel10Layout = new javax.swing.GroupLayout(jPanel10);
         jPanel10.setLayout(jPanel10Layout);
         jPanel10Layout.setHorizontalGroup(
             jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(risultatoProvaField)
-            .addComponent(testoProvaField)
             .addGroup(jPanel10Layout.createSequentialGroup()
                 .addGap(181, 181, 181)
                 .addComponent(provaSdcButton, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -168,10 +178,12 @@ public class sdcPanel extends javax.swing.JPanel {
                 .addContainerGap()
                 .addComponent(feedbackNuovoSdcLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
+            .addComponent(testoProvaField)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel10Layout.createSequentialGroup()
                 .addContainerGap(184, Short.MAX_VALUE)
                 .addComponent(calcolaMappaturaButton, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(180, 180, 180))
+            .addComponent(jScrollPane1)
         );
         jPanel10Layout.setVerticalGroup(
             jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -183,7 +195,9 @@ public class sdcPanel extends javax.swing.JPanel {
                     .addComponent(chiaveCifraturaField, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(calcolaMappaturaButton)
-                .addGap(99, 99, 99)
+                .addGap(29, 29, 29)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(41, 41, 41)
                 .addComponent(testoProvaField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(risultatoProvaField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -282,7 +296,7 @@ public class sdcPanel extends javax.swing.JPanel {
         try {
             Mappatura map = guiController.generaMappatura(chiaveCifraturaField.getText(), metodo);
             /* bisogna pensare a come far visualizzare la mappatura */
-            System.out.println(map);
+            showMap.setText(map.toString());
             setSdcWidgetEnabled(true);
         } catch (IllegalArgumentException ex) {
             feedbackNuovoSdcLabel.setText(ex.getMessage());
@@ -294,6 +308,7 @@ public class sdcPanel extends javax.swing.JPanel {
         String metodo = (String) cb.getSelectedItem();
         if (metodo != null) {
             chiaveCifraturaField.setEnabled(true);
+            calcolaMappaturaButton.setEnabled(true);
             feedbackNuovoSdcLabel.setText(guiController.mostraSceltaChiave(metodo));
             setSdcWidgetEnabled(false);
         }
@@ -314,6 +329,7 @@ public class sdcPanel extends javax.swing.JPanel {
     private javax.swing.JLabel feedbackNuovoSdcLabel;
     private javax.swing.JPanel jPanel10;
     private javax.swing.JPanel jPanel14;
+    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JComboBox metodoCifraturaComboBox;
     private javax.swing.JPanel nuovoSdcPanel;
@@ -322,6 +338,7 @@ public class sdcPanel extends javax.swing.JPanel {
     private javax.swing.JButton salvaSdcButton;
     private javax.swing.JList sdcList;
     private javax.swing.JTabbedPane sdcTabs;
+    private javax.swing.JTextArea showMap;
     private javax.swing.JTextField testoProvaField;
     // End of variables declaration//GEN-END:variables
 }

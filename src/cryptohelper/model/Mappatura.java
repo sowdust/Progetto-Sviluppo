@@ -88,7 +88,11 @@ public class Mappatura {
     public String toString() {
         String s = "";
         for (int i = 0; i < mappa.length; ++i) {
-            s += mappaInversa[i] + " -> " + mappa[i] + " \n";
+            s += mappaInversa[i] + " ";
+        }
+        s += "\n";
+        for (int i = 0; i < mappa.length; ++i) {
+            s += mappa[i] + " ";
         }
         return s;
     }
