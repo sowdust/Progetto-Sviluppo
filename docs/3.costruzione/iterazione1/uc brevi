@@ -1,0 +1,37 @@
+ATTORE: Giocatore
+OBIETTIVO Giocatore 1: Risolvere le Sfide
+
+    USE CASE: Effettua Sfida
+    Il Giocatore indica la difficoltà preferita: facile, normale o difficile
+    Viene scelto un Brano a caso tra quelli disponibili, applicando al messaggio delle modifiche a seconda della difficoltà scelta
+    <<include>> Effettua ciclo di analisi 
+    <<include>> Salva Risultato
+
+    USE CASE: Gestisci Risultati
+    <<include>> Visualizza Risultati
+    <<include>> Salva Risultato
+
+    USE CASE: Salva Risultato
+    L'utente invia la sua soluzione
+    Il sistema ne calcola il punteggio
+    
+    USE CASE: Visualizza Risultati
+    Si visualizza la lista delle sfide e se ne sceglie una
+    Si visualizza la classifica dei punteggi della sfida scelta
+
+ATTORE: Coordinatore
+OBIETTIVO Coordinatore 1: Selezionare i Messaggi per le Sfide
+
+    USE CASE: Gestisci Sfida
+    <<include>> Crea Sfida
+    <<include>> Chiudi Sfida
+    <<include>> Visualizza Risultati
+
+    USE CASE: Crea Sfida
+    Visualizza tutti i Messaggi scambiati tra gli Studenti
+    Seleziona un Messaggio da visualizzare, di cui vengono mostrate tutte le informazioni
+    Decide se rendere tale Messaggio una Sfida
+
+    USE CASE: Chiudi Sfida
+    Visualizza tutte le Sfide create
+    Seleziona una Sfida e ha la possibilità di renderla non più giocabile
