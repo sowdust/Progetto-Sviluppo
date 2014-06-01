@@ -16,45 +16,27 @@
  */
 package cryptohelper.model;
 
-/**
- *
- * NOTE: i metodi sono dichiarati statici in quanto non vedo (Mattia V.) motivo
- * di fare altrimenti da valutare se conviene fare così oppure no
- *
- * la cifratura viene fatta eliminando spazi e segni di punteggiatura
- *
- * !! da aggiungere alla documentazione il metodo Mappatura.inAlphabet
- *
- *
- * @author mat
- */
 public class Cifratore {
 
     public static String cifraMonoalfabetica(Mappatura mappa, String testo) {
         StringBuilder testoCifrato = new StringBuilder(testo.length());
-
         for (Character c : testo.toCharArray()) {
-            Character k = Character.toLowerCase(c);
-            k = mappa.map(k);
+            Character k = mappa.map(Character.toLowerCase(c));
             if (k != null) {
-                testoCifrato.append(mappa.map(k));
+                testoCifrato.append(k);
             }
         }
-
         return testoCifrato.toString();
     }
 
     public static String decifraMonoalfabetica(Mappatura mappa, String testo) {
         StringBuilder testoDecifrato = new StringBuilder(testo.length());
-
         for (Character c : testo.toCharArray()) {
-            Character k = Character.toLowerCase(c);
-            k = mappa.inverseMap(k);
+            Character k = mappa.inverseMap(Character.toLowerCase(c));
             if( k != null ) {
-                testoDecifrato.append(mappa.inverseMap(k));
+                testoDecifrato.append(k);
             }            
         }
-
         return testoDecifrato.toString();
     }
 
