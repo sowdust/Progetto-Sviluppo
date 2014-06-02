@@ -32,7 +32,7 @@ public class CalcolatoreCesare extends CalcolatoreMappatura {
         }
         int l = alfabeto.length;
         if (chiave <= 0 || chiave >= l) {
-            throw new IllegalArgumentException("non hai inserito un numero compreso tra 1 e " + l);
+            throw new IllegalArgumentException("non hai inserito un numero compreso tra 1 e " + (l-1));
         }
         char[] mappa = new char[l];
         for (int i = 0; i < l; i++) {
