@@ -621,7 +621,6 @@ public class MessagePanel extends javax.swing.JPanel {
 
     private void destinatariComboBoxAncestorAdded(javax.swing.event.AncestorEvent evt) {//GEN-FIRST:event_destinatariComboBoxAncestorAdded
         try {
-            int indexToSelect = -1;
             int idNuovoDest = -1;
             /* se c'è già un messaggio a cui si fa riferimento (rispondi o componi bozza) */
             if (messaggioTemp != null) {
@@ -644,6 +643,7 @@ public class MessagePanel extends javax.swing.JPanel {
             DefaultComboBoxModel<UserInfo> dlm = (DefaultComboBoxModel<UserInfo>) destinatariComboBox.getModel();
             List<UserInfo> listaDestinatari = commController.getDestinatari(studente);
             /* carico l'elenco destinatari e se necessario mi segno quale selezionare */
+            int indexToSelect = -1;
             for (int i = 0; i < listaDestinatari.size(); i++) {
                 UserInfo dest = listaDestinatari.get(i);
                 dlm.addElement(dest);
