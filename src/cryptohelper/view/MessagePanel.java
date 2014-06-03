@@ -226,9 +226,8 @@ public class MessagePanel extends javax.swing.JPanel {
 
             @Override
             public Component getListCellRendererComponent(JList list, Object value, int index, boolean isSelected, boolean cellHasFocus) {
-                MessaggioDestinatario messaggio = (MessaggioDestinatario) value;
-                setText("Destinatario: " + messaggio.getMittente() + "; Titolo: " + messaggio.getTitolo());
-                //setIcon(entry.getImage());
+                MessaggioMittente messaggio = (MessaggioMittente) value;
+                setText("Destinatario: " + messaggio.getDestinatario() + "; Titolo: " + messaggio.getTitolo());
                 if (isSelected) {
                     setBackground(list.getSelectionBackground());
                     setForeground(list.getSelectionForeground());
@@ -289,9 +288,8 @@ public class MessagePanel extends javax.swing.JPanel {
 
             @Override
             public Component getListCellRendererComponent(JList list, Object value, int index, boolean isSelected, boolean cellHasFocus) {
-                MessaggioDestinatario messaggio = (MessaggioDestinatario) value;
-                setText("Destinatario: " + messaggio.getMittente() + "; Titolo: " + messaggio.getTitolo());
-                //setIcon(entry.getImage());
+                MessaggioMittente messaggio = (MessaggioMittente) value;
+                setText("Destinatario: " + (messaggio.getDestinatario() == null ? "**nessun destinatario**" : messaggio.getDestinatario()) + "; Titolo: " + (messaggio.getTitolo().equals("") ? "**nessun titolo**" : messaggio.getTitolo()));
                 if (isSelected) {
                     setBackground(list.getSelectionBackground());
                     setForeground(list.getSelectionForeground());
