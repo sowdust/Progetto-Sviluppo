@@ -60,6 +60,9 @@
                           <Connection code="new javax.swing.DefaultListModel&lt;MessaggioDestinatario&gt;()" type="code"/>
                         </Property>
                         <Property name="selectionMode" type="int" value="0"/>
+                        <Property name="cellRenderer" type="javax.swing.ListCellRenderer" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+                          <Connection code="new DefaultListCellRenderer() {&#xa;&#xa;        @Override&#xa;        public Component getListCellRendererComponent(JList list, Object value, int index, boolean isSelected, boolean cellHasFocus) {&#xa;            MessaggioDestinatario messaggio = (MessaggioDestinatario) value;&#xa;            setText((!messaggio.isLetto() ? &quot;** &quot; : &quot;&quot;) + &quot;Mittente: &quot; + messaggio.getMittente() + &quot;; Titolo: &quot; + messaggio.getTitolo());&#xa;            //setIcon(entry.getImage());&#xa;            if (isSelected) {&#xa;                setBackground(list.getSelectionBackground());&#xa;                setForeground(list.getSelectionForeground());&#xa;            } else {&#xa;                setBackground(list.getBackground());&#xa;                setForeground(list.getForeground());&#xa;            }&#xa;            return this;&#xa;        }&#xa;    }" type="code"/>
+                        </Property>
                       </Properties>
                       <Events>
                         <EventHandler event="valueChanged" listener="javax.swing.event.ListSelectionListener" parameters="javax.swing.event.ListSelectionEvent" handler="messaggiRicevutiListValueChanged"/>
@@ -140,13 +143,13 @@
                         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="eliminaMessaggioRicevutoButtonActionPerformed"/>
                       </Events>
                     </Component>
-                    <Component class="javax.swing.JButton" name="jButton4">
+                    <Component class="javax.swing.JButton" name="rispondiButton">
                       <Properties>
                         <Property name="text" type="java.lang.String" value="Rispondi"/>
                         <Property name="enabled" type="boolean" value="false"/>
                       </Properties>
                       <Events>
-                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton4ActionPerformed"/>
+                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="rispondiButtonActionPerformed"/>
                       </Events>
                     </Component>
                     <Component class="javax.swing.JButton" name="decifraMessaggioRicevutoButton">
@@ -190,6 +193,9 @@
                       <Connection code="new javax.swing.DefaultListModel&lt;MessaggioMittente&gt;()" type="code"/>
                     </Property>
                     <Property name="selectionMode" type="int" value="0"/>
+                    <Property name="cellRenderer" type="javax.swing.ListCellRenderer" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+                      <Connection code="new DefaultListCellRenderer() {&#xa;&#xa;        @Override&#xa;        public Component getListCellRendererComponent(JList list, Object value, int index, boolean isSelected, boolean cellHasFocus) {&#xa;            MessaggioDestinatario messaggio = (MessaggioDestinatario) value;&#xa;            setText(&quot;Destinatario: &quot; + messaggio.getMittente() + &quot;; Titolo: &quot; + messaggio.getTitolo());&#xa;            //setIcon(entry.getImage());&#xa;            if (isSelected) {&#xa;                setBackground(list.getSelectionBackground());&#xa;                setForeground(list.getSelectionForeground());&#xa;            } else {&#xa;                setBackground(list.getBackground());&#xa;                setForeground(list.getForeground());&#xa;            }&#xa;            return this;&#xa;        }&#xa;    }" type="code"/>
+                    </Property>
                   </Properties>
                   <Events>
                     <EventHandler event="valueChanged" listener="javax.swing.event.ListSelectionListener" parameters="javax.swing.event.ListSelectionEvent" handler="messaggiInviatiListValueChanged"/>
@@ -273,6 +279,9 @@
                       <Connection code="new javax.swing.DefaultListModel&lt;MessaggioMittente&gt;()" type="code"/>
                     </Property>
                     <Property name="selectionMode" type="int" value="0"/>
+                    <Property name="cellRenderer" type="javax.swing.ListCellRenderer" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+                      <Connection code="new DefaultListCellRenderer() {&#xa;&#xa;        @Override&#xa;        public Component getListCellRendererComponent(JList list, Object value, int index, boolean isSelected, boolean cellHasFocus) {&#xa;            MessaggioDestinatario messaggio = (MessaggioDestinatario) value;&#xa;            setText(&quot;Destinatario: &quot; + messaggio.getMittente() + &quot;; Titolo: &quot; + messaggio.getTitolo());&#xa;            //setIcon(entry.getImage());&#xa;            if (isSelected) {&#xa;                setBackground(list.getSelectionBackground());&#xa;                setForeground(list.getSelectionForeground());&#xa;            } else {&#xa;                setBackground(list.getBackground());&#xa;                setForeground(list.getForeground());&#xa;            }&#xa;            return this;&#xa;        }&#xa;    }" type="code"/>
+                    </Property>
                   </Properties>
                   <Events>
                     <EventHandler event="valueChanged" listener="javax.swing.event.ListSelectionListener" parameters="javax.swing.event.ListSelectionEvent" handler="messaggiBozzaListValueChanged"/>

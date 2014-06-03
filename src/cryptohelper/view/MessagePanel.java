@@ -22,12 +22,18 @@ import cryptohelper.model.MessaggioDestinatario;
 import cryptohelper.model.MessaggioMittente;
 import cryptohelper.model.Studente;
 import cryptohelper.model.UserInfo;
+import java.awt.Color;
+import java.awt.Component;
 import java.sql.SQLException;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.DefaultListCellRenderer;
 import javax.swing.DefaultListModel;
+import javax.swing.JLabel;
+import javax.swing.JList;
+import javax.swing.ListCellRenderer;
 
 /**
  *
@@ -66,7 +72,7 @@ public class MessagePanel extends javax.swing.JPanel {
         jTextArea1 = new javax.swing.JTextArea();
         jPanel1 = new javax.swing.JPanel();
         eliminaMessaggioRicevutoButton = new javax.swing.JButton();
-        jButton4 = new javax.swing.JButton();
+        rispondiButton = new javax.swing.JButton();
         decifraMessaggioRicevutoButton = new javax.swing.JButton();
         messaggiInviatiPanel = new javax.swing.JPanel();
         jScrollPane11 = new javax.swing.JScrollPane();
@@ -116,6 +122,23 @@ public class MessagePanel extends javax.swing.JPanel {
 
         messaggiRicevutiList.setModel(new javax.swing.DefaultListModel<MessaggioDestinatario>());
         messaggiRicevutiList.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        messaggiRicevutiList.setCellRenderer(new DefaultListCellRenderer() {
+
+            @Override
+            public Component getListCellRendererComponent(JList list, Object value, int index, boolean isSelected, boolean cellHasFocus) {
+                MessaggioDestinatario messaggio = (MessaggioDestinatario) value;
+                setText((!messaggio.isLetto() ? "** " : "") + "Mittente: " + messaggio.getMittente() + "; Titolo: " + messaggio.getTitolo());
+                //setIcon(entry.getImage());
+                if (isSelected) {
+                    setBackground(list.getSelectionBackground());
+                    setForeground(list.getSelectionForeground());
+                } else {
+                    setBackground(list.getBackground());
+                    setForeground(list.getForeground());
+                }
+                return this;
+            }
+        });
         messaggiRicevutiList.addListSelectionListener(new javax.swing.event.ListSelectionListener() {
             public void valueChanged(javax.swing.event.ListSelectionEvent evt) {
                 messaggiRicevutiListValueChanged(evt);
@@ -171,14 +194,14 @@ public class MessagePanel extends javax.swing.JPanel {
         });
         jPanel1.add(eliminaMessaggioRicevutoButton);
 
-        jButton4.setText("Rispondi");
-        jButton4.setEnabled(false);
-        jButton4.addActionListener(new java.awt.event.ActionListener() {
+        rispondiButton.setText("Rispondi");
+        rispondiButton.setEnabled(false);
+        rispondiButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton4ActionPerformed(evt);
+                rispondiButtonActionPerformed(evt);
             }
         });
-        jPanel1.add(jButton4);
+        jPanel1.add(rispondiButton);
 
         decifraMessaggioRicevutoButton.setText("Decifra");
         decifraMessaggioRicevutoButton.setEnabled(false);
@@ -199,6 +222,23 @@ public class MessagePanel extends javax.swing.JPanel {
 
         messaggiInviatiList.setModel(new javax.swing.DefaultListModel<MessaggioMittente>());
         messaggiInviatiList.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        messaggiInviatiList.setCellRenderer(new DefaultListCellRenderer() {
+
+            @Override
+            public Component getListCellRendererComponent(JList list, Object value, int index, boolean isSelected, boolean cellHasFocus) {
+                MessaggioDestinatario messaggio = (MessaggioDestinatario) value;
+                setText("Destinatario: " + messaggio.getMittente() + "; Titolo: " + messaggio.getTitolo());
+                //setIcon(entry.getImage());
+                if (isSelected) {
+                    setBackground(list.getSelectionBackground());
+                    setForeground(list.getSelectionForeground());
+                } else {
+                    setBackground(list.getBackground());
+                    setForeground(list.getForeground());
+                }
+                return this;
+            }
+        });
         messaggiInviatiList.addListSelectionListener(new javax.swing.event.ListSelectionListener() {
             public void valueChanged(javax.swing.event.ListSelectionEvent evt) {
                 messaggiInviatiListValueChanged(evt);
@@ -245,6 +285,23 @@ public class MessagePanel extends javax.swing.JPanel {
 
         messaggiBozzaList.setModel(new javax.swing.DefaultListModel<MessaggioMittente>());
         messaggiBozzaList.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        messaggiBozzaList.setCellRenderer(new DefaultListCellRenderer() {
+
+            @Override
+            public Component getListCellRendererComponent(JList list, Object value, int index, boolean isSelected, boolean cellHasFocus) {
+                MessaggioDestinatario messaggio = (MessaggioDestinatario) value;
+                setText("Destinatario: " + messaggio.getMittente() + "; Titolo: " + messaggio.getTitolo());
+                //setIcon(entry.getImage());
+                if (isSelected) {
+                    setBackground(list.getSelectionBackground());
+                    setForeground(list.getSelectionForeground());
+                } else {
+                    setBackground(list.getBackground());
+                    setForeground(list.getForeground());
+                }
+                return this;
+            }
+        });
         messaggiBozzaList.addListSelectionListener(new javax.swing.event.ListSelectionListener() {
             public void valueChanged(javax.swing.event.ListSelectionEvent evt) {
                 messaggiBozzaListValueChanged(evt);
@@ -452,13 +509,13 @@ public class MessagePanel extends javax.swing.JPanel {
             if (messaggiRicevutiList.getSelectedIndex() == -1) {
                 jTextArea1.setText("");
                 eliminaMessaggioRicevutoButton.setEnabled(false);
-                jButton4.setEnabled(false);
+                rispondiButton.setEnabled(false);
                 decifraMessaggioRicevutoButton.setEnabled(false);
             } else {
                 MessaggioDestinatario md = (MessaggioDestinatario) messaggiRicevutiList.getSelectedValue();
                 jTextArea1.setText(md.getTestoCifrato());
                 eliminaMessaggioRicevutoButton.setEnabled(true);
-                jButton4.setEnabled(true);
+                rispondiButton.setEnabled(true);
                 decifraMessaggioRicevutoButton.setEnabled(true);
             }
         }
@@ -507,10 +564,10 @@ public class MessagePanel extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_eliminaMessaggioRicevutoButtonActionPerformed
 
-    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+    private void rispondiButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rispondiButtonActionPerformed
         messaggioTemp = (Messaggio) messaggiRicevutiList.getSelectedValue();
         jTabbedPane2.setSelectedIndex(3);
-    }//GEN-LAST:event_jButton4ActionPerformed
+    }//GEN-LAST:event_rispondiButtonActionPerformed
 
     private void decifraMessaggioRicevutoButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_decifraMessaggioRicevutoButtonActionPerformed
         try {
@@ -747,7 +804,6 @@ public class MessagePanel extends javax.swing.JPanel {
     private javax.swing.JButton eliminaMessaggioRicevutoButton;
     private javax.swing.JButton inviaButton;
     private javax.swing.JButton jButton14;
-    private javax.swing.JButton jButton4;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
@@ -789,6 +845,7 @@ public class MessagePanel extends javax.swing.JPanel {
     private javax.swing.JPanel messaggiRicevutiPanel;
     private javax.swing.JLabel nuovoMessaggioFeedback;
     private javax.swing.JButton ricaricaRicevutiButton;
+    private javax.swing.JButton rispondiButton;
     private javax.swing.JButton salvaBozzaButton;
     private javax.swing.JTextField titoloNuovoMessaggioField;
     // End of variables declaration//GEN-END:variables

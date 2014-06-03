@@ -152,8 +152,8 @@ public class Messaggio implements MessaggioMittente, MessaggioDestinatario {
             return id != -1;
         }
         return dbc.executeUpdate("UPDATE Messaggio SET "
-                + "testo = ?, testocifrato = ?, bozza = ?, lingua = ?, "
-                + "titolo = ?, mittente = ?, destinatario = ? WHERE id = ?", testo, testoCifrato, bozza, lingua, titolo, mittente.getId(), destinatario.getId(), id);
+                + "testo = ?, testocifrato = ?, lingua = ?, titolo = ?, bozza = ?, letto = ?, mittente = ?, destinatario = ?, sdc = ?"
+                + " WHERE id = ?", testo, testoCifrato, lingua, titolo, bozza, letto, mittente.getId(), (destinatario != null ? destinatario.getId() : null), (sdc != null ? sdc.getId() : null), id);
     }
 
     public List<Character> getSimboli() {
