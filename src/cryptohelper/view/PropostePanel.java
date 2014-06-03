@@ -318,9 +318,9 @@ public class PropostePanel extends javax.swing.JPanel {
 
     private void inviaPropostaButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_inviaPropostaButtonActionPerformed
         SistemaCifratura sdc = (SistemaCifratura) sdcNonPropostiList.getSelectedValue();
-        Studente patner = (Studente) compagniList.getSelectedValue();
+        Studente partner = (Studente) compagniList.getSelectedValue();
         try {
-            if (commController.inviaProposta(studente, patner, sdc)) {
+            if (commController.inviaProposta(studente, partner, sdc)) {
                 DefaultListModel<SistemaCifratura> dlmElencoSdcNonProposti = (DefaultListModel<SistemaCifratura>) sdcNonPropostiList.getModel();
                 dlmElencoSdcNonProposti.removeElement(sdc);
             }
