@@ -150,7 +150,7 @@ public class SistemaCifratura {
 
     @Override
     public String toString() {
-        return "metodo: " + metodo + " chiave: " + chiave;
+        return "Metodo: " + metodo + " Chiave: " + chiave;
     }
 
 }

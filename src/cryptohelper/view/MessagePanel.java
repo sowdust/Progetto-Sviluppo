@@ -737,7 +737,7 @@ public class MessagePanel extends javax.swing.JPanel {
     private void inviaButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_inviaButtonActionPerformed
         try {
             if (commController.send(messaggioTemp)) {
-                nuovoMessaggioFeedback.setText("Messaggio Inviato! Scegli un altro destinatario");
+                nuovoMessaggioFeedback.setText("Messaggio Inviato! Componi un altro messaggio");
             } else {
                 nuovoMessaggioFeedback.setText("Errore nell'invio del messaggio!");
             }
