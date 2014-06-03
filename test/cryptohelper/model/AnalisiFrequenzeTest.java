@@ -44,13 +44,13 @@ public class AnalisiFrequenzeTest {
      * Test of get_frequency method, of class AnalisiFrequenze.
      */
     @Test
-    public void testGet_frequency() throws SQLException {
+    public void testGetFrequency() throws SQLException {
         System.out.println("get_frequency");
         Messaggio m = Messaggio.load(1);
-        Map<Character, Float> expResult = null;
-        Map<Character, Float> result = AnalisiFrequenze.getFrequency(m);
+        Map<Character, Double> expResult = null;
+        Map<Character, Double> result = AnalisiFrequenze.getFrequency(m);
 
-        for (Map.Entry<Character, Float> entry : result.entrySet()) {
+        for (Map.Entry<Character, Double> entry : result.entrySet()) {
             System.out.println("Key: " + entry.getKey() + ". Value: " + entry.getValue());
         }
     }
