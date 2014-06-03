@@ -1,7 +1,7 @@
-Operazione:     getFrequency(testo)
+Operazione:     getFrequency(Messaggio)
 Riferimenti:    uc: AnalisiDellFrequenze
 Precondizioni:  num > 0
-Postcondizioni: restituisce oggetto RisultatoAnalisiDiFrequenza che contiene le informazioni statistiche
+Postcondizioni: restituisce oggetto RisultatoAnalisiDiFrequenza che contiene le informazioni statistiche, ovvero la frequenza in percentuale di ogni carattere dell'alfabeto
              
 Operazione:     faiAssunzione(nuova_assunzione)
 Riferimenti:    uc: AggiornaIpotesiLavoro
