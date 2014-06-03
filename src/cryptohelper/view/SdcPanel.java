@@ -16,9 +16,9 @@
  */
 package cryptohelper.view;
 
-import cryptohelper.controller.GUIController;
 import cryptohelper.model.Mappatura;
 import cryptohelper.model.SistemaCifratura;
+import cryptohelper.model.Studente;
 import java.sql.SQLException;
 import java.util.List;
 import java.util.logging.Level;
@@ -30,12 +30,15 @@ import javax.swing.JComboBox;
  *
  * @author glaxy
  */
-public class sdcPanel extends javax.swing.JPanel {
+public class SdcPanel extends javax.swing.JPanel {
 
     /**
      * Creates new form sdcPanel
+     *
+     * @param st studente che ha fatto login
      */
-    public sdcPanel() {
+    public SdcPanel(Studente st) {
+        studente = st;
         initComponents();
         metodoCifraturaComboBox.setSelectedIndex(-1);
     }
@@ -78,13 +81,13 @@ public class sdcPanel extends javax.swing.JPanel {
             }
         });
         sdcList.addAncestorListener(new javax.swing.event.AncestorListener() {
+            public void ancestorMoved(javax.swing.event.AncestorEvent evt) {
+            }
             public void ancestorAdded(javax.swing.event.AncestorEvent evt) {
                 sdcListAncestorAdded(evt);
             }
             public void ancestorRemoved(javax.swing.event.AncestorEvent evt) {
                 sdcListAncestorRemoved(evt);
-            }
-            public void ancestorMoved(javax.swing.event.AncestorEvent evt) {
             }
         });
         jScrollPane2.setViewportView(sdcList);
@@ -145,7 +148,7 @@ public class sdcPanel extends javax.swing.JPanel {
             }
         });
 
-        metodoCifraturaComboBox.setModel(new javax.swing.DefaultComboBoxModel(guiController.ottieniMetodiDiCifratura()));
+        metodoCifraturaComboBox.setModel(new javax.swing.DefaultComboBoxModel(ottieniMetodiDiCifratura()));
         metodoCifraturaComboBox.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 metodoCifraturaComboBoxActionPerformed(evt);
@@ -248,7 +251,7 @@ public class sdcPanel extends javax.swing.JPanel {
         DefaultListModel<SistemaCifratura> dlm = (DefaultListModel<SistemaCifratura>) sdcList.getModel();
         List<SistemaCifratura> listasdc = null;
         try {
-            listasdc = guiController.elencaSistemiCifratura();
+            listasdc = SistemaCifratura.caricaSistemiCifratura(studente);
         } catch (SQLException ex) {
             Logger.getLogger(GUI.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -265,7 +268,7 @@ public class sdcPanel extends javax.swing.JPanel {
     private void deleteSdcButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteSdcButtonActionPerformed
         try {
             SistemaCifratura sdc = (SistemaCifratura) sdcList.getSelectedValue();
-            if (guiController.eliminaSistemaCifratura(sdc)) {
+            if (sdc.elimina()) {
                 DefaultListModel<SistemaCifratura> dlm = (DefaultListModel<SistemaCifratura>) sdcList.getModel();
                 dlm.removeElement(sdc);
             }
@@ -276,7 +279,8 @@ public class sdcPanel extends javax.swing.JPanel {
 
     private void salvaSdcButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_salvaSdcButtonActionPerformed
         try {
-            guiController.salvaSistemaCifratura();
+            nuovoSdc.save();
+            nuovoSdc = null;
             setSdcWidgetEnabled(false);
         } catch (SQLException ex) {
             Logger.getLogger(GUI.class.getName()).log(Level.SEVERE, null, ex);
@@ -284,7 +288,7 @@ public class sdcPanel extends javax.swing.JPanel {
     }//GEN-LAST:event_salvaSdcButtonActionPerformed
 
     private void provaSdcButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_provaSdcButtonActionPerformed
-        risultatoProvaField.setText(guiController.cifra(testoProvaField.getText()));
+        risultatoProvaField.setText(nuovoSdc.prova(testoProvaField.getText()));
     }//GEN-LAST:event_provaSdcButtonActionPerformed
 
     private void chiaveCifraturaFieldKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_chiaveCifraturaFieldKeyTyped
@@ -293,9 +297,16 @@ public class sdcPanel extends javax.swing.JPanel {
 
     private void calcolaMappaturaButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_calcolaMappaturaButtonActionPerformed
         String metodo = (String) metodoCifraturaComboBox.getSelectedItem();
+        String chiave = chiaveCifraturaField.getText();
         try {
-            Mappatura map = guiController.generaMappatura(chiaveCifraturaField.getText(), metodo);
-            /* bisogna pensare a come far visualizzare la mappatura */
+            if (nuovoSdc == null) {
+                nuovoSdc = new SistemaCifratura(chiave, metodo, studente);
+            } else {
+                nuovoSdc.setChiave(chiave);
+                nuovoSdc.setMetodo(metodo);
+                nuovoSdc.calcolaMappatura();
+            }
+            Mappatura map = nuovoSdc.getMappatura();
             showMap.setText(map.toString());
             setSdcWidgetEnabled(true);
         } catch (IllegalArgumentException ex) {
@@ -309,7 +320,7 @@ public class sdcPanel extends javax.swing.JPanel {
         if (metodo != null) {
             chiaveCifraturaField.setEnabled(true);
             calcolaMappaturaButton.setEnabled(true);
-            feedbackNuovoSdcLabel.setText(guiController.mostraSceltaChiave(metodo));
+            feedbackNuovoSdcLabel.setText(mostraSceltaChiave(metodo));
             setSdcWidgetEnabled(false);
         }
     }//GEN-LAST:event_metodoCifraturaComboBoxActionPerformed
@@ -320,7 +331,29 @@ public class sdcPanel extends javax.swing.JPanel {
         testoProvaField.setEnabled(b);
         risultatoProvaField.setEnabled(b);
     }
-    private GUIController guiController = GUIController.getInstance();
+
+    private String[] ottieniMetodiDiCifratura() {
+        return new String[]{"parolachiave", "pseudocasuale", "cesare"};
+    }
+
+    private String mostraSceltaChiave(String metodo) {
+        String vincolo = "";
+        switch (metodo) {
+            case "parolachiave":
+                vincolo = "inserisci una parola (solo lettere latine)";
+                break;
+            case "cesare":
+                vincolo = "inserisci un numero da 1 a 25";
+                break;
+            case "pseudocasuale":
+                vincolo = "inserisci un numero";
+                break;
+        }
+        return vincolo;
+    }
+
+    Studente studente = null;
+    SistemaCifratura nuovoSdc = null;
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton calcolaMappaturaButton;
     private javax.swing.JTextField chiaveCifraturaField;

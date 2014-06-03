@@ -16,10 +16,11 @@
  */
 package cryptohelper.view;
 
-import cryptohelper.controller.GUIController;
+import cryptohelper.controller.CommunicationController;
 import cryptohelper.model.Messaggio;
 import cryptohelper.model.MessaggioDestinatario;
 import cryptohelper.model.MessaggioMittente;
+import cryptohelper.model.Studente;
 import cryptohelper.model.UserInfo;
 import java.awt.event.ActionListener;
 import java.sql.SQLException;
@@ -33,12 +34,15 @@ import javax.swing.DefaultListModel;
  *
  * @author glaxy
  */
-public class messagePanel extends javax.swing.JPanel {
+public class MessagePanel extends javax.swing.JPanel {
 
     /**
      * Creates new form messagePanel
+     *
+     * @param st lo studente che ha fatto login
      */
-    public messagePanel() {
+    public MessagePanel(Studente st) {
+        studente = st;
         initComponents();
     }
 
@@ -453,7 +457,7 @@ public class messagePanel extends javax.swing.JPanel {
         DefaultListModel<MessaggioDestinatario> dlm = (DefaultListModel<MessaggioDestinatario>) messaggiRicevutiList.getModel();
         List<MessaggioDestinatario> listaMessaggiRicevuti = null;
         try {
-            listaMessaggiRicevuti = guiController.elencaMessaggiRicevuti();
+            listaMessaggiRicevuti = Messaggio.caricaRicevuti(studente);
         } catch (SQLException ex) {
             Logger.getLogger(GUI.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -472,7 +476,7 @@ public class messagePanel extends javax.swing.JPanel {
         dlm.clear();
         List<MessaggioDestinatario> listaMessaggiRicevuti = null;
         try {
-            listaMessaggiRicevuti = guiController.elencaMessaggiRicevuti();
+            listaMessaggiRicevuti = Messaggio.caricaRicevuti(studente);
         } catch (SQLException ex) {
             Logger.getLogger(GUI.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -484,7 +488,7 @@ public class messagePanel extends javax.swing.JPanel {
     private void jButton10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton10ActionPerformed
         try {
             Messaggio daCancellare = (Messaggio) messaggiRicevutiList.getSelectedValue();
-            boolean b = guiController.eliminaMessaggioRicevuto(daCancellare);
+            boolean b = daCancellare.elimina();
             if (b == true) {
                 DefaultListModel<MessaggioDestinatario> dlm = (DefaultListModel<MessaggioDestinatario>) messaggiRicevutiList.getModel();
                 dlm.removeElement(daCancellare);
@@ -503,7 +507,7 @@ public class messagePanel extends javax.swing.JPanel {
         try {
             Messaggio oraLetto = (Messaggio) messaggiRicevutiList.getSelectedValue();
             int indiceLetto = messaggiRicevutiList.getSelectedIndex();
-            guiController.decifraMessaggio(oraLetto);
+            oraLetto.decifra();
             oraLetto.setLetto(true);
             oraLetto.save();
             jTextArea1.setText(oraLetto.getTesto());
@@ -531,7 +535,7 @@ public class messagePanel extends javax.swing.JPanel {
         DefaultListModel<MessaggioMittente> dlm = (DefaultListModel<MessaggioMittente>) messaggiInviatiList.getModel();
         List<MessaggioMittente> listaMessaggiInviati = null;
         try {
-            listaMessaggiInviati = guiController.elencaMessaggiInviati();
+            listaMessaggiInviati = Messaggio.caricaInviati(studente);
         } catch (SQLException ex) {
             Logger.getLogger(GUI.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -548,7 +552,7 @@ public class messagePanel extends javax.swing.JPanel {
     private void jButton12ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton12ActionPerformed
         try {
             Messaggio daCancellare = (Messaggio) messaggiInviatiList.getSelectedValue();
-            boolean b = guiController.eliminaMessaggioInviato(daCancellare);
+            boolean b = daCancellare.elimina();
             if (b == true) {
                 DefaultListModel<MessaggioMittente> dlm = (DefaultListModel<MessaggioMittente>) messaggiInviatiList.getModel();
                 dlm.removeElement(daCancellare);
@@ -574,7 +578,7 @@ public class messagePanel extends javax.swing.JPanel {
         DefaultListModel<MessaggioMittente> dlm = (DefaultListModel<MessaggioMittente>) messaggiBozzaList.getModel();
         List<MessaggioMittente> listaBozze = null;
         try {
-            listaBozze = guiController.elencaBozze();
+            listaBozze = Messaggio.caricaBozze(studente);
         } catch (SQLException ex) {
             Logger.getLogger(GUI.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -599,7 +603,7 @@ public class messagePanel extends javax.swing.JPanel {
         MessaggioMittente daCancellare = (Messaggio) messaggiBozzaList.getSelectedValue();
         DefaultListModel<MessaggioMittente> dlm = (DefaultListModel<MessaggioMittente>) messaggiBozzaList.getModel();
         try {
-            boolean b = guiController.eliminaMessaggioBozza(daCancellare);
+            boolean b = daCancellare.elimina();
             if (b == true) {
                 dlm.removeElement(daCancellare);
             }
@@ -612,7 +616,7 @@ public class messagePanel extends javax.swing.JPanel {
         UserInfo destinatario = (UserInfo) jComboBox2.getSelectedItem();
         if (destinatario != null) {
             String daCifrare = jTextArea6.getText();
-            messaggio = guiController.creaMessaggio();
+            messaggio = new Messaggio(studente);
             messaggio.setDestinatario(destinatario);
             jLabel9.setText("Componi il messaggio e cifralo");
             jLabel8.setEnabled(true);
@@ -628,7 +632,7 @@ public class messagePanel extends javax.swing.JPanel {
         DefaultComboBoxModel<UserInfo> dlm = (DefaultComboBoxModel<UserInfo>) jComboBox2.getModel();
         List<UserInfo> listaDestinatari = null;
         try {
-            listaDestinatari = guiController.elencaDestinatari();
+            listaDestinatari = commController.getDestinatari(studente);
         } catch (SQLException ex) {
             Logger.getLogger(GUI.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -671,7 +675,7 @@ public class messagePanel extends javax.swing.JPanel {
     private void jButton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton8ActionPerformed
         try {
             messaggio.setTesto(jTextArea5.getText());
-            guiController.cifraMessaggio(messaggio);
+            messaggio.cifra();
             jTextArea6.setText(messaggio.getTestoCifrato());
             jLabel9.setText("Continua a comporre, oppure invia");
         } catch (SQLException e) {
@@ -683,7 +687,7 @@ public class messagePanel extends javax.swing.JPanel {
     private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
         try {
             messaggio.setTitolo(jTextField4.getText());
-            boolean b = guiController.spedisciMessaggio(messaggio);
+            boolean b = commController.send(messaggio);
             if (b == false) {
                 jLabel9.setText("Errore nell'invio del messaggio!");
             } else {
@@ -701,7 +705,7 @@ public class messagePanel extends javax.swing.JPanel {
             if (jTextArea5.getText().equals("")) {
                 messaggio.setTesto("** testo vuoto **");
             }
-            boolean b = guiController.salvaMessaggioBozza(messaggio);
+            boolean b = messaggio.save();
             if (b == false) {
                 jLabel9.setText("Errore nel salvataggio bozza!");
             } else {
@@ -725,11 +729,13 @@ public class messagePanel extends javax.swing.JPanel {
         jTextField4.setText("");
     }
 
-    private final GUIController guiController = GUIController.getInstance();
     private Messaggio messaggio = null;
     private int idDestinatario = -1;
     private String titoloBozza = null;
     private String testoBozza = null;
+
+    Studente studente = null;
+    CommunicationController commController = CommunicationController.getInstance();
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton10;
