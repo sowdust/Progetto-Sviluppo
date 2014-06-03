@@ -78,19 +78,19 @@ public class Mappatura implements Serializable {
      * Data una mappatura parziale m, la funzione merge restituisce una nuova
      * mappatura contenente tutte le assegnazioni di m più tutte le assegnazioni
      * di this non in conflitto con m.
-     * 
+     *
      * Es:
      * {a > z } merge {b > w} ==> {a > z, b > w }
-     * {a > z, b > w } merge {a > y} ==> {a > y, b > w} 
-     * {a > z, b > w } merge {c > z} ==> {c > z, b > w} 
-     * 
+     * {a > z, b > w } merge {a > y} ==> {a > y, b > w}
+     * {a > z, b > w } merge {c > z} ==> {c > z, b > w}
+     *
      */
     public Mappatura merge(Mappatura nMap) {
 
         Mappatura m = new Mappatura(nMap);
         Mappatura r = new Mappatura(this);
 
-        //  prima è necessario rimuovere 
+        //  prima è necessario rimuovere
         for (int i = 0; i < m.map.size(); ++i) {
             if (m.inverseMap.get(i) == DA_RIMUOVERE) {
                 int k = r.map.indexOf(m.map.get(i));
@@ -122,7 +122,7 @@ public class Mappatura implements Serializable {
                 char c = m.inverseMap.get(i);
                 // prima vediamo se esiste già un'eventuale { x -> k }
                 int t = r.inverseMap.indexOf(c);
-                // asssegnamo la nuova lettera 
+                // asssegnamo la nuova lettera
                 r.inverseMap.set(k, c);
                 // se la lettera era già assegnata a sx in precedenza, la rimuoviamo
                 if (t != -1 && t != k) {
@@ -154,12 +154,12 @@ public class Mappatura implements Serializable {
      * Data una mappatura parziale m, ritorna una mappatura contentente gli
      * elementi di this che non compaiono in m.
      * Se me non è strettamente contenuta in this, IllegalArgumentException
-     * 
+     *
      * Es:
      * {a > z, b > y, c > w} sottrai { b > y, c > w }  ==> { a > z }
      * {a > z, b > y} sottrai {a > z, b > w }  ==> IllegalArgumentException: contaConflitti
      * {b > y, c > w} sottrai {a > z,  b > y, c > w }  ==> IllegalArgumentException: troppo lunga
-     * 
+     *
      */
     public Mappatura sottrai(Mappatura m) {
         int size = this.size();
@@ -183,14 +183,14 @@ public class Mappatura implements Serializable {
     }
 
     /*
-     * Data una mappatura parziale m, restituisce true se vi sono lettere già 
+     * Data una mappatura parziale m, restituisce true se vi sono lettere già
      * assegnate o già definite in maniera diversa in this, false altrimenti.
-     * 
+     *
      * Es:
      * ( {a > z} ∈ this && {a > z} ∈ m ==> false )
      * ( {a > z} ∈ this && {a > y} ∈ m ==> true )
      * ( {a > z} ∈ this && {b > z} ∈ m ==> true )
-     * 
+     *
      */
     public boolean conflitto(Mappatura m) {
         for (int i = 0; i < m.map.size(); ++i) {
@@ -245,11 +245,11 @@ public class Mappatura implements Serializable {
      * data una mappatura restituisce in una lista
      * l'elenco dei caratteri che devono essere disassegnati
      * Side Effect!: mappature con DA_RIMUOVERE rimosse da map
-     * 
+     *
      * ES:
-     * 
+     *
      * {a > z, b > DA_RIMUOVERE, c > DA_RIMUOVERE}.filtraDaRimuovere() ==> [b,c]
-     * @return 
+     * @return
      */
     public List<Character> filtraDaRimuovere() {
         List<Character> daRimuovere = new ArrayList<>();
@@ -323,28 +323,36 @@ public class Mappatura implements Serializable {
         System.out.println(s);
     }
 
+    public List<Character> getMap() {
+        return this.map;
+    }
+
+    public List<Character> getInverseMap() {
+        return this.inverseMap;
+    }
+
     /*
      * Data una mappatura parziale m, ritorna true se m è strettamente contenuta
      * in this.
-     * 
+     *
      * Es:
      * {a > z} ⊆ {a > z, b > y} ==> true
      * {a > z} ⊆ {a > z} ==> true
      * {a > z} ⊆ {a > y} ==> false
      * {a > b} ⊆ {a > z} ==> false
      * {a > z, b > y} ⊆ {a > z} ==> false
-     * 
-     
+     *
+
      public boolean subsetOf(MappaturaParziale m) {
      try {
      return m.sottrai(this).size() == (m.size() - this.size());
      }catch(Exception e) {
      return false;
      }
-        
+
      }
      */
-    /*   
+    /*
      // mi dice se una lettera della mappatura m è già definita in this
      public boolean giaDefinita(MappaturaParziale m) {
      for(char c : m.map) {
@@ -354,7 +362,7 @@ public class Mappatura implements Serializable {
      }
      return false;
      }
-    
+
 
      // mi dice se una lettera della mappatura m è già assegnata in this
      public boolean giaAssegnata(MappaturaParziale m) {

@@ -1,9 +1,9 @@
-Operazione:     getFrequency(num)
+Operazione:     getFrequency(Messaggio)
 Riferimenti:    uc: AnalisiDellFrequenze
 Precondizioni:  num > 0
-Postcondizioni: restituisce oggetto AnalisiDiFrequenza che contiene le informazioni statistiche richieste a seconda di "num" (lunghezza della sillaba del pattern)
+Postcondizioni: restituisce oggetto RisultatoAnalisiDiFrequenza che contiene le informazioni statistiche, ovvero la frequenza in percentuale di ogni carattere dell'alfabeto
              
-Operazione:     modificaMappatura(azione)
+Operazione:     faiAssunzione(nuova_assunzione)
 Riferimenti:    uc: AggiornaIpotesiLavoro
 Precondizioni:  ~
 Postcondizioni: viene modificato l'albero delle ipotesi restituendo un feedback (ipotesi gia' raggiunta)

@@ -56,7 +56,7 @@ public class Messaggio implements MessaggioMittente, MessaggioDestinatario {
         letto = queryResult.getBoolean("letto");
         mittente = UserInfo.load(queryResult.getInt("mittente"));
         destinatario = UserInfo.load(queryResult.getInt("destinatario"));
-        //sdc = SistemaCifratura.load(queryResult.getInt("sdc"));
+        sdc = SistemaCifratura.load(queryResult.getInt("sdc"));
     }
 
     public Messaggio(Studente studente) {
@@ -109,7 +109,7 @@ public class Messaggio implements MessaggioMittente, MessaggioDestinatario {
 
     /*
      NOTA:
-    
+
      Sempre da decidere bene che fare con queste benedette eccezioni
      */
     /* riguardo ai DSD "cifraMessaggio" e "decifraMessaggio" sono presenti due note:
@@ -155,8 +155,8 @@ public class Messaggio implements MessaggioMittente, MessaggioDestinatario {
         } else {
 
             return dbc.executeUpdate("UPDATE Messaggio SET "
-                + "testo = ?, testocifrato = ?, bozza = ?, lingua = ?, "
-                + "titolo = ?, mittente = ?, destinatario = ? WHERE id = ?", testo, testoCifrato, bozza, lingua, titolo, mittente.getId(), destinatario.getId(), id);
+                    + "testo = ?, testocifrato = ?, bozza = ?, lingua = ?, "
+                    + "titolo = ?, mittente = ?, destinatario = ? WHERE id = ?", testo, testoCifrato, bozza, lingua, titolo, mittente.getId(), destinatario.getId(), id);
 
         }
     }
@@ -170,6 +170,10 @@ public class Messaggio implements MessaggioMittente, MessaggioDestinatario {
             }
         }
         return simboli;
+    }
+
+    public SistemaCifratura getSistemaCifratura() {
+        return sdc;
     }
 
     @Override
