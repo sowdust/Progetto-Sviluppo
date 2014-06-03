@@ -44,9 +44,11 @@ public class UserInfo {
 
     public static UserInfo load(int id) throws SQLException {
         DBController dbc = DBController.getInstance();
-        CachedRowSet crs = dbc.execute("SELECT id, nome, cognome FROM crypto_user.Studente WHERE id = ?", id);
-        crs.next();
-        return new UserInfo(crs);
+        CachedRowSet crs = dbc.execute("SELECT id, nome, cognome FROM Studente WHERE id = ?", id);
+        if (crs.next()) {
+            return new UserInfo(crs);
+        }
+        return null;
     }
 
     public int getId() {

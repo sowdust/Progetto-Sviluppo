@@ -59,22 +59,27 @@ public class Messaggio implements MessaggioMittente, MessaggioDestinatario {
         sdc = SistemaCifratura.load(queryResult.getInt("sdc"));
     }
 
+    /* appena creo un messaggio è una bozza, se lo invio bozza=false */
     public Messaggio(Studente studente) {
-        mittente = studente.getUserInfo();
-        bozza = true; //importante per il flow del DSD salvamessaggiobozza
         id = -1;
-        titolo = "**senza titolo**";
         testo = "";
         testoCifrato = "";
-        lingua = "Inglese"; //eh eh
+        lingua = "";
+        titolo = "";
+        bozza = true;
         letto = false;
+        mittente = studente.getUserInfo();
+        destinatario = null;
+        sdc = null;
     }
 
     public static Messaggio load(int id) throws SQLException {
         DBController dbc = DBController.getInstance();
         CachedRowSet crs = dbc.execute("SELECT * FROM Messaggio WHERE id = ?", id);
-        crs.next();
-        return new Messaggio(crs);
+        if (crs.next()) {
+            return new Messaggio(crs);
+        }
+        return null;
     }
 
     public static List<MessaggioMittente> caricaInviati(Studente studente) throws SQLException {
@@ -107,11 +112,6 @@ public class Messaggio implements MessaggioMittente, MessaggioDestinatario {
         return listaRicevuti;
     }
 
-    /*
-     NOTA:
-
-     Sempre da decidere bene che fare con queste benedette eccezioni
-     */
     /* riguardo ai DSD "cifraMessaggio" e "decifraMessaggio" sono presenti due note:
      in cifra si parla di assumere che sdc non ci sia in memoria, mentre in decifra
      si parla di assumere che il sdc sia caricato in memoria.
@@ -143,22 +143,17 @@ public class Messaggio implements MessaggioMittente, MessaggioDestinatario {
         return bozza;
     }
 
-    // NOTA: cosa ritorniamo?
     @Override
     public boolean save() throws SQLException {
         DBController dbc = DBController.getInstance();
-        if (id == -1) {
-            String q = "INSERT INTO Messaggio (testo, testocifrato, bozza, lingua,"
-                    + "titolo,mittente,destinatario) VALUES (?,?,?,?,?,?,?)";
-            id = dbc.executeInsert(q, testo, testoCifrato, bozza, lingua, titolo, mittente.getId(), destinatario.getId());
+        if (id < 0) {
+            id = dbc.executeInsert("INSERT INTO Messaggio (testo, testocifrato, lingua, titolo, bozza, letto, mittente, destinatario, sdc) "
+                    + "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)", testo, testoCifrato, lingua, titolo, bozza, letto, mittente.getId(), (destinatario != null ? destinatario.getId() : null), (sdc != null ? sdc.getId() : null));
             return id != -1;
-        } else {
-
-            return dbc.executeUpdate("UPDATE Messaggio SET "
-                    + "testo = ?, testocifrato = ?, bozza = ?, lingua = ?, "
-                    + "titolo = ?, mittente = ?, destinatario = ? WHERE id = ?", testo, testoCifrato, bozza, lingua, titolo, mittente.getId(), destinatario.getId(), id);
-
         }
+        return dbc.executeUpdate("UPDATE Messaggio SET "
+                + "testo = ?, testocifrato = ?, lingua = ?, titolo = ?, bozza = ?, letto = ?, mittente = ?, destinatario = ?, sdc = ?"
+                + " WHERE id = ?", testo, testoCifrato, lingua, titolo, bozza, letto, mittente.getId(), (destinatario != null ? destinatario.getId() : null), (sdc != null ? sdc.getId() : null), id);
     }
 
     public List<Character> getSimboli() {
@@ -227,10 +222,12 @@ public class Messaggio implements MessaggioMittente, MessaggioDestinatario {
         return save();
     }
 
+    @Override
     public String toString() {
-        String result = "Mittente: " + this.mittente + "; Destinatario: " + this.destinatario
-                + "; Titolo: " + this.titolo;
-        return !letto ? "**" + result : result;
+        return (!letto ? "**" : "")
+                + "Mittente: " + mittente
+                + "; Destinatario: " + (destinatario == null ? "**nessuno**" : destinatario)
+                + "; Titolo: " + (titolo.equals("") ? "**senza titolo**" : titolo);
     }
 
     public void setDestinatario(UserInfo destinatario) {
@@ -242,11 +239,11 @@ public class Messaggio implements MessaggioMittente, MessaggioDestinatario {
     }
 
     public void setTitolo(String titolo) {
-        if (titolo.equals("")) {
-            this.titolo = "** senza titolo **";
-        } else {
-            this.titolo = titolo;
-        }
+        this.titolo = titolo;
+    }
+
+    public void setLingua(String lingua) {
+        this.lingua = lingua;
     }
 
     public UserInfo getMittente() {

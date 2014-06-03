@@ -20,11 +20,14 @@ import cryptohelper.controller.CommunicationController;
 import cryptohelper.model.Proposta;
 import cryptohelper.model.SistemaCifratura;
 import cryptohelper.model.Studente;
+import java.awt.Component;
 import java.sql.SQLException;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.DefaultListCellRenderer;
 import javax.swing.DefaultListModel;
+import javax.swing.JList;
 
 /**
  *
@@ -106,6 +109,23 @@ public class PropostePanel extends javax.swing.JPanel {
 
         proposteRicevuteValutareList.setModel(new javax.swing.DefaultListModel<Proposta>());
         proposteRicevuteValutareList.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        proposteRicevuteValutareList.setCellRenderer(new DefaultListCellRenderer() {
+
+            @Override
+            public Component getListCellRendererComponent(JList list, Object value, int index, boolean isSelected, boolean cellHasFocus) {
+                Proposta proposta = (Proposta) value;
+                setText("Da " + proposta.getProponente() + "; " + proposta.getSdc());
+                //setIcon(entry.getImage());
+                if (isSelected) {
+                    setBackground(list.getSelectionBackground());
+                    setForeground(list.getSelectionForeground());
+                } else {
+                    setBackground(list.getBackground());
+                    setForeground(list.getForeground());
+                }
+                return this;
+            }
+        });
         proposteRicevuteValutareList.addListSelectionListener(new javax.swing.event.ListSelectionListener() {
             public void valueChanged(javax.swing.event.ListSelectionEvent evt) {
                 proposteRicevuteValutareListValueChanged(evt);
@@ -131,6 +151,22 @@ public class PropostePanel extends javax.swing.JPanel {
 
         proposteInviateValutateList.setModel(new javax.swing.DefaultListModel<Proposta>());
         proposteInviateValutateList.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        proposteInviateValutateList.setCellRenderer(new DefaultListCellRenderer() {
+
+            @Override
+            public Component getListCellRendererComponent(JList list, Object value, int index, boolean isSelected, boolean cellHasFocus) {
+                Proposta proposta = (Proposta) value;
+                setText("Inviata a " + proposta.getPartner() + "; " + proposta.getSdc() + "; Risposta: " + proposta.getStato());
+                if (isSelected) {
+                    setBackground(list.getSelectionBackground());
+                    setForeground(list.getSelectionForeground());
+                } else {
+                    setBackground(list.getBackground());
+                    setForeground(list.getForeground());
+                }
+                return this;
+            }
+        });
         proposteInviateValutateList.addAncestorListener(new javax.swing.event.AncestorListener() {
             public void ancestorMoved(javax.swing.event.AncestorEvent evt) {
             }

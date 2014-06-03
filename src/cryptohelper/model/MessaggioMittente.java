@@ -31,4 +31,6 @@ public interface MessaggioMittente extends MessaggioAstratto {
     public void cifra() throws SQLException;
 
     public boolean send() throws SQLException;
+
+    public UserInfo getDestinatario();
 }

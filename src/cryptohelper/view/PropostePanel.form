@@ -114,6 +114,9 @@
                       <Connection code="new javax.swing.DefaultListModel&lt;Proposta&gt;()" type="code"/>
                     </Property>
                     <Property name="selectionMode" type="int" value="0"/>
+                    <Property name="cellRenderer" type="javax.swing.ListCellRenderer" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+                      <Connection code="new DefaultListCellRenderer() {&#xa;&#xa;        @Override&#xa;        public Component getListCellRendererComponent(JList list, Object value, int index, boolean isSelected, boolean cellHasFocus) {&#xa;            Proposta proposta = (Proposta) value;&#xa;            setText(&quot;Da &quot; + proposta.getProponente() + &quot;; &quot; + proposta.getSdc());&#xa;            //setIcon(entry.getImage());&#xa;            if (isSelected) {&#xa;                setBackground(list.getSelectionBackground());&#xa;                setForeground(list.getSelectionForeground());&#xa;            } else {&#xa;                setBackground(list.getBackground());&#xa;                setForeground(list.getForeground());&#xa;            }&#xa;            return this;&#xa;        }&#xa;    }" type="code"/>
+                    </Property>
                   </Properties>
                   <Events>
                     <EventHandler event="valueChanged" listener="javax.swing.event.ListSelectionListener" parameters="javax.swing.event.ListSelectionEvent" handler="proposteRicevuteValutareListValueChanged"/>
@@ -149,6 +152,9 @@
                       <Connection code="new javax.swing.DefaultListModel&lt;Proposta&gt;()" type="code"/>
                     </Property>
                     <Property name="selectionMode" type="int" value="0"/>
+                    <Property name="cellRenderer" type="javax.swing.ListCellRenderer" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+                      <Connection code="new DefaultListCellRenderer() {&#xa;&#xa;        @Override&#xa;        public Component getListCellRendererComponent(JList list, Object value, int index, boolean isSelected, boolean cellHasFocus) {&#xa;            Proposta proposta = (Proposta) value;&#xa;            setText(&quot;Inviata a &quot; + proposta.getPartner() + &quot;; &quot; + proposta.getSdc() + &quot;; Risposta: &quot; + proposta.getStato());&#xa;            if (isSelected) {&#xa;                setBackground(list.getSelectionBackground());&#xa;                setForeground(list.getSelectionForeground());&#xa;            } else {&#xa;                setBackground(list.getBackground());&#xa;                setForeground(list.getForeground());&#xa;            }&#xa;            return this;&#xa;        }&#xa;    }" type="code"/>
+                    </Property>
                   </Properties>
                   <Events>
                     <EventHandler event="ancestorAdded" listener="javax.swing.event.AncestorListener" parameters="javax.swing.event.AncestorEvent" handler="proposteInviateValutateListAncestorAdded"/>
