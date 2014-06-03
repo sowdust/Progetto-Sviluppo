@@ -23,10 +23,6 @@ import java.util.List;
 import javax.sql.rowset.CachedRowSet;
 
 /**
- *
- * NOTE. save() e elimina() per ora lanciano eccezioni se creatore e id
- * rispettivamente non impostati. vedere se necessarie o meno
- *
  * @author mat
  */
 public class SistemaCifratura {
@@ -79,7 +75,7 @@ public class SistemaCifratura {
     public static List<SistemaCifratura> caricaSistemiCifratura(Studente st) throws SQLException {
         DBController dbc = DBController.getInstance();
         CachedRowSet crs = dbc.execute("SELECT id, chiave, metodo, creatore "
-                + "FROM SistemaCifratura WHERE creatore = ?", st.getId());
+                + "FROM SistemaCifratura WHERE creatore = ? AND eliminato = ?", st.getId(), false);
         List<SistemaCifratura> lista = new ArrayList<>();
         while (crs.next()) {
             lista.add(new SistemaCifratura(crs));
@@ -91,7 +87,7 @@ public class SistemaCifratura {
         DBController dbc = DBController.getInstance();
         CachedRowSet crs = dbc.execute("SELECT id, chiave, metodo, creatore "
                 + "FROM SistemaCifratura "
-                + "WHERE creatore = ? AND id NOT IN (SELECT sdc FROM Proposta)", st.getId());
+                + "WHERE creatore = ? AND id NOT IN (SELECT sdc FROM Proposta) AND eliminato = ?", st.getId(), false);
         List<SistemaCifratura> lista = new ArrayList<>();
         while (crs.next()) {
             lista.add(new SistemaCifratura(crs));
@@ -101,13 +97,12 @@ public class SistemaCifratura {
 
     public static SistemaCifratura load(int id) throws SQLException {
         DBController dbc = DBController.getInstance();
-        CachedRowSet crs = dbc.execute("SELECT * FROM crypto_user.SistemaCifratura"
-                + " WHERE id = ?", id);
+        CachedRowSet crs = dbc.execute("SELECT * FROM SistemaCifratura WHERE id = ?", id);
         crs.next();
         return new SistemaCifratura(crs);
     }
 
-    //  controllare che la query sia giusta!
+    //  non più usato, da eliminare quasi certamente (vedi nuovo DSDcifraMessaggioV2)
     public static SistemaCifratura load(UserInfo st1, UserInfo st2) throws SQLException {
         DBController dbc = DBController.getInstance();
         CachedRowSet crs = dbc.execute("SELECT s.id, s.chiave, s.metodo, s.creatore"
@@ -133,9 +128,6 @@ public class SistemaCifratura {
     }
 
     public boolean save() throws SQLException {
-        if (null == creatore) {
-            throw new RuntimeException("Non è possibile salvare un sistema di cifratura senza associarvi un valido utente creatore");
-        }
         DBController dbc = DBController.getInstance();
         id = dbc.executeInsert("INSERT INTO SistemaCifratura (metodo, chiave, creatore) VALUES ( ?, ?, ?)", metodo, chiave, creatore.getId());
         return id != -1;
@@ -144,9 +136,9 @@ public class SistemaCifratura {
     public boolean elimina() throws SQLException {
         DBController dbc = DBController.getInstance();
         if (id < 0) {
-            throw new RuntimeException("Problema nell'eliminazione: SdC non identificato.");
+            return true;
         }
-        return dbc.executeUpdate("DELETE FROM crypto_user.SistemaCifratura WHERE id = ?", id);
+        return dbc.executeUpdate("UPDATE SistemaCifratura SET eliminato = ? WHERE id = ?", true, id);
 
     }
 

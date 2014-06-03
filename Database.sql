@@ -18,6 +18,7 @@ CREATE TABLE SistemaCifratura (
     creatore    int,
     metodo      varchar(20),
     chiave      varchar(20),
+    eliminato   boolean DEFAULT false,
     FOREIGN KEY (creatore) REFERENCES Studente(id)
 );
 
@@ -75,13 +76,13 @@ INSERT INTO Studente (nickname, password, nome, cognome) VALUES
     ('rossana', 'rossana', 'Rossana', 'Verdi'),
     ('gianni', 'gianni', 'Gianni', 'Ottimo');
 
-INSERT INTO SistemaCifratura (creatore, metodo, chiave) VALUES
-    (1, 'parolachiave','CIPOLLA'),
-    (4, 'cesare','3'),
-    (1, 'pseudocasuale','55'),
-    (1, 'cesare','10'),
-    (1, 'parolachiave','pallacanestro'),
-    (1, 'cesare','11');
+INSERT INTO SistemaCifratura (creatore, metodo, chiave, eliminato) VALUES
+    (1, 'parolachiave','CIPOLLA', false),
+    (4, 'cesare','3', false),
+    (1, 'pseudocasuale','55', false),
+    (1, 'cesare','10', false),
+    (1, 'parolachiave','pallacanestro', false),
+    (1, 'cesare','11', false);
 
 INSERT INTO Proposta (stato, notificata, proponente, partner, sdc) VALUES
     ('accepted', true, 1, 2, 1),
