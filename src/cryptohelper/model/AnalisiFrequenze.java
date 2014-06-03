@@ -14,7 +14,7 @@ import java.util.HashMap;
  */
 public class AnalisiFrequenze {
 
-    public static Map<Character, Float> get_frequency(Messaggio m) {
+    public static Map<Character, Float> getFrequency(Messaggio m) {
 
         Mappatura mappatura = m.getSistemaCifratura().getMappatura();
         Map<Character, Integer> frequenzeAssolute = new HashMap<>();
