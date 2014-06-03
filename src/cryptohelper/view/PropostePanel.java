@@ -16,7 +16,7 @@
  */
 package cryptohelper.view;
 
-import cryptohelper.controller.GUIController;
+import cryptohelper.controller.CommunicationController;
 import cryptohelper.model.Proposta;
 import cryptohelper.model.SistemaCifratura;
 import cryptohelper.model.Studente;
@@ -30,12 +30,15 @@ import javax.swing.DefaultListModel;
  *
  * @author glaxy
  */
-public class propostePanel extends javax.swing.JPanel {
+public class PropostePanel extends javax.swing.JPanel {
 
     /**
      * Creates new form propostePanel
+     *
+     * @param st studente che ha fatto login
      */
-    public propostePanel() {
+    public PropostePanel(Studente st) {
+        studente = st;
         initComponents();
     }
 
@@ -244,7 +247,7 @@ public class propostePanel extends javax.swing.JPanel {
     private void rifiutaPropostaButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rifiutaPropostaButtonActionPerformed
         try {
             Proposta proposta = (Proposta) proposteRicevuteValutareList.getSelectedValue();
-            if (guiController.comunicaDecisione(proposta, "refused")) {
+            if (commController.inviaDecisione(proposta, "refused")) {
                 DefaultListModel<Proposta> dlm = (DefaultListModel<Proposta>) proposteRicevuteValutareList.getModel();
                 dlm.removeElement(proposta);
             }
@@ -256,7 +259,7 @@ public class propostePanel extends javax.swing.JPanel {
     private void accettaPropostaButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_accettaPropostaButtonActionPerformed
         try {
             Proposta proposta = (Proposta) proposteRicevuteValutareList.getSelectedValue();
-            if (guiController.comunicaDecisione(proposta, "accepted")) {
+            if (commController.inviaDecisione(proposta, "accepted")) {
                 DefaultListModel<Proposta> dlm = (DefaultListModel<Proposta>) proposteRicevuteValutareList.getModel();
                 dlm.removeElement(proposta);
             }
@@ -281,7 +284,7 @@ public class propostePanel extends javax.swing.JPanel {
         DefaultListModel<Proposta> dlm = (DefaultListModel<Proposta>) proposteRicevuteValutareList.getModel();
         List<Proposta> listaProposte = null;
         try {
-            listaProposte = guiController.vediProposteSistemaCifratura();
+            listaProposte = commController.getProposte(studente);
         } catch (SQLException ex) {
             Logger.getLogger(GUI.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -299,7 +302,7 @@ public class propostePanel extends javax.swing.JPanel {
         DefaultListModel<Proposta> dlm = (DefaultListModel<Proposta>) proposteInviateValutateList.getModel();
         List<Proposta> listaProposteValutate = null;
         try {
-            listaProposteValutate = guiController.vediNotificheAccettazioneProposte();
+            listaProposteValutate = commController.getAccettazioneProposte(studente);
         } catch (SQLException ex) {
             Logger.getLogger(GUI.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -315,10 +318,9 @@ public class propostePanel extends javax.swing.JPanel {
 
     private void inviaPropostaButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_inviaPropostaButtonActionPerformed
         SistemaCifratura sdc = (SistemaCifratura) sdcNonPropostiList.getSelectedValue();
-        Studente st = (Studente) compagniList.getSelectedValue();
+        Studente patner = (Studente) compagniList.getSelectedValue();
         try {
-            if (guiController.proponiSistemaCifratura(sdc, st)) {
-                DefaultListModel<Studente> dlmElencoStudenti = (DefaultListModel<Studente>) compagniList.getModel();
+            if (commController.inviaProposta(studente, patner, sdc)) {
                 DefaultListModel<SistemaCifratura> dlmElencoSdcNonProposti = (DefaultListModel<SistemaCifratura>) sdcNonPropostiList.getModel();
                 dlmElencoSdcNonProposti.removeElement(sdc);
             }
@@ -341,7 +343,7 @@ public class propostePanel extends javax.swing.JPanel {
         DefaultListModel<SistemaCifratura> dlm = (DefaultListModel<SistemaCifratura>) sdcNonPropostiList.getModel();
         List<SistemaCifratura> listasdc = null;
         try {
-            listasdc = guiController.elencaSistemiCifraturaNonProposti();
+            listasdc = SistemaCifratura.caricaSistemiCifraturaNonProposti(studente);
         } catch (SQLException ex) {
             Logger.getLogger(GUI.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -369,7 +371,7 @@ public class propostePanel extends javax.swing.JPanel {
         DefaultListModel<Studente> dlm = (DefaultListModel<Studente>) compagniList.getModel();
         List<Studente> listaCompagni = null;
         try {
-            listaCompagni = guiController.elencaCompagni();
+            listaCompagni = studente.elencaCompagni();
         } catch (SQLException ex) {
             Logger.getLogger(GUI.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -382,7 +384,9 @@ public class propostePanel extends javax.swing.JPanel {
         DefaultListModel<SistemaCifratura> dlm = (DefaultListModel<SistemaCifratura>) compagniList.getModel();
         dlm.clear();
     }//GEN-LAST:event_compagniListAncestorRemoved
-    GUIController guiController = GUIController.getInstance();
+
+    Studente studente = null;
+    CommunicationController commController = CommunicationController.getInstance();
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton accettaPropostaButton;
     private javax.swing.JList compagniList;

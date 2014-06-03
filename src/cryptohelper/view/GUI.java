@@ -16,7 +16,7 @@
  */
 package cryptohelper.view;
 
-import cryptohelper.controller.GUIController;
+import cryptohelper.model.Studente;
 import java.awt.CardLayout;
 import java.sql.SQLException;
 import java.util.logging.Level;
@@ -65,9 +65,6 @@ public class GUI extends javax.swing.JFrame {
         jButton2 = new javax.swing.JButton();
         communicationPanel = new javax.swing.JPanel();
         comunicationTabs = new javax.swing.JTabbedPane();
-        messagePanel1 = new cryptohelper.view.messagePanel();
-        propostePanel1 = new cryptohelper.view.propostePanel();
-        sdcPanel1 = new cryptohelper.view.sdcPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new java.awt.CardLayout());
@@ -186,9 +183,6 @@ public class GUI extends javax.swing.JFrame {
         getContentPane().add(registrationPanel, "card4");
 
         comunicationTabs.setTabPlacement(javax.swing.JTabbedPane.LEFT);
-        comunicationTabs.addTab("Messaggi", messagePanel1);
-        comunicationTabs.addTab("Proposte", propostePanel1);
-        comunicationTabs.addTab("Sistemi Cifratura", sdcPanel1);
 
         javax.swing.GroupLayout communicationPanelLayout = new javax.swing.GroupLayout(communicationPanel);
         communicationPanel.setLayout(communicationPanelLayout);
@@ -213,8 +207,12 @@ public class GUI extends javax.swing.JFrame {
 
     private void loginButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loginButtonActionPerformed
         try {
-            if (guiController.login(nickLoginField.getText(), String.valueOf(passLoginField.getPassword()))) {
+            studente = Studente.login(nickLoginField.getText(), String.valueOf(passLoginField.getPassword()));
+            if (studente != null) {
                 CardLayout cl = (CardLayout) getContentPane().getLayout();
+                comunicationTabs.addTab("Messaggi", new MessagePanel(studente));
+                comunicationTabs.addTab("Proposte", new PropostePanel(studente));
+                comunicationTabs.addTab("Sistemi Cifratura", new SdcPanel(studente));
                 cl.show(getContentPane(), "card6");
             } else {
                 errorLoginLabel.setText("nickname o password errati");
@@ -224,7 +222,7 @@ public class GUI extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_loginButtonActionPerformed
 
-    private GUIController guiController = GUIController.getInstance();
+    Studente studente = null;
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel communicationPanel;
     private javax.swing.JTabbedPane comunicationTabs;
@@ -243,11 +241,8 @@ public class GUI extends javax.swing.JFrame {
     private javax.swing.JPanel loginFormPanel;
     private javax.swing.JPanel loginPanel;
     private javax.swing.JToolBar loginToolBar;
-    private cryptohelper.view.messagePanel messagePanel1;
     private javax.swing.JTextField nickLoginField;
     private javax.swing.JPasswordField passLoginField;
-    private cryptohelper.view.propostePanel propostePanel1;
     private javax.swing.JPanel registrationPanel;
-    private cryptohelper.view.sdcPanel sdcPanel1;
     // End of variables declaration//GEN-END:variables
 }
