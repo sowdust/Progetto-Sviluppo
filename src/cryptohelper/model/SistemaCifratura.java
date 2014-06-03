@@ -98,8 +98,10 @@ public class SistemaCifratura {
     public static SistemaCifratura load(int id) throws SQLException {
         DBController dbc = DBController.getInstance();
         CachedRowSet crs = dbc.execute("SELECT * FROM SistemaCifratura WHERE id = ?", id);
-        crs.next();
-        return new SistemaCifratura(crs);
+        if (crs.next()) {
+            return new SistemaCifratura(crs);
+        }
+        return null;
     }
 
     //  non più usato, da eliminare quasi certamente (vedi nuovo DSDcifraMessaggioV2)
