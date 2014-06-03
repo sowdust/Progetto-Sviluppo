@@ -465,15 +465,14 @@ public class MessagePanel extends javax.swing.JPanel {
     }//GEN-LAST:event_messaggiRicevutiListValueChanged
 
     private void messaggiRicevutiListAncestorAdded(javax.swing.event.AncestorEvent evt) {//GEN-FIRST:event_messaggiRicevutiListAncestorAdded
-        DefaultListModel<MessaggioDestinatario> dlm = (DefaultListModel<MessaggioDestinatario>) messaggiRicevutiList.getModel();
-        List<MessaggioDestinatario> listaMessaggiRicevuti = null;
         try {
-            listaMessaggiRicevuti = Messaggio.caricaRicevuti(studente);
+            DefaultListModel<MessaggioDestinatario> dlm = (DefaultListModel<MessaggioDestinatario>) messaggiRicevutiList.getModel();
+            List<MessaggioDestinatario> listaMessaggiRicevuti = Messaggio.caricaRicevuti(studente);
+            for (MessaggioDestinatario m : listaMessaggiRicevuti) {
+                dlm.addElement(m);
+            }
         } catch (SQLException ex) {
             Logger.getLogger(GUI.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        for (MessaggioDestinatario m : listaMessaggiRicevuti) {
-            dlm.addElement(m);
         }
     }//GEN-LAST:event_messaggiRicevutiListAncestorAdded
 
@@ -483,17 +482,17 @@ public class MessagePanel extends javax.swing.JPanel {
     }//GEN-LAST:event_messaggiRicevutiListAncestorRemoved
 
     private void ricaricaRicevutiButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ricaricaRicevutiButtonActionPerformed
-        DefaultListModel<MessaggioDestinatario> dlm = (DefaultListModel<MessaggioDestinatario>) messaggiRicevutiList.getModel();
-        dlm.clear();
-        List<MessaggioDestinatario> listaMessaggiRicevuti = null;
         try {
-            listaMessaggiRicevuti = Messaggio.caricaRicevuti(studente);
+            DefaultListModel<MessaggioDestinatario> dlm = (DefaultListModel<MessaggioDestinatario>) messaggiRicevutiList.getModel();
+            dlm.clear();
+            List<MessaggioDestinatario> listaMessaggiRicevuti = Messaggio.caricaRicevuti(studente);
+            for (MessaggioDestinatario m : listaMessaggiRicevuti) {
+                dlm.addElement(m);
+            }
         } catch (SQLException ex) {
             Logger.getLogger(GUI.class.getName()).log(Level.SEVERE, null, ex);
         }
-        for (MessaggioDestinatario m : listaMessaggiRicevuti) {
-            dlm.addElement(m);
-        }
+
     }//GEN-LAST:event_ricaricaRicevutiButtonActionPerformed
 
     private void eliminaMessaggioRicevutoButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_eliminaMessaggioRicevutoButtonActionPerformed
@@ -544,9 +543,7 @@ public class MessagePanel extends javax.swing.JPanel {
     private void messaggiInviatiListAncestorAdded(javax.swing.event.AncestorEvent evt) {//GEN-FIRST:event_messaggiInviatiListAncestorAdded
         try {
             DefaultListModel<MessaggioMittente> dlm = (DefaultListModel<MessaggioMittente>) messaggiInviatiList.getModel();
-            List<MessaggioMittente> listaMessaggiInviati = null;
-
-            listaMessaggiInviati = Messaggio.caricaInviati(studente);
+            List<MessaggioMittente> listaMessaggiInviati = Messaggio.caricaInviati(studente);
             for (MessaggioMittente m : listaMessaggiInviati) {
                 dlm.addElement(m);
             }
@@ -587,8 +584,7 @@ public class MessagePanel extends javax.swing.JPanel {
     private void messaggiBozzaListAncestorAdded(javax.swing.event.AncestorEvent evt) {//GEN-FIRST:event_messaggiBozzaListAncestorAdded
         try {
             DefaultListModel<MessaggioMittente> dlm = (DefaultListModel<MessaggioMittente>) messaggiBozzaList.getModel();
-            List<MessaggioMittente> listaBozze = null;
-            listaBozze = Messaggio.caricaBozze(studente);
+            List<MessaggioMittente> listaBozze = Messaggio.caricaBozze(studente);
             for (MessaggioMittente m : listaBozze) {
                 dlm.addElement(m);
             }
@@ -739,7 +735,7 @@ public class MessagePanel extends javax.swing.JPanel {
     }
 
     private Studente studente = null;
-    private CommunicationController commController = CommunicationController.getInstance();
+    private final CommunicationController commController = CommunicationController.getInstance();
     private Messaggio messaggioTemp = null;
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton cifraButton;
