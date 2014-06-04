@@ -29,20 +29,21 @@ import javax.sql.rowset.CachedRowSet;
  */
 public class Messaggio implements MessaggioMittente, MessaggioDestinatario {
 
-    /**
-     * NOTE: controllare il costruttore con resultSet che ora assomiglia a
-     * quello di Proposta per come gestisce la creazione di UserInfo. Per
-     * Proposta funzionava.
+    /*
+     * Campi caricati automaticamente:
+     *      id, titolo, bozza, letto, mittente,destinatario
+     * Campi caricati su richiesta:
+     *      testo, testoCifrato, lingua, sdc
      */
     private int id;
-    private String testo;
-    private String testoCifrato;
-    private String lingua;
     private String titolo;
     private boolean bozza;
     private boolean letto;
     private UserInfo mittente;
     private UserInfo destinatario;
+    private String testo;
+    private String testoCifrato;
+    private String lingua;
     private SistemaCifratura sdc;
 
     /* costruttore usato quando si *carica* un messaggio */
@@ -110,6 +111,10 @@ public class Messaggio implements MessaggioMittente, MessaggioDestinatario {
             listaRicevuti.add(new Messaggio(crs));
         }
         return listaRicevuti;
+    }
+
+    public void caricaDatiAggiuntivi() {
+
     }
 
     /* riguardo ai DSD "cifraMessaggio" e "decifraMessaggio" sono presenti due note:

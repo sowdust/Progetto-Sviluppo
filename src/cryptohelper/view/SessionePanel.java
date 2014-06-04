@@ -55,8 +55,8 @@ public class SessionePanel extends javax.swing.JPanel {
         jScrollPane1 = new javax.swing.JScrollPane();
         jList1 = new javax.swing.JList();
         jPanel3 = new javax.swing.JPanel();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
+        eliminaSessioneButton = new javax.swing.JButton();
+        continuaSessioneButton = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
         jList2 = new javax.swing.JList();
@@ -68,6 +68,11 @@ public class SessionePanel extends javax.swing.JPanel {
         jPanel1.setLayout(new java.awt.BorderLayout());
 
         jList1.setModel(new javax.swing.DefaultListModel<Sessione>());
+        jList1.addListSelectionListener(new javax.swing.event.ListSelectionListener() {
+            public void valueChanged(javax.swing.event.ListSelectionEvent evt) {
+                jList1ValueChanged(evt);
+            }
+        });
         jList1.addAncestorListener(new javax.swing.event.AncestorListener() {
             public void ancestorAdded(javax.swing.event.AncestorEvent evt) {
                 jList1AncestorAdded(evt);
@@ -81,11 +86,13 @@ public class SessionePanel extends javax.swing.JPanel {
 
         jPanel1.add(jScrollPane1, java.awt.BorderLayout.CENTER);
 
-        jButton1.setText("jButton1");
-        jPanel3.add(jButton1);
+        eliminaSessioneButton.setText("Elimina");
+        eliminaSessioneButton.setEnabled(false);
+        jPanel3.add(eliminaSessioneButton);
 
-        jButton2.setText("jButton2");
-        jPanel3.add(jButton2);
+        continuaSessioneButton.setText("Continua");
+        continuaSessioneButton.setEnabled(false);
+        jPanel3.add(continuaSessioneButton);
 
         jPanel1.add(jPanel3, java.awt.BorderLayout.PAGE_END);
 
@@ -133,11 +140,23 @@ public class SessionePanel extends javax.swing.JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_jList2AncestorAdded
 
+    private void jList1ValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_jList1ValueChanged
+        if (evt.getValueIsAdjusting() == false) {
+            if (jList1.getSelectedIndex() == -1) {
+                eliminaSessioneButton.setEnabled(false);
+                continuaSessioneButton.setEnabled(false);
+            } else {
+                eliminaSessioneButton.setEnabled(true);
+                continuaSessioneButton.setEnabled(true);
+            }
+        }
+    }//GEN-LAST:event_jList1ValueChanged
+
     private Studente studente = null;
     private SessionController sessController = SessionController.getInstance();
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
+    private javax.swing.JButton continuaSessioneButton;
+    private javax.swing.JButton eliminaSessioneButton;
     private javax.swing.JButton jButton3;
     private javax.swing.JList jList1;
     private javax.swing.JList jList2;
