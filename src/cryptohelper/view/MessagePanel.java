@@ -512,11 +512,15 @@ public class MessagePanel extends javax.swing.JPanel {
                 rispondiButton.setEnabled(false);
                 decifraMessaggioRicevutoButton.setEnabled(false);
             } else {
-                MessaggioDestinatario md = (MessaggioDestinatario) messaggiRicevutiList.getSelectedValue();
-                jTextArea1.setText(md.getTestoCifrato());
-                eliminaMessaggioRicevutoButton.setEnabled(true);
-                rispondiButton.setEnabled(true);
-                decifraMessaggioRicevutoButton.setEnabled(true);
+                try {
+                    MessaggioDestinatario md = (MessaggioDestinatario) messaggiRicevutiList.getSelectedValue();
+                    jTextArea1.setText(md.getTestoCifrato());
+                    eliminaMessaggioRicevutoButton.setEnabled(true);
+                    rispondiButton.setEnabled(true);
+                    decifraMessaggioRicevutoButton.setEnabled(true);
+                } catch (SQLException ex) {
+                    Logger.getLogger(MessagePanel.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
         }
     }//GEN-LAST:event_messaggiRicevutiListValueChanged
