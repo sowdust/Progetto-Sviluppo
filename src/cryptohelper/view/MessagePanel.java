@@ -590,9 +590,13 @@ public class MessagePanel extends javax.swing.JPanel {
                 jTextArea2.setText("");
                 eliminaInviatiButton.setEnabled(false);
             } else {
-                MessaggioMittente md = (MessaggioMittente) messaggiInviatiList.getSelectedValue();
-                jTextArea2.setText(md.getTesto());
-                eliminaInviatiButton.setEnabled(true);
+                try {
+                    MessaggioMittente md = (MessaggioMittente) messaggiInviatiList.getSelectedValue();
+                    jTextArea2.setText(md.getTesto());
+                    eliminaInviatiButton.setEnabled(true);
+                } catch (SQLException ex) {
+                    Logger.getLogger(MessagePanel.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
         }
     }//GEN-LAST:event_messaggiInviatiListValueChanged
@@ -633,10 +637,14 @@ public class MessagePanel extends javax.swing.JPanel {
                 jButton14.setEnabled(false);
                 eliminaBozzaButton.setEnabled(false);
             } else {
-                MessaggioMittente md = (MessaggioMittente) messaggiBozzaList.getSelectedValue();
-                jTextArea3.setText(md.getTesto());
-                jButton14.setEnabled(true);
-                eliminaBozzaButton.setEnabled(true);
+                try {
+                    MessaggioMittente md = (MessaggioMittente) messaggiBozzaList.getSelectedValue();
+                    jTextArea3.setText(md.getTesto());
+                    jButton14.setEnabled(true);
+                    eliminaBozzaButton.setEnabled(true);
+                } catch (SQLException ex) {
+                    Logger.getLogger(MessagePanel.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
         }
     }//GEN-LAST:event_messaggiBozzaListValueChanged
