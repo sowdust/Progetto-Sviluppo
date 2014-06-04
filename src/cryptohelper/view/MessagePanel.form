@@ -61,7 +61,7 @@
                         </Property>
                         <Property name="selectionMode" type="int" value="0"/>
                         <Property name="cellRenderer" type="javax.swing.ListCellRenderer" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-                          <Connection code="new DefaultListCellRenderer() {&#xa;&#xa;        @Override&#xa;        public Component getListCellRendererComponent(JList list, Object value, int index, boolean isSelected, boolean cellHasFocus) {&#xa;            MessaggioDestinatario messaggio = (MessaggioDestinatario) value;&#xa;            setText((!messaggio.isLetto() ? &quot;** &quot; : &quot;&quot;) + &quot;Mittente: &quot; + messaggio.getMittente() + &quot;; Titolo: &quot; + messaggio.getTitolo());&#xa;            //setIcon(entry.getImage());&#xa;            if (isSelected) {&#xa;                setBackground(list.getSelectionBackground());&#xa;                setForeground(list.getSelectionForeground());&#xa;            } else {&#xa;                setBackground(list.getBackground());&#xa;                setForeground(list.getForeground());&#xa;            }&#xa;            return this;&#xa;        }&#xa;    }" type="code"/>
+                          <Connection code="new DefaultListCellRenderer() {&#xa;&#xa;        @Override&#xa;        public Component getListCellRendererComponent(JList list, Object value, int index, boolean isSelected, boolean cellHasFocus) {&#xa;            MessaggioDestinatario messaggio = (MessaggioDestinatario) value;&#xa;            setText((!messaggio.isLetto() ? &quot;** &quot; : &quot;&quot;) + &quot;Mittente: &quot; + messaggio.getMittente() + &quot;; Titolo: &quot; + messaggio.getTitolo());&#xa;            if (isSelected) {&#xa;                setBackground(list.getSelectionBackground());&#xa;                setForeground(list.getSelectionForeground());&#xa;            } else {&#xa;                setBackground(list.getBackground());&#xa;                setForeground(list.getForeground());&#xa;            }&#xa;            return this;&#xa;        }&#xa;    }" type="code"/>
                         </Property>
                       </Properties>
                       <Events>
@@ -221,6 +221,7 @@
                     <Component class="javax.swing.JButton" name="eliminaInviatiButton">
                       <Properties>
                         <Property name="text" type="java.lang.String" value="Elimina"/>
+                        <Property name="enabled" type="boolean" value="false"/>
                       </Properties>
                       <Events>
                         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="eliminaInviatiButtonActionPerformed"/>
@@ -327,6 +328,7 @@
                     <Component class="javax.swing.JButton" name="jButton14">
                       <Properties>
                         <Property name="text" type="java.lang.String" value="Componi"/>
+                        <Property name="enabled" type="boolean" value="false"/>
                       </Properties>
                       <Events>
                         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton14ActionPerformed"/>
@@ -335,6 +337,7 @@
                     <Component class="javax.swing.JButton" name="eliminaBozzaButton">
                       <Properties>
                         <Property name="text" type="java.lang.String" value="Elimina"/>
+                        <Property name="enabled" type="boolean" value="false"/>
                       </Properties>
                       <Events>
                         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="eliminaBozzaButtonActionPerformed"/>

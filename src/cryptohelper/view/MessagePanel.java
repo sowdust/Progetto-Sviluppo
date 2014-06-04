@@ -128,7 +128,6 @@ public class MessagePanel extends javax.swing.JPanel {
             public Component getListCellRendererComponent(JList list, Object value, int index, boolean isSelected, boolean cellHasFocus) {
                 MessaggioDestinatario messaggio = (MessaggioDestinatario) value;
                 setText((!messaggio.isLetto() ? "** " : "") + "Mittente: " + messaggio.getMittente() + "; Titolo: " + messaggio.getTitolo());
-                //setIcon(entry.getImage());
                 if (isSelected) {
                     setBackground(list.getSelectionBackground());
                     setForeground(list.getSelectionForeground());
@@ -145,13 +144,13 @@ public class MessagePanel extends javax.swing.JPanel {
             }
         });
         messaggiRicevutiList.addAncestorListener(new javax.swing.event.AncestorListener() {
-            public void ancestorMoved(javax.swing.event.AncestorEvent evt) {
-            }
             public void ancestorAdded(javax.swing.event.AncestorEvent evt) {
                 messaggiRicevutiListAncestorAdded(evt);
             }
             public void ancestorRemoved(javax.swing.event.AncestorEvent evt) {
                 messaggiRicevutiListAncestorRemoved(evt);
+            }
+            public void ancestorMoved(javax.swing.event.AncestorEvent evt) {
             }
         });
         jScrollPane6.setViewportView(messaggiRicevutiList);
@@ -244,13 +243,13 @@ public class MessagePanel extends javax.swing.JPanel {
             }
         });
         messaggiInviatiList.addAncestorListener(new javax.swing.event.AncestorListener() {
-            public void ancestorMoved(javax.swing.event.AncestorEvent evt) {
-            }
             public void ancestorAdded(javax.swing.event.AncestorEvent evt) {
                 messaggiInviatiListAncestorAdded(evt);
             }
             public void ancestorRemoved(javax.swing.event.AncestorEvent evt) {
                 messaggiInviatiListAncestorRemoved(evt);
+            }
+            public void ancestorMoved(javax.swing.event.AncestorEvent evt) {
             }
         });
         jScrollPane11.setViewportView(messaggiInviatiList);
@@ -260,6 +259,7 @@ public class MessagePanel extends javax.swing.JPanel {
         jPanel3.setLayout(new java.awt.BorderLayout());
 
         eliminaInviatiButton.setText("Elimina");
+        eliminaInviatiButton.setEnabled(false);
         eliminaInviatiButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 eliminaInviatiButtonActionPerformed(evt);
@@ -306,13 +306,13 @@ public class MessagePanel extends javax.swing.JPanel {
             }
         });
         messaggiBozzaList.addAncestorListener(new javax.swing.event.AncestorListener() {
-            public void ancestorMoved(javax.swing.event.AncestorEvent evt) {
-            }
             public void ancestorAdded(javax.swing.event.AncestorEvent evt) {
                 messaggiBozzaListAncestorAdded(evt);
             }
             public void ancestorRemoved(javax.swing.event.AncestorEvent evt) {
                 messaggiBozzaListAncestorRemoved(evt);
+            }
+            public void ancestorMoved(javax.swing.event.AncestorEvent evt) {
             }
         });
         jScrollPane12.setViewportView(messaggiBozzaList);
@@ -328,6 +328,7 @@ public class MessagePanel extends javax.swing.JPanel {
         jPanel15.add(jScrollPane13, java.awt.BorderLayout.CENTER);
 
         jButton14.setText("Componi");
+        jButton14.setEnabled(false);
         jButton14.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton14ActionPerformed(evt);
@@ -336,6 +337,7 @@ public class MessagePanel extends javax.swing.JPanel {
         jPanel16.add(jButton14);
 
         eliminaBozzaButton.setText("Elimina");
+        eliminaBozzaButton.setEnabled(false);
         eliminaBozzaButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 eliminaBozzaButtonActionPerformed(evt);
@@ -366,13 +368,13 @@ public class MessagePanel extends javax.swing.JPanel {
             }
         });
         destinatariComboBox.addAncestorListener(new javax.swing.event.AncestorListener() {
-            public void ancestorMoved(javax.swing.event.AncestorEvent evt) {
-            }
             public void ancestorAdded(javax.swing.event.AncestorEvent evt) {
                 destinatariComboBoxAncestorAdded(evt);
             }
             public void ancestorRemoved(javax.swing.event.AncestorEvent evt) {
                 destinatariComboBoxAncestorRemoved(evt);
+            }
+            public void ancestorMoved(javax.swing.event.AncestorEvent evt) {
             }
         });
 
@@ -628,10 +630,13 @@ public class MessagePanel extends javax.swing.JPanel {
         if (evt.getValueIsAdjusting() == false) {
             if (messaggiBozzaList.getSelectedIndex() == -1) {
                 jTextArea3.setText("");
+                jButton14.setEnabled(false);
+                eliminaBozzaButton.setEnabled(false);
             } else {
                 MessaggioMittente md = (MessaggioMittente) messaggiBozzaList.getSelectedValue();
                 jTextArea3.setText(md.getTesto());
-                eliminaInviatiButton.setEnabled(true);
+                jButton14.setEnabled(true);
+                eliminaBozzaButton.setEnabled(true);
             }
         }
     }//GEN-LAST:event_messaggiBozzaListValueChanged
