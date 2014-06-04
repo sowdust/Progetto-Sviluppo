@@ -52,13 +52,12 @@ public class AnalisiFrequenze {
         return tabellaFrequenzeOrdinata;
     }
 
-    public static Map<Character, Double> getTabellaFrequenze(String lingua) {
-        switch (lingua) {
-            case "italiano":
-                return frequenzeItaliano;
-            default:
-                return null;
-        }
+    public static Map<Character, Double> getFrequency(String lingua) {
+        Map<Character, Double> tabellaFrequenzeDisordinata = frequenzeLingue.get(lingua);
+        Comparator comparator = new ValueComparator(tabellaFrequenzeDisordinata);
+        Map<Character, Double> tabellaFrequenzeOrdinata = new TreeMap<>(comparator);
+        tabellaFrequenzeOrdinata.putAll(tabellaFrequenzeDisordinata);
+        return tabellaFrequenzeOrdinata;
     }
 
     static class ValueComparator implements Comparator<Character> {
@@ -80,6 +79,7 @@ public class AnalisiFrequenze {
         }
     }
 
+    private static final Map<String, Map<Character, Double>> frequenzeLingue;
     private static final Map<Character, Double> frequenzeItaliano;
 
     static {
@@ -111,5 +111,9 @@ public class AnalisiFrequenze {
         aMap.put('x', 0.0);
         aMap.put('y', 0.0);
         frequenzeItaliano = Collections.unmodifiableMap(aMap);
+
+        frequenzeLingue = new HashMap();
+        frequenzeLingue.put("Italiano", frequenzeItaliano);
     }
+
 }

@@ -48,7 +48,7 @@ public class AnalisiFrequenzeTest {
         Messaggio m = Messaggio.load(2);
         Map<Character, Double> expResult = null;
         Map<Character, Double> result = AnalisiFrequenze.getFrequency(m);
-        Map<Character, Double> it = AnalisiFrequenze.getTabellaFrequenze("italiano");
+        Map<Character, Double> it = AnalisiFrequenze.getFrequency("Italiano");
 
         for (Map.Entry<Character, Double> entry : result.entrySet()) {
             System.out.println("Key: " + entry.getKey() + ". Value: " + entry.getValue());
