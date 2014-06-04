@@ -352,8 +352,8 @@ public class SdcPanel extends javax.swing.JPanel {
         return vincolo;
     }
 
-    Studente studente = null;
-    SistemaCifratura nuovoSdc = null;
+    private Studente studente = null;
+    private SistemaCifratura nuovoSdc = null;
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton calcolaMappaturaButton;
     private javax.swing.JTextField chiaveCifraturaField;

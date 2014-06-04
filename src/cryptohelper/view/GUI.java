@@ -207,6 +207,7 @@ public class GUI extends javax.swing.JFrame {
                 comunicationTabs.addTab("Messaggi", new MessagePanel(studente));
                 comunicationTabs.addTab("Proposte", new PropostePanel(studente));
                 comunicationTabs.addTab("Sistemi Cifratura", new SdcPanel(studente));
+                comunicationTabs.addTab("Sessioni", new SessionePanel(studente));
                 cl.show(getContentPane(), "card6");
             } else {
                 errorLoginLabel.setText("nickname o password errati");
@@ -216,7 +217,7 @@ public class GUI extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_loginButtonActionPerformed
 
-    Studente studente = null;
+    private Studente studente = null;
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel communicationPanel;
     private javax.swing.JTabbedPane comunicationTabs;

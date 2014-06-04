@@ -24,7 +24,7 @@ public class Sessione {
         this.messaggio = messaggio;
         this.albero = new AlberoIpotesi();
     }
-    
+
     public Sessione(CachedRowSet crs) throws SQLException, IOException, ClassNotFoundException {
         this.id = crs.getInt("id");
         this.messaggio = Messaggio.load(crs.getInt("messaggio"));
@@ -43,7 +43,7 @@ public class Sessione {
         crs.next();
         return new Sessione(crs);
     }
-    
+
     public int getId() {
         return this.id;
     }
@@ -66,12 +66,12 @@ public class Sessione {
     public boolean salvaSoluzione() throws SQLException {
         Mappatura map = albero.getMappaturaCorrente();
         List<Character> listaCaratteri = messaggio.getSimboli();
-        if(map.isCompleta(listaCaratteri)) {
+        if (map.isCompleta(listaCaratteri)) {
             throw new IllegalStateException("La mappatura non copre tutti i caratteri usati nel messaggio");
         }
-        Soluzione s = new Soluzione(map,messaggio,proprietario);
-        if(s.save()) {
-           return this.elimina();
+        Soluzione s = new Soluzione(map, messaggio, proprietario);
+        if (s.save()) {
+            return this.elimina();
         } else {
             throw new IllegalStateException("Problemi durante il salvataggio della soluzione nel db");
         }
@@ -79,7 +79,7 @@ public class Sessione {
 
     public boolean elimina() throws SQLException {
         DBController dbc = DBController.getInstance();
-        return dbc.executeUpdate("DELETE * FROM crypto_user.Sessione WHERE id = ?", id);        
+        return dbc.executeUpdate("DELETE * FROM crypto_user.Sessione WHERE id = ?", id);
     }
 
     public void undo(String motivazione) {

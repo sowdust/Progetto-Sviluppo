@@ -31,7 +31,7 @@ CREATE TABLE Proposta (
     sdc         int,
     FOREIGN KEY (proponente) REFERENCES Studente(id),
     FOREIGN KEY (partner) REFERENCES Studente(id),
-    FOREIGN KEY (sdc) REFERENCES SistemaCifratura(id) ON DELETE CASCADE
+    FOREIGN KEY (sdc) REFERENCES SistemaCifratura(id)
 );
 
 CREATE TABLE Messaggio (
@@ -95,3 +95,6 @@ INSERT INTO Proposta (stato, notificata, proponente, partner, sdc) VALUES
 INSERT INTO Messaggio (mittente, destinatario, testo, testoCifrato, lingua, titolo, bozza, letto, sdc) VALUES
     (1, 2, 'fede', 'alol', 'Italiano', 'Un titolo a caso', true, False, 1),
     (2, 1, 'ciao pietro', 'pecmneltrm', 'Italiano', 'Saluti', False, False, 1);
+    
+INSERT INTO Sessione (proprietario, messaggio, albero) VALUES
+    (1, 2, null);

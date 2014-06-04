@@ -421,8 +421,8 @@ public class PropostePanel extends javax.swing.JPanel {
         dlm.clear();
     }//GEN-LAST:event_compagniListAncestorRemoved
 
-    Studente studente = null;
-    CommunicationController commController = CommunicationController.getInstance();
+    private Studente studente = null;
+    private CommunicationController commController = CommunicationController.getInstance();
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton accettaPropostaButton;
     private javax.swing.JList compagniList;

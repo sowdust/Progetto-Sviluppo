@@ -22,7 +22,6 @@ import cryptohelper.model.MessaggioDestinatario;
 import cryptohelper.model.MessaggioMittente;
 import cryptohelper.model.Studente;
 import cryptohelper.model.UserInfo;
-import java.awt.Color;
 import java.awt.Component;
 import java.sql.SQLException;
 import java.util.List;
@@ -31,9 +30,7 @@ import java.util.logging.Logger;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.DefaultListCellRenderer;
 import javax.swing.DefaultListModel;
-import javax.swing.JLabel;
 import javax.swing.JList;
-import javax.swing.ListCellRenderer;
 
 /**
  *
@@ -691,6 +688,7 @@ public class MessagePanel extends javax.swing.JPanel {
                 } else {
                     /* sto rispondendo ad un messaggio */
                     idNuovoDest = messaggioTemp.getMittente().getId();
+                    messaggioTemp = new Messaggio(studente);
                 }
             } else {
                 /* non sto nè rispondendo a qualcuno nè continuando una bozza */

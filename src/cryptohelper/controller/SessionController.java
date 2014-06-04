@@ -39,7 +39,7 @@ public class SessionController {
 
     public List<Sessione> mostraSessioni(UserInfo studente) throws SQLException, IOException, ClassNotFoundException {
         DBController dbc = DBController.getInstance();
-        CachedRowSet crs = dbc.execute("SELECT * FROM crypto_user.Sessione WHERE proprietario = ?", studente.getId());
+        CachedRowSet crs = dbc.execute("SELECT * FROM Sessione WHERE proprietario = ?", studente.getId());
         List<Sessione> listaSessioni = new ArrayList<>();
         while (crs.next()) {
             listaSessioni.add(new Sessione(crs));
