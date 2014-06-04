@@ -71,9 +71,9 @@ public class MessagePanel extends javax.swing.JPanel {
         jScrollPane9 = new javax.swing.JScrollPane();
         jTextArea1 = new javax.swing.JTextArea();
         jPanel1 = new javax.swing.JPanel();
-        eliminaMessaggioRicevutoButton = new javax.swing.JButton();
-        rispondiButton = new javax.swing.JButton();
         decifraMessaggioRicevutoButton = new javax.swing.JButton();
+        rispondiButton = new javax.swing.JButton();
+        eliminaMessaggioRicevutoButton = new javax.swing.JButton();
         messaggiInviatiPanel = new javax.swing.JPanel();
         jScrollPane11 = new javax.swing.JScrollPane();
         messaggiInviatiList = new javax.swing.JList();
@@ -184,14 +184,14 @@ public class MessagePanel extends javax.swing.JPanel {
 
         jPanel2.add(jScrollPane9, java.awt.BorderLayout.CENTER);
 
-        eliminaMessaggioRicevutoButton.setText("Elimina");
-        eliminaMessaggioRicevutoButton.setEnabled(false);
-        eliminaMessaggioRicevutoButton.addActionListener(new java.awt.event.ActionListener() {
+        decifraMessaggioRicevutoButton.setText("Decifra");
+        decifraMessaggioRicevutoButton.setEnabled(false);
+        decifraMessaggioRicevutoButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                eliminaMessaggioRicevutoButtonActionPerformed(evt);
+                decifraMessaggioRicevutoButtonActionPerformed(evt);
             }
         });
-        jPanel1.add(eliminaMessaggioRicevutoButton);
+        jPanel1.add(decifraMessaggioRicevutoButton);
 
         rispondiButton.setText("Rispondi");
         rispondiButton.setEnabled(false);
@@ -202,14 +202,14 @@ public class MessagePanel extends javax.swing.JPanel {
         });
         jPanel1.add(rispondiButton);
 
-        decifraMessaggioRicevutoButton.setText("Decifra");
-        decifraMessaggioRicevutoButton.setEnabled(false);
-        decifraMessaggioRicevutoButton.addActionListener(new java.awt.event.ActionListener() {
+        eliminaMessaggioRicevutoButton.setText("Elimina");
+        eliminaMessaggioRicevutoButton.setEnabled(false);
+        eliminaMessaggioRicevutoButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                decifraMessaggioRicevutoButtonActionPerformed(evt);
+                eliminaMessaggioRicevutoButtonActionPerformed(evt);
             }
         });
-        jPanel1.add(decifraMessaggioRicevutoButton);
+        jPanel1.add(eliminaMessaggioRicevutoButton);
 
         jPanel2.add(jPanel1, java.awt.BorderLayout.PAGE_END);
 
@@ -516,8 +516,8 @@ public class MessagePanel extends javax.swing.JPanel {
                     MessaggioDestinatario md = (MessaggioDestinatario) messaggiRicevutiList.getSelectedValue();
                     jTextArea1.setText(md.getTestoCifrato());
                     eliminaMessaggioRicevutoButton.setEnabled(true);
-                    rispondiButton.setEnabled(true);
                     decifraMessaggioRicevutoButton.setEnabled(true);
+                    rispondiButton.setEnabled(false);
                 } catch (SQLException ex) {
                     Logger.getLogger(MessagePanel.class.getName()).log(Level.SEVERE, null, ex);
                 }
@@ -583,6 +583,8 @@ public class MessagePanel extends javax.swing.JPanel {
             jTextArea1.setText(oraLetto.getTesto());
             DefaultListModel<MessaggioDestinatario> dlm = (DefaultListModel<MessaggioDestinatario>) messaggiRicevutiList.getModel();
             dlm.set(indiceLetto, oraLetto);
+            rispondiButton.setEnabled(true);
+            decifraMessaggioRicevutoButton.setEnabled(false);
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
