@@ -13,13 +13,13 @@ public class Sessione {
     private int id;
     private final UserInfo proprietario;
     private final Messaggio messaggio;
-    public AlberoIpotesi albero;
+    private AlberoIpotesi albero = null;
 
     public Sessione(UserInfo proprietario, Messaggio messaggio) {
         this.id = -1;
         this.proprietario = proprietario;
         this.messaggio = messaggio;
-        //this.albero = new AlberoIpotesi();
+        this.albero = new AlberoIpotesi();
     }
 
     public Sessione(CachedRowSet crs) throws SQLException {
@@ -28,7 +28,7 @@ public class Sessione {
         this.proprietario = UserInfo.load(crs.getInt("proprietario"));
     }
 
-    public AlberoIpotesi getAlbero() throws SQLException, IOException, ClassNotFoundException {
+    public AlberoIpotesi getAlbero() {
         if (null == this.albero) {
             this.albero = AlberoIpotesi.load(this.id);
         }
@@ -53,7 +53,7 @@ public class Sessione {
     public boolean save() throws SQLException, IOException {
         ByteArrayOutputStream bos = new ByteArrayOutputStream();
         ObjectOutputStream oos = new ObjectOutputStream(bos);
-        oos.writeObject(albero);
+        oos.writeObject(getAlbero());
         oos.close();
         DBController dbc = DBController.getInstance();
         String q = "INSERT INTO Sessione (proprietario, messaggio, albero) VALUES (?, ?, ?)";
@@ -62,11 +62,11 @@ public class Sessione {
     }
 
     public boolean faiAssunzione(Mappatura nuoveAssunzioni) {
-        return albero.faiAssunzione(nuoveAssunzioni);
+        return getAlbero().faiAssunzione(nuoveAssunzioni);
     }
 
     public boolean salvaSoluzione() throws SQLException {
-        Mappatura mapCorrente = albero.getMappaturaCorrente();
+        Mappatura mapCorrente = getAlbero().getMappaturaCorrente();
         List<Character> listaCaratteri = messaggio.getSimboli();
         if (mapCorrente.isCompleta(listaCaratteri)) {
             throw new IllegalStateException("La mappatura non copre tutti i caratteri usati nel messaggio");
@@ -85,7 +85,7 @@ public class Sessione {
     }
 
     public void undo(String motivazione) {
-        albero.undo(motivazione);
+        getAlbero().undo(motivazione);
     }
 
     public boolean caricaSoluzione(Soluzione sol) {

@@ -40,17 +40,21 @@ public class AlberoIpotesi implements Serializable {
         mosse.push(ipotesiCorrente);
     }
 
-    public static AlberoIpotesi load(int idSessione) throws SQLException, IOException, ClassNotFoundException {
-        DBController dbc = DBController.getInstance();
-        CachedRowSet crs = dbc.execute("SELECT id, messaggio, proprietario FROM Sessione WHERE id = ?", idSessione);
-        if (!crs.next()) {
-            return null;
+    public static AlberoIpotesi load(int idSessione) {
+        try {
+            DBController dbc = DBController.getInstance();
+            CachedRowSet crs = dbc.execute("SELECT albero FROM Sessione WHERE id = ?", idSessione);
+            if (!crs.next()) {
+                return null;
+            }
+            Blob bl = crs.getBlob("albero");
+            byte[] buf = bl.getBytes(1, (int) bl.length());
+            ObjectInputStream objectIn;
+            objectIn = new ObjectInputStream(new ByteArrayInputStream(buf));
+            return ((AlberoIpotesi) objectIn.readObject());
+        } catch (IOException | ClassNotFoundException | SQLException e) {
+            throw new RuntimeException(e);
         }
-        Blob bl = crs.getBlob("albero");
-        byte[] buf = bl.getBytes(1, (int) bl.length());
-        ObjectInputStream objectIn;
-        objectIn = new ObjectInputStream(new ByteArrayInputStream(buf));
-        return ((AlberoIpotesi) objectIn.readObject());
     }
 
     /*

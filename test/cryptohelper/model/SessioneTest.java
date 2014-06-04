@@ -44,24 +44,24 @@ public class SessioneTest {
     public void test() throws SQLException, IOException, ClassNotFoundException {
         AlberoIpotesi albero = new AlberoIpotesi();
         Mappatura a = new Mappatura("a > z, b > w, c > y");
+        Sessione sess = new Sessione(Studente.load(1).getUserInfo(), Messaggio.load(1));
 
         //  PRIMA ASSUNZIONE
         //  a > z, b > w, c > y
-        albero.faiAssunzione(new Mappatura(a));
+        sess.getAlbero().faiAssunzione(new Mappatura(a));
         Mappatura b = new Mappatura("d > x, e > u");
-        albero.faiAssunzione(b);
+        sess.getAlbero().faiAssunzione(b);
 
         Mappatura c = new Mappatura("f > v");
-        albero.faiAssunzione(c);
+        sess.getAlbero().faiAssunzione(c);
 
-        Sessione sess = new Sessione(Studente.load(1).getUserInfo(), Messaggio.load(1));
         sess.save();
         System.out.println(sess.getId());
 
         Sessione due = Sessione.load(1);
         System.out.println("test: ");
-        due.albero.stampaAlbero();
-        System.out.println("Prima mossa: " + due.albero.mosse.get(3).getMappatura());
+        due.getAlbero().stampaAlbero();
+        System.out.println("Prima mossa: " + due.getAlbero().mosse.get(0).getMappatura());
     }
 
 }
