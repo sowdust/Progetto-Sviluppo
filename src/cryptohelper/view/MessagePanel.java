@@ -353,6 +353,20 @@ public class MessagePanel extends javax.swing.JPanel {
 
         messaggiCreaPanel.setLayout(new javax.swing.BoxLayout(messaggiCreaPanel, javax.swing.BoxLayout.PAGE_AXIS));
 
+        titoloNuovoMessaggioField.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                titoloNuovoMessaggioFieldActionPerformed(evt);
+            }
+        });
+        titoloNuovoMessaggioField.addAncestorListener(new javax.swing.event.AncestorListener() {
+            public void ancestorAdded(javax.swing.event.AncestorEvent evt) {
+                titoloNuovoMessaggioFieldAncestorAdded(evt);
+            }
+            public void ancestorRemoved(javax.swing.event.AncestorEvent evt) {
+            }
+            public void ancestorMoved(javax.swing.event.AncestorEvent evt) {
+            }
+        });
         titoloNuovoMessaggioField.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 titoloNuovoMessaggioFieldKeyTyped(evt);
@@ -386,7 +400,6 @@ public class MessagePanel extends javax.swing.JPanel {
         jLabel1.setText("Lingua:");
 
         linguaComboBox.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Italiano", "Inglese", "Francese" }));
-        linguaComboBox.setSelectedIndex(-1);
         linguaComboBox.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 linguaComboBoxActionPerformed(evt);
@@ -694,6 +707,9 @@ public class MessagePanel extends javax.swing.JPanel {
             int idNuovoDest = -1;
             /* se c'è già un messaggio a cui si fa riferimento (rispondi o componi bozza) */
             if (messaggioTemp != null) {
+
+                setLingua(messaggioTemp.getLingua());
+
                 /* se sto continuando a comporre una bozza */
                 if (messaggioTemp.isBozza()) {
                     UserInfo dest = messaggioTemp.getDestinatario();
@@ -705,6 +721,7 @@ public class MessagePanel extends javax.swing.JPanel {
                 } else {
                     /* sto rispondendo ad un messaggio */
                     idNuovoDest = messaggioTemp.getMittente().getId();
+                    titoloNuovoMessaggioField.setText("RE: " + messaggioTemp.getTitolo());
                 }
             } else {
                 /* non sto nè rispondendo a qualcuno nè continuando una bozza */
@@ -798,6 +815,14 @@ public class MessagePanel extends javax.swing.JPanel {
         checkIfEnableCifraButton();
     }//GEN-LAST:event_linguaComboBoxActionPerformed
 
+    private void titoloNuovoMessaggioFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_titoloNuovoMessaggioFieldActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_titoloNuovoMessaggioFieldActionPerformed
+
+    private void titoloNuovoMessaggioFieldAncestorAdded(javax.swing.event.AncestorEvent evt) {//GEN-FIRST:event_titoloNuovoMessaggioFieldAncestorAdded
+        // TODO add your handling code here:
+    }//GEN-LAST:event_titoloNuovoMessaggioFieldAncestorAdded
+
     private void checkIfEnableCifraButton() {
         if (!corpoNuovoMessaggio.getText().equals("") && !titoloNuovoMessaggioField.getText().equals("")
                 && destinatariComboBox.getSelectedIndex() != -1 && linguaComboBox.getSelectedIndex() != -1) {
@@ -806,6 +831,25 @@ public class MessagePanel extends javax.swing.JPanel {
             cifraButton.setEnabled(false);
         }
         inviaButton.setEnabled(false);
+    }
+
+    private void setLingua(String lingua) {
+        int index;
+        switch (lingua) {
+            case "Italiano":
+                index = 0;
+                break;
+            case "Inglese":
+                index = 1;
+                break;
+            case "Francese":
+                index = 2;
+                break;
+            default:
+                index = -1;
+                break;
+        }
+        linguaComboBox.setSelectedIndex(index);
     }
 
     private Studente studente = null;
