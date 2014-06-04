@@ -101,7 +101,7 @@ public class Messaggio implements MessaggioMittente, MessaggioDestinatario {
 
     public static List<MessaggioDestinatario> caricaRicevuti(Studente studente) throws SQLException {
         DBController dbc = DBController.getInstance();
-        CachedRowSet crs = dbc.execute("SELECT id, titolo, bozza, letto, mittente,destinatario FROM Messaggio WHERE destinatario = ?", studente.getId());
+        CachedRowSet crs = dbc.execute("SELECT id, titolo, bozza, letto, mittente,destinatario FROM Messaggio WHERE bozza = ? AND destinatario = ?", false, studente.getId());
         List<MessaggioDestinatario> listaRicevuti = new ArrayList<>();
         while (crs.next()) {
             listaRicevuti.add(new Messaggio(crs));
