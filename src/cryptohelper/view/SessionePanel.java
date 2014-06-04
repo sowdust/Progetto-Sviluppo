@@ -17,6 +17,7 @@
 package cryptohelper.view;
 
 import cryptohelper.controller.SessionController;
+import cryptohelper.model.MessaggioSpia;
 import cryptohelper.model.Sessione;
 import cryptohelper.model.Studente;
 import java.util.List;
@@ -93,6 +94,15 @@ public class SessionePanel extends javax.swing.JPanel {
         jPanel2.setLayout(new java.awt.BorderLayout());
 
         jList2.setModel(new javax.swing.DefaultListModel<MessaggioSpia>());
+        jList2.addAncestorListener(new javax.swing.event.AncestorListener() {
+            public void ancestorAdded(javax.swing.event.AncestorEvent evt) {
+                jList2AncestorAdded(evt);
+            }
+            public void ancestorRemoved(javax.swing.event.AncestorEvent evt) {
+            }
+            public void ancestorMoved(javax.swing.event.AncestorEvent evt) {
+            }
+        });
         jScrollPane2.setViewportView(jList2);
 
         jPanel2.add(jScrollPane2, java.awt.BorderLayout.CENTER);
@@ -118,6 +128,10 @@ public class SessionePanel extends javax.swing.JPanel {
             Logger.getLogger(GUI.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_jList1AncestorAdded
+
+    private void jList2AncestorAdded(javax.swing.event.AncestorEvent evt) {//GEN-FIRST:event_jList2AncestorAdded
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jList2AncestorAdded
 
     private Studente studente = null;
     private SessionController sessController = SessionController.getInstance();

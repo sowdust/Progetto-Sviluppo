@@ -107,6 +107,9 @@
                       <Connection code="new javax.swing.DefaultListModel&lt;MessaggioSpia&gt;()" type="code"/>
                     </Property>
                   </Properties>
+                  <Events>
+                    <EventHandler event="ancestorAdded" listener="javax.swing.event.AncestorListener" parameters="javax.swing.event.AncestorEvent" handler="jList2AncestorAdded"/>
+                  </Events>
                 </Component>
               </SubComponents>
             </Container>
