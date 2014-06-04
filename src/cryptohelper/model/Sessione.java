@@ -1,12 +1,9 @@
 package cryptohelper.model;
 
 import cryptohelper.controller.DBController;
-import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
-import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
-import java.sql.Blob;
 import java.sql.SQLException;
 import java.util.List;
 import javax.sql.rowset.CachedRowSet;
@@ -22,28 +19,33 @@ public class Sessione {
         this.id = -1;
         this.proprietario = proprietario;
         this.messaggio = messaggio;
-        this.albero = new AlberoIpotesi();
+        //this.albero = new AlberoIpotesi();
     }
-    
-    public Sessione(CachedRowSet crs) throws SQLException, IOException, ClassNotFoundException {
+
+    public Sessione(CachedRowSet crs) throws SQLException {
         this.id = crs.getInt("id");
         this.messaggio = Messaggio.load(crs.getInt("messaggio"));
         this.proprietario = UserInfo.load(crs.getInt("proprietario"));
-        Blob bl = crs.getBlob("albero");
-        byte[] buf = bl.getBytes(1, (int) bl.length());
-        ObjectInputStream objectIn;
-        objectIn = new ObjectInputStream(new ByteArrayInputStream(buf));
-        this.albero = ((AlberoIpotesi) objectIn.readObject());
+    }
+
+    public AlberoIpotesi getAlbero() throws SQLException, IOException, ClassNotFoundException {
+        if (null == this.albero) {
+            this.albero = AlberoIpotesi.load(this.id);
+        }
+        return this.albero;
     }
 
     public static Sessione load(int id) throws SQLException, IOException, ClassNotFoundException {
 
         DBController dbc = DBController.getInstance();
-        CachedRowSet crs = dbc.execute("SELECT * FROM Sessione WHERE id = ?", id);
-        crs.next();
-        return new Sessione(crs);
+        CachedRowSet crs = dbc.execute("SELECT id, messaggio, proprietario FROM Sessione WHERE id = ?", id);
+        if (crs.next()) {
+            return new Sessione(crs);
+        } else {
+            return null;
+        }
     }
-    
+
     public int getId() {
         return this.id;
     }
@@ -64,14 +66,14 @@ public class Sessione {
     }
 
     public boolean salvaSoluzione() throws SQLException {
-        Mappatura map = albero.getMappaturaCorrente();
+        Mappatura mapCorrente = albero.getMappaturaCorrente();
         List<Character> listaCaratteri = messaggio.getSimboli();
-        if(map.isCompleta(listaCaratteri)) {
+        if (mapCorrente.isCompleta(listaCaratteri)) {
             throw new IllegalStateException("La mappatura non copre tutti i caratteri usati nel messaggio");
         }
-        Soluzione s = new Soluzione(map,messaggio,proprietario);
-        if(s.save()) {
-           return this.elimina();
+        Soluzione s = new Soluzione(mapCorrente, messaggio, proprietario);
+        if (s.save()) {
+            return this.elimina();
         } else {
             throw new IllegalStateException("Problemi durante il salvataggio della soluzione nel db");
         }
@@ -79,7 +81,7 @@ public class Sessione {
 
     public boolean elimina() throws SQLException {
         DBController dbc = DBController.getInstance();
-        return dbc.executeUpdate("DELETE * FROM crypto_user.Sessione WHERE id = ?", id);        
+        return dbc.executeUpdate("DELETE * FROM crypto_user.Sessione WHERE id = ?", id);
     }
 
     public void undo(String motivazione) {

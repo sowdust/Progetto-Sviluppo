@@ -1,8 +1,15 @@
 package cryptohelper.model;
 
+import cryptohelper.controller.DBController;
+import java.io.ByteArrayInputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
 import java.io.Serializable;
+import java.sql.Blob;
+import java.sql.SQLException;
 import java.util.List;
 import java.util.Stack;
+import javax.sql.rowset.CachedRowSet;
 
 /*
  * NOTE SULL'ALBERO.
@@ -31,6 +38,19 @@ public class AlberoIpotesi implements Serializable {
         radice = new Ipotesi(mappaturaCorrente, null);
         ipotesiCorrente = radice;
         mosse.push(ipotesiCorrente);
+    }
+
+    public static AlberoIpotesi load(int idSessione) throws SQLException, IOException, ClassNotFoundException {
+        DBController dbc = DBController.getInstance();
+        CachedRowSet crs = dbc.execute("SELECT id, messaggio, proprietario FROM Sessione WHERE id = ?", idSessione);
+        if (!crs.next()) {
+            return null;
+        }
+        Blob bl = crs.getBlob("albero");
+        byte[] buf = bl.getBytes(1, (int) bl.length());
+        ObjectInputStream objectIn;
+        objectIn = new ObjectInputStream(new ByteArrayInputStream(buf));
+        return ((AlberoIpotesi) objectIn.readObject());
     }
 
     /*

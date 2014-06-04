@@ -45,6 +45,7 @@ public class Messaggio implements MessaggioMittente, MessaggioDestinatario {
     private UserInfo destinatario;
     private SistemaCifratura sdc;
 
+    // id, titolo, bozza, letto, mittente,destinatario
     /* costruttore usato quando si *carica* un messaggio */
     private Messaggio(CachedRowSet queryResult) throws SQLException {
         id = queryResult.getInt("id");
