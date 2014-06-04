@@ -14,7 +14,6 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-
 package cryptohelper.model;
 
 import java.sql.SQLException;
@@ -24,12 +23,17 @@ import java.sql.SQLException;
  * @author glaxy
  */
 public interface MessaggioAstratto {
-    
+
     public int getId();
-    public String getTesto();
-    public String getTestoCifrato();
-    public String getLingua();
+
     public String getTitolo();
+
+    public String getTesto() throws SQLException;
+
+    public String getTestoCifrato() throws SQLException;
+
+    public String getLingua() throws SQLException;
+
     public boolean elimina() throws SQLException;
-    
+
 }
