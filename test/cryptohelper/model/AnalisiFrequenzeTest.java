@@ -6,7 +6,6 @@
 package cryptohelper.model;
 
 import java.sql.SQLException;
-import java.util.Iterator;
 import java.util.Map;
 import org.junit.After;
 import org.junit.AfterClass;
@@ -46,11 +45,15 @@ public class AnalisiFrequenzeTest {
     @Test
     public void testGetFrequency() throws SQLException {
         System.out.println("get_frequency");
-        Messaggio m = Messaggio.load(1);
+        Messaggio m = Messaggio.load(2);
         Map<Character, Double> expResult = null;
         Map<Character, Double> result = AnalisiFrequenze.getFrequency(m);
+        Map<Character, Double> it = AnalisiFrequenze.getFrequency("Italiano");
 
         for (Map.Entry<Character, Double> entry : result.entrySet()) {
+            System.out.println("Key: " + entry.getKey() + ". Value: " + entry.getValue());
+        }
+        for (Map.Entry<Character, Double> entry : it.entrySet()) {
             System.out.println("Key: " + entry.getKey() + ". Value: " + entry.getValue());
         }
     }
