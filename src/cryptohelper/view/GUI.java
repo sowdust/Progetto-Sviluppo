@@ -67,6 +67,8 @@ public class GUI extends javax.swing.JFrame {
         comunicationTabs = new javax.swing.JTabbedPane();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("CryptoHelper");
+        setPreferredSize(new java.awt.Dimension(700, 512));
         getContentPane().setLayout(new java.awt.CardLayout());
 
         loginPanel.setLayout(new java.awt.BorderLayout());
@@ -182,18 +184,10 @@ public class GUI extends javax.swing.JFrame {
 
         getContentPane().add(registrationPanel, "card4");
 
-        comunicationTabs.setTabPlacement(javax.swing.JTabbedPane.LEFT);
+        communicationPanel.setLayout(new javax.swing.BoxLayout(communicationPanel, javax.swing.BoxLayout.LINE_AXIS));
 
-        javax.swing.GroupLayout communicationPanelLayout = new javax.swing.GroupLayout(communicationPanel);
-        communicationPanel.setLayout(communicationPanelLayout);
-        communicationPanelLayout.setHorizontalGroup(
-            communicationPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(comunicationTabs, javax.swing.GroupLayout.PREFERRED_SIZE, 701, javax.swing.GroupLayout.PREFERRED_SIZE)
-        );
-        communicationPanelLayout.setVerticalGroup(
-            communicationPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(comunicationTabs, javax.swing.GroupLayout.PREFERRED_SIZE, 452, javax.swing.GroupLayout.PREFERRED_SIZE)
-        );
+        comunicationTabs.setTabPlacement(javax.swing.JTabbedPane.LEFT);
+        communicationPanel.add(comunicationTabs);
 
         getContentPane().add(communicationPanel, "card6");
 
