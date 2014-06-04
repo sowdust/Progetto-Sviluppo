@@ -41,23 +41,19 @@ public class Messaggio implements MessaggioMittente, MessaggioDestinatario {
     private boolean letto;
     private UserInfo mittente;
     private UserInfo destinatario;
-    private String testo;
-    private String testoCifrato;
-    private String lingua;
-    private SistemaCifratura sdc;
+    private String testo = null;
+    private String testoCifrato = null;
+    private String lingua = null;
+    private SistemaCifratura sdc = null;
 
     /* costruttore usato quando si *carica* un messaggio */
     private Messaggio(CachedRowSet queryResult) throws SQLException {
         id = queryResult.getInt("id");
-        testo = queryResult.getString("testo");
-        testoCifrato = queryResult.getString("testoCifrato");
-        lingua = queryResult.getString("lingua");
         titolo = queryResult.getString("titolo");
         bozza = queryResult.getBoolean("bozza");
         letto = queryResult.getBoolean("letto");
         mittente = UserInfo.load(queryResult.getInt("mittente"));
         destinatario = UserInfo.load(queryResult.getInt("destinatario"));
-        sdc = SistemaCifratura.load(queryResult.getInt("sdc"));
     }
 
     /* appena creo un messaggio è una bozza, se lo invio bozza=false */
@@ -76,7 +72,7 @@ public class Messaggio implements MessaggioMittente, MessaggioDestinatario {
 
     public static Messaggio load(int id) throws SQLException {
         DBController dbc = DBController.getInstance();
-        CachedRowSet crs = dbc.execute("SELECT * FROM Messaggio WHERE id = ?", id);
+        CachedRowSet crs = dbc.execute("SELECT id, titolo, bozza, letto, mittente,destinatario FROM Messaggio WHERE id = ?", id);
         if (crs.next()) {
             return new Messaggio(crs);
         }
@@ -85,7 +81,7 @@ public class Messaggio implements MessaggioMittente, MessaggioDestinatario {
 
     public static List<MessaggioMittente> caricaInviati(Studente studente) throws SQLException {
         DBController dbc = DBController.getInstance();
-        CachedRowSet crs = dbc.execute("SELECT * FROM Messaggio WHERE mittente = ? AND bozza = ?", studente.getId(), false);
+        CachedRowSet crs = dbc.execute("SELECT id, titolo, bozza, letto, mittente,destinatario FROM Messaggio WHERE mittente = ? AND bozza = ?", studente.getId(), false);
         List<MessaggioMittente> listaInviati = new ArrayList<>();
         while (crs.next()) {
             listaInviati.add(new Messaggio(crs));
@@ -95,7 +91,7 @@ public class Messaggio implements MessaggioMittente, MessaggioDestinatario {
 
     public static List<MessaggioMittente> caricaBozze(Studente studente) throws SQLException {
         DBController dbc = DBController.getInstance();
-        CachedRowSet crs = dbc.execute("SELECT * FROM Messaggio WHERE mittente = ? AND bozza = ?", studente.getId(), true);
+        CachedRowSet crs = dbc.execute("SELECT id, titolo, bozza, letto, mittente,destinatario FROM Messaggio WHERE mittente = ? AND bozza = ?", studente.getId(), true);
         List<MessaggioMittente> listaBozze = new ArrayList<>();
         while (crs.next()) {
             listaBozze.add(new Messaggio(crs));
@@ -105,7 +101,7 @@ public class Messaggio implements MessaggioMittente, MessaggioDestinatario {
 
     public static List<MessaggioDestinatario> caricaRicevuti(Studente studente) throws SQLException {
         DBController dbc = DBController.getInstance();
-        CachedRowSet crs = dbc.execute("SELECT * FROM crypto_user.Messaggio WHERE destinatario = ?", studente.getId());
+        CachedRowSet crs = dbc.execute("SELECT id, titolo, bozza, letto, mittente,destinatario FROM Messaggio WHERE destinatario = ?", studente.getId());
         List<MessaggioDestinatario> listaRicevuti = new ArrayList<>();
         while (crs.next()) {
             listaRicevuti.add(new Messaggio(crs));
@@ -113,8 +109,14 @@ public class Messaggio implements MessaggioMittente, MessaggioDestinatario {
         return listaRicevuti;
     }
 
-    public void caricaDatiAggiuntivi() {
-
+    public void getCampiAggiuntivi() throws SQLException {
+        DBController dbc = DBController.getInstance();
+        CachedRowSet crs = dbc.execute("SELECT testo, testoCifrato, lingua, sdc FROM crypto_user.Messaggio WHERE id = ?", id);
+        crs.next();
+        this.testo = crs.getString("testo");
+        this.testoCifrato = crs.getString("testoCifrato");
+        this.lingua = crs.getString("lingua");
+        this.sdc = SistemaCifratura.load(crs.getInt("sdc"));
     }
 
     /* riguardo ai DSD "cifraMessaggio" e "decifraMessaggio" sono presenti due note:
@@ -161,9 +163,9 @@ public class Messaggio implements MessaggioMittente, MessaggioDestinatario {
                 + " WHERE id = ?", testo, testoCifrato, lingua, titolo, bozza, letto, mittente.getId(), (destinatario != null ? destinatario.getId() : null), (sdc != null ? sdc.getId() : null), id);
     }
 
-    public List<Character> getSimboli() {
+    public List<Character> getSimboli() throws SQLException {
         List<Character> simboli = new LinkedList();
-        char[] cArray = testo.toCharArray();
+        char[] cArray = getTesto().toCharArray();
         for (char c : cArray) {
             if (simboli.indexOf(c) == -1) {
                 simboli.add(c);
@@ -182,23 +184,32 @@ public class Messaggio implements MessaggioMittente, MessaggioDestinatario {
     }
 
     @Override
-    public String getTesto() {
+    public String getTitolo() {
+        return titolo;
+    }
+
+    @Override
+    public String getTesto() throws SQLException {
+        if (null == testo) {
+            getCampiAggiuntivi();
+        }
         return testo;
     }
 
     @Override
-    public String getTestoCifrato() {
+    public String getTestoCifrato() throws SQLException {
+        if (null == testoCifrato) {
+            getCampiAggiuntivi();
+        }
         return testoCifrato;
     }
 
     @Override
-    public String getLingua() {
+    public String getLingua() throws SQLException {
+        if (null == lingua) {
+            getCampiAggiuntivi();
+        }
         return lingua;
-    }
-
-    @Override
-    public String getTitolo() {
-        return titolo;
     }
 
     @Override
@@ -227,14 +238,6 @@ public class Messaggio implements MessaggioMittente, MessaggioDestinatario {
         return save();
     }
 
-    @Override
-    public String toString() {
-        return (!letto ? "**" : "")
-                + "Mittente: " + mittente
-                + "; Destinatario: " + (destinatario == null ? "**nessuno**" : destinatario)
-                + "; Titolo: " + (titolo.equals("") ? "**senza titolo**" : titolo);
-    }
-
     public void setDestinatario(UserInfo destinatario) {
         this.destinatario = destinatario;
     }
@@ -251,12 +254,23 @@ public class Messaggio implements MessaggioMittente, MessaggioDestinatario {
         this.lingua = lingua;
     }
 
+    @Override
     public UserInfo getMittente() {
         return this.mittente;
     }
 
+    @Override
     public UserInfo getDestinatario() {
         return this.destinatario;
     }
 
+    /*
+     @Override
+     public String toString() {
+     return (!letto ? "**" : "")
+     + "Mittente: " + mittente
+     + "; Destinatario: " + (destinatario == null ? "**nessuno**" : destinatario)
+     + "; Titolo: " + (titolo.equals("") ? "**senza titolo**" : titolo);
+     }
+     */
 }
