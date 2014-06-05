@@ -84,8 +84,8 @@ public class Sessione {
         return dbc.executeUpdate("DELETE * FROM crypto_user.Sessione WHERE id = ?", id);
     }
 
-    public void undo(String motivazione) {
-        getAlbero().undo(motivazione);
+    public void undo(String commento) {
+        getAlbero().undo(commento);
     }
 
     public boolean caricaSoluzione(Soluzione sol) {
@@ -98,6 +98,10 @@ public class Sessione {
 
     public Mappatura getMappaturaCorrente() {
         return getAlbero().getMappaturaCorrente();
+    }
+
+    public String getCommento() {
+        return getAlbero().getCommento();
     }
 
     @Override

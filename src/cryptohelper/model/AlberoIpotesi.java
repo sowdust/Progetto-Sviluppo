@@ -124,4 +124,8 @@ public class AlberoIpotesi implements Serializable {
     public void stampaAlbero() {
         radice.stampa(0, ipotesiCorrente);
     }
+
+    public String getCommento() {
+        return ipotesiCorrente.getCommento();
+    }
 }

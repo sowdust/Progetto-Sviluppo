@@ -21,7 +21,9 @@ import cryptohelper.model.Cifratore;
 import cryptohelper.model.Mappatura;
 import cryptohelper.model.MessaggioSpia;
 import cryptohelper.model.Sessione;
-import javax.swing.JDialog;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JFrame;
 import javax.swing.SwingUtilities;
 
@@ -182,11 +184,15 @@ public class SessioneApertaPanel extends javax.swing.JPanel {
     }//GEN-LAST:event_undoButtonActionPerformed
 
     private void provaMappaturaCorrente() {
-        /* temporaneamente è così */
-        mapCorrente = sessione.getMappaturaCorrente();
-        jTextArea1.setText(messaggio.getTestoCifrato());
-        jTextArea2.setText(Cifratore.decifraMonoalfabetica(mapCorrente, messaggio.getTestoCifrato()));
-        undoButton.setEnabled(!mapCorrente.isEmpty());
+        try {
+            /* temporaneamente è così */
+            mapCorrente = sessione.getMappaturaCorrente();
+            jTextArea1.setText(messaggio.getTestoCifrato());
+            jTextArea2.setText(Cifratore.decifraMonoalfabetica(mapCorrente, messaggio.getTestoCifrato()));
+            undoButton.setEnabled(!mapCorrente.isEmpty());
+        } catch (SQLException ex) {
+            Logger.getLogger(SessioneApertaPanel.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     private Sessione sessione = null;

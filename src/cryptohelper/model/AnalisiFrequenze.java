@@ -1,5 +1,6 @@
 package cryptohelper.model;
 
+import java.sql.SQLException;
 import java.util.Comparator;
 import java.util.Map;
 import java.util.TreeMap;
@@ -15,7 +16,7 @@ import java.util.Collections;
  */
 public class AnalisiFrequenze {
 
-    public static Map<Character, Double> getFrequency(Messaggio m) {
+    public static Map<Character, Double> getFrequency(Messaggio m) throws SQLException {
 
         Mappatura mappatura = m.getSistemaCifratura().getMappatura();
         Map<Character, Integer> frequenzeAssolute = new HashMap<>();

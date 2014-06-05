@@ -46,6 +46,7 @@ public class SessionController {
             listaSessioni.add(new Sessione(crs));
         }
         return listaSessioni;
+
     }
 
     public Sessione creaSessione(UserInfo proprietario, MessaggioSpia messaggio) {
@@ -86,4 +87,7 @@ public class SessionController {
         return listaMessaggi;
     }
 
+    public String getCommento(Sessione s) {
+        return s.getCommento();
+    }
 }

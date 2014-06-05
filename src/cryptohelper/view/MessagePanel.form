@@ -134,13 +134,13 @@
 
                   <Layout class="org.netbeans.modules.form.compat2.layouts.DesignFlowLayout"/>
                   <SubComponents>
-                    <Component class="javax.swing.JButton" name="eliminaMessaggioRicevutoButton">
+                    <Component class="javax.swing.JButton" name="decifraMessaggioRicevutoButton">
                       <Properties>
-                        <Property name="text" type="java.lang.String" value="Elimina"/>
+                        <Property name="text" type="java.lang.String" value="Decifra"/>
                         <Property name="enabled" type="boolean" value="false"/>
                       </Properties>
                       <Events>
-                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="eliminaMessaggioRicevutoButtonActionPerformed"/>
+                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="decifraMessaggioRicevutoButtonActionPerformed"/>
                       </Events>
                     </Component>
                     <Component class="javax.swing.JButton" name="rispondiButton">
@@ -152,13 +152,13 @@
                         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="rispondiButtonActionPerformed"/>
                       </Events>
                     </Component>
-                    <Component class="javax.swing.JButton" name="decifraMessaggioRicevutoButton">
+                    <Component class="javax.swing.JButton" name="eliminaMessaggioRicevutoButton">
                       <Properties>
-                        <Property name="text" type="java.lang.String" value="Decifra"/>
+                        <Property name="text" type="java.lang.String" value="Elimina"/>
                         <Property name="enabled" type="boolean" value="false"/>
                       </Properties>
                       <Events>
-                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="decifraMessaggioRicevutoButtonActionPerformed"/>
+                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="eliminaMessaggioRicevutoButtonActionPerformed"/>
                       </Events>
                     </Component>
                   </SubComponents>
@@ -413,6 +413,8 @@
               <SubComponents>
                 <Component class="javax.swing.JTextField" name="titoloNuovoMessaggioField">
                   <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="titoloNuovoMessaggioFieldActionPerformed"/>
+                    <EventHandler event="ancestorAdded" listener="javax.swing.event.AncestorListener" parameters="javax.swing.event.AncestorEvent" handler="titoloNuovoMessaggioFieldAncestorAdded"/>
                     <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="titoloNuovoMessaggioFieldKeyTyped"/>
                   </Events>
                 </Component>
@@ -458,7 +460,6 @@
                         <StringItem index="2" value="Francese"/>
                       </StringArray>
                     </Property>
-                    <Property name="selectedIndex" type="int" value="-1"/>
                   </Properties>
                   <Events>
                     <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="linguaComboBoxActionPerformed"/>
