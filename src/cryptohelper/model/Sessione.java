@@ -93,8 +93,9 @@ public class Sessione {
     }
 
     public boolean caricaSoluzione(Soluzione sol) {
-        getMappaturaCorrente().rimuoviTutti();
-        throw new UnsupportedOperationException("Not supported yet.");
+        Mappatura mappaturaVuota = getMappaturaCorrente().rimuoviTutti();
+        Mappatura nuovaMappatura = mappaturaVuota.merge(sol.getMappatura());
+        return faiAssunzione(nuovaMappatura);
     }
 
 }
