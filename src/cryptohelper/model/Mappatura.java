@@ -1,24 +1,24 @@
 package cryptohelper.model;
 
 import java.io.Serializable;
-import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
 public class Mappatura implements Serializable {
 
-    private ArrayList<Character> map;
-    private ArrayList<Character> inverseMap;
+    private List<Character> map;
+    private List<Character> inverseMap;
     //carattere della mappatura che indica la richiesta di rimozione
     static final char DA_RIMUOVERE = '-';
 
     public Mappatura() {
-        this.map = new ArrayList();
-        this.inverseMap = new ArrayList();
+        this.map = new LinkedList();
+        this.inverseMap = new LinkedList();
     }
 
     public Mappatura(char[] map, char[] inverseMap) {
-        this.map = new ArrayList<>();
-        this.inverseMap = new ArrayList<>();
+        this.map = new LinkedList<>();
+        this.inverseMap = new LinkedList<>();
         /* non il più furbo dei metodi? */
         for (int i = 0; i < map.length; i++) {
             this.map.add(map[i]);
@@ -27,8 +27,8 @@ public class Mappatura implements Serializable {
     }
 
     public Mappatura(Mappatura m) {
-        this.map = new ArrayList();
-        this.inverseMap = new ArrayList();
+        this.map = new LinkedList();
+        this.inverseMap = new LinkedList();
         for (Character c : m.map) {
             this.map.add(c);
         }
@@ -38,8 +38,8 @@ public class Mappatura implements Serializable {
     }
 
     public Mappatura(String s) {
-        this.map = new ArrayList();
-        this.inverseMap = new ArrayList();
+        this.map = new LinkedList();
+        this.inverseMap = new LinkedList();
         String[] split = s.split(",");
         for (String t : split) {
             String[] m = t.trim().split(">");
@@ -252,7 +252,7 @@ public class Mappatura implements Serializable {
      * @return
      */
     public List<Character> filtraDaRimuovere() {
-        List<Character> daRimuovere = new ArrayList<>();
+        List<Character> daRimuovere = new LinkedList<>();
         for (int i = 0; i < map.size(); ++i) {
             if (inverseMap.get(i) == DA_RIMUOVERE) {
                 daRimuovere.add(map.get(i));
@@ -286,10 +286,10 @@ public class Mappatura implements Serializable {
     }
 
     public Mappatura rimuoviTutti() {
-        Mappatura m = new Mappatura(this);
+        Mappatura m = new Mappatura();
         for (int i = 0; i < inverseMap.size(); ++i) {
-            m.inverseMap.set(i, DA_RIMUOVERE);
-            m.map.set(i, map.get(i));
+            m.inverseMap.add(DA_RIMUOVERE);
+            m.map.add(map.get(i));
         }
         return m;
     }
