@@ -99,7 +99,7 @@ public class AlberoIpotesi implements Serializable {
         ipotesiCorrente = ipotesiACuiAttaccarsi.aggiungiIpotesi(daAggiungere);
         mappaturaCorrente = nuovaMappatura;
         mosse.push(ipotesiCorrente);
-
+        stampaAlbero();
         return true;
     }
 
