@@ -403,7 +403,7 @@ public class SessioneApertaPanel extends javax.swing.JPanel {
         @Override
         public void processKeyEvent(KeyEvent ev) {
             char c = ev.getKeyChar();
-            if ((ev.getKeyCode() != KeyEvent.VK_BACK_SPACE) && ((!Character.isLetter(c)) || getDocument().getLength() > 0)) {
+            if ((ev.getKeyCode() != KeyEvent.VK_BACK_SPACE) && ((!Character.isLetter(c) && c != '-') || getDocument().getLength() > 0)) {
                 ev.consume();
                 return;
             }
