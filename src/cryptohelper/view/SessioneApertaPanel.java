@@ -21,6 +21,7 @@ import cryptohelper.model.Cifratore;
 import cryptohelper.model.Mappatura;
 import cryptohelper.model.MessaggioSpia;
 import cryptohelper.model.Sessione;
+import java.io.IOException;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -53,6 +54,7 @@ public class SessioneApertaPanel extends javax.swing.JPanel {
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
+        java.awt.GridBagConstraints gridBagConstraints;
 
         jPanel1 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
@@ -69,6 +71,7 @@ public class SessioneApertaPanel extends javax.swing.JPanel {
         jPanel5 = new javax.swing.JPanel();
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
+        feedbackSessione = new javax.swing.JLabel();
 
         setLayout(new java.awt.BorderLayout());
 
@@ -118,7 +121,7 @@ public class SessioneApertaPanel extends javax.swing.JPanel {
                         .addGap(85, 85, 85)
                         .addComponent(faiAssunzioniButton))
                     .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 298, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(44, Short.MAX_VALUE))
+                .addContainerGap(121, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -129,7 +132,7 @@ public class SessioneApertaPanel extends javax.swing.JPanel {
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(faiAssunzioniButton)
                     .addComponent(undoButton))
-                .addContainerGap(119, Short.MAX_VALUE))
+                .addContainerGap(144, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("Assunzioni", jPanel3);
@@ -138,11 +141,11 @@ public class SessioneApertaPanel extends javax.swing.JPanel {
         jPanel4.setLayout(jPanel4Layout);
         jPanel4Layout.setHorizontalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 402, Short.MAX_VALUE)
+            .addGap(0, 479, Short.MAX_VALUE)
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 223, Short.MAX_VALUE)
+            .addGap(0, 248, Short.MAX_VALUE)
         );
 
         jTabbedPane1.addTab("Frequenze", jPanel4);
@@ -151,37 +154,73 @@ public class SessioneApertaPanel extends javax.swing.JPanel {
 
         add(jPanel1, java.awt.BorderLayout.CENTER);
 
+        jPanel5.setLayout(new java.awt.GridBagLayout());
+
         jButton1.setText("Salva Sessione");
+        jButton1.setEnabled(false);
         jButton1.setFocusable(false);
         jButton1.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jButton1.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        jPanel5.add(jButton1);
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+        jPanel5.add(jButton1, new java.awt.GridBagConstraints());
 
         jButton2.setText("Salva Soluzione");
         jButton2.setFocusable(false);
         jButton2.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jButton2.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        jPanel5.add(jButton2);
+        jPanel5.add(jButton2, new java.awt.GridBagConstraints());
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 1;
+        gridBagConstraints.gridwidth = 2;
+        jPanel5.add(feedbackSessione, gridBagConstraints);
 
         add(jPanel5, java.awt.BorderLayout.PAGE_END);
     }// </editor-fold>//GEN-END:initComponents
 
     private void faiAssunzioniButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_faiAssunzioniButtonActionPerformed
         Mappatura nuoveAssunzioni = new Mappatura(jTextField1.getText());
-        sessController.faiAssunzione(sessione, nuoveAssunzioni);
+        jButton1.setEnabled(true);
+        if (!sessController.faiAssunzione(sessione, nuoveAssunzioni)) {
+            /* si potrebbe dare più autorità al session controller facendo sì che
+             sessController.faiAssunzioni nel caso in cui faiAssunzioni è false, recupera e restituisce
+             il commento
+             */
+            JFrame padre = (JFrame) SwingUtilities.getWindowAncestor(this);
+            AlreadyReachedDialog ard = new AlreadyReachedDialog(padre, true, sessione.getCommento());
+            if (ard.getReturnStatus() == AlreadyReachedDialog.RET_UNDO) {
+                sessController.undo(sessione, sessione.getCommento());
+            }
+        }
         provaMappaturaCorrente();
     }//GEN-LAST:event_faiAssunzioniButtonActionPerformed
 
     private void undoButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_undoButtonActionPerformed
         JFrame padre = (JFrame) SwingUtilities.getWindowAncestor(this);
         UndoDialog undoDialog = new UndoDialog(padre, true);
-        undoDialog.setLocationRelativeTo(padre);
-        undoDialog.setVisible(true);
         if (undoDialog.getReturnStatus() == UndoDialog.RET_OK) {
             sessController.undo(sessione, undoDialog.getMotivazione());
             provaMappaturaCorrente();
         }
     }//GEN-LAST:event_undoButtonActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        try {
+            /* dare feedback */
+            if (sessController.salvaSessione(sessione)) {
+                feedbackSessione.setText("Sessione salvata");
+                jButton1.setEnabled(false);
+            } else {
+                feedbackSessione.setText("Errore salvataggio");
+            }
+        } catch (SQLException | IOException ex) {
+            Logger.getLogger(SessioneApertaPanel.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     private void provaMappaturaCorrente() {
         try {
@@ -201,6 +240,7 @@ public class SessioneApertaPanel extends javax.swing.JPanel {
     private SessionController sessController = SessionController.getInstance();
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton faiAssunzioniButton;
+    private javax.swing.JLabel feedbackSessione;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JPanel jPanel1;

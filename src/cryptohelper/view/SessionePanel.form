@@ -71,12 +71,18 @@
                     <Property name="text" type="java.lang.String" value="Elimina"/>
                     <Property name="enabled" type="boolean" value="false"/>
                   </Properties>
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="eliminaSessioneButtonActionPerformed"/>
+                  </Events>
                 </Component>
                 <Component class="javax.swing.JButton" name="continuaSessioneButton">
                   <Properties>
                     <Property name="text" type="java.lang.String" value="Continua"/>
                     <Property name="enabled" type="boolean" value="false"/>
                   </Properties>
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="continuaSessioneButtonActionPerformed"/>
+                  </Events>
                 </Component>
               </SubComponents>
             </Container>

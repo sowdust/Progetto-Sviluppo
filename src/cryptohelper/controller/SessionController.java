@@ -79,7 +79,9 @@ public class SessionController {
 
     public List<MessaggioSpia> sniffMessaggi(UserInfo userInfo) throws SQLException {
         DBController dbc = DBController.getInstance();
-        CachedRowSet crs = dbc.execute("SELECT * FROM Messaggio WHERE Mittente != ? AND Destinatario != ?", userInfo.getId(), userInfo.getId());
+        CachedRowSet crs = dbc.execute("SELECT * FROM Messaggio "
+                + "WHERE Mittente != ? AND Destinatario != ? AND "
+                + "id NOT IN (SELECT messaggio FROM Sessione WHERE proprietario = ?)", userInfo.getId(), userInfo.getId(), userInfo.getId());
         List<MessaggioSpia> listaMessaggi = new ArrayList<>();
         while (crs.next()) {
             listaMessaggi.add(new Messaggio(crs));

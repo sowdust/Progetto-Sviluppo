@@ -21,6 +21,7 @@ import cryptohelper.model.MessaggioSpia;
 import cryptohelper.model.Sessione;
 import cryptohelper.model.Studente;
 import java.awt.Component;
+import java.io.IOException;
 import java.sql.SQLException;
 import java.util.List;
 import java.util.logging.Level;
@@ -91,10 +92,20 @@ public class SessionePanel extends javax.swing.JPanel {
 
         eliminaSessioneButton.setText("Elimina");
         eliminaSessioneButton.setEnabled(false);
+        eliminaSessioneButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                eliminaSessioneButtonActionPerformed(evt);
+            }
+        });
         jPanel3.add(eliminaSessioneButton);
 
         continuaSessioneButton.setText("Continua");
         continuaSessioneButton.setEnabled(false);
+        continuaSessioneButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                continuaSessioneButtonActionPerformed(evt);
+            }
+        });
         jPanel3.add(continuaSessioneButton);
 
         jPanel1.add(jPanel3, java.awt.BorderLayout.PAGE_END);
@@ -196,14 +207,40 @@ public class SessionePanel extends javax.swing.JPanel {
     }//GEN-LAST:event_jList1AncestorRemoved
 
     private void iniziaSessioneButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_iniziaSessioneButtonActionPerformed
-        MessaggioSpia messaggio = (MessaggioSpia) jList2.getSelectedValue();
-        Sessione nuovaSessione = sessController.creaSessione(studente.getUserInfo(), messaggio);
-        SessioneApertaPanel nuovaSessionePanel = new SessioneApertaPanel((nuovaSessione));
-        jTabbedPane1.addTab("test", nuovaSessionePanel);
+        try {
+            MessaggioSpia messaggio = (MessaggioSpia) jList2.getSelectedValue();
+            Sessione nuovaSessione = sessController.creaSessione(studente.getUserInfo(), messaggio);
+            sessController.salvaSessione(nuovaSessione);
+            creaNuovaSessionePanel(nuovaSessione);
+        } catch (SQLException | IOException ex) {
+            Logger.getLogger(SessionePanel.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_iniziaSessioneButtonActionPerformed
+
+    private void eliminaSessioneButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_eliminaSessioneButtonActionPerformed
+        try {
+            Sessione daEliminare = (Sessione) jList1.getSelectedValue();
+            if (daEliminare.elimina()) {
+                DefaultListModel<Sessione> dlm = (DefaultListModel<Sessione>) jList1.getModel();
+                dlm.removeElement(daEliminare);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(SessionePanel.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_eliminaSessioneButtonActionPerformed
+
+    private void continuaSessioneButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_continuaSessioneButtonActionPerformed
+        Sessione daContinuare = (Sessione) jList1.getSelectedValue();
+        creaNuovaSessionePanel(daContinuare);
+    }//GEN-LAST:event_continuaSessioneButtonActionPerformed
+
+    private void creaNuovaSessionePanel(Sessione sessione) {
+        SessioneApertaPanel nuovaSessionePanel = new SessioneApertaPanel((sessione));
+        jTabbedPane1.addTab("sessione", nuovaSessionePanel);
         int newIndex = jTabbedPane1.indexOfComponent(nuovaSessionePanel);
         jTabbedPane1.setTabComponentAt(newIndex, new ButtonTabComponent(jTabbedPane1));
         jTabbedPane1.setSelectedIndex(newIndex);
-    }//GEN-LAST:event_iniziaSessioneButtonActionPerformed
+    }
 
     private Studente studente = null;
     private SessionController sessController = SessionController.getInstance();

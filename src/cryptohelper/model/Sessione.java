@@ -56,9 +56,11 @@ public class Sessione {
         oos.writeObject(getAlbero());
         oos.close();
         DBController dbc = DBController.getInstance();
-        String q = "INSERT INTO Sessione (proprietario, messaggio, albero) VALUES (?, ?, ?)";
-        id = dbc.executeInsert(q, messaggio.getId(), proprietario.getId(), bos.toByteArray());
-        return id != -1;
+        if (id < 0) {
+            id = dbc.executeInsert("INSERT INTO Sessione (proprietario, messaggio, albero) VALUES (?, ?, ?)", proprietario.getId(), messaggio.getId(), bos.toByteArray());
+            return id != -1;
+        }
+        return dbc.executeUpdate("UPDATE Sessione SET albero =  ?", bos.toByteArray());
     }
 
     public boolean faiAssunzione(Mappatura nuoveAssunzioni) {
@@ -81,7 +83,7 @@ public class Sessione {
 
     public boolean elimina() throws SQLException {
         DBController dbc = DBController.getInstance();
-        return dbc.executeUpdate("DELETE * FROM crypto_user.Sessione WHERE id = ?", id);
+        return dbc.executeUpdate("DELETE FROM Sessione WHERE id = ?", id);
     }
 
     public void undo(String commento) {

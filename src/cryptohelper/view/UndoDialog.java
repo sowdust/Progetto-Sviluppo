@@ -48,6 +48,8 @@ public class UndoDialog extends javax.swing.JDialog {
     public UndoDialog(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
+        setLocationRelativeTo(parent);
+        setVisible(true);
 
         // Close the dialog when Esc is pressed
         String cancelName = "cancel";
