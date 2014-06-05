@@ -722,6 +722,7 @@ public class MessagePanel extends javax.swing.JPanel {
                     /* sto rispondendo ad un messaggio */
                     idNuovoDest = messaggioTemp.getMittente().getId();
                     titoloNuovoMessaggioField.setText("RE: " + messaggioTemp.getTitolo());
+                    messaggioTemp = new Messaggio(studente);
                 }
             } else {
                 /* non sto nè rispondendo a qualcuno nè continuando una bozza */
