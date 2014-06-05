@@ -92,4 +92,8 @@ public class Sessione {
         throw new UnsupportedOperationException("Not supported yet.");
     }
 
+    public String getCommento() {
+        return getAlbero().getCommento();
+    }
+
 }

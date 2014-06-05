@@ -76,4 +76,7 @@ public class SessionController {
         return s.elimina();
     }
 
+    public String getCommento(Sessione s) {
+        return s.getCommento();
+    }
 }
