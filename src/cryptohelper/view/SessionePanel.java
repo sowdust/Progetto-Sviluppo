@@ -198,7 +198,7 @@ public class SessionePanel extends javax.swing.JPanel {
     private void iniziaSessioneButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_iniziaSessioneButtonActionPerformed
         MessaggioSpia messaggio = (MessaggioSpia) jList2.getSelectedValue();
         Sessione nuovaSessione = sessController.creaSessione(studente.getUserInfo(), messaggio);
-        SessioneAperta nuovaSessionePanel = new SessioneAperta((nuovaSessione));
+        SessioneApertaPanel nuovaSessionePanel = new SessioneApertaPanel((nuovaSessione));
         jTabbedPane1.addTab("test", nuovaSessionePanel);
         int newIndex = jTabbedPane1.indexOfComponent(nuovaSessionePanel);
         jTabbedPane1.setTabComponentAt(newIndex, new ButtonTabComponent(jTabbedPane1));

@@ -16,6 +16,7 @@
  */
 package cryptohelper.view;
 
+import cryptohelper.controller.SessionController;
 import cryptohelper.model.Cifratore;
 import cryptohelper.model.Mappatura;
 import cryptohelper.model.MessaggioSpia;
@@ -25,21 +26,18 @@ import cryptohelper.model.Sessione;
  *
  * @author glaxy
  */
-public class SessioneAperta extends javax.swing.JPanel {
+public class SessioneApertaPanel extends javax.swing.JPanel {
 
     /**
      * Creates new form SessioneAperta
      *
      * @param s la sessione aperta
      */
-    public SessioneAperta(Sessione s) {
+    public SessioneApertaPanel(Sessione s) {
         initComponents();
         sessione = s;
         messaggio = sessione.getMessaggio();
-        mapCorrente = sessione.getMappaturaCorrente();
-        /* temporaneamente è così */
-        jTextArea1.setText(messaggio.getTestoCifrato());
-        jTextArea2.setText(Cifratore.decifraMonoalfabetica(mapCorrente, messaggio.getTestoCifrato()));
+        provaMappaturaCorrente();
     }
 
     /**
@@ -59,6 +57,9 @@ public class SessioneAperta extends javax.swing.JPanel {
         jTextArea2 = new javax.swing.JTextArea();
         jTabbedPane1 = new javax.swing.JTabbedPane();
         jPanel3 = new javax.swing.JPanel();
+        faiAssunzioniButton = new javax.swing.JButton();
+        jTextField1 = new javax.swing.JTextField();
+        undoButton = new javax.swing.JButton();
         jPanel4 = new javax.swing.JPanel();
         jPanel5 = new javax.swing.JPanel();
         jButton1 = new javax.swing.JButton();
@@ -84,31 +85,60 @@ public class SessioneAperta extends javax.swing.JPanel {
 
         jPanel1.add(jPanel2);
 
+        faiAssunzioniButton.setText("Fai Assunzioni");
+        faiAssunzioniButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                faiAssunzioniButtonActionPerformed(evt);
+            }
+        });
+
+        undoButton.setText("Annulla");
+        undoButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                undoButtonActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 166, Short.MAX_VALUE)
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addGap(60, 60, 60)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addComponent(undoButton)
+                        .addGap(85, 85, 85)
+                        .addComponent(faiAssunzioniButton))
+                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 298, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(222, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 210, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
+                .addGap(22, 22, 22)
+                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(faiAssunzioniButton)
+                    .addComponent(undoButton))
+                .addContainerGap(268, Short.MAX_VALUE))
         );
 
-        jTabbedPane1.addTab("tab1", jPanel3);
+        jTabbedPane1.addTab("Assunzioni", jPanel3);
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
         jPanel4Layout.setHorizontalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 166, Short.MAX_VALUE)
+            .addGap(0, 580, Short.MAX_VALUE)
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 210, Short.MAX_VALUE)
+            .addGap(0, 372, Short.MAX_VALUE)
         );
 
-        jTabbedPane1.addTab("tab2", jPanel4);
+        jTabbedPane1.addTab("Frequenze", jPanel4);
 
         jPanel1.add(jTabbedPane1);
 
@@ -129,10 +159,30 @@ public class SessioneAperta extends javax.swing.JPanel {
         add(jPanel5, java.awt.BorderLayout.PAGE_END);
     }// </editor-fold>//GEN-END:initComponents
 
+    private void faiAssunzioniButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_faiAssunzioniButtonActionPerformed
+        Mappatura nuoveAssunzioni = new Mappatura(jTextField1.getText());
+        sessController.faiAssunzione(sessione, nuoveAssunzioni);
+        provaMappaturaCorrente();
+    }//GEN-LAST:event_faiAssunzioniButtonActionPerformed
+
+    private void undoButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_undoButtonActionPerformed
+        sessController.undo(sessione, "");
+        provaMappaturaCorrente();
+    }//GEN-LAST:event_undoButtonActionPerformed
+
+    private void provaMappaturaCorrente() {
+        /* temporaneamente è così */
+        mapCorrente = sessione.getMappaturaCorrente();
+        jTextArea1.setText(messaggio.getTestoCifrato());
+        jTextArea2.setText(Cifratore.decifraMonoalfabetica(mapCorrente, messaggio.getTestoCifrato()));
+    }
+
     private Sessione sessione = null;
     private MessaggioSpia messaggio = null;
     private Mappatura mapCorrente = null;
+    private SessionController sessController = SessionController.getInstance();
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton faiAssunzioniButton;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JPanel jPanel1;
@@ -145,5 +195,7 @@ public class SessioneAperta extends javax.swing.JPanel {
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JTextArea jTextArea1;
     private javax.swing.JTextArea jTextArea2;
+    private javax.swing.JTextField jTextField1;
+    private javax.swing.JButton undoButton;
     // End of variables declaration//GEN-END:variables
 }
