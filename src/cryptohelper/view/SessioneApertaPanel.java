@@ -21,6 +21,9 @@ import cryptohelper.model.Cifratore;
 import cryptohelper.model.Mappatura;
 import cryptohelper.model.MessaggioSpia;
 import cryptohelper.model.Sessione;
+import javax.swing.JDialog;
+import javax.swing.JFrame;
+import javax.swing.SwingUtilities;
 
 /**
  *
@@ -72,12 +75,14 @@ public class SessioneApertaPanel extends javax.swing.JPanel {
         jPanel2.setLayout(new javax.swing.BoxLayout(jPanel2, javax.swing.BoxLayout.PAGE_AXIS));
 
         jTextArea1.setColumns(20);
+        jTextArea1.setLineWrap(true);
         jTextArea1.setRows(5);
         jScrollPane1.setViewportView(jTextArea1);
 
         jPanel2.add(jScrollPane1);
 
         jTextArea2.setColumns(20);
+        jTextArea2.setLineWrap(true);
         jTextArea2.setRows(5);
         jScrollPane2.setViewportView(jTextArea2);
 
@@ -92,7 +97,7 @@ public class SessioneApertaPanel extends javax.swing.JPanel {
             }
         });
 
-        undoButton.setText("Annulla");
+        undoButton.setText("Annulla...");
         undoButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 undoButtonActionPerformed(evt);
@@ -111,7 +116,7 @@ public class SessioneApertaPanel extends javax.swing.JPanel {
                         .addGap(85, 85, 85)
                         .addComponent(faiAssunzioniButton))
                     .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 298, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(222, Short.MAX_VALUE))
+                .addContainerGap(44, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -122,7 +127,7 @@ public class SessioneApertaPanel extends javax.swing.JPanel {
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(faiAssunzioniButton)
                     .addComponent(undoButton))
-                .addContainerGap(268, Short.MAX_VALUE))
+                .addContainerGap(119, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("Assunzioni", jPanel3);
@@ -131,11 +136,11 @@ public class SessioneApertaPanel extends javax.swing.JPanel {
         jPanel4.setLayout(jPanel4Layout);
         jPanel4Layout.setHorizontalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 580, Short.MAX_VALUE)
+            .addGap(0, 402, Short.MAX_VALUE)
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 372, Short.MAX_VALUE)
+            .addGap(0, 223, Short.MAX_VALUE)
         );
 
         jTabbedPane1.addTab("Frequenze", jPanel4);
@@ -166,8 +171,14 @@ public class SessioneApertaPanel extends javax.swing.JPanel {
     }//GEN-LAST:event_faiAssunzioniButtonActionPerformed
 
     private void undoButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_undoButtonActionPerformed
-        sessController.undo(sessione, "");
-        provaMappaturaCorrente();
+        JFrame padre = (JFrame) SwingUtilities.getWindowAncestor(this);
+        UndoDialog undoDialog = new UndoDialog(padre, true);
+        undoDialog.setLocationRelativeTo(padre);
+        undoDialog.setVisible(true);
+        if (undoDialog.getReturnStatus() == UndoDialog.RET_OK) {
+            sessController.undo(sessione, undoDialog.getMotivazione());
+            provaMappaturaCorrente();
+        }
     }//GEN-LAST:event_undoButtonActionPerformed
 
     private void provaMappaturaCorrente() {
@@ -175,6 +186,7 @@ public class SessioneApertaPanel extends javax.swing.JPanel {
         mapCorrente = sessione.getMappaturaCorrente();
         jTextArea1.setText(messaggio.getTestoCifrato());
         jTextArea2.setText(Cifratore.decifraMonoalfabetica(mapCorrente, messaggio.getTestoCifrato()));
+        undoButton.setEnabled(!mapCorrente.isEmpty());
     }
 
     private Sessione sessione = null;
