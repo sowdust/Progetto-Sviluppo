@@ -81,7 +81,7 @@ public class Messaggio implements MessaggioMittente, MessaggioDestinatario {
 
     public static List<MessaggioMittente> caricaInviati(Studente studente) throws SQLException {
         DBController dbc = DBController.getInstance();
-        CachedRowSet crs = dbc.execute("SELECT id, titolo, bozza, letto, mittente,destinatario FROM Messaggio WHERE mittente = ? AND bozza = ?", studente.getId(), false);
+        CachedRowSet crs = dbc.execute("SELECT id, titolo, bozza, letto, mittente,destinatario FROM Messaggio WHERE mittente = ? AND bozza = ? ORDER BY id DESC", studente.getId(), false);
         List<MessaggioMittente> listaInviati = new ArrayList<>();
         while (crs.next()) {
             listaInviati.add(new Messaggio(crs));
@@ -91,7 +91,7 @@ public class Messaggio implements MessaggioMittente, MessaggioDestinatario {
 
     public static List<MessaggioMittente> caricaBozze(Studente studente) throws SQLException {
         DBController dbc = DBController.getInstance();
-        CachedRowSet crs = dbc.execute("SELECT id, titolo, bozza, letto, mittente,destinatario FROM Messaggio WHERE mittente = ? AND bozza = ?", studente.getId(), true);
+        CachedRowSet crs = dbc.execute("SELECT id, titolo, bozza, letto, mittente,destinatario FROM Messaggio WHERE mittente = ? AND bozza = ? ORDER BY id DESC", studente.getId(), true);
         List<MessaggioMittente> listaBozze = new ArrayList<>();
         while (crs.next()) {
             listaBozze.add(new Messaggio(crs));
@@ -101,7 +101,7 @@ public class Messaggio implements MessaggioMittente, MessaggioDestinatario {
 
     public static List<MessaggioDestinatario> caricaRicevuti(Studente studente) throws SQLException {
         DBController dbc = DBController.getInstance();
-        CachedRowSet crs = dbc.execute("SELECT id, titolo, bozza, letto, mittente,destinatario FROM Messaggio WHERE bozza = ? AND destinatario = ?", false, studente.getId());
+        CachedRowSet crs = dbc.execute("SELECT id, titolo, bozza, letto, mittente,destinatario FROM Messaggio WHERE bozza = ? AND destinatario = ? ORDER BY letto DESC, id DESC", false, studente.getId());
         List<MessaggioDestinatario> listaRicevuti = new ArrayList<>();
         while (crs.next()) {
             listaRicevuti.add(new Messaggio(crs));
@@ -111,7 +111,7 @@ public class Messaggio implements MessaggioMittente, MessaggioDestinatario {
 
     public void getCampiAggiuntivi() throws SQLException {
         DBController dbc = DBController.getInstance();
-        CachedRowSet crs = dbc.execute("SELECT testo, testoCifrato, lingua, sdc FROM crypto_user.Messaggio WHERE id = ?", id);
+        CachedRowSet crs = dbc.execute("SELECT testo, testoCifrato, lingua, sdc FROM Messaggio WHERE id = ?", id);
         crs.next();
         this.testo = crs.getString("testo");
         this.testoCifrato = crs.getString("testoCifrato");
