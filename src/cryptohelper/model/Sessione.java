@@ -88,7 +88,12 @@ public class Sessione {
         getAlbero().undo(motivazione);
     }
 
+    public Mappatura getMappaturaCorrente() {
+        return getAlbero().getMappaturaCorrente();
+    }
+
     public boolean caricaSoluzione(Soluzione sol) {
+        getMappaturaCorrente().rimuoviTutti();
         throw new UnsupportedOperationException("Not supported yet.");
     }
 

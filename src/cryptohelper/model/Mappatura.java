@@ -285,6 +285,15 @@ public class Mappatura implements Serializable {
         return true;
     }
 
+    public Mappatura rimuoviTutti() {
+        Mappatura m = new Mappatura(this);
+        for (int i = 0; i < inverseMap.size(); ++i) {
+            m.inverseMap.set(i, DA_RIMUOVERE);
+            m.map.set(i, map.get(i));
+        }
+        return m;
+    }
+
     public String serialize() {
         String s = "";
         for (int i = 0; i < map.size(); ++i) {
