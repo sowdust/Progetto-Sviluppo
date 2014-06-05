@@ -16,14 +16,17 @@
  */
 package cryptohelper.model;
 
+import java.util.List;
+
 /**
  *
  * @author glaxy
  */
-public interface MessaggioSpia {
+public interface MessaggioSpia extends MessaggioAstratto {
 
     public UserInfo getMittente();
 
     public UserInfo getDestinatario();
 
+    public List<Character> getSimboli();
 }

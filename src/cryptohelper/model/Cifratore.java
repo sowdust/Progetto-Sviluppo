@@ -33,9 +33,11 @@ public class Cifratore {
         StringBuilder testoDecifrato = new StringBuilder(testo.length());
         for (Character c : testo.toCharArray()) {
             Character k = mappa.inverseMap(Character.toLowerCase(c));
-            if( k != null ) {
+            if (k != null) {
                 testoDecifrato.append(k);
-            }            
+            } else {
+                testoDecifrato.append("_");
+            }
         }
         return testoDecifrato.toString();
     }

@@ -2,6 +2,7 @@ package cryptohelper.controller;
 
 import cryptohelper.model.Mappatura;
 import cryptohelper.model.Messaggio;
+import cryptohelper.model.MessaggioSpia;
 import cryptohelper.model.Sessione;
 import cryptohelper.model.Soluzione;
 import cryptohelper.model.UserInfo;
@@ -45,10 +46,9 @@ public class SessionController {
             listaSessioni.add(new Sessione(crs));
         }
         return listaSessioni;
-
     }
 
-    public Sessione creaSessione(UserInfo proprietario, Messaggio messaggio) {
+    public Sessione creaSessione(UserInfo proprietario, MessaggioSpia messaggio) {
         return new Sessione(proprietario, messaggio);
     }
 
@@ -74,6 +74,16 @@ public class SessionController {
 
     public boolean eliminaSoluzione(Soluzione s) throws SQLException {
         return s.elimina();
+    }
+
+    public List<MessaggioSpia> sniffMessaggi(UserInfo userInfo) throws SQLException {
+        DBController dbc = DBController.getInstance();
+        CachedRowSet crs = dbc.execute("SELECT * FROM Messaggio WHERE Mittente != ? AND Destinatario != ?", userInfo.getId(), userInfo.getId());
+        List<MessaggioSpia> listaMessaggi = new ArrayList<>();
+        while (crs.next()) {
+            listaMessaggi.add(new Messaggio(crs));
+        }
+        return listaMessaggi;
     }
 
 }

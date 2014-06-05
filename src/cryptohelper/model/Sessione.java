@@ -1,12 +1,9 @@
 package cryptohelper.model;
 
 import cryptohelper.controller.DBController;
-import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
-import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
-import java.sql.Blob;
 import java.sql.SQLException;
 import java.util.List;
 import javax.sql.rowset.CachedRowSet;
@@ -15,10 +12,10 @@ public class Sessione {
 
     private int id;
     private final UserInfo proprietario;
-    private final Messaggio messaggio;
+    private final MessaggioSpia messaggio;
     private AlberoIpotesi albero = null;
 
-    public Sessione(UserInfo proprietario, Messaggio messaggio) {
+    public Sessione(UserInfo proprietario, MessaggioSpia messaggio) {
         this.id = -1;
         this.proprietario = proprietario;
         this.messaggio = messaggio;
@@ -93,6 +90,14 @@ public class Sessione {
 
     public boolean caricaSoluzione(Soluzione sol) {
         throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    public MessaggioSpia getMessaggio() {
+        return messaggio;
+    }
+
+    public Mappatura getMappaturaCorrente() {
+        return getAlbero().getMappaturaCorrente();
     }
 
     @Override

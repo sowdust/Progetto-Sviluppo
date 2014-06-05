@@ -20,6 +20,8 @@ import cryptohelper.controller.SessionController;
 import cryptohelper.model.MessaggioSpia;
 import cryptohelper.model.Sessione;
 import cryptohelper.model.Studente;
+import java.awt.Component;
+import java.sql.SQLException;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -61,7 +63,7 @@ public class SessionePanel extends javax.swing.JPanel {
         jScrollPane2 = new javax.swing.JScrollPane();
         jList2 = new javax.swing.JList();
         jPanel4 = new javax.swing.JPanel();
-        jButton3 = new javax.swing.JButton();
+        iniziaSessioneButton = new javax.swing.JButton();
 
         setLayout(new javax.swing.BoxLayout(this, javax.swing.BoxLayout.LINE_AXIS));
 
@@ -78,6 +80,7 @@ public class SessionePanel extends javax.swing.JPanel {
                 jList1AncestorAdded(evt);
             }
             public void ancestorRemoved(javax.swing.event.AncestorEvent evt) {
+                jList1AncestorRemoved(evt);
             }
             public void ancestorMoved(javax.swing.event.AncestorEvent evt) {
             }
@@ -101,11 +104,17 @@ public class SessionePanel extends javax.swing.JPanel {
         jPanel2.setLayout(new java.awt.BorderLayout());
 
         jList2.setModel(new javax.swing.DefaultListModel<MessaggioSpia>());
+        jList2.addListSelectionListener(new javax.swing.event.ListSelectionListener() {
+            public void valueChanged(javax.swing.event.ListSelectionEvent evt) {
+                jList2ValueChanged(evt);
+            }
+        });
         jList2.addAncestorListener(new javax.swing.event.AncestorListener() {
             public void ancestorAdded(javax.swing.event.AncestorEvent evt) {
                 jList2AncestorAdded(evt);
             }
             public void ancestorRemoved(javax.swing.event.AncestorEvent evt) {
+                jList2AncestorRemoved(evt);
             }
             public void ancestorMoved(javax.swing.event.AncestorEvent evt) {
             }
@@ -114,8 +123,14 @@ public class SessionePanel extends javax.swing.JPanel {
 
         jPanel2.add(jScrollPane2, java.awt.BorderLayout.CENTER);
 
-        jButton3.setText("jButton3");
-        jPanel4.add(jButton3);
+        iniziaSessioneButton.setText("Inizia Sessione");
+        iniziaSessioneButton.setEnabled(false);
+        iniziaSessioneButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                iniziaSessioneButtonActionPerformed(evt);
+            }
+        });
+        jPanel4.add(iniziaSessioneButton);
 
         jPanel2.add(jPanel4, java.awt.BorderLayout.PAGE_END);
 
@@ -131,13 +146,21 @@ public class SessionePanel extends javax.swing.JPanel {
             for (Sessione s : listaSessioni) {
                 dlm.addElement(s);
             }
-        } catch (Exception ex) {
+        } catch (SQLException ex) {
             Logger.getLogger(GUI.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_jList1AncestorAdded
 
     private void jList2AncestorAdded(javax.swing.event.AncestorEvent evt) {//GEN-FIRST:event_jList2AncestorAdded
-        // TODO add your handling code here:
+        try {
+            DefaultListModel<MessaggioSpia> dlm = (DefaultListModel<MessaggioSpia>) jList2.getModel();
+            List<MessaggioSpia> listaMessaggi = sessController.sniffMessaggi(studente.getUserInfo());
+            for (MessaggioSpia s : listaMessaggi) {
+                dlm.addElement(s);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(GUI.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_jList2AncestorAdded
 
     private void jList1ValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_jList1ValueChanged
@@ -152,12 +175,42 @@ public class SessionePanel extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_jList1ValueChanged
 
+    private void jList2ValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_jList2ValueChanged
+        if (evt.getValueIsAdjusting() == false) {
+            if (jList2.getSelectedIndex() == -1) {
+                iniziaSessioneButton.setEnabled(false);
+            } else {
+                iniziaSessioneButton.setEnabled(true);
+            }
+        }
+    }//GEN-LAST:event_jList2ValueChanged
+
+    private void jList2AncestorRemoved(javax.swing.event.AncestorEvent evt) {//GEN-FIRST:event_jList2AncestorRemoved
+        DefaultListModel<Sessione> dlm = (DefaultListModel<Sessione>) jList2.getModel();
+        dlm.clear();
+    }//GEN-LAST:event_jList2AncestorRemoved
+
+    private void jList1AncestorRemoved(javax.swing.event.AncestorEvent evt) {//GEN-FIRST:event_jList1AncestorRemoved
+        DefaultListModel<Sessione> dlm = (DefaultListModel<Sessione>) jList1.getModel();
+        dlm.clear();
+    }//GEN-LAST:event_jList1AncestorRemoved
+
+    private void iniziaSessioneButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_iniziaSessioneButtonActionPerformed
+        MessaggioSpia messaggio = (MessaggioSpia) jList2.getSelectedValue();
+        Sessione nuovaSessione = sessController.creaSessione(studente.getUserInfo(), messaggio);
+        SessioneAperta nuovaSessionePanel = new SessioneAperta((nuovaSessione));
+        jTabbedPane1.addTab("test", nuovaSessionePanel);
+        int newIndex = jTabbedPane1.indexOfComponent(nuovaSessionePanel);
+        jTabbedPane1.setTabComponentAt(newIndex, new ButtonTabComponent(jTabbedPane1));
+        jTabbedPane1.setSelectedIndex(newIndex);
+    }//GEN-LAST:event_iniziaSessioneButtonActionPerformed
+
     private Studente studente = null;
     private SessionController sessController = SessionController.getInstance();
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton continuaSessioneButton;
     private javax.swing.JButton eliminaSessioneButton;
-    private javax.swing.JButton jButton3;
+    private javax.swing.JButton iniziaSessioneButton;
     private javax.swing.JList jList1;
     private javax.swing.JList jList2;
     private javax.swing.JPanel jPanel1;

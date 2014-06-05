@@ -27,7 +27,7 @@ import javax.sql.rowset.CachedRowSet;
  *
  * @author glaxy
  */
-public class Messaggio implements MessaggioMittente, MessaggioDestinatario {
+public class Messaggio implements MessaggioMittente, MessaggioDestinatario, MessaggioSpia {
 
     /*
      * Campi caricati automaticamente:
@@ -47,7 +47,7 @@ public class Messaggio implements MessaggioMittente, MessaggioDestinatario {
     private SistemaCifratura sdc;
 
     /* costruttore usato quando si *carica* un messaggio */
-    private Messaggio(CachedRowSet queryResult) throws SQLException {
+    public Messaggio(CachedRowSet queryResult) throws SQLException {
         id = queryResult.getInt("id");
         testo = queryResult.getString("testo");
         testoCifrato = queryResult.getString("testoCifrato");
