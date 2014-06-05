@@ -43,7 +43,8 @@ public class AnalisiFrequenze {
                 tabellaFrequenzeDisordinata.put(c, 0.0);
             } else {
                 double frequenzaRelativa = new Double(occorrenze) / lunghezzaMessaggio;
-                tabellaFrequenzeDisordinata.put(c, frequenzaRelativa * 100.0);
+                /* il calcolo calcola la percentuale con due cifre decimali */
+                tabellaFrequenzeDisordinata.put(c, Math.round(frequenzaRelativa * 10000) / 100.0);
             }
         }
 
@@ -61,7 +62,7 @@ public class AnalisiFrequenze {
         return tabellaFrequenzeOrdinata;
     }
 
-    static class ValueComparator implements Comparator<Character> {
+    private static class ValueComparator implements Comparator<Character> {
 
         Map<Character, Double> base;
 

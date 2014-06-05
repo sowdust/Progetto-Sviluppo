@@ -19,7 +19,6 @@ public class Mappatura implements Serializable {
     public Mappatura(char[] map, char[] inverseMap) {
         this.map = new ArrayList<>();
         this.inverseMap = new ArrayList<>();
-        /* non il più furbo dei metodi? */
         for (int i = 0; i < map.length; i++) {
             this.map.add(map[i]);
             this.inverseMap.add(inverseMap[i]);

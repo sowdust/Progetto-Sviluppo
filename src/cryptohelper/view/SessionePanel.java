@@ -58,8 +58,8 @@ public class SessionePanel extends javax.swing.JPanel {
         jScrollPane1 = new javax.swing.JScrollPane();
         jList1 = new javax.swing.JList();
         jPanel3 = new javax.swing.JPanel();
-        eliminaSessioneButton = new javax.swing.JButton();
         continuaSessioneButton = new javax.swing.JButton();
+        eliminaSessioneButton = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
         jList2 = new javax.swing.JList();
@@ -90,15 +90,6 @@ public class SessionePanel extends javax.swing.JPanel {
 
         jPanel1.add(jScrollPane1, java.awt.BorderLayout.CENTER);
 
-        eliminaSessioneButton.setText("Elimina");
-        eliminaSessioneButton.setEnabled(false);
-        eliminaSessioneButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                eliminaSessioneButtonActionPerformed(evt);
-            }
-        });
-        jPanel3.add(eliminaSessioneButton);
-
         continuaSessioneButton.setText("Continua");
         continuaSessioneButton.setEnabled(false);
         continuaSessioneButton.addActionListener(new java.awt.event.ActionListener() {
@@ -107,6 +98,15 @@ public class SessionePanel extends javax.swing.JPanel {
             }
         });
         jPanel3.add(continuaSessioneButton);
+
+        eliminaSessioneButton.setText("Elimina");
+        eliminaSessioneButton.setEnabled(false);
+        eliminaSessioneButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                eliminaSessioneButtonActionPerformed(evt);
+            }
+        });
+        jPanel3.add(eliminaSessioneButton);
 
         jPanel1.add(jPanel3, java.awt.BorderLayout.PAGE_END);
 

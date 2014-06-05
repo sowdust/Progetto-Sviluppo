@@ -68,7 +68,7 @@ public class GUI extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("CryptoHelper");
-        setPreferredSize(new java.awt.Dimension(700, 512));
+        setPreferredSize(new java.awt.Dimension(1024, 600));
         getContentPane().setLayout(new java.awt.CardLayout());
 
         loginPanel.setLayout(new java.awt.BorderLayout());

@@ -17,16 +17,30 @@
 package cryptohelper.view;
 
 import cryptohelper.controller.SessionController;
+import cryptohelper.model.AnalisiFrequenze;
 import cryptohelper.model.Cifratore;
 import cryptohelper.model.Mappatura;
+import cryptohelper.model.Messaggio;
 import cryptohelper.model.MessaggioSpia;
 import cryptohelper.model.Sessione;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.io.IOException;
 import java.sql.SQLException;
+import java.util.Map;
+import java.util.Vector;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.CellEditor;
+import javax.swing.JComboBox;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JSpinner.DefaultEditor;
+import javax.swing.JTextField;
 import javax.swing.SwingUtilities;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -40,10 +54,40 @@ public class SessioneApertaPanel extends javax.swing.JPanel {
      * @param s la sessione aperta
      */
     public SessioneApertaPanel(Sessione s) {
-        initComponents();
         sessione = s;
         messaggio = sessione.getMessaggio();
+        initComponents();
         provaMappaturaCorrente();
+
+        for (int i = 0; i < 26; i++) {
+            JLabel label = new JLabel(alfabeto[i] + " = ");
+            label.setHorizontalAlignment(JLabel.RIGHT);
+            jPanel8.add(label);
+            CharField charField = new CharField(alfabeto[i]);
+            charField.addKeyListener(new KeyListener() {
+
+                @Override
+                public void keyTyped(KeyEvent e) {
+                }
+
+                @Override
+                public void keyPressed(KeyEvent e) {
+                    CharField charField = (CharField) e.getSource();
+                    Character internalChar = charField.getInternalChar();
+                    String newValue = charField.getText();
+                    if (newValue.equals("") && mapCorrente.map(internalChar) != null) {
+                        //mapCorrente.
+                    }
+                    System.out.println(internalChar);
+                }
+
+                @Override
+                public void keyReleased(KeyEvent e) {
+                }
+
+            });
+            jPanel8.add(charField);
+        }
     }
 
     /**
@@ -68,7 +112,12 @@ public class SessioneApertaPanel extends javax.swing.JPanel {
         jTextField1 = new javax.swing.JTextField();
         undoButton = new javax.swing.JButton();
         jPanel4 = new javax.swing.JPanel();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        jTable1 = new javax.swing.JTable(getFrequencyData(false), new String[] {"Carattere", "Frequenza"});
         jPanel6 = new javax.swing.JPanel();
+        jPanel7 = new javax.swing.JPanel();
+        jScrollPane4 = new javax.swing.JScrollPane();
+        jPanel8 = new javax.swing.JPanel();
         jPanel5 = new javax.swing.JPanel();
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
@@ -78,7 +127,7 @@ public class SessioneApertaPanel extends javax.swing.JPanel {
 
         jPanel1.setLayout(new javax.swing.BoxLayout(jPanel1, javax.swing.BoxLayout.LINE_AXIS));
 
-        jPanel2.setLayout(new javax.swing.BoxLayout(jPanel2, javax.swing.BoxLayout.LINE_AXIS));
+        jPanel2.setLayout(new javax.swing.BoxLayout(jPanel2, javax.swing.BoxLayout.PAGE_AXIS));
 
         jTextArea1.setColumns(20);
         jTextArea1.setLineWrap(true);
@@ -87,7 +136,7 @@ public class SessioneApertaPanel extends javax.swing.JPanel {
 
         jPanel2.add(jScrollPane1);
 
-        jTextArea2.setColumns(20);
+        jTextArea2.setColumns(200);
         jTextArea2.setLineWrap(true);
         jTextArea2.setRows(5);
         jScrollPane2.setViewportView(jTextArea2);
@@ -122,7 +171,7 @@ public class SessioneApertaPanel extends javax.swing.JPanel {
                         .addGap(85, 85, 85)
                         .addComponent(faiAssunzioniButton))
                     .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 298, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(197, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -133,20 +182,40 @@ public class SessioneApertaPanel extends javax.swing.JPanel {
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(faiAssunzioniButton)
                     .addComponent(undoButton))
-                .addContainerGap(238, Short.MAX_VALUE))
+                .addContainerGap(355, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("Assunzioni", jPanel3);
+
+        jTable1.addAncestorListener(new javax.swing.event.AncestorListener() {
+            public void ancestorAdded(javax.swing.event.AncestorEvent evt) {
+                jTable1AncestorAdded(evt);
+            }
+            public void ancestorRemoved(javax.swing.event.AncestorEvent evt) {
+            }
+            public void ancestorMoved(javax.swing.event.AncestorEvent evt) {
+            }
+        });
+        jScrollPane3.setViewportView(jTable1);
+        if (jTable1.getColumnModel().getColumnCount() > 0) {
+            jTable1.getColumnModel().getColumn(1).setResizable(false);
+        }
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
         jPanel4Layout.setHorizontalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 555, Short.MAX_VALUE)
+            .addGroup(jPanel4Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 256, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(102, Short.MAX_VALUE))
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 342, Short.MAX_VALUE)
+            .addGroup(jPanel4Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(45, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("Frequenze", jPanel4);
@@ -155,14 +224,23 @@ public class SessioneApertaPanel extends javax.swing.JPanel {
         jPanel6.setLayout(jPanel6Layout);
         jPanel6Layout.setHorizontalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 555, Short.MAX_VALUE)
+            .addGap(0, 370, Short.MAX_VALUE)
         );
         jPanel6Layout.setVerticalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 342, Short.MAX_VALUE)
+            .addGap(0, 459, Short.MAX_VALUE)
         );
 
         jTabbedPane1.addTab("Informazioni", jPanel6);
+
+        jPanel7.setLayout(new javax.swing.BoxLayout(jPanel7, javax.swing.BoxLayout.LINE_AXIS));
+
+        jPanel8.setLayout(new java.awt.GridLayout(13, 4));
+        jScrollPane4.setViewportView(jPanel8);
+
+        jPanel7.add(jScrollPane4);
+
+        jTabbedPane1.addTab("Assunzioni Test", jPanel7);
 
         jPanel1.add(jTabbedPane1);
 
@@ -224,7 +302,6 @@ public class SessioneApertaPanel extends javax.swing.JPanel {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         try {
-            /* dare feedback */
             if (sessController.salvaSessione(sessione)) {
                 feedbackSessione.setText("Sessione salvata");
                 jButton1.setEnabled(false);
@@ -236,6 +313,10 @@ public class SessioneApertaPanel extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_jButton1ActionPerformed
 
+    private void jTable1AncestorAdded(javax.swing.event.AncestorEvent evt) {//GEN-FIRST:event_jTable1AncestorAdded
+
+    }//GEN-LAST:event_jTable1AncestorAdded
+
     private void provaMappaturaCorrente() {
         try {
             /* temporaneamente è così */
@@ -243,15 +324,45 @@ public class SessioneApertaPanel extends javax.swing.JPanel {
             jTextArea1.setText(messaggio.getTestoCifrato());
             jTextArea2.setText(Cifratore.decifraMonoalfabetica(mapCorrente, messaggio.getTestoCifrato()));
             undoButton.setEnabled(!mapCorrente.isEmpty());
+
         } catch (SQLException ex) {
             Logger.getLogger(SessioneApertaPanel.class.getName()).log(Level.SEVERE, null, ex);
         }
+    }
+
+    private Object[][] getFrequencyData(boolean lingua) {
+        Object[][] data = null;
+        try {
+            Map<Character, Double> freq = null;
+            if (lingua) {
+                freq = AnalisiFrequenze.getFrequency(messaggio.getLingua());
+            } else {
+                freq = AnalisiFrequenze.getFrequency((Messaggio) messaggio);
+            }
+
+            data = new Object[freq.size()][2];
+            /* da risistemare perchè deve essere MessaggioSpia */
+            int i = 0;
+            for (Map.Entry<Character, Double> entry : freq.entrySet()) {
+                data[i][0] = entry.getKey();
+                data[i][1] = entry.getValue();
+                i++;
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(SessioneApertaPanel.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return data;
     }
 
     private Sessione sessione = null;
     private MessaggioSpia messaggio = null;
     private Mappatura mapCorrente = null;
     private SessionController sessController = SessionController.getInstance();
+    private final char[] alfabeto = {
+        'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i',
+        'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r',
+        's', 't', 'u', 'v', 'w', 'x', 'y', 'z'
+    };
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton faiAssunzioniButton;
     private javax.swing.JLabel feedbackSessione;
@@ -263,12 +374,44 @@ public class SessioneApertaPanel extends javax.swing.JPanel {
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
     private javax.swing.JPanel jPanel6;
+    private javax.swing.JPanel jPanel7;
+    private javax.swing.JPanel jPanel8;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JScrollPane jScrollPane3;
+    private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JTabbedPane jTabbedPane1;
+    private javax.swing.JTable jTable1;
     private javax.swing.JTextArea jTextArea1;
     private javax.swing.JTextArea jTextArea2;
     private javax.swing.JTextField jTextField1;
     private javax.swing.JButton undoButton;
     // End of variables declaration//GEN-END:variables
+
+    private class CharField extends JTextField {
+
+        private char character;
+
+        public CharField(char c) {
+            character = c;
+            Character toWrite = mapCorrente.inverseMap(c);
+            if (toWrite != null) {
+                setText(toWrite + "");
+            }
+        }
+
+        @Override
+        public void processKeyEvent(KeyEvent ev) {
+            char c = ev.getKeyChar();
+            if ((ev.getKeyCode() != KeyEvent.VK_BACK_SPACE) && ((!Character.isLetter(c)) || getDocument().getLength() > 0)) {
+                ev.consume();
+                return;
+            }
+            super.processKeyEvent(ev);
+        }
+
+        public char getInternalChar() {
+            return character;
+        }
+    }
 }
