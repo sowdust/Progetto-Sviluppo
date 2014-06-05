@@ -81,7 +81,7 @@ public class Sessione {
 
     public boolean elimina() throws SQLException {
         DBController dbc = DBController.getInstance();
-        return dbc.executeUpdate("DELETE * FROM crypto_user.Sessione WHERE id = ?", id);
+        return dbc.executeUpdate("DELETE * FROM Sessione WHERE id = ?", id);
     }
 
     public void undo(String motivazione) {
