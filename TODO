@@ -1,12 +1,13 @@
+Commento con // quello che mi sembra ma non sono sicuro 100% sia risolto
+
 GUI
-	bozze:	disabilita tasti "componi, elimina"
-	invia:	pulire campi dopo "invio"
-	azzerare il box cifra dopo aver caricato una bozza o rispondi (quando me ne vado dalla tabella)
+	ordine dei messaggi temporale? cambiamo la query?
+	// azzerare il box cifra dopo aver caricato una bozza o rispondi (quando me ne vado dalla tabella)
 	fare getSistemaCifratura al posto di sdc e campi nel Messaggio
 
 ALBERO
-	testare!!!!
-
+	caricaSoluzione
+	molti test
 
 
 

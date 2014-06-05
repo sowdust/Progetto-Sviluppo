@@ -748,11 +748,11 @@ public class MessagePanel extends javax.swing.JPanel {
 
     private void destinatariComboBoxAncestorRemoved(javax.swing.event.AncestorEvent evt) {//GEN-FIRST:event_destinatariComboBoxAncestorRemoved
         DefaultComboBoxModel<UserInfo> dlm = (DefaultComboBoxModel<UserInfo>) destinatariComboBox.getModel();
+        // perchè il seguente?
         dlm.removeAllElements();
-        messaggioTemp = null;
-        titoloNuovoMessaggioField.setText("");
-        corpoNuovoMessaggio.setText("");
-        nuovoMessaggioFeedback.setText("Componi il messaggio");
+        //messaggioTemp = null;
+
+        azzeraTutto();
     }//GEN-LAST:event_destinatariComboBoxAncestorRemoved
 
     private void cifraButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cifraButtonActionPerformed
@@ -775,18 +775,7 @@ public class MessagePanel extends javax.swing.JPanel {
         try {
             if (commController.send(messaggioTemp)) {
                 nuovoMessaggioFeedback.setText("Messaggio Inviato! Componi un altro messaggio");
-
-                //  SVUOTA
-                jTextArea6.setText("");
-                corpoNuovoMessaggio.setText("");
-                inviaButton.setEnabled(false);
-                cifraButton.setEnabled(true);
-                destinatariComboBox.setSelectedIndex(-1);
-                titoloNuovoMessaggioField.setText("");
-                // italiano lingua di default
-                linguaComboBox.setSelectedIndex(0);
-                messaggioTemp = new Messaggio(studente);
-
+                azzeraTutto();
             } else {
                 nuovoMessaggioFeedback.setText("Errore nell'invio del messaggio!");
             }
@@ -844,6 +833,19 @@ public class MessagePanel extends javax.swing.JPanel {
             cifraButton.setEnabled(false);
         }
         inviaButton.setEnabled(false);
+    }
+
+    private void azzeraTutto() {
+        nuovoMessaggioFeedback.setText("Componi un nuovo messaggio");
+        jTextArea6.setText("");
+        corpoNuovoMessaggio.setText("");
+        inviaButton.setEnabled(false);
+        cifraButton.setEnabled(true);
+        destinatariComboBox.setSelectedIndex(-1);
+        titoloNuovoMessaggioField.setText("");
+        // italiano lingua di default
+        linguaComboBox.setSelectedIndex(0);
+        messaggioTemp = new Messaggio(studente);
     }
 
     private void setLingua(String lingua) {
