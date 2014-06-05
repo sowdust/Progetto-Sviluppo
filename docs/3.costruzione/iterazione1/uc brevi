@@ -4,7 +4,7 @@ OBIETTIVO Giocatore 1: Risolvere le Sfide
     USE CASE: Effettua Sfida
     Il Giocatore visualizza la lista delle sfide e sceglie quella a cui partecipare
     Il Giocatore indica la difficoltà preferita: facile, normale o difficile
-    Vengono applicate al messaggio delle modifiche a seconda della difficoltà scelta //NOTA: ma ci va in un UC? non credo!
+    Vengono applicate al messaggio delle modifiche a seconda della difficoltà scelta //NOTA: ma ci va in un UC breve? non credo!
     <<include>> Effettua ciclo di analisi 
     <<include>> Salva Risultato
 
@@ -14,8 +14,8 @@ OBIETTIVO Giocatore 1: Risolvere le Sfide
 
     USE CASE: Salva Risultato
     L'utente invia la sua soluzione
-    Il sistema ne calcola il punteggio
-        
+    Il giocatore visualizza il punteggio ottenuto
+            
     USE CASE: Visualizza Risultati
     Il giocatore visualizza la lista delle sfide e se ne sceglie una
     Il giocatore visualizza la classifica dei punteggi della sfida scelta 
