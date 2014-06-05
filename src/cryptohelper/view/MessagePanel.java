@@ -775,6 +775,18 @@ public class MessagePanel extends javax.swing.JPanel {
         try {
             if (commController.send(messaggioTemp)) {
                 nuovoMessaggioFeedback.setText("Messaggio Inviato! Componi un altro messaggio");
+
+                //  SVUOTA
+                jTextArea6.setText("");
+                corpoNuovoMessaggio.setText("");
+                inviaButton.setEnabled(false);
+                cifraButton.setEnabled(true);
+                destinatariComboBox.setSelectedIndex(-1);
+                titoloNuovoMessaggioField.setText("");
+                // italiano lingua di default
+                linguaComboBox.setSelectedIndex(0);
+                messaggioTemp = new Messaggio(studente);
+
             } else {
                 nuovoMessaggioFeedback.setText("Errore nell'invio del messaggio!");
             }
