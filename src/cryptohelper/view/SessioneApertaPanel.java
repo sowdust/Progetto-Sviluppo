@@ -406,9 +406,7 @@ public class SessioneApertaPanel extends javax.swing.JPanel {
             undoButtonTest.setEnabled(!mapCorrente.isEmpty());
             for (CharField charField : charFields) {
                 Character toWrite = mapCorrente.inverseMap(charField.getInternalChar());
-                if (toWrite != null) {
-                    charField.setText(toWrite + "");
-                }
+                charField.setText((toWrite != null ? toWrite : "") + "");
             }
         } catch (SQLException ex) {
             Logger.getLogger(SessioneApertaPanel.class.getName()).log(Level.SEVERE, null, ex);
