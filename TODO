@@ -1,12 +1,25 @@
-Commento con // quello che mi sembra ma non sono sicuro 100% sia risolto
 
-GUI
-	ordine dei messaggi temporale? cambiamo la query?
-	// azzerare il box cifra dopo aver caricato una bozza o rispondi (quando me ne vado dalla tabella)
-ALBERO
-	caricaSoluzione
-	molti test
+GUI:
+Gestione soluzioni (Elenca, visualizza, carica, rimuovi)
+Scelta metodo di assunzione
+Catch e stampa di eccezione
+(Registrazione)
 
 
+DOCUMENTAZIONE:
+
+Aggiornare UC in base alle scelte prese sul metodo di fare ass. nella gui
+Controllo generale (possiamo 
+
+TEST:
+Scrivere un paio di Unit test
+Comportamento albero con vari tipi di assunzioni
+
+
+PRE-CONSEGNA:
+
+Controllare che non ci siano cose tipo "suca"
+Riempire il db con messaggi significativi
+(Pulizia codice)  
 
 
