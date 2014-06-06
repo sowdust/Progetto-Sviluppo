@@ -69,15 +69,16 @@ CREATE TABLE Soluzione (
 );
 
 INSERT INTO Studente (nickname, password, nome, cognome) VALUES
-    ('tory', 'tory', 'Pietro', 'Torasso'),
-    ('felix', 'felix', 'Felice', 'Cardone'),
-    ('rosa', 'rosa', 'Rosa', 'Blu'),
-    ('mario', 'mario', 'Mario', 'Rossi'),
-    ('rossana', 'rossana', 'Rossana', 'Verdi'),
-    ('gianni', 'gianni', 'Gianni', 'Ottimo');
+    ('claudia', 'claudia', 'Claudia', 'Bianchi'),
+    ('viviana', 'viviana', 'Viviana', 'Rossi'),
+    ('marco', 'marco', 'Marco', 'Verdi'),
+    ('giovanna', 'giovanna', 'Giovanna', 'Blu'),
+    ('ale', 'ale', 'Alessandro', 'Viola'),
+    ('mattiav', 'mattiav', 'Mattia', 'Vagoni'),
+    ('mattiac', 'mattiac', 'Mattia', 'Carboni');
 
 INSERT INTO SistemaCifratura (creatore, metodo, chiave, eliminato) VALUES
-    (1, 'parolachiave','CIPOLLA', false),
+    (1, 'parolachiave','cipolla', false),
     (4, 'cesare','3', false),
     (1, 'pseudocasuale','55', false),
     (1, 'cesare','10', false),
