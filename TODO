@@ -1,3 +1,4 @@
+Tra parentesi le cose non strettamente necessarie ma auspicabili.
 
 GUI:
 Gestione soluzioni (Elenca, visualizza, carica, rimuovi)
@@ -18,7 +19,7 @@ Comportamento albero con vari tipi di assunzioni
 
 PRE-CONSEGNA:
 
-Controllare che non ci siano cose tipo "suca"
+Controllare che non ci siano cose tipo "suca" in giro
 Riempire il db con messaggi significativi
 (Pulizia codice)  
 
