@@ -80,11 +80,11 @@ public class AlberoIpotesi implements Serializable {
             return false;
         }
 
-        int nConflitti = mappaturaCorrente.contaConflitti(nuoveAssunzioni);
         Ipotesi ipotesiACuiAttaccarsi;
         // filtraDaRimuovere ha side effect su nuoveAssunzioni:
         // rimuove tutte quelle della forma { x > - }
         List<Character> listaDaRimuovere = nuoveAssunzioni.filtraDaRimuovere();
+        int nConflitti = mappaturaCorrente.contaConflitti(nuoveAssunzioni);
         Mappatura daAggiungere;
         System.out.println("Numero conflitti \t" + nConflitti);
         System.out.println("Da rimuovere \t");

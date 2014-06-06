@@ -61,7 +61,7 @@ public class Mappatura implements Serializable {
     public Character inverseMap(char c) {
         int i = 0;
         for (Character k : map) {
-            if (c == k) {
+            if (c == (char) k) {
                 return inverseMap.get(i);
             }
             ++i;
@@ -169,7 +169,7 @@ public class Mappatura implements Serializable {
                 r.map.add(map.get(i));
                 r.inverseMap.add(inverseMap.get(i));
             } else {
-                if (m.inverseMap.get(k) != inverseMap.get(i)) {
+                if ((char) m.inverseMap.get(k) != (char) inverseMap.get(i)) {
                     r.map.add(map.get(i));
                     r.inverseMap.add(inverseMap.get(i));
                 }
@@ -190,12 +190,17 @@ public class Mappatura implements Serializable {
      */
     public boolean conflitto(Mappatura m) {
         for (int i = 0; i < m.map.size(); ++i) {
+            // indice del carattere a sx in this
             int k = map.indexOf(m.map.get(i));
+            // indice del carattere a dx in this
             int j = inverseMap.indexOf(m.inverseMap.get(i));
-            if (k != -1 && inverseMap.get(k) != m.inverseMap.get(i)) {
+            // se il c a sx è assegnato ma non allo stesso modo
+            if (k != -1 && (char) inverseMap.get(k) != (char) m.inverseMap.get(i)) {
+                System.out.println("Problema in k " + inverseMap.get(k) + m.inverseMap.get(i));
                 return true;
             }
-            if (j != -1 && map.get(j) != m.map.get(i)) {
+            if (j != -1 && (char) map.get(j) != (char) m.map.get(i)) {
+                System.out.println("Problema in j " + map.get(j) + m.map.get(i));
                 return true;
             }
         }
@@ -208,10 +213,10 @@ public class Mappatura implements Serializable {
         for (int i = 0; i < m.map.size(); ++i) {
             int k = map.indexOf(m.map.get(i));
             int j = inverseMap.indexOf(m.inverseMap.get(i));
-            if (k != -1 && inverseMap.get(k) != m.inverseMap.get(i)) {
+            if (k != -1 && (char) inverseMap.get(k) != (char) m.inverseMap.get(i)) {
                 ++conflitti;
             }
-            if (j != -1 && map.get(j) != m.map.get(i)) {
+            if (j != -1 && (char) map.get(j) != (char) m.map.get(i)) {
                 ++conflitti;
             }
         }
@@ -230,7 +235,7 @@ public class Mappatura implements Serializable {
         int i, k;
         for (i = 0; i < m.size(); ++i) {
             k = map.indexOf(m.map.get(i));
-            if (k == -1 || m.inverseMap.get(i) != inverseMap.get(k)) {
+            if (k == -1 || (char) m.inverseMap.get(i) != (char) inverseMap.get(k)) {
                 return false;
             }
         }
@@ -250,7 +255,7 @@ public class Mappatura implements Serializable {
     public List<Character> filtraDaRimuovere() {
         List<Character> daRimuovere = new ArrayList<>();
         for (int i = 0; i < map.size(); ++i) {
-            if (inverseMap.get(i) == DA_RIMUOVERE) {
+            if ((char) inverseMap.get(i) == DA_RIMUOVERE) {
                 daRimuovere.add(map.get(i));
                 map.remove(i);
                 inverseMap.remove(i);
