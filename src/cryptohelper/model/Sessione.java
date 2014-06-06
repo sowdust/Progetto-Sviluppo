@@ -99,8 +99,13 @@ public class Sessione {
         Mappatura nuovaMappatura = mappaturaVuota.merge(sol.getMappatura());
         return faiAssunzione(nuovaMappatura);
     }
- public String getCommento() {
+
+    public String getCommento() {
         return getAlbero().getCommento();
+    }
+
+    public MessaggioSpia getMessaggio() {
+        return messaggio;
     }
 
     @Override
