@@ -92,4 +92,5 @@ public class SessionController {
     public String getCommento(Sessione s) {
         return s.getCommento();
     }
+
 }
