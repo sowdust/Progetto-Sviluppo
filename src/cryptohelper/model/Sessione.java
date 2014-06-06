@@ -86,23 +86,20 @@ public class Sessione {
         return dbc.executeUpdate("DELETE FROM Sessione WHERE id = ?", id);
     }
 
-    public void undo(String commento) {
-        getAlbero().undo(commento);
-    }
-
-    public boolean caricaSoluzione(Soluzione sol) {
-        throw new UnsupportedOperationException("Not supported yet.");
-    }
-
-    public MessaggioSpia getMessaggio() {
-        return messaggio;
+    public void undo(String motivazione) {
+        getAlbero().undo(motivazione);
     }
 
     public Mappatura getMappaturaCorrente() {
         return getAlbero().getMappaturaCorrente();
     }
 
-    public String getCommento() {
+    public boolean caricaSoluzione(Soluzione sol) {
+        Mappatura mappaturaVuota = getMappaturaCorrente().rimuoviTutti();
+        Mappatura nuovaMappatura = mappaturaVuota.merge(sol.getMappatura());
+        return faiAssunzione(nuovaMappatura);
+    }
+ public String getCommento() {
         return getAlbero().getCommento();
     }
 
