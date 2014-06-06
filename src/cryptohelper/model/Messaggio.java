@@ -119,16 +119,6 @@ public class Messaggio implements MessaggioMittente, MessaggioDestinatario, Mess
         this.sdc = SistemaCifratura.load(crs.getInt("sdc"));
     }
 
-    /* riguardo ai DSD "cifraMessaggio" e "decifraMessaggio" sono presenti due note:
-     in cifra si parla di assumere che sdc non ci sia in memoria, mentre in decifra
-     si parla di assumere che il sdc sia caricato in memoria.
-     Pensandoci su credo che si intendesse che non vi deve essere nessun controllo,
-     usando sempre la load in cifra e non usandola mai in decifra. Il motivo penso che sia
-     perchè noi cifriamo un messaggio dopo averlo *creato* perciò il sistema di cifratura
-     non c'è ancora in memoria, mentre si decifra solo se lo si legge (quindi è già presente nel DB) ovvero
-     dopo averlo *caricato* facendo la load (che evidentemente dovrà caricare in memoria anche il sdc).
-     In ogni caso è tutto un forse, bisogna fare la GUI per capire come siamo messi
-     */
     @Override
     public void cifra() throws SQLException {
         Proposta attiva = Proposta.caricaAttiva(mittente.getId(), destinatario.getId());
@@ -268,4 +258,5 @@ public class Messaggio implements MessaggioMittente, MessaggioDestinatario, Mess
     public String toString() {
         return "Mittente: " + mittente + "; Destinatario: " + destinatario + "; Titolo: " + titolo;
     }
+
 }

@@ -20,7 +20,6 @@ import cryptohelper.controller.SessionController;
 import cryptohelper.model.AnalisiFrequenze;
 import cryptohelper.model.Cifratore;
 import cryptohelper.model.Mappatura;
-import cryptohelper.model.Messaggio;
 import cryptohelper.model.MessaggioSpia;
 import cryptohelper.model.Sessione;
 import java.awt.event.KeyEvent;
@@ -82,6 +81,15 @@ public class SessioneApertaPanel extends javax.swing.JPanel {
             });
             jPanel8.add(charField);
         }
+        mittenteLabel.setText(messaggio.getMittente().toString());
+        destinatarioLabel.setText(messaggio.getDestinatario().toString());
+        titoloLabel.setText(messaggio.getTitolo());
+        try {
+            linguaLabel.setText(messaggio.getLingua());
+        } catch (SQLException ex) {
+            Logger.getLogger(SessioneApertaPanel.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
     }
 
     /**
@@ -111,12 +119,6 @@ public class SessioneApertaPanel extends javax.swing.JPanel {
         jPanel9 = new javax.swing.JPanel();
         jButton3 = new javax.swing.JButton();
         jButton4 = new javax.swing.JButton();
-        jPanel6 = new javax.swing.JPanel();
-        jPanel10 = new javax.swing.JPanel();
-        jLabel3 = new javax.swing.JLabel();
-        jLabel4 = new javax.swing.JLabel();
-        jLabel5 = new javax.swing.JLabel();
-        jLabel6 = new javax.swing.JLabel();
         jPanel4 = new javax.swing.JPanel();
         jPanel12 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
@@ -126,172 +128,136 @@ public class SessioneApertaPanel extends javax.swing.JPanel {
             jPanel13 = new javax.swing.JPanel();
             jLabel2 = new javax.swing.JLabel();
             jScrollPane5 = new javax.swing.JScrollPane();
-            try {
-                jTable2 = new javax.swing.JTable(getFrequencyData(AnalisiFrequenze.getFrequency(messaggio.getLingua())), new String[] {"Carattere", "Frequenza"});
-                jPanel5 = new javax.swing.JPanel();
-                jButton1 = new javax.swing.JButton();
-                jButton2 = new javax.swing.JButton();
-                feedbackSessione = new javax.swing.JLabel();
+            jTable2 = new javax.swing.JTable(getFrequencyData(AnalisiFrequenze.getFrequency(messaggio.getLingua())), new String[] {"Carattere", "Frequenza"});
+            jPanel6 = new javax.swing.JPanel();
+            jPanel10 = new javax.swing.JPanel();
+            cMittenteLabel = new javax.swing.JLabel();
+            cDestinatarioLabel = new javax.swing.JLabel();
+            cTitoloLabel = new javax.swing.JLabel();
+            cLinguaLabel = new javax.swing.JLabel();
+            mittenteLabel = new javax.swing.JLabel();
+            titoloLabel = new javax.swing.JLabel();
+            destinatarioLabel = new javax.swing.JLabel();
+            linguaLabel = new javax.swing.JLabel();
+            jPanel5 = new javax.swing.JPanel();
+            jButton1 = new javax.swing.JButton();
+            jButton2 = new javax.swing.JButton();
+            feedbackSessione = new javax.swing.JLabel();
 
-                setLayout(new java.awt.BorderLayout());
+            setLayout(new java.awt.BorderLayout());
 
-                jPanel1.setLayout(new javax.swing.BoxLayout(jPanel1, javax.swing.BoxLayout.LINE_AXIS));
+            jPanel1.setLayout(new javax.swing.BoxLayout(jPanel1, javax.swing.BoxLayout.LINE_AXIS));
 
-                jPanel2.setLayout(new javax.swing.BoxLayout(jPanel2, javax.swing.BoxLayout.PAGE_AXIS));
+            jPanel2.setLayout(new javax.swing.BoxLayout(jPanel2, javax.swing.BoxLayout.PAGE_AXIS));
 
-                jTextArea1.setColumns(20);
-                jTextArea1.setLineWrap(true);
-                jTextArea1.setRows(5);
-                jScrollPane1.setViewportView(jTextArea1);
+            jTextArea1.setColumns(150);
+            jTextArea1.setLineWrap(true);
+            jTextArea1.setRows(5);
+            jScrollPane1.setViewportView(jTextArea1);
 
-                jPanel2.add(jScrollPane1);
+            jPanel2.add(jScrollPane1);
 
-                jTextArea2.setColumns(200);
-                jTextArea2.setLineWrap(true);
-                jTextArea2.setRows(5);
-                jScrollPane2.setViewportView(jTextArea2);
+            jTextArea2.setColumns(150);
+            jTextArea2.setLineWrap(true);
+            jTextArea2.setRows(5);
+            jScrollPane2.setViewportView(jTextArea2);
 
-                jPanel2.add(jScrollPane2);
+            jPanel2.add(jScrollPane2);
 
-                jPanel1.add(jPanel2);
+            jPanel1.add(jPanel2);
 
-                faiAssunzioniButton.setText("Fai Assunzioni");
-                faiAssunzioniButton.addActionListener(new java.awt.event.ActionListener() {
-                    public void actionPerformed(java.awt.event.ActionEvent evt) {
-                        faiAssunzioniButtonActionPerformed(evt);
-                    }
-                });
-
-                undoButton.setText("Annulla...");
-                undoButton.addActionListener(new java.awt.event.ActionListener() {
-                    public void actionPerformed(java.awt.event.ActionEvent evt) {
-                        undoButtonActionPerformed(evt);
-                    }
-                });
-
-                javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
-                jPanel3.setLayout(jPanel3Layout);
-                jPanel3Layout.setHorizontalGroup(
-                    jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addGap(60, 60, 60)
-                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(jPanel3Layout.createSequentialGroup()
-                                .addComponent(undoButton)
-                                .addGap(85, 85, 85)
-                                .addComponent(faiAssunzioniButton))
-                            .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 298, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                );
-                jPanel3Layout.setVerticalGroup(
-                    jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                        .addGap(22, 22, 22)
-                        .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(faiAssunzioniButton)
-                            .addComponent(undoButton))
-                        .addContainerGap(459, Short.MAX_VALUE))
-                );
-
-                jTabbedPane1.addTab("Assunzioni", jPanel3);
-
-                jPanel7.setLayout(new javax.swing.BoxLayout(jPanel7, javax.swing.BoxLayout.PAGE_AXIS));
-
-                jPanel8.setLayout(new java.awt.GridLayout(13, 4));
-                jScrollPane4.setViewportView(jPanel8);
-
-                jPanel7.add(jScrollPane4);
-
-                jButton3.setText("jButton3");
-                jPanel9.add(jButton3);
-
-                jButton4.setText("jButton4");
-                jPanel9.add(jButton4);
-
-                jPanel7.add(jPanel9);
-
-                jTabbedPane1.addTab("Assunzioni Test", jPanel7);
-
-                jPanel6.setLayout(new java.awt.GridBagLayout());
-
-                jLabel3.setFont(new java.awt.Font("Cantarell", 0, 36)); // NOI18N
-                jLabel3.setText("Mittente:");
-
-                jLabel4.setText("Destinatario:");
-
-                jLabel5.setText("Titolo:");
-
-                jLabel6.setText("Lingua:");
-
-                javax.swing.GroupLayout jPanel10Layout = new javax.swing.GroupLayout(jPanel10);
-                jPanel10.setLayout(jPanel10Layout);
-                jPanel10Layout.setHorizontalGroup(
-                    jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel10Layout.createSequentialGroup()
-                        .addGap(25, 25, 25)
-                        .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel6)
-                            .addComponent(jLabel4)
-                            .addComponent(jLabel3)
-                            .addComponent(jLabel5))
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                );
-                jPanel10Layout.setVerticalGroup(
-                    jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel10Layout.createSequentialGroup()
-                        .addGap(32, 32, 32)
-                        .addComponent(jLabel3)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel4)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel5)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel6)
-                        .addContainerGap(70, Short.MAX_VALUE))
-                );
-
-                jPanel6.add(jPanel10, new java.awt.GridBagConstraints());
-
-                jTabbedPane1.addTab("Informazioni", jPanel6);
-
-                jPanel4.setLayout(new javax.swing.BoxLayout(jPanel4, javax.swing.BoxLayout.LINE_AXIS));
-
-                jPanel12.setLayout(new javax.swing.BoxLayout(jPanel12, javax.swing.BoxLayout.PAGE_AXIS));
-
-                jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-                jLabel1.setText("Frequenze messaggio");
-                jPanel12.add(jLabel1);
-
-            }catch(SQLException e) {
-
-            }
-            jTable1.setEnabled(false);
-            jTable1.addAncestorListener(new javax.swing.event.AncestorListener() {
-                public void ancestorMoved(javax.swing.event.AncestorEvent evt) {
-                }
-                public void ancestorAdded(javax.swing.event.AncestorEvent evt) {
-                    jTable1AncestorAdded(evt);
-                }
-                public void ancestorRemoved(javax.swing.event.AncestorEvent evt) {
+            faiAssunzioniButton.setText("Fai Assunzioni");
+            faiAssunzioniButton.addActionListener(new java.awt.event.ActionListener() {
+                public void actionPerformed(java.awt.event.ActionEvent evt) {
+                    faiAssunzioniButtonActionPerformed(evt);
                 }
             });
-            jScrollPane3.setViewportView(jTable1);
 
-            jPanel12.add(jScrollPane3);
+            undoButton.setText("Annulla...");
+            undoButton.addActionListener(new java.awt.event.ActionListener() {
+                public void actionPerformed(java.awt.event.ActionEvent evt) {
+                    undoButtonActionPerformed(evt);
+                }
+            });
 
-            jPanel4.add(jPanel12);
+            javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
+            jPanel3.setLayout(jPanel3Layout);
+            jPanel3Layout.setHorizontalGroup(
+                jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel3Layout.createSequentialGroup()
+                    .addGap(60, 60, 60)
+                    .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addGroup(jPanel3Layout.createSequentialGroup()
+                            .addComponent(undoButton)
+                            .addGap(85, 85, 85)
+                            .addComponent(faiAssunzioniButton))
+                        .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 298, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addContainerGap(738, Short.MAX_VALUE))
+            );
+            jPanel3Layout.setVerticalGroup(
+                jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
+                    .addGap(22, 22, 22)
+                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGap(18, 18, 18)
+                    .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(faiAssunzioniButton)
+                        .addComponent(undoButton))
+                    .addContainerGap(459, Short.MAX_VALUE))
+            );
 
-            jPanel13.setLayout(new javax.swing.BoxLayout(jPanel13, javax.swing.BoxLayout.PAGE_AXIS));
+            jTabbedPane1.addTab("Assunzioni", jPanel3);
 
-            jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-            jLabel2.setText("Frequenze lingua");
-            jPanel13.add(jLabel2);
+            jPanel7.setLayout(new javax.swing.BoxLayout(jPanel7, javax.swing.BoxLayout.PAGE_AXIS));
+
+            jPanel8.setLayout(new java.awt.GridLayout(13, 4));
+            jScrollPane4.setViewportView(jPanel8);
+
+            jPanel7.add(jScrollPane4);
+
+            jButton3.setText("jButton3");
+            jPanel9.add(jButton3);
+
+            jButton4.setText("jButton4");
+            jPanel9.add(jButton4);
+
+            jPanel7.add(jPanel9);
+
+            jTabbedPane1.addTab("Assunzioni Test", jPanel7);
+
+            jPanel4.setLayout(new javax.swing.BoxLayout(jPanel4, javax.swing.BoxLayout.LINE_AXIS));
+
+            jPanel12.setLayout(new javax.swing.BoxLayout(jPanel12, javax.swing.BoxLayout.PAGE_AXIS));
+
+            jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+            jLabel1.setText("Frequenze messaggio");
+            jPanel12.add(jLabel1);
 
         }catch(SQLException e) {
 
         }
+        jTable1.setEnabled(false);
+        jTable1.addAncestorListener(new javax.swing.event.AncestorListener() {
+            public void ancestorMoved(javax.swing.event.AncestorEvent evt) {
+            }
+            public void ancestorAdded(javax.swing.event.AncestorEvent evt) {
+                jTable1AncestorAdded(evt);
+            }
+            public void ancestorRemoved(javax.swing.event.AncestorEvent evt) {
+            }
+        });
+        jScrollPane3.setViewportView(jTable1);
+
+        jPanel12.add(jScrollPane3);
+
+        jPanel4.add(jPanel12);
+
+        jPanel13.setLayout(new javax.swing.BoxLayout(jPanel13, javax.swing.BoxLayout.PAGE_AXIS));
+
+        jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel2.setText("Frequenze lingua");
+        jPanel13.add(jLabel2);
+
         jTable2.setEnabled(false);
         jScrollPane5.setViewportView(jTable2);
 
@@ -300,6 +266,74 @@ public class SessioneApertaPanel extends javax.swing.JPanel {
         jPanel4.add(jPanel13);
 
         jTabbedPane1.addTab("Frequenze", jPanel4);
+
+        jPanel6.setLayout(new java.awt.GridBagLayout());
+
+        cMittenteLabel.setFont(new java.awt.Font("Cantarell", 0, 18)); // NOI18N
+        cMittenteLabel.setText("Mittente:");
+
+        cDestinatarioLabel.setFont(new java.awt.Font("Cantarell", 0, 18)); // NOI18N
+        cDestinatarioLabel.setText("Destinatario:");
+
+        cTitoloLabel.setFont(new java.awt.Font("Cantarell", 0, 18)); // NOI18N
+        cTitoloLabel.setText("Titolo:");
+
+        cLinguaLabel.setFont(new java.awt.Font("Cantarell", 0, 18)); // NOI18N
+        cLinguaLabel.setText("Lingua:");
+
+        mittenteLabel.setFont(new java.awt.Font("Cantarell", 0, 18)); // NOI18N
+
+        titoloLabel.setFont(new java.awt.Font("Cantarell", 0, 18)); // NOI18N
+
+        destinatarioLabel.setFont(new java.awt.Font("Cantarell", 0, 18)); // NOI18N
+
+        linguaLabel.setFont(new java.awt.Font("Cantarell", 0, 18)); // NOI18N
+
+        javax.swing.GroupLayout jPanel10Layout = new javax.swing.GroupLayout(jPanel10);
+        jPanel10.setLayout(jPanel10Layout);
+        jPanel10Layout.setHorizontalGroup(
+            jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel10Layout.createSequentialGroup()
+                .addGap(25, 25, 25)
+                .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addComponent(cLinguaLabel, javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(cDestinatarioLabel))
+                    .addComponent(cTitoloLabel)
+                    .addComponent(cMittenteLabel))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(mittenteLabel)
+                    .addComponent(titoloLabel)
+                    .addComponent(destinatarioLabel)
+                    .addComponent(linguaLabel))
+                .addContainerGap(193, Short.MAX_VALUE))
+        );
+        jPanel10Layout.setVerticalGroup(
+            jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel10Layout.createSequentialGroup()
+                .addGap(32, 32, 32)
+                .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(cMittenteLabel)
+                    .addComponent(mittenteLabel))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(cDestinatarioLabel)
+                    .addComponent(destinatarioLabel))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(cTitoloLabel)
+                    .addComponent(titoloLabel))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(cLinguaLabel)
+                    .addComponent(linguaLabel))
+                .addContainerGap(64, Short.MAX_VALUE))
+        );
+
+        jPanel6.add(jPanel10, new java.awt.GridBagConstraints());
+
+        jTabbedPane1.addTab("Informazioni", jPanel6);
 
         jPanel1.add(jTabbedPane1);
 
@@ -412,6 +446,11 @@ public class SessioneApertaPanel extends javax.swing.JPanel {
         's', 't', 'u', 'v', 'w', 'x', 'y', 'z'
     };
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel cDestinatarioLabel;
+    private javax.swing.JLabel cLinguaLabel;
+    private javax.swing.JLabel cMittenteLabel;
+    private javax.swing.JLabel cTitoloLabel;
+    private javax.swing.JLabel destinatarioLabel;
     private javax.swing.JButton faiAssunzioniButton;
     private javax.swing.JLabel feedbackSessione;
     private javax.swing.JButton jButton1;
@@ -420,10 +459,6 @@ public class SessioneApertaPanel extends javax.swing.JPanel {
     private javax.swing.JButton jButton4;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel10;
     private javax.swing.JPanel jPanel12;
@@ -447,6 +482,9 @@ public class SessioneApertaPanel extends javax.swing.JPanel {
     private javax.swing.JTextArea jTextArea1;
     private javax.swing.JTextArea jTextArea2;
     private javax.swing.JTextField jTextField1;
+    private javax.swing.JLabel linguaLabel;
+    private javax.swing.JLabel mittenteLabel;
+    private javax.swing.JLabel titoloLabel;
     private javax.swing.JButton undoButton;
     // End of variables declaration//GEN-END:variables
 
