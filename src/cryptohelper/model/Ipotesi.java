@@ -39,18 +39,24 @@ public class Ipotesi implements Serializable {
      * in cui vi è un assegnazione in conflitto con la mappatura m
      */
     Ipotesi trovaConflitto(Mappatura m, List<Character> listaDaRimuovere, int conflitti) {
+        Mappatura diQuestoNodo = new Mappatura(assunzioni);
         if (null == padre) {
             return this;
         }
         for (int i = 0; i < listaDaRimuovere.size(); ++i) {
-            if (assunzioni.contains(listaDaRimuovere.get(i))) {
+            if (diQuestoNodo.contains(listaDaRimuovere.get(i))) {
                 listaDaRimuovere.remove(i);
             }
         }
-        conflitti -= assunzioni.contaConflitti(m);
+        diQuestoNodo.filtraDaRimuovere();
+        conflitti -= diQuestoNodo.contaConflitti(m);
         if (conflitti == 0 && listaDaRimuovere.isEmpty()) {
             return this.padre;
         }
+//        System.out.println("Mappa corrente: " + m);
+//        System.out.println("Da rimuovere: " + listaDaRimuovere.size());
+//        System.out.println("Conflitti rimasti: " + conflitti);
+//        System.out.println("risalgo");
         return padre.trovaConflitto(m, listaDaRimuovere, conflitti);
     }
 
@@ -76,21 +82,21 @@ public class Ipotesi implements Serializable {
      * Esplorando ricorsivamente i nodi figli, restituisce, se esiste, il primo
      * in cui lo stato sia uguale a m; null altrimenti
      */
-    Ipotesi giaRaggiunta(Mappatura m, Mappatura corrente) {
+    Ipotesi giaRaggiunta(Mappatura totale, Mappatura corrente) {
         Mappatura stato = corrente.merge(assunzioni);
 
-        // se vi è un conflitto, m non è in questo cammino
-        if (assunzioni.conflitto(m)) {
-            return null;
-        }
         // se m è uguale allo stato dell'ipotesi in cui siamo
-        if (stato.equals(m)) {
+        if (stato.equals(totale)) {
             return this;
+        }
+        // se vi è un conflitto, m non è in questo cammino
+        if (assunzioni.conflitto(totale)) {
+            return null;
         }
         // ripetiamo sui figli
         for (Ipotesi i : figli) {
-            if (i.giaRaggiunta(m, stato) != null) {
-                return i.giaRaggiunta(m, stato);
+            if (i.giaRaggiunta(totale, stato) != null) {
+                return i.giaRaggiunta(totale, stato);
             }
         }
         return null;

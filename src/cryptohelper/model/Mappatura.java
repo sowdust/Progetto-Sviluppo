@@ -162,9 +162,6 @@ public class Mappatura implements Serializable {
      */
     public Mappatura sottrai(Mappatura m) {
         int size = this.size();
-        if (m.size() > size) {
-            throw new IllegalArgumentException("Impossibile sottrarre mappa: troppo lunga");
-        }
         Mappatura r = new Mappatura();
         for (int i = 0; i < size; ++i) {
             int k = m.map.indexOf(map.get(i));
@@ -310,7 +307,7 @@ public class Mappatura implements Serializable {
         return s;
     }
 
-    public void stampa() {
+    public String toStringa() {
         String s = " Ø ";
         if (!map.isEmpty()) {
             s = "{";
@@ -319,7 +316,11 @@ public class Mappatura implements Serializable {
             }
             s += "\b }";
         }
-        System.out.println(s);
+        return s;
+    }
+
+    public void stampa() {
+        System.out.println(toStringa());
     }
 
     public List<Character> getMap() {
