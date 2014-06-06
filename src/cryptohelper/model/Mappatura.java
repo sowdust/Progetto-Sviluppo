@@ -90,6 +90,20 @@ public class Mappatura implements Serializable {
         Mappatura m = new Mappatura(nMap);
         Mappatura r = new Mappatura(this);
 
+        //  prima è necessario rimuovere
+        for (int i = 0; i < m.map.size(); ++i) {
+            if (m.inverseMap.get(i) == DA_RIMUOVERE) {
+                int k = r.map.indexOf(m.map.get(i));
+                if (k != -1) {
+                    r.map.remove(k);
+                    r.inverseMap.remove(k);
+                }
+                m.map.remove(i);
+                m.inverseMap.remove(i);
+                --i;
+            }
+        }
+
         // ora aggiungiamo risolvendo i conflitti
         for (int i = 0; i < m.map.size(); ++i) {
             int k = r.map.indexOf(m.map.get(i));
@@ -133,21 +147,7 @@ public class Mappatura implements Serializable {
                 continue;
             }
         }
-        //  prima è necessario rimuovere
-        for (int i = 0; i < m.map.size(); ++i) {
-            if (m.inverseMap.get(i) == DA_RIMUOVERE) {
-                int k = r.map.indexOf(m.map.get(i));
-                if (k != -1) {
-                    r.map.remove(k);
-                    r.inverseMap.remove(k);
-                }
-                m.map.remove(i);
-                m.inverseMap.remove(i);
-                --i;
-            }
-        }
         return r;
-
     }
 
     /*
