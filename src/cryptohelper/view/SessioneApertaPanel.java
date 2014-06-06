@@ -381,9 +381,8 @@ public class SessioneApertaPanel extends javax.swing.JPanel {
     }//GEN-LAST:event_undoButtonActionPerformed
 
     private void faiAssunzioneButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_faiAssunzioneButtonActionPerformed
-        Mappatura temp = new Mappatura(azioni);
         jButton1.setEnabled(true);
-        if (!sessController.faiAssunzione(sessione, temp)) {
+        if (!sessController.faiAssunzione(sessione, daInviare)) {
             /* si potrebbe dare più autorità al session controller facendo sì che
              sessController.faiAssunzioni nel caso in cui faiAssunzioni è false, recupera e restituisce
              il commento
@@ -395,7 +394,7 @@ public class SessioneApertaPanel extends javax.swing.JPanel {
             }
         }
         provaMappaturaCorrente();
-        azioni = "";
+        daInviare = new Mappatura();
     }//GEN-LAST:event_faiAssunzioneButtonActionPerformed
 
     private void provaMappaturaCorrente() {
@@ -446,18 +445,22 @@ public class SessioneApertaPanel extends javax.swing.JPanel {
 
                 @Override
                 public void keyReleased(KeyEvent e) {
+                    azioni = "";
                     CharField charField = (CharField) e.getSource();
                     Character internalChar = charField.getInternalChar();
                     String newValue = charField.getText();
                     if (newValue.equals("")) {
                         azioni += internalChar + " > -,";
                     } else {
-                        azioni += internalChar + " > " + newValue + ",";
+                        azioni += internalChar + " > " + newValue;
                     }
                     /* per testing */
                     System.out.println("Azioni: " + azioni);
-                    System.out.print("Mappatura: ");
-                    new Mappatura(azioni).stampa();
+                    Mappatura tempp = new Mappatura(azioni);
+                    daInviare = daInviare.merge(tempp);
+                    System.out.println("Mappatura temp: " + tempp.toStringa());
+                    System.out.println("Mappatura: " + daInviare.toStringa());
+
                 }
             });
             jPanel8.add(charField);
@@ -471,6 +474,8 @@ public class SessioneApertaPanel extends javax.swing.JPanel {
             Logger.getLogger(SessioneApertaPanel.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
+
+    private Mappatura daInviare = new Mappatura();
 
     private Sessione sessione = null;
     private MessaggioSpia messaggio = null;
