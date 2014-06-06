@@ -26,6 +26,8 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.io.IOException;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -49,47 +51,8 @@ public class SessioneApertaPanel extends javax.swing.JPanel {
         sessione = s;
         messaggio = sessione.getMessaggio();
         initComponents();
+        initMyComponents();
         provaMappaturaCorrente();
-
-        for (int i = 0; i < 26; i++) {
-            JLabel label = new JLabel(alfabeto[i] + " = ");
-            label.setHorizontalAlignment(JLabel.RIGHT);
-            jPanel8.add(label);
-            CharField charField = new CharField(alfabeto[i]);
-            charField.addKeyListener(new KeyListener() {
-
-                @Override
-                public void keyTyped(KeyEvent e) {
-                }
-
-                @Override
-                public void keyPressed(KeyEvent e) {
-                }
-
-                @Override
-                public void keyReleased(KeyEvent e) {
-                    CharField charField = (CharField) e.getSource();
-                    Character internalChar = charField.getInternalChar();
-                    String newValue = charField.getText();
-                    if (newValue.equals("") && mapCorrente.inverseMap(internalChar) != null) {
-                        nuoveAssunzioni = nuoveAssunzioni.merge(new Mappatura(internalChar + " > -"));
-                    } else if (!newValue.equals("")) {
-                        nuoveAssunzioni = nuoveAssunzioni.merge(new Mappatura(internalChar + ">" + newValue));
-                    }
-                    nuoveAssunzioni.stampa();
-                }
-            });
-            jPanel8.add(charField);
-        }
-        mittenteLabel.setText(messaggio.getMittente().toString());
-        destinatarioLabel.setText(messaggio.getDestinatario().toString());
-        titoloLabel.setText(messaggio.getTitolo());
-        try {
-            linguaLabel.setText(messaggio.getLingua());
-        } catch (SQLException ex) {
-            Logger.getLogger(SessioneApertaPanel.class.getName()).log(Level.SEVERE, null, ex);
-        }
-
     }
 
     /**
@@ -110,15 +73,15 @@ public class SessioneApertaPanel extends javax.swing.JPanel {
         jTextArea2 = new javax.swing.JTextArea();
         jTabbedPane1 = new javax.swing.JTabbedPane();
         jPanel3 = new javax.swing.JPanel();
-        faiAssunzioniButton = new javax.swing.JButton();
+        faiAssunzioniTestButton = new javax.swing.JButton();
         jTextField1 = new javax.swing.JTextField();
-        undoButton = new javax.swing.JButton();
+        undoButtonTest = new javax.swing.JButton();
         jPanel7 = new javax.swing.JPanel();
         jScrollPane4 = new javax.swing.JScrollPane();
         jPanel8 = new javax.swing.JPanel();
         jPanel9 = new javax.swing.JPanel();
-        jButton3 = new javax.swing.JButton();
-        jButton4 = new javax.swing.JButton();
+        undoButton = new javax.swing.JButton();
+        faiAssunzioneButton = new javax.swing.JButton();
         jPanel4 = new javax.swing.JPanel();
         jPanel12 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
@@ -166,17 +129,17 @@ public class SessioneApertaPanel extends javax.swing.JPanel {
 
             jPanel1.add(jPanel2);
 
-            faiAssunzioniButton.setText("Fai Assunzioni");
-            faiAssunzioniButton.addActionListener(new java.awt.event.ActionListener() {
+            faiAssunzioniTestButton.setText("Fai Assunzioni");
+            faiAssunzioniTestButton.addActionListener(new java.awt.event.ActionListener() {
                 public void actionPerformed(java.awt.event.ActionEvent evt) {
-                    faiAssunzioniButtonActionPerformed(evt);
+                    faiAssunzioniTestButtonActionPerformed(evt);
                 }
             });
 
-            undoButton.setText("Annulla...");
-            undoButton.addActionListener(new java.awt.event.ActionListener() {
+            undoButtonTest.setText("Annulla...");
+            undoButtonTest.addActionListener(new java.awt.event.ActionListener() {
                 public void actionPerformed(java.awt.event.ActionEvent evt) {
-                    undoButtonActionPerformed(evt);
+                    undoButtonTestActionPerformed(evt);
                 }
             });
 
@@ -188,9 +151,9 @@ public class SessioneApertaPanel extends javax.swing.JPanel {
                     .addGap(60, 60, 60)
                     .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                         .addGroup(jPanel3Layout.createSequentialGroup()
-                            .addComponent(undoButton)
+                            .addComponent(undoButtonTest)
                             .addGap(85, 85, 85)
-                            .addComponent(faiAssunzioniButton))
+                            .addComponent(faiAssunzioniTestButton))
                         .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 298, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addContainerGap(738, Short.MAX_VALUE))
             );
@@ -201,8 +164,8 @@ public class SessioneApertaPanel extends javax.swing.JPanel {
                     .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGap(18, 18, 18)
                     .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(faiAssunzioniButton)
-                        .addComponent(undoButton))
+                        .addComponent(faiAssunzioniTestButton)
+                        .addComponent(undoButtonTest))
                     .addContainerGap(459, Short.MAX_VALUE))
             );
 
@@ -215,11 +178,21 @@ public class SessioneApertaPanel extends javax.swing.JPanel {
 
             jPanel7.add(jScrollPane4);
 
-            jButton3.setText("jButton3");
-            jPanel9.add(jButton3);
+            undoButton.setText("Annulla...");
+            undoButton.addActionListener(new java.awt.event.ActionListener() {
+                public void actionPerformed(java.awt.event.ActionEvent evt) {
+                    undoButtonActionPerformed(evt);
+                }
+            });
+            jPanel9.add(undoButton);
 
-            jButton4.setText("jButton4");
-            jPanel9.add(jButton4);
+            faiAssunzioneButton.setText("Fai Assunzioni");
+            faiAssunzioneButton.addActionListener(new java.awt.event.ActionListener() {
+                public void actionPerformed(java.awt.event.ActionEvent evt) {
+                    faiAssunzioneButtonActionPerformed(evt);
+                }
+            });
+            jPanel9.add(faiAssunzioneButton);
 
             jPanel7.add(jPanel9);
 
@@ -237,15 +210,6 @@ public class SessioneApertaPanel extends javax.swing.JPanel {
 
         }
         jTable1.setEnabled(false);
-        jTable1.addAncestorListener(new javax.swing.event.AncestorListener() {
-            public void ancestorMoved(javax.swing.event.AncestorEvent evt) {
-            }
-            public void ancestorAdded(javax.swing.event.AncestorEvent evt) {
-                jTable1AncestorAdded(evt);
-            }
-            public void ancestorRemoved(javax.swing.event.AncestorEvent evt) {
-            }
-        });
         jScrollPane3.setViewportView(jTable1);
 
         jPanel12.add(jScrollPane3);
@@ -367,7 +331,7 @@ public class SessioneApertaPanel extends javax.swing.JPanel {
         add(jPanel5, java.awt.BorderLayout.PAGE_END);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void faiAssunzioniButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_faiAssunzioniButtonActionPerformed
+    private void faiAssunzioniTestButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_faiAssunzioniTestButtonActionPerformed
         Mappatura temp = new Mappatura(jTextField1.getText());
         jButton1.setEnabled(true);
         if (!sessController.faiAssunzione(sessione, temp)) {
@@ -382,16 +346,16 @@ public class SessioneApertaPanel extends javax.swing.JPanel {
             }
         }
         provaMappaturaCorrente();
-    }//GEN-LAST:event_faiAssunzioniButtonActionPerformed
+    }//GEN-LAST:event_faiAssunzioniTestButtonActionPerformed
 
-    private void undoButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_undoButtonActionPerformed
+    private void undoButtonTestActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_undoButtonTestActionPerformed
         JFrame padre = (JFrame) SwingUtilities.getWindowAncestor(this);
         UndoDialog undoDialog = new UndoDialog(padre, true);
         if (undoDialog.getReturnStatus() == UndoDialog.RET_OK) {
             sessController.undo(sessione, undoDialog.getMotivazione());
             provaMappaturaCorrente();
         }
-    }//GEN-LAST:event_undoButtonActionPerformed
+    }//GEN-LAST:event_undoButtonTestActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         try {
@@ -407,9 +371,32 @@ public class SessioneApertaPanel extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_jButton1ActionPerformed
 
-    private void jTable1AncestorAdded(javax.swing.event.AncestorEvent evt) {//GEN-FIRST:event_jTable1AncestorAdded
+    private void undoButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_undoButtonActionPerformed
+        JFrame padre = (JFrame) SwingUtilities.getWindowAncestor(this);
+        UndoDialog undoDialog = new UndoDialog(padre, true);
+        if (undoDialog.getReturnStatus() == UndoDialog.RET_OK) {
+            sessController.undo(sessione, undoDialog.getMotivazione());
+            provaMappaturaCorrente();
+        }
+    }//GEN-LAST:event_undoButtonActionPerformed
 
-    }//GEN-LAST:event_jTable1AncestorAdded
+    private void faiAssunzioneButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_faiAssunzioneButtonActionPerformed
+        Mappatura temp = new Mappatura(azioni);
+        jButton1.setEnabled(true);
+        if (!sessController.faiAssunzione(sessione, temp)) {
+            /* si potrebbe dare più autorità al session controller facendo sì che
+             sessController.faiAssunzioni nel caso in cui faiAssunzioni è false, recupera e restituisce
+             il commento
+             */
+            JFrame padre = (JFrame) SwingUtilities.getWindowAncestor(this);
+            AlreadyReachedDialog ard = new AlreadyReachedDialog(padre, true, sessione.getCommento());
+            if (ard.getReturnStatus() == AlreadyReachedDialog.RET_UNDO) {
+                sessController.undo(sessione, sessione.getCommento());
+            }
+        }
+        provaMappaturaCorrente();
+        azioni = "";
+    }//GEN-LAST:event_faiAssunzioneButtonActionPerformed
 
     private void provaMappaturaCorrente() {
         try {
@@ -417,8 +404,13 @@ public class SessioneApertaPanel extends javax.swing.JPanel {
             mapCorrente = sessione.getMappaturaCorrente();
             jTextArea1.setText(messaggio.getTestoCifrato());
             jTextArea2.setText(Cifratore.decifraMonoalfabetica(mapCorrente, messaggio.getTestoCifrato()));
-            undoButton.setEnabled(!mapCorrente.isEmpty());
-
+            undoButtonTest.setEnabled(!mapCorrente.isEmpty());
+            for (CharField charField : charFields) {
+                Character toWrite = mapCorrente.inverseMap(charField.getInternalChar());
+                if (toWrite != null) {
+                    charField.setText(toWrite + "");
+                }
+            }
         } catch (SQLException ex) {
             Logger.getLogger(SessioneApertaPanel.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -435,11 +427,57 @@ public class SessioneApertaPanel extends javax.swing.JPanel {
         return data;
     }
 
+    private void initMyComponents() {
+        for (int i = 0; i < 26; i++) {
+            JLabel label = new JLabel(alfabeto[i] + " = ");
+            label.setHorizontalAlignment(JLabel.RIGHT);
+            jPanel8.add(label);
+            CharField charField = new CharField(alfabeto[i]);
+            charFields.add(charField);
+            charField.addKeyListener(new KeyListener() {
+
+                @Override
+                public void keyTyped(KeyEvent e) {
+                }
+
+                @Override
+                public void keyPressed(KeyEvent e) {
+                }
+
+                @Override
+                public void keyReleased(KeyEvent e) {
+                    CharField charField = (CharField) e.getSource();
+                    Character internalChar = charField.getInternalChar();
+                    String newValue = charField.getText();
+                    if (newValue.equals("")) {
+                        azioni += internalChar + " > -,";
+                    } else {
+                        azioni += internalChar + " > " + newValue + ",";
+                    }
+                    /* per testing */
+                    System.out.println("Azioni: " + azioni);
+                    System.out.print("Mappatura: ");
+                    new Mappatura(azioni).stampa();
+                }
+            });
+            jPanel8.add(charField);
+        }
+        try {
+            mittenteLabel.setText(messaggio.getMittente().toString());
+            destinatarioLabel.setText(messaggio.getDestinatario().toString());
+            titoloLabel.setText(messaggio.getTitolo());
+            linguaLabel.setText(messaggio.getLingua());
+        } catch (SQLException ex) {
+            Logger.getLogger(SessioneApertaPanel.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
     private Sessione sessione = null;
     private MessaggioSpia messaggio = null;
     private Mappatura mapCorrente = null;
-    private Mappatura nuoveAssunzioni = new Mappatura();
-    private SessionController sessController = SessionController.getInstance();
+    private String azioni = "";
+    private final SessionController sessController = SessionController.getInstance();
+    private List<CharField> charFields = new ArrayList<CharField>();
     private final char[] alfabeto = {
         'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i',
         'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r',
@@ -451,12 +489,11 @@ public class SessioneApertaPanel extends javax.swing.JPanel {
     private javax.swing.JLabel cMittenteLabel;
     private javax.swing.JLabel cTitoloLabel;
     private javax.swing.JLabel destinatarioLabel;
-    private javax.swing.JButton faiAssunzioniButton;
+    private javax.swing.JButton faiAssunzioneButton;
+    private javax.swing.JButton faiAssunzioniTestButton;
     private javax.swing.JLabel feedbackSessione;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton4;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
@@ -486,6 +523,7 @@ public class SessioneApertaPanel extends javax.swing.JPanel {
     private javax.swing.JLabel mittenteLabel;
     private javax.swing.JLabel titoloLabel;
     private javax.swing.JButton undoButton;
+    private javax.swing.JButton undoButtonTest;
     // End of variables declaration//GEN-END:variables
 
     private class CharField extends JTextField {
@@ -494,10 +532,6 @@ public class SessioneApertaPanel extends javax.swing.JPanel {
 
         public CharField(char c) {
             character = c;
-            Character toWrite = mapCorrente.inverseMap(c);
-            if (toWrite != null) {
-                setText(toWrite + "");
-            }
         }
 
         @Override

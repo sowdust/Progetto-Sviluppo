@@ -85,9 +85,9 @@
                           <EmptySpace min="-2" pref="60" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="1" attributes="0">
                               <Group type="102" attributes="0">
-                                  <Component id="undoButton" min="-2" max="-2" attributes="0"/>
+                                  <Component id="undoButtonTest" min="-2" max="-2" attributes="0"/>
                                   <EmptySpace min="-2" pref="85" max="-2" attributes="0"/>
-                                  <Component id="faiAssunzioniButton" min="-2" max="-2" attributes="0"/>
+                                  <Component id="faiAssunzioniTestButton" min="-2" max="-2" attributes="0"/>
                               </Group>
                               <Component id="jTextField1" min="-2" pref="298" max="-2" attributes="0"/>
                           </Group>
@@ -102,8 +102,8 @@
                           <Component id="jTextField1" min="-2" max="-2" attributes="0"/>
                           <EmptySpace type="separate" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="3" attributes="0">
-                              <Component id="faiAssunzioniButton" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="undoButton" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="faiAssunzioniTestButton" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="undoButtonTest" alignment="3" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace pref="459" max="32767" attributes="0"/>
                       </Group>
@@ -111,22 +111,22 @@
                 </DimensionLayout>
               </Layout>
               <SubComponents>
-                <Component class="javax.swing.JButton" name="faiAssunzioniButton">
+                <Component class="javax.swing.JButton" name="faiAssunzioniTestButton">
                   <Properties>
                     <Property name="text" type="java.lang.String" value="Fai Assunzioni"/>
                   </Properties>
                   <Events>
-                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="faiAssunzioniButtonActionPerformed"/>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="faiAssunzioniTestButtonActionPerformed"/>
                   </Events>
                 </Component>
                 <Component class="javax.swing.JTextField" name="jTextField1">
                 </Component>
-                <Component class="javax.swing.JButton" name="undoButton">
+                <Component class="javax.swing.JButton" name="undoButtonTest">
                   <Properties>
                     <Property name="text" type="java.lang.String" value="Annulla..."/>
                   </Properties>
                   <Events>
-                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="undoButtonActionPerformed"/>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="undoButtonTestActionPerformed"/>
                   </Events>
                 </Component>
               </SubComponents>
@@ -161,15 +161,21 @@
 
                   <Layout class="org.netbeans.modules.form.compat2.layouts.DesignFlowLayout"/>
                   <SubComponents>
-                    <Component class="javax.swing.JButton" name="jButton3">
+                    <Component class="javax.swing.JButton" name="undoButton">
                       <Properties>
-                        <Property name="text" type="java.lang.String" value="jButton3"/>
+                        <Property name="text" type="java.lang.String" value="Annulla..."/>
                       </Properties>
+                      <Events>
+                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="undoButtonActionPerformed"/>
+                      </Events>
                     </Component>
-                    <Component class="javax.swing.JButton" name="jButton4">
+                    <Component class="javax.swing.JButton" name="faiAssunzioneButton">
                       <Properties>
-                        <Property name="text" type="java.lang.String" value="jButton4"/>
+                        <Property name="text" type="java.lang.String" value="Fai Assunzioni"/>
                       </Properties>
+                      <Events>
+                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="faiAssunzioneButtonActionPerformed"/>
+                      </Events>
                     </Component>
                   </SubComponents>
                 </Container>
@@ -215,9 +221,6 @@
                               <TableHeader reorderingAllowed="true" resizingAllowed="true"/>
                             </Property>
                           </Properties>
-                          <Events>
-                            <EventHandler event="ancestorAdded" listener="javax.swing.event.AncestorListener" parameters="javax.swing.event.AncestorEvent" handler="jTable1AncestorAdded"/>
-                          </Events>
                           <AuxValues>
                             <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="new javax.swing.JTable(getFrequencyData(AnalisiFrequenze.getFrequency(messaggio)), new String[] {&quot;Carattere&quot;, &quot;Frequenza&quot;})"/>
                             <AuxValue name="JavaCodeGenerator_CreateCodePre" type="java.lang.String" value="try {"/>
