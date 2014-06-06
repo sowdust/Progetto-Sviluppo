@@ -65,19 +65,20 @@ public class SessioneApertaPanel extends javax.swing.JPanel {
 
                 @Override
                 public void keyPressed(KeyEvent e) {
-                    CharField charField = (CharField) e.getSource();
-                    Character internalChar = charField.getInternalChar();
-                    String newValue = charField.getText();
-                    if (newValue.equals("") && mapCorrente.map(internalChar) != null) {
-                        //mapCorrente.
-                    }
-                    System.out.println(internalChar);
                 }
 
                 @Override
                 public void keyReleased(KeyEvent e) {
+                    CharField charField = (CharField) e.getSource();
+                    Character internalChar = charField.getInternalChar();
+                    String newValue = charField.getText();
+                    if (newValue.equals("") && mapCorrente.inverseMap(internalChar) != null) {
+                        nuoveAssunzioni = nuoveAssunzioni.merge(new Mappatura(internalChar + " > -"));
+                    } else if (!newValue.equals("")) {
+                        nuoveAssunzioni = nuoveAssunzioni.merge(new Mappatura(internalChar + ">" + newValue));
+                    }
+                    nuoveAssunzioni.stampa();
                 }
-
             });
             jPanel8.add(charField);
         }
@@ -106,109 +107,143 @@ public class SessioneApertaPanel extends javax.swing.JPanel {
         undoButton = new javax.swing.JButton();
         jPanel4 = new javax.swing.JPanel();
         jScrollPane3 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable(getFrequencyData(false), new String[] {"Carattere", "Frequenza"});
-        jPanel6 = new javax.swing.JPanel();
-        jPanel7 = new javax.swing.JPanel();
-        jScrollPane4 = new javax.swing.JScrollPane();
-        jPanel8 = new javax.swing.JPanel();
-        jPanel5 = new javax.swing.JPanel();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
-        feedbackSessione = new javax.swing.JLabel();
+        try {
+            jTable1 = new javax.swing.JTable(getFrequencyData(AnalisiFrequenze.getFrequency(messaggio)), new String[] {"Carattere", "Frequenza"});
+            jScrollPane5 = new javax.swing.JScrollPane();
+            try {
+                jTable2 = new javax.swing.JTable(getFrequencyData(AnalisiFrequenze.getFrequency(messaggio.getLingua())), new String[] {"Carattere", "Frequenza"});
+                jLabel1 = new javax.swing.JLabel();
+                jLabel2 = new javax.swing.JLabel();
+                jPanel6 = new javax.swing.JPanel();
+                jPanel7 = new javax.swing.JPanel();
+                jScrollPane4 = new javax.swing.JScrollPane();
+                jPanel8 = new javax.swing.JPanel();
+                jPanel9 = new javax.swing.JPanel();
+                jButton3 = new javax.swing.JButton();
+                jButton4 = new javax.swing.JButton();
+                jPanel5 = new javax.swing.JPanel();
+                jButton1 = new javax.swing.JButton();
+                jButton2 = new javax.swing.JButton();
+                feedbackSessione = new javax.swing.JLabel();
 
-        setLayout(new java.awt.BorderLayout());
+                setLayout(new java.awt.BorderLayout());
 
-        jPanel1.setLayout(new javax.swing.BoxLayout(jPanel1, javax.swing.BoxLayout.LINE_AXIS));
+                jPanel1.setLayout(new javax.swing.BoxLayout(jPanel1, javax.swing.BoxLayout.LINE_AXIS));
 
-        jPanel2.setLayout(new javax.swing.BoxLayout(jPanel2, javax.swing.BoxLayout.PAGE_AXIS));
+                jPanel2.setLayout(new javax.swing.BoxLayout(jPanel2, javax.swing.BoxLayout.PAGE_AXIS));
 
-        jTextArea1.setColumns(20);
-        jTextArea1.setLineWrap(true);
-        jTextArea1.setRows(5);
-        jScrollPane1.setViewportView(jTextArea1);
+                jTextArea1.setColumns(20);
+                jTextArea1.setLineWrap(true);
+                jTextArea1.setRows(5);
+                jScrollPane1.setViewportView(jTextArea1);
 
-        jPanel2.add(jScrollPane1);
+                jPanel2.add(jScrollPane1);
 
-        jTextArea2.setColumns(200);
-        jTextArea2.setLineWrap(true);
-        jTextArea2.setRows(5);
-        jScrollPane2.setViewportView(jTextArea2);
+                jTextArea2.setColumns(200);
+                jTextArea2.setLineWrap(true);
+                jTextArea2.setRows(5);
+                jScrollPane2.setViewportView(jTextArea2);
 
-        jPanel2.add(jScrollPane2);
+                jPanel2.add(jScrollPane2);
 
-        jPanel1.add(jPanel2);
+                jPanel1.add(jPanel2);
 
-        faiAssunzioniButton.setText("Fai Assunzioni");
-        faiAssunzioniButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                faiAssunzioniButtonActionPerformed(evt);
-            }
-        });
+                faiAssunzioniButton.setText("Fai Assunzioni");
+                faiAssunzioniButton.addActionListener(new java.awt.event.ActionListener() {
+                    public void actionPerformed(java.awt.event.ActionEvent evt) {
+                        faiAssunzioniButtonActionPerformed(evt);
+                    }
+                });
 
-        undoButton.setText("Annulla...");
-        undoButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                undoButtonActionPerformed(evt);
-            }
-        });
+                undoButton.setText("Annulla...");
+                undoButton.addActionListener(new java.awt.event.ActionListener() {
+                    public void actionPerformed(java.awt.event.ActionEvent evt) {
+                        undoButtonActionPerformed(evt);
+                    }
+                });
 
-        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
-        jPanel3.setLayout(jPanel3Layout);
-        jPanel3Layout.setHorizontalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel3Layout.createSequentialGroup()
-                .addGap(60, 60, 60)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
+                jPanel3.setLayout(jPanel3Layout);
+                jPanel3Layout.setHorizontalGroup(
+                    jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addComponent(undoButton)
-                        .addGap(85, 85, 85)
-                        .addComponent(faiAssunzioniButton))
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 298, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-        jPanel3Layout.setVerticalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                .addGap(22, 22, 22)
-                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(faiAssunzioniButton)
-                    .addComponent(undoButton))
-                .addContainerGap(355, Short.MAX_VALUE))
-        );
+                        .addGap(60, 60, 60)
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(jPanel3Layout.createSequentialGroup()
+                                .addComponent(undoButton)
+                                .addGap(85, 85, 85)
+                                .addComponent(faiAssunzioniButton))
+                            .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 298, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                );
+                jPanel3Layout.setVerticalGroup(
+                    jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
+                        .addGap(22, 22, 22)
+                        .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(faiAssunzioniButton)
+                            .addComponent(undoButton))
+                        .addContainerGap(362, Short.MAX_VALUE))
+                );
 
-        jTabbedPane1.addTab("Assunzioni", jPanel3);
+                jTabbedPane1.addTab("Assunzioni", jPanel3);
 
-        jTable1.addAncestorListener(new javax.swing.event.AncestorListener() {
-            public void ancestorAdded(javax.swing.event.AncestorEvent evt) {
-                jTable1AncestorAdded(evt);
+            }catch(SQLException e) {
+
             }
-            public void ancestorRemoved(javax.swing.event.AncestorEvent evt) {
-            }
-            public void ancestorMoved(javax.swing.event.AncestorEvent evt) {
-            }
-        });
-        jScrollPane3.setViewportView(jTable1);
-        if (jTable1.getColumnModel().getColumnCount() > 0) {
-            jTable1.getColumnModel().getColumn(1).setResizable(false);
+            jTable1.setEnabled(false);
+            jTable1.addAncestorListener(new javax.swing.event.AncestorListener() {
+                public void ancestorMoved(javax.swing.event.AncestorEvent evt) {
+                }
+                public void ancestorAdded(javax.swing.event.AncestorEvent evt) {
+                    jTable1AncestorAdded(evt);
+                }
+                public void ancestorRemoved(javax.swing.event.AncestorEvent evt) {
+                }
+            });
+            jScrollPane3.setViewportView(jTable1);
+
+        }catch(SQLException e) {
+
         }
+        jTable2.setEnabled(false);
+        jScrollPane5.setViewportView(jTable2);
+
+        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel1.setText("Frequenze messaggio");
+
+        jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel2.setText("Frequenze lingua");
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
         jPanel4Layout.setHorizontalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel4Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 256, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(102, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 256, Short.MAX_VALUE)
+                    .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                    .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, 239, Short.MAX_VALUE))
+                .addContainerGap())
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel4Layout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(45, Short.MAX_VALUE))
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel1)
+                    .addComponent(jLabel2))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 10, Short.MAX_VALUE)
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jScrollPane3)
+                    .addComponent(jScrollPane5))
+                .addGap(21, 21, 21))
         );
 
         jTabbedPane1.addTab("Frequenze", jPanel4);
@@ -217,21 +252,29 @@ public class SessioneApertaPanel extends javax.swing.JPanel {
         jPanel6.setLayout(jPanel6Layout);
         jPanel6Layout.setHorizontalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 370, Short.MAX_VALUE)
+            .addGap(0, 531, Short.MAX_VALUE)
         );
         jPanel6Layout.setVerticalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 459, Short.MAX_VALUE)
+            .addGap(0, 466, Short.MAX_VALUE)
         );
 
         jTabbedPane1.addTab("Informazioni", jPanel6);
 
-        jPanel7.setLayout(new javax.swing.BoxLayout(jPanel7, javax.swing.BoxLayout.LINE_AXIS));
+        jPanel7.setLayout(new javax.swing.BoxLayout(jPanel7, javax.swing.BoxLayout.PAGE_AXIS));
 
         jPanel8.setLayout(new java.awt.GridLayout(13, 4));
         jScrollPane4.setViewportView(jPanel8);
 
         jPanel7.add(jScrollPane4);
+
+        jButton3.setText("jButton3");
+        jPanel9.add(jButton3);
+
+        jButton4.setText("jButton4");
+        jPanel9.add(jButton4);
+
+        jPanel7.add(jPanel9);
 
         jTabbedPane1.addTab("Assunzioni Test", jPanel7);
 
@@ -268,9 +311,9 @@ public class SessioneApertaPanel extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void faiAssunzioniButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_faiAssunzioniButtonActionPerformed
-        Mappatura nuoveAssunzioni = new Mappatura(jTextField1.getText());
+        Mappatura temp = new Mappatura(jTextField1.getText());
         jButton1.setEnabled(true);
-        if (!sessController.faiAssunzione(sessione, nuoveAssunzioni)) {
+        if (!sessController.faiAssunzione(sessione, temp)) {
             /* si potrebbe dare più autorità al session controller facendo sì che
              sessController.faiAssunzioni nel caso in cui faiAssunzioni è false, recupera e restituisce
              il commento
@@ -302,7 +345,8 @@ public class SessioneApertaPanel extends javax.swing.JPanel {
                 feedbackSessione.setText("Errore salvataggio");
             }
         } catch (SQLException | IOException ex) {
-            Logger.getLogger(SessioneApertaPanel.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(SessioneApertaPanel.class
+                    .getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_jButton1ActionPerformed
 
@@ -323,26 +367,13 @@ public class SessioneApertaPanel extends javax.swing.JPanel {
         }
     }
 
-    private Object[][] getFrequencyData(boolean lingua) {
-        Object[][] data = null;
-        try {
-            Map<Character, Double> freq = null;
-            if (lingua) {
-                freq = AnalisiFrequenze.getFrequency(messaggio.getLingua());
-            } else {
-                freq = AnalisiFrequenze.getFrequency((Messaggio) messaggio);
-            }
-
-            data = new Object[freq.size()][2];
-            /* da risistemare perchè deve essere MessaggioSpia */
-            int i = 0;
-            for (Map.Entry<Character, Double> entry : freq.entrySet()) {
-                data[i][0] = entry.getKey();
-                data[i][1] = entry.getValue();
-                i++;
-            }
-        } catch (SQLException ex) {
-            Logger.getLogger(SessioneApertaPanel.class.getName()).log(Level.SEVERE, null, ex);
+    private Object[][] getFrequencyData(Map<Character, Double> frequenze) {
+        Object[][] data = new Object[frequenze.size()][2];
+        int i = 0;
+        for (Map.Entry<Character, Double> entry : frequenze.entrySet()) {
+            data[i][0] = entry.getKey();
+            data[i][1] = entry.getValue();
+            i++;
         }
         return data;
     }
@@ -350,6 +381,7 @@ public class SessioneApertaPanel extends javax.swing.JPanel {
     private Sessione sessione = null;
     private MessaggioSpia messaggio = null;
     private Mappatura mapCorrente = null;
+    private Mappatura nuoveAssunzioni = new Mappatura();
     private SessionController sessController = SessionController.getInstance();
     private final char[] alfabeto = {
         'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i',
@@ -361,6 +393,10 @@ public class SessioneApertaPanel extends javax.swing.JPanel {
     private javax.swing.JLabel feedbackSessione;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
+    private javax.swing.JButton jButton3;
+    private javax.swing.JButton jButton4;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
@@ -369,12 +405,15 @@ public class SessioneApertaPanel extends javax.swing.JPanel {
     private javax.swing.JPanel jPanel6;
     private javax.swing.JPanel jPanel7;
     private javax.swing.JPanel jPanel8;
+    private javax.swing.JPanel jPanel9;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane4;
+    private javax.swing.JScrollPane jScrollPane5;
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JTable jTable1;
+    private javax.swing.JTable jTable2;
     private javax.swing.JTextArea jTextArea1;
     private javax.swing.JTextArea jTextArea2;
     private javax.swing.JTextField jTextField1;
@@ -383,7 +422,7 @@ public class SessioneApertaPanel extends javax.swing.JPanel {
 
     private class CharField extends JTextField {
 
-        private char character;
+        private final char character;
 
         public CharField(char c) {
             character = c;
@@ -396,10 +435,11 @@ public class SessioneApertaPanel extends javax.swing.JPanel {
         @Override
         public void processKeyEvent(KeyEvent ev) {
             char c = ev.getKeyChar();
-            if ((ev.getKeyCode() != KeyEvent.VK_BACK_SPACE) && ((!Character.isLetter(c) && c != '-') || getDocument().getLength() > 0)) {
-                ev.consume();
-                return;
-            }
+//            if ( (ev.getKeyCode() != KeyEvent.VK_BACK_SPACE) && ((!Character.isLetter(c) && c != '-') || getDocument().getLength() > 0)) {
+//                ev.consume();
+//                System.out.println("consumato");
+//                return;
+//            }
             super.processKeyEvent(ev);
         }
 

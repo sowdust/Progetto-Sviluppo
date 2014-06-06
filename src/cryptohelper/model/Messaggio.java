@@ -133,12 +133,12 @@ public class Messaggio implements MessaggioMittente, MessaggioDestinatario, Mess
     public void cifra() throws SQLException {
         Proposta attiva = Proposta.caricaAttiva(mittente.getId(), destinatario.getId());
         sdc = attiva.getSdc();
-        testoCifrato = Cifratore.cifraMonoalfabetica(getSistemaCifratura().getMappatura(), getTesto());
+        testoCifrato = Cifratore.cifraMonoalfabetica(getSdc().getMappatura(), getTesto());
     }
 
     @Override
     public void decifra() throws SQLException {
-        testo = Cifratore.decifraMonoalfabetica(getSistemaCifratura().getMappatura(), getTestoCifrato());
+        testo = Cifratore.decifraMonoalfabetica(getSdc().getMappatura(), getTestoCifrato());
     }
 
     @Override
@@ -151,7 +151,7 @@ public class Messaggio implements MessaggioMittente, MessaggioDestinatario, Mess
         DBController dbc = DBController.getInstance();
         if (id < 0) {
             id = dbc.executeInsert("INSERT INTO Messaggio (testo, testocifrato, lingua, titolo, bozza, letto, mittente, destinatario, sdc) "
-                    + "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)", getTesto(), getTestoCifrato(), getLingua(), titolo, bozza, letto, mittente.getId(), (destinatario != null ? destinatario.getId() : null), (sdc != null ? getSistemaCifratura().getId() : null));
+                    + "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)", getTesto(), getTestoCifrato(), getLingua(), titolo, bozza, letto, mittente.getId(), (destinatario != null ? destinatario.getId() : null), (sdc != null ? getSdc().getId() : null));
             return id != -1;
         }
         return dbc.executeUpdate("UPDATE Messaggio SET "
@@ -205,7 +205,7 @@ public class Messaggio implements MessaggioMittente, MessaggioDestinatario, Mess
         return lingua;
     }
 
-    public SistemaCifratura getSistemaCifratura() throws SQLException {
+    public SistemaCifratura getSdc() throws SQLException {
         if (null == sdc) {
             getCampiAggiuntivi();
         }

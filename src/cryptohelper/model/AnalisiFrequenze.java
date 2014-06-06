@@ -16,9 +16,9 @@ import java.util.Collections;
  */
 public class AnalisiFrequenze {
 
-    public static Map<Character, Double> getFrequency(Messaggio m) throws SQLException {
+    public static Map<Character, Double> getFrequency(MessaggioSpia m) throws SQLException {
 
-        Mappatura mappatura = m.getSistemaCifratura().getMappatura();
+        Mappatura mappatura = m.getSdc().getMappatura();
         Map<Character, Integer> frequenzeAssolute = new HashMap<>();
         Map<Character, Double> tabellaFrequenzeDisordinata = new HashMap<>();
         Comparator comparator = new ValueComparator(tabellaFrequenzeDisordinata);

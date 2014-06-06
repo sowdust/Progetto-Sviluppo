@@ -30,4 +30,6 @@ public interface MessaggioSpia extends MessaggioAstratto {
     public UserInfo getDestinatario();
 
     public List<Character> getSimboli() throws SQLException;
+
+    public SistemaCifratura getSdc() throws SQLException;
 }
