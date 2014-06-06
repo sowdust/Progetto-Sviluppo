@@ -7,6 +7,7 @@ import java.io.ObjectInputStream;
 import java.io.Serializable;
 import java.sql.Blob;
 import java.sql.SQLException;
+import java.util.EmptyStackException;
 import java.util.List;
 import java.util.Stack;
 import javax.sql.rowset.CachedRowSet;
@@ -66,8 +67,9 @@ public class AlberoIpotesi implements Serializable {
      * in passato, true altrimenti
      */
     public boolean faiAssunzione(Mappatura nuoveAssunzioni) {
-
+        System.out.println("Arrivata assunzione \t" + nuoveAssunzioni.toStringa());
         Mappatura nuovaMappatura = mappaturaCorrente.merge(nuoveAssunzioni);
+        System.out.println("Nuova mappatura \t" + nuovaMappatura.toStringa());
         Ipotesi giaRaggiunta = giaRaggiunta(nuovaMappatura);
 
         //  Se l'ipotesi è già raggiunta, ci spostiamo lì e torniamo false
@@ -84,16 +86,24 @@ public class AlberoIpotesi implements Serializable {
         // rimuove tutte quelle della forma { x > - }
         List<Character> listaDaRimuovere = nuoveAssunzioni.filtraDaRimuovere();
         Mappatura daAggiungere;
+        System.out.println("Numero conflitti \t" + nConflitti);
+        System.out.println("Da rimuovere \t");
+        for (char c : listaDaRimuovere) {
+            System.out.print(c + " ");
+        }
 
-        if (nConflitti == 0 && listaDaRimuovere.isEmpty()) {
+        if (nConflitti < 1 && listaDaRimuovere.isEmpty()) {
 
             ipotesiACuiAttaccarsi = ipotesiCorrente;
-            daAggiungere = nuoveAssunzioni;
+            daAggiungere = nuoveAssunzioni.sottrai(mappaturaCorrente);
+            System.out.println("Aggiunto al nodo corrente \t" + nuoveAssunzioni.toStringa());
 
         } else {
 
             ipotesiACuiAttaccarsi = ipotesiCorrente.trovaConflitto(nuoveAssunzioni, listaDaRimuovere, nConflitti);
             daAggiungere = nuovaMappatura.sottrai(ipotesiACuiAttaccarsi.getMappatura());
+            System.out.println("Aggiunto più in su \t" + nuoveAssunzioni.toStringa());
+
         }
 
         ipotesiCorrente = ipotesiACuiAttaccarsi.aggiungiIpotesi(daAggiungere);
@@ -104,9 +114,14 @@ public class AlberoIpotesi implements Serializable {
     }
 
     public void undo(String motivazione) {
-        mosse.pop().setCommento(motivazione);
-        ipotesiCorrente = mosse.peek();
-        mappaturaCorrente = ipotesiCorrente.getMappatura();
+        try {
+            mosse.pop().setCommento(motivazione);
+            ipotesiCorrente = mosse.peek();
+            mappaturaCorrente = ipotesiCorrente.getMappatura();
+        } catch (EmptyStackException ex) {
+            ipotesiCorrente = radice;
+            mappaturaCorrente = new Mappatura();
+        }
     }
 
     public Mappatura getMappaturaCorrente() {
@@ -127,5 +142,17 @@ public class AlberoIpotesi implements Serializable {
 
     public String getCommento() {
         return ipotesiCorrente.getCommento();
+    }
+
+    private void test(Mappatura nuoveAss, List<Character> r, int conflitti) {
+        System.out.println("Mappatura corrente:" + mappaturaCorrente);
+        System.out.println("Nuove assunzioni:" + nuoveAss);
+        System.out.print("Da rimuovere:" + nuoveAss);
+        for (char c : r) {
+            System.out.print(r + " ");
+        }
+        System.out.println();
+        System.out.println("Conflitti:" + conflitti);
+        stampaAlbero();
     }
 }
