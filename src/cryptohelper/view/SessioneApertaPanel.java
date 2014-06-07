@@ -160,7 +160,7 @@ public class SessioneApertaPanel extends javax.swing.JPanel {
                             .addGap(85, 85, 85)
                             .addComponent(faiAssunzioniTestButton))
                         .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 298, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addContainerGap(738, Short.MAX_VALUE))
+                    .addContainerGap(120, Short.MAX_VALUE))
             );
             jPanel3Layout.setVerticalGroup(
                 jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -171,7 +171,7 @@ public class SessioneApertaPanel extends javax.swing.JPanel {
                     .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(faiAssunzioniTestButton)
                         .addComponent(undoButtonTest))
-                    .addContainerGap(459, Short.MAX_VALUE))
+                    .addContainerGap(291, Short.MAX_VALUE))
             );
 
             jTabbedPane1.addTab("Assunzioni", jPanel3);
