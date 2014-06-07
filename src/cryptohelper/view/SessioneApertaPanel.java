@@ -402,7 +402,6 @@ public class SessioneApertaPanel extends javax.swing.JPanel {
         salvaSessioneButton.setEnabled(true);
         // merge della mappatura e dei caratteri da rimuovere
         daInviare = mergeMapRimuovi(daInviare, daRimuovere);
-        feedbackSessione.setText("Inviata mappatura: " + daInviare.toStringa());
 //        System.out.println("Mappatura inviata: " + daInviare.toStringa());
         if (!sessController.faiAssunzione(sessione, daInviare)) {
             /* si potrebbe dare più autorità al session controller facendo sì che

@@ -43,7 +43,7 @@ public class SoluzioniPanel extends javax.swing.JPanel {
         jList1 = new javax.swing.JList();
         jButton1 = new javax.swing.JButton();
 
-        setLayout(new javax.swing.BoxLayout(this, javax.swing.BoxLayout.LINE_AXIS));
+        setLayout(new javax.swing.BoxLayout(this, javax.swing.BoxLayout.PAGE_AXIS));
 
         jList1.setModel(new javax.swing.DefaultListModel<Soluzione>() {
 

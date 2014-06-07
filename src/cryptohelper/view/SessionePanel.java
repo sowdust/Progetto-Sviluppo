@@ -19,8 +19,8 @@ package cryptohelper.view;
 import cryptohelper.controller.SessionController;
 import cryptohelper.model.MessaggioSpia;
 import cryptohelper.model.Sessione;
+import cryptohelper.model.Soluzione;
 import cryptohelper.model.Studente;
-import java.awt.Component;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.List;
@@ -65,6 +65,11 @@ public class SessionePanel extends javax.swing.JPanel {
         jList2 = new javax.swing.JList();
         jPanel4 = new javax.swing.JPanel();
         iniziaSessioneButton = new javax.swing.JButton();
+        jPanel5 = new javax.swing.JPanel();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        jList3 = new javax.swing.JList();
+        jPanel6 = new javax.swing.JPanel();
+        jButton1 = new javax.swing.JButton();
 
         setLayout(new javax.swing.BoxLayout(this, javax.swing.BoxLayout.LINE_AXIS));
 
@@ -110,7 +115,7 @@ public class SessionePanel extends javax.swing.JPanel {
 
         jPanel1.add(jPanel3, java.awt.BorderLayout.PAGE_END);
 
-        jTabbedPane1.addTab("Gestisci", jPanel1);
+        jTabbedPane1.addTab("In Corso", jPanel1);
 
         jPanel2.setLayout(new java.awt.BorderLayout());
 
@@ -145,7 +150,44 @@ public class SessionePanel extends javax.swing.JPanel {
 
         jPanel2.add(jPanel4, java.awt.BorderLayout.PAGE_END);
 
-        jTabbedPane1.addTab("Nuova", jPanel2);
+        jTabbedPane1.addTab("Crea Nuova", jPanel2);
+
+        jPanel5.setLayout(new java.awt.BorderLayout());
+
+        jList3.setModel(new javax.swing.DefaultListModel<Soluzione>() {
+
+        });
+        jList3.addListSelectionListener(new javax.swing.event.ListSelectionListener() {
+            public void valueChanged(javax.swing.event.ListSelectionEvent evt) {
+                jList3ValueChanged(evt);
+            }
+        });
+        jList3.addAncestorListener(new javax.swing.event.AncestorListener() {
+            public void ancestorAdded(javax.swing.event.AncestorEvent evt) {
+                jList3AncestorAdded(evt);
+            }
+            public void ancestorRemoved(javax.swing.event.AncestorEvent evt) {
+                jList3AncestorRemoved(evt);
+            }
+            public void ancestorMoved(javax.swing.event.AncestorEvent evt) {
+            }
+        });
+        jScrollPane3.setViewportView(jList3);
+
+        jPanel5.add(jScrollPane3, java.awt.BorderLayout.CENTER);
+
+        jButton1.setText("Elimina Soluzione");
+        jButton1.setEnabled(false);
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+        jPanel6.add(jButton1);
+
+        jPanel5.add(jPanel6, java.awt.BorderLayout.PAGE_END);
+
+        jTabbedPane1.addTab("Soluzioni", jPanel5);
 
         add(jTabbedPane1);
     }// </editor-fold>//GEN-END:initComponents
@@ -234,6 +276,44 @@ public class SessionePanel extends javax.swing.JPanel {
         creaNuovaSessionePanel(daContinuare);
     }//GEN-LAST:event_continuaSessioneButtonActionPerformed
 
+    private void jList3AncestorAdded(javax.swing.event.AncestorEvent evt) {//GEN-FIRST:event_jList3AncestorAdded
+        try {
+            DefaultListModel<Soluzione> dlm = (DefaultListModel<Soluzione>) jList3.getModel();
+            List<Soluzione> soluzioni = sessController.mostraSoluzioni(studente.getUserInfo());
+            for (Soluzione soluzione : soluzioni) {
+                dlm.addElement(soluzione);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(GUI.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_jList3AncestorAdded
+
+    private void jList3AncestorRemoved(javax.swing.event.AncestorEvent evt) {//GEN-FIRST:event_jList3AncestorRemoved
+        DefaultListModel<Soluzione> dlm = (DefaultListModel<Soluzione>) jList3.getModel();
+        dlm.clear();
+    }//GEN-LAST:event_jList3AncestorRemoved
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        try {
+            Soluzione s = (Soluzione) jList3.getSelectedValue();
+            sessController.eliminaSoluzione(s);
+            DefaultListModel<Soluzione> dlm = (DefaultListModel<Soluzione>) jList3.getModel();
+            dlm.removeElement(s);
+        } catch (SQLException ex) {
+            System.out.println("Problema eliminazione: " + ex);
+        }
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jList3ValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_jList3ValueChanged
+        if (evt.getValueIsAdjusting() == false) {
+            if (jList3.getSelectedIndex() == -1) {
+                jButton1.setEnabled(false);
+            } else {
+                jButton1.setEnabled(true);
+            }
+        }
+    }//GEN-LAST:event_jList3ValueChanged
+
     private void creaNuovaSessionePanel(Sessione sessione) {
         SessioneApertaPanel nuovaSessionePanel = new SessioneApertaPanel((sessione));
         jTabbedPane1.addTab("sessione", nuovaSessionePanel);
@@ -248,14 +328,19 @@ public class SessionePanel extends javax.swing.JPanel {
     private javax.swing.JButton continuaSessioneButton;
     private javax.swing.JButton eliminaSessioneButton;
     private javax.swing.JButton iniziaSessioneButton;
+    private javax.swing.JButton jButton1;
     private javax.swing.JList jList1;
     private javax.swing.JList jList2;
+    private javax.swing.JList jList3;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
+    private javax.swing.JPanel jPanel5;
+    private javax.swing.JPanel jPanel6;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JTabbedPane jTabbedPane1;
     // End of variables declaration//GEN-END:variables
 }
