@@ -54,4 +54,11 @@ public class Soluzione {
         return dbc.executeUpdate("DELETE * FROM crypto_user.Soluzione WHERE id = ?", id);
     }
 
+    public String toString() {
+        return "F:" + messaggio.getMittente()
+                + " T: " + messaggio.getDestinatario()
+                + " " + mappatura.toStringa();
+
+    }
+
 }
