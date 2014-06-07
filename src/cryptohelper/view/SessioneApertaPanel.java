@@ -56,7 +56,7 @@ public class SessioneApertaPanel extends javax.swing.JPanel {
         initComponents();
         initMyComponents();
         mapCorrente = sessione.getMappaturaCorrente();
-        provaMappaturaCorrente(mapCorrente);
+        provaMappaturaCorrente(mapCorrente, true);
     }
 
     /**
@@ -363,7 +363,7 @@ public class SessioneApertaPanel extends javax.swing.JPanel {
                 sessController.undo(sessione, sessione.getCommento());
             }
         }
-        provaMappaturaCorrente(sessione.getMappaturaCorrente());
+        provaMappaturaCorrente(sessione.getMappaturaCorrente(), true);
     }//GEN-LAST:event_faiAssunzioniTestButtonActionPerformed
 
     private void undoButtonTestActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_undoButtonTestActionPerformed
@@ -371,7 +371,7 @@ public class SessioneApertaPanel extends javax.swing.JPanel {
         UndoDialog undoDialog = new UndoDialog(padre, true);
         if (undoDialog.getReturnStatus() == UndoDialog.RET_OK) {
             sessController.undo(sessione, undoDialog.getMotivazione());
-            provaMappaturaCorrente(sessione.getMappaturaCorrente());
+            provaMappaturaCorrente(sessione.getMappaturaCorrente(), true);
         }
     }//GEN-LAST:event_undoButtonTestActionPerformed
 
@@ -394,7 +394,7 @@ public class SessioneApertaPanel extends javax.swing.JPanel {
         UndoDialog undoDialog = new UndoDialog(padre, true);
         if (undoDialog.getReturnStatus() == UndoDialog.RET_OK) {
             sessController.undo(sessione, undoDialog.getMotivazione());
-            provaMappaturaCorrente(sessione.getMappaturaCorrente());
+            provaMappaturaCorrente(sessione.getMappaturaCorrente(), true);
         }
     }//GEN-LAST:event_undoButtonActionPerformed
 
@@ -416,7 +416,7 @@ public class SessioneApertaPanel extends javax.swing.JPanel {
                 sessController.undo(sessione, sessione.getCommento());
             }
         }
-        provaMappaturaCorrente(sessione.getMappaturaCorrente());
+        provaMappaturaCorrente(sessione.getMappaturaCorrente(), true);
         mapCorrente = sessione.getMappaturaCorrente();
         daInviare = new Mappatura();
         daRimuovere = new LinkedList();
@@ -439,11 +439,13 @@ public class SessioneApertaPanel extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_salvaSoluzioneButtonActionPerformed
 
-    private void provaMappaturaCorrente(Mappatura m) {
+    private void provaMappaturaCorrente(Mappatura m, Boolean aggiornaMessaggio) {
         try {
             /* temporaneamente è così */
-            jTextArea1.setText(messaggio.getTestoCifrato());
-            jTextArea2.setText(Cifratore.decifraMonoalfabetica(m, messaggio.getTestoCifrato()));
+            if (aggiornaMessaggio) {
+                jTextArea1.setText(messaggio.getTestoCifrato());
+                jTextArea2.setText(Cifratore.decifraMonoalfabetica(m, messaggio.getTestoCifrato()));
+            }
             undoButtonTest.setEnabled(!m.isEmpty());
             for (CharField charField : charFields) {
                 Character toWrite = m.inverseMap(charField.getInternalChar());
@@ -510,7 +512,7 @@ public class SessioneApertaPanel extends javax.swing.JPanel {
                     daInviare = daInviare.merge(tempp);
                     System.out.println("Mappatura temp: " + tempp.toStringa());
                     System.out.println("Mappatura da inviare: " + daInviare.toStringa());
-                    provaMappaturaCorrente(sessione.getMappaturaCorrente().merge(mergeMapRimuovi(daInviare, daRimuovere)));
+                    provaMappaturaCorrente(sessione.getMappaturaCorrente().merge(mergeMapRimuovi(daInviare, daRimuovere)), false);
 
                 }
             });
@@ -554,7 +556,7 @@ public class SessioneApertaPanel extends javax.swing.JPanel {
     void segnalaSoluzioneCaricata() {
         feedbackSessione.setText("Soluzione caricata");
         mapCorrente = sessione.getMappaturaCorrente();
-        provaMappaturaCorrente(mapCorrente);
+        provaMappaturaCorrente(mapCorrente, true);
         salvaSessioneButton.setEnabled(true);
 
     }
