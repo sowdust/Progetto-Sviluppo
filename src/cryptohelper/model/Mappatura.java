@@ -287,7 +287,8 @@ public class Mappatura implements Serializable {
 
     public boolean isCompleta(List<Character> listaCaratteri) {
         for (char c : listaCaratteri) {
-            if (!inverseMap.contains(c)) {
+            if (!map.contains(c)) {
+                System.out.println("Non c;e " + c);
                 return false;
             }
         }

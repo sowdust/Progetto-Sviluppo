@@ -152,7 +152,7 @@ public class Messaggio implements MessaggioMittente, MessaggioDestinatario, Mess
     @Override
     public List<Character> getSimboli() throws SQLException {
         List<Character> simboli = new LinkedList();
-        char[] cArray = getTesto().toCharArray();
+        char[] cArray = getTestoCifrato().toCharArray();
         for (char c : cArray) {
             if (simboli.indexOf(c) == -1) {
                 simboli.add(c);

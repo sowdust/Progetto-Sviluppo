@@ -430,8 +430,11 @@ public class SessioneApertaPanel extends javax.swing.JPanel {
     private void salvaSoluzioneButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_salvaSoluzioneButtonActionPerformed
         try {
             // TODO add your handling code here:
-            sessController.salvaSoluzione(sessione);
-            feedbackSessione.setText("Soluzione salvata");
+            if (sessController.salvaSoluzione(sessione)) {
+                feedbackSessione.setText("Soluzione salvata.");
+            } else {
+                feedbackSessione.setText("Mappatura non completa. Soluzione non salvata.");
+            }
             salvaSessioneButton.setEnabled(false);
 
         } catch (SQLException ex) {

@@ -71,8 +71,11 @@ public class Sessione {
     public boolean salvaSoluzione() throws SQLException {
         Mappatura mapCorrente = getAlbero().getMappaturaCorrente();
         List<Character> listaCaratteri = messaggio.getSimboli();
-        if (mapCorrente.isCompleta(listaCaratteri)) {
-            throw new IllegalStateException("La mappatura non copre tutti i caratteri usati nel messaggio");
+        if (!mapCorrente.isCompleta(listaCaratteri)) {
+            for (char c : listaCaratteri) {
+                System.out.println(c);
+            }
+            return false;
         }
         Soluzione s = new Soluzione(mapCorrente, messaggio, proprietario);
         if (s.save()) {
