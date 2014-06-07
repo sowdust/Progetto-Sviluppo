@@ -12,7 +12,6 @@ lavorare in due alla stessa cosa
 GUI:
 
 !Testare i cambiamenti nella GUI (Carica soluzione + gestione dell'interazione utente)
-// Mattia gurda questa: Salvasoluzione: ritorna errore in GUI se soluzione non completa
 cambiare design di tab di Gestione soluzioni
 Catch e stampa di eccezione 
 (Registrazione)
