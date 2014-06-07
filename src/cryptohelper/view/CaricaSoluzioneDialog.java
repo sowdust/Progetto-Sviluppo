@@ -61,16 +61,6 @@ public class CaricaSoluzioneDialog extends javax.swing.JDialog {
         jLabel1.setText("Seleziona una Soluzione da caricare");
 
         caricaSoluzioneComboBox.setModel(new javax.swing.DefaultComboBoxModel<Soluzione>());
-        caricaSoluzioneComboBox.addComponentListener(new java.awt.event.ComponentAdapter() {
-            public void componentShown(java.awt.event.ComponentEvent evt) {
-                caricaSoluzioneComboBoxComponentShown(evt);
-            }
-        });
-        caricaSoluzioneComboBox.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                caricaSoluzioneComboBoxActionPerformed(evt);
-            }
-        });
         caricaSoluzioneComboBox.addAncestorListener(new javax.swing.event.AncestorListener() {
             public void ancestorMoved(javax.swing.event.AncestorEvent evt) {
             }
@@ -155,19 +145,6 @@ public class CaricaSoluzioneDialog extends javax.swing.JDialog {
 
     private void caricaSoluzioneComboBoxAncestorAdded(javax.swing.event.AncestorEvent evt) {//GEN-FIRST:event_caricaSoluzioneComboBoxAncestorAdded
         try {
-            sessionController.mostraSoluzioni(proprietario);
-        } catch (SQLException e) {
-            System.out.println(e.getMessage());
-        }
-    }//GEN-LAST:event_caricaSoluzioneComboBoxAncestorAdded
-
-    private void caricaSoluzioneComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_caricaSoluzioneComboBoxActionPerformed
-
-    }//GEN-LAST:event_caricaSoluzioneComboBoxActionPerformed
-
-    private void caricaSoluzioneComboBoxComponentShown(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_caricaSoluzioneComboBoxComponentShown
-        try {
-            System.out.println("in dialog action");
             List<Soluzione> soluzioni = sessionController.mostraSoluzioni(proprietario);
             DefaultComboBoxModel<Soluzione> dlm = (DefaultComboBoxModel<Soluzione>) caricaSoluzioneComboBox.getModel();
             for (int i = 0; i < soluzioni.size(); i++) {
@@ -177,7 +154,7 @@ public class CaricaSoluzioneDialog extends javax.swing.JDialog {
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
-    }//GEN-LAST:event_caricaSoluzioneComboBoxComponentShown
+    }//GEN-LAST:event_caricaSoluzioneComboBoxAncestorAdded
 
     private void doClose(int retStatus, String mot) {
         setVisible(false);

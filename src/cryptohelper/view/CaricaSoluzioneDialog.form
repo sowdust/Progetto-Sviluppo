@@ -100,8 +100,6 @@
             </Property>
           </Properties>
           <Events>
-            <EventHandler event="componentShown" listener="java.awt.event.ComponentListener" parameters="java.awt.event.ComponentEvent" handler="caricaSoluzioneComboBoxComponentShown"/>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="caricaSoluzioneComboBoxActionPerformed"/>
             <EventHandler event="ancestorAdded" listener="javax.swing.event.AncestorListener" parameters="javax.swing.event.AncestorEvent" handler="caricaSoluzioneComboBoxAncestorAdded"/>
           </Events>
         </Component>
