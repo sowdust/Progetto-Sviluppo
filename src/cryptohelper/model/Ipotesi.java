@@ -91,7 +91,7 @@ public class Ipotesi implements Serializable {
         }
         // se vi è un conflitto, m non è in questo cammino
         if (assunzioni.conflitto(totale)) {
-            System.out.println("Ritorno nullo perchè conflitto " + assunzioni.toStringa());
+            ///System.out.println("Ritorno nullo perchè conflitto " + assunzioni.toStringa());
             return null;
         }
         // ripetiamo sui figli

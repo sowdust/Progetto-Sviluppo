@@ -27,6 +27,7 @@ import java.awt.event.KeyListener;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.logging.Level;
@@ -382,6 +383,9 @@ public class SessioneApertaPanel extends javax.swing.JPanel {
 
     private void faiAssunzioneButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_faiAssunzioneButtonActionPerformed
         jButton1.setEnabled(true);
+        // merge della mappatura e dei caratteri da rimuovere
+        daInviare = mergeMapRimuovi(daInviare, daRimuovere);
+        System.out.println("Mappatura inviata: " + daInviare.toStringa());
         if (!sessController.faiAssunzione(sessione, daInviare)) {
             /* si potrebbe dare più autorità al session controller facendo sì che
              sessController.faiAssunzioni nel caso in cui faiAssunzioni è false, recupera e restituisce
@@ -389,12 +393,14 @@ public class SessioneApertaPanel extends javax.swing.JPanel {
              */
             JFrame padre = (JFrame) SwingUtilities.getWindowAncestor(this);
             AlreadyReachedDialog ard = new AlreadyReachedDialog(padre, true, sessione.getCommento());
+
             if (ard.getReturnStatus() == AlreadyReachedDialog.RET_UNDO) {
                 sessController.undo(sessione, sessione.getCommento());
             }
         }
         provaMappaturaCorrente();
         daInviare = new Mappatura();
+        daRimuovere = new LinkedList();
     }//GEN-LAST:event_faiAssunzioneButtonActionPerformed
 
     private void provaMappaturaCorrente() {
@@ -449,8 +455,18 @@ public class SessioneApertaPanel extends javax.swing.JPanel {
                     String newValue = charField.getText();
                     if (newValue.equals("")) {
                         azioni += internalChar + " > -,";
+                        System.out.println("Map era " + internalChar + ":" + mapCorrente.inverseMap(internalChar));
+                        if (mapCorrente.inverseMap(internalChar) != null) {
+                            daRimuovere.add(internalChar);
+                            System.out.println(newValue + " aggiunto da lista rimozione");
+                        }
                     } else {
                         azioni += internalChar + " > " + newValue;
+                        int indexRimozione = daRimuovere.indexOf(internalChar);
+                        if (indexRimozione != -1) {
+                            daRimuovere.remove(indexRimozione);
+                            System.out.println(newValue + " rimosso da lista rimozione");
+                        }
                     }
                     /* per testing */
                     System.out.println("Azioni: " + azioni);
@@ -474,7 +490,7 @@ public class SessioneApertaPanel extends javax.swing.JPanel {
     }
 
     private Mappatura daInviare = new Mappatura();
-
+    private List<Character> daRimuovere = new LinkedList<>();
     private Sessione sessione = null;
     private MessaggioSpia messaggio = null;
     private Mappatura mapCorrente = null;
@@ -486,6 +502,17 @@ public class SessioneApertaPanel extends javax.swing.JPanel {
         'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r',
         's', 't', 'u', 'v', 'w', 'x', 'y', 'z'
     };
+
+    private Mappatura mergeMapRimuovi(Mappatura m, List<Character> r) {
+        String s = m.serialize();
+        for (char c : r) {
+            s += c + ">-,";
+        }
+        System.out.println("creo nuova mappatura con stringa " + s);
+        return new Mappatura(s);
+
+    }
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel cDestinatarioLabel;
     private javax.swing.JLabel cLinguaLabel;
