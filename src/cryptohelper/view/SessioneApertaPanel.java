@@ -428,8 +428,10 @@ public class SessioneApertaPanel extends javax.swing.JPanel {
         try {
             // TODO add your handling code here:
             sessController.salvaSoluzione(sessione);
+            feedbackSessione.setText("Soluzione salvata");
+
         } catch (SQLException ex) {
-            throw new RuntimeException(ex);
+            feedbackSessione.setText("Errore SQL: " + ex);
         }
     }//GEN-LAST:event_salvaSoluzioneButtonActionPerformed
 
