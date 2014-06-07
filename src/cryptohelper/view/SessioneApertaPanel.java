@@ -423,7 +423,7 @@ public class SessioneApertaPanel extends javax.swing.JPanel {
 
     private void caricaSoluzioneButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_caricaSoluzioneButtonActionPerformed
         JFrame padre = (JFrame) SwingUtilities.getWindowAncestor(this);
-        CaricaSoluzioneDialog caricaSoluzioneDialog = new CaricaSoluzioneDialog(padre, true, proprietario, sessione);
+        CaricaSoluzioneDialog caricaSoluzioneDialog = new CaricaSoluzioneDialog(padre, true, proprietario, sessione, this);
     }//GEN-LAST:event_caricaSoluzioneButtonActionPerformed
 
     private void salvaSoluzioneButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_salvaSoluzioneButtonActionPerformed
@@ -431,6 +431,7 @@ public class SessioneApertaPanel extends javax.swing.JPanel {
             // TODO add your handling code here:
             sessController.salvaSoluzione(sessione);
             feedbackSessione.setText("Soluzione salvata");
+            salvaSessioneButton.setEnabled(false);
 
         } catch (SQLException ex) {
             feedbackSessione.setText("Errore SQL: " + ex);
@@ -507,8 +508,8 @@ public class SessioneApertaPanel extends javax.swing.JPanel {
                     Mappatura tempp = new Mappatura(azioni);
                     daInviare = daInviare.merge(tempp);
                     System.out.println("Mappatura temp: " + tempp.toStringa());
-                    System.out.println("Mappatura: " + daInviare.toStringa());
-                    provaMappaturaCorrente(sessione.getMappaturaCorrente().merge(daInviare));
+                    System.out.println("Mappatura da inviare: " + daInviare.toStringa());
+                    provaMappaturaCorrente(sessione.getMappaturaCorrente().merge(mergeMapRimuovi(daInviare, daRimuovere)));
 
                 }
             });
@@ -546,6 +547,14 @@ public class SessioneApertaPanel extends javax.swing.JPanel {
         }
         System.out.println("creo nuova mappatura con stringa " + s);
         return new Mappatura(s);
+
+    }
+
+    void segnalaSoluzioneCaricata() {
+        feedbackSessione.setText("Soluzione caricata");
+        mapCorrente = sessione.getMappaturaCorrente();
+        provaMappaturaCorrente(mapCorrente);
+        salvaSessioneButton.setEnabled(true);
 
     }
 

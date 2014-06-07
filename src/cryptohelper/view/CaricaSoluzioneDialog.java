@@ -29,14 +29,16 @@ public class CaricaSoluzioneDialog extends javax.swing.JDialog {
     public static final int RET_OK = 1;
     private static UserInfo proprietario;
     private static Sessione sessione;
+    private static SessioneApertaPanel pannello;
 
     /**
      * Creates new form CaricaSoluzioneDialog
      */
-    public CaricaSoluzioneDialog(java.awt.Frame parent, boolean modal, UserInfo proprietario, Sessione sessione) {
+    public CaricaSoluzioneDialog(java.awt.Frame parent, boolean modal, UserInfo proprietario, Sessione sessione, SessioneApertaPanel pannello) {
         super(parent, modal);
         CaricaSoluzioneDialog.sessione = sessione;
         CaricaSoluzioneDialog.proprietario = proprietario;
+        CaricaSoluzioneDialog.pannello = pannello;
         initComponents();
         setVisible(true);
     }
@@ -153,7 +155,8 @@ public class CaricaSoluzioneDialog extends javax.swing.JDialog {
         // TODO add your handling code here:
         Soluzione s = (Soluzione) dlm.getSelectedItem();
         sessionController.caricaSoluzione(sessione, s);
-        doClose(RET_CANCEL, "");
+        pannello.segnalaSoluzioneCaricata();
+        doClose(RET_OK, "");
 
     }//GEN-LAST:event_confermaCaricaButtonActionPerformed
 
@@ -220,7 +223,7 @@ public class CaricaSoluzioneDialog extends javax.swing.JDialog {
         /* Create and display the dialog */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                CaricaSoluzioneDialog dialog = new CaricaSoluzioneDialog(new javax.swing.JFrame(), true, proprietario, sessione);
+                CaricaSoluzioneDialog dialog = new CaricaSoluzioneDialog(new javax.swing.JFrame(), true, proprietario, sessione, pannello);
                 dialog.addWindowListener(new java.awt.event.WindowAdapter() {
                     @Override
                     public void windowClosing(java.awt.event.WindowEvent e) {
