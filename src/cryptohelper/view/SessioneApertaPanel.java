@@ -83,6 +83,7 @@ public class SessioneApertaPanel extends javax.swing.JPanel {
         jPanel9 = new javax.swing.JPanel();
         undoButton = new javax.swing.JButton();
         faiAssunzioneButton = new javax.swing.JButton();
+        caricaSoluzioneButton = new javax.swing.JButton();
         jPanel4 = new javax.swing.JPanel();
         jPanel12 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
@@ -194,6 +195,14 @@ public class SessioneApertaPanel extends javax.swing.JPanel {
                 }
             });
             jPanel9.add(faiAssunzioneButton);
+
+            caricaSoluzioneButton.setText("Carica Soluzione");
+            caricaSoluzioneButton.addActionListener(new java.awt.event.ActionListener() {
+                public void actionPerformed(java.awt.event.ActionEvent evt) {
+                    caricaSoluzioneButtonActionPerformed(evt);
+                }
+            });
+            jPanel9.add(caricaSoluzioneButton);
 
             jPanel7.add(jPanel9);
 
@@ -403,6 +412,11 @@ public class SessioneApertaPanel extends javax.swing.JPanel {
         daRimuovere = new LinkedList();
     }//GEN-LAST:event_faiAssunzioneButtonActionPerformed
 
+    private void caricaSoluzioneButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_caricaSoluzioneButtonActionPerformed
+        JFrame padre = (JFrame) SwingUtilities.getWindowAncestor(this);
+        CaricaSoluzioneDialog caricaSoluzioneDialog = new CaricaSoluzioneDialog(padre, true);
+    }//GEN-LAST:event_caricaSoluzioneButtonActionPerformed
+
     private void provaMappaturaCorrente() {
         try {
             /* temporaneamente è così */
@@ -518,6 +532,7 @@ public class SessioneApertaPanel extends javax.swing.JPanel {
     private javax.swing.JLabel cLinguaLabel;
     private javax.swing.JLabel cMittenteLabel;
     private javax.swing.JLabel cTitoloLabel;
+    private javax.swing.JButton caricaSoluzioneButton;
     private javax.swing.JLabel destinatarioLabel;
     private javax.swing.JButton faiAssunzioneButton;
     private javax.swing.JButton faiAssunzioniTestButton;
