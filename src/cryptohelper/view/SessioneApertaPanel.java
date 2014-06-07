@@ -616,11 +616,10 @@ public class SessioneApertaPanel extends javax.swing.JPanel {
         @Override
         public void processKeyEvent(KeyEvent ev) {
             char c = ev.getKeyChar();
-//            if ( (ev.getKeyCode() != KeyEvent.VK_BACK_SPACE) && ((!Character.isLetter(c) && c != '-') || getDocument().getLength() > 0)) {
-//                ev.consume();
-//                System.out.println("consumato");
-//                return;
-//            }
+            if (!Character.isLetter(c) && (ev.getKeyCode() != KeyEvent.VK_BACK_SPACE)) {
+                ev.consume();
+                return;
+            }
             super.processKeyEvent(ev);
         }
 
