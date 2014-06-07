@@ -198,11 +198,11 @@ public class Mappatura implements Serializable {
             int j = inverseMap.indexOf(m.inverseMap.get(i));
             // se il c a sx è assegnato ma non allo stesso modo
             if (k != -1 && (char) inverseMap.get(k) != (char) m.inverseMap.get(i)) {
-                System.out.println("Problema in k " + inverseMap.get(k) + m.inverseMap.get(i));
+                //System.out.println("Problema in k " + inverseMap.get(k) + m.inverseMap.get(i));
                 return true;
             }
             if (j != -1 && (char) map.get(j) != (char) m.map.get(i)) {
-                System.out.println("Problema in j " + map.get(j) + m.map.get(i));
+                //System.out.println("Problema in j " + map.get(j) + m.map.get(i));
                 return true;
             }
         }

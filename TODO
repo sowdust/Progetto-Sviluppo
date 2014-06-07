@@ -2,9 +2,9 @@ Tra parentesi le cose non strettamente necessarie ma auspicabili.
 
 GUI:
 Gestione soluzioni (Elenca, visualizza, carica, rimuovi)
-Scelta metodo di assunzione
 Catch e stampa di eccezione
 (Registrazione)
+(Fai assunzione: fare in modo che se faccio a>b e poi c>b la prima si svuoti)
 
 
 DOCUMENTAZIONE:
