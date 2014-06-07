@@ -113,4 +113,8 @@ public class Sessione {
         return "Mittente: " + messaggio.getDestinatario() + " Destinatario: " + messaggio.getMittente() + " Titolo: " + messaggio.getTitolo();
     }
 
+    public UserInfo getProprietario() {
+        return proprietario;
+    }
+
 }

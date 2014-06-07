@@ -5,7 +5,12 @@
  */
 package cryptohelper.view;
 
+import cryptohelper.controller.SessionController;
 import cryptohelper.model.Soluzione;
+import cryptohelper.model.UserInfo;
+import java.sql.SQLException;
+import java.util.List;
+import javax.swing.DefaultComboBoxModel;
 
 /**
  *
@@ -14,12 +19,23 @@ import cryptohelper.model.Soluzione;
 public class CaricaSoluzioneDialog extends javax.swing.JDialog {
 
     /**
+     * A return status code - returned if Cancel button has been pressed
+     */
+    public static final int RET_CANCEL = 0;
+    /**
+     * A return status code - returned if OK button has been pressed
+     */
+    public static final int RET_OK = 1;
+    private static UserInfo proprietario;
+
+    /**
      * Creates new form CaricaSoluzioneDialog
      */
-    public CaricaSoluzioneDialog(java.awt.Frame parent, boolean modal) {
+    public CaricaSoluzioneDialog(java.awt.Frame parent, boolean modal, UserInfo proprietario) {
         super(parent, modal);
         initComponents();
         setVisible(true);
+        CaricaSoluzioneDialog.proprietario = proprietario;
     }
 
     /**
@@ -34,7 +50,7 @@ public class CaricaSoluzioneDialog extends javax.swing.JDialog {
         jButton2 = new javax.swing.JButton();
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
-        caricaSoluzioniComboBox = new javax.swing.JComboBox();
+        caricaSoluzioneComboBox = new javax.swing.JComboBox();
         confermaCaricaButton = new javax.swing.JButton();
         annullaCaricaButton = new javax.swing.JButton();
 
@@ -44,17 +60,22 @@ public class CaricaSoluzioneDialog extends javax.swing.JDialog {
 
         jLabel1.setText("Seleziona una Soluzione da caricare");
 
-        caricaSoluzioniComboBox.setModel(new javax.swing.DefaultComboBoxModel<Soluzione>());
-        caricaSoluzioniComboBox.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                caricaSoluzioniComboBoxActionPerformed(evt);
+        caricaSoluzioneComboBox.setModel(new javax.swing.DefaultComboBoxModel<Soluzione>());
+        caricaSoluzioneComboBox.addComponentListener(new java.awt.event.ComponentAdapter() {
+            public void componentShown(java.awt.event.ComponentEvent evt) {
+                caricaSoluzioneComboBoxComponentShown(evt);
             }
         });
-        caricaSoluzioniComboBox.addAncestorListener(new javax.swing.event.AncestorListener() {
+        caricaSoluzioneComboBox.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                caricaSoluzioneComboBoxActionPerformed(evt);
+            }
+        });
+        caricaSoluzioneComboBox.addAncestorListener(new javax.swing.event.AncestorListener() {
             public void ancestorMoved(javax.swing.event.AncestorEvent evt) {
             }
             public void ancestorAdded(javax.swing.event.AncestorEvent evt) {
-                caricaSoluzioniComboBoxAncestorAdded(evt);
+                caricaSoluzioneComboBoxAncestorAdded(evt);
             }
             public void ancestorRemoved(javax.swing.event.AncestorEvent evt) {
             }
@@ -91,7 +112,7 @@ public class CaricaSoluzioneDialog extends javax.swing.JDialog {
                         .addComponent(jLabel1))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(134, 134, 134)
-                        .addComponent(caricaSoluzioniComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(caricaSoluzioneComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
@@ -100,7 +121,7 @@ public class CaricaSoluzioneDialog extends javax.swing.JDialog {
                 .addGap(78, 78, 78)
                 .addComponent(jLabel1)
                 .addGap(27, 27, 27)
-                .addComponent(caricaSoluzioniComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(caricaSoluzioneComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(36, 36, 36)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(confermaCaricaButton)
@@ -129,16 +150,38 @@ public class CaricaSoluzioneDialog extends javax.swing.JDialog {
     }//GEN-LAST:event_confermaCaricaButtonActionPerformed
 
     private void annullaCaricaButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_annullaCaricaButtonActionPerformed
-        // TODO add your handling code here:
+        doClose(RET_CANCEL, "");
     }//GEN-LAST:event_annullaCaricaButtonActionPerformed
 
-    private void caricaSoluzioniComboBoxAncestorAdded(javax.swing.event.AncestorEvent evt) {//GEN-FIRST:event_caricaSoluzioniComboBoxAncestorAdded
-//        Soluzione.mostraSoluzioni();
-    }//GEN-LAST:event_caricaSoluzioniComboBoxAncestorAdded
+    private void caricaSoluzioneComboBoxAncestorAdded(javax.swing.event.AncestorEvent evt) {//GEN-FIRST:event_caricaSoluzioneComboBoxAncestorAdded
+//        try {
+//            sessionController.mostraSoluzioni(proprietario);
+//        } catch (SQLException e) {
+//            System.out.println(e.getMessage());
+//        }
+    }//GEN-LAST:event_caricaSoluzioneComboBoxAncestorAdded
 
-    private void caricaSoluzioniComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_caricaSoluzioniComboBoxActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_caricaSoluzioniComboBoxActionPerformed
+    private void caricaSoluzioneComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_caricaSoluzioneComboBoxActionPerformed
+
+    }//GEN-LAST:event_caricaSoluzioneComboBoxActionPerformed
+
+    private void caricaSoluzioneComboBoxComponentShown(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_caricaSoluzioneComboBoxComponentShown
+        try {
+            List<Soluzione> soluzioni = sessionController.mostraSoluzioni(proprietario);
+            DefaultComboBoxModel<Soluzione> dlm = (DefaultComboBoxModel<Soluzione>) caricaSoluzioneComboBox.getModel();
+            for (int i = 0; i < soluzioni.size(); i++) {
+                Soluzione soluzione = soluzioni.get(i);
+                dlm.addElement(soluzione);
+            }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+    }//GEN-LAST:event_caricaSoluzioneComboBoxComponentShown
+
+    private void doClose(int retStatus, String mot) {
+        setVisible(false);
+        dispose();
+    }
 
     /**
      * @param args the command line arguments
@@ -170,7 +213,7 @@ public class CaricaSoluzioneDialog extends javax.swing.JDialog {
         /* Create and display the dialog */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                CaricaSoluzioneDialog dialog = new CaricaSoluzioneDialog(new javax.swing.JFrame(), true);
+                CaricaSoluzioneDialog dialog = new CaricaSoluzioneDialog(new javax.swing.JFrame(), true, proprietario);
                 dialog.addWindowListener(new java.awt.event.WindowAdapter() {
                     @Override
                     public void windowClosing(java.awt.event.WindowEvent e) {
@@ -182,9 +225,10 @@ public class CaricaSoluzioneDialog extends javax.swing.JDialog {
         });
     }
 
+    SessionController sessionController = SessionController.getInstance();
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton annullaCaricaButton;
-    private javax.swing.JComboBox caricaSoluzioniComboBox;
+    private javax.swing.JComboBox caricaSoluzioneComboBox;
     private javax.swing.JButton confermaCaricaButton;
     private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;

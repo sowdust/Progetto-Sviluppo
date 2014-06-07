@@ -22,6 +22,7 @@ import cryptohelper.model.Cifratore;
 import cryptohelper.model.Mappatura;
 import cryptohelper.model.MessaggioSpia;
 import cryptohelper.model.Sessione;
+import cryptohelper.model.UserInfo;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.io.IOException;
@@ -51,6 +52,7 @@ public class SessioneApertaPanel extends javax.swing.JPanel {
     public SessioneApertaPanel(Sessione s) {
         sessione = s;
         messaggio = sessione.getMessaggio();
+        proprietario = sessione.getProprietario();
         initComponents();
         initMyComponents();
         provaMappaturaCorrente();
@@ -414,7 +416,7 @@ public class SessioneApertaPanel extends javax.swing.JPanel {
 
     private void caricaSoluzioneButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_caricaSoluzioneButtonActionPerformed
         JFrame padre = (JFrame) SwingUtilities.getWindowAncestor(this);
-        CaricaSoluzioneDialog caricaSoluzioneDialog = new CaricaSoluzioneDialog(padre, true);
+        CaricaSoluzioneDialog caricaSoluzioneDialog = new CaricaSoluzioneDialog(padre, true, proprietario);
     }//GEN-LAST:event_caricaSoluzioneButtonActionPerformed
 
     private void provaMappaturaCorrente() {
@@ -516,6 +518,7 @@ public class SessioneApertaPanel extends javax.swing.JPanel {
         'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r',
         's', 't', 'u', 'v', 'w', 'x', 'y', 'z'
     };
+    private UserInfo proprietario = null;
 
     private Mappatura mergeMapRimuovi(Mappatura m, List<Character> r) {
         String s = m.serialize();

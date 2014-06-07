@@ -65,6 +65,17 @@ public class SessionController {
         throw new UnsupportedOperationException();
     }
 
+    public List<Soluzione> mostraSoluzioni(UserInfo proprietario) throws SQLException {
+        DBController dbc = DBController.getInstance();
+        CachedRowSet crs = dbc.execute("SELECT * FROM Soluzione"
+                + "WHERE Creatore = ? ", proprietario.getId());
+        List<Soluzione> result = null;
+        while (crs.next()) {
+            result.add(new Soluzione(crs));
+        }
+        return result;
+    }
+
     public boolean salvaSoluzione(Sessione s) throws SQLException {
         return s.salvaSoluzione();
     }
