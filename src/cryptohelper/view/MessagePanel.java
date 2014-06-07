@@ -350,20 +350,6 @@ public class MessagePanel extends javax.swing.JPanel {
 
         messaggiCreaPanel.setLayout(new javax.swing.BoxLayout(messaggiCreaPanel, javax.swing.BoxLayout.PAGE_AXIS));
 
-        titoloNuovoMessaggioField.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                titoloNuovoMessaggioFieldActionPerformed(evt);
-            }
-        });
-        titoloNuovoMessaggioField.addAncestorListener(new javax.swing.event.AncestorListener() {
-            public void ancestorAdded(javax.swing.event.AncestorEvent evt) {
-                titoloNuovoMessaggioFieldAncestorAdded(evt);
-            }
-            public void ancestorRemoved(javax.swing.event.AncestorEvent evt) {
-            }
-            public void ancestorMoved(javax.swing.event.AncestorEvent evt) {
-            }
-        });
         titoloNuovoMessaggioField.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 titoloNuovoMessaggioFieldKeyTyped(evt);
@@ -813,14 +799,6 @@ public class MessagePanel extends javax.swing.JPanel {
     private void linguaComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_linguaComboBoxActionPerformed
         checkIfEnableCifraButton();
     }//GEN-LAST:event_linguaComboBoxActionPerformed
-
-    private void titoloNuovoMessaggioFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_titoloNuovoMessaggioFieldActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_titoloNuovoMessaggioFieldActionPerformed
-
-    private void titoloNuovoMessaggioFieldAncestorAdded(javax.swing.event.AncestorEvent evt) {//GEN-FIRST:event_titoloNuovoMessaggioFieldAncestorAdded
-        // TODO add your handling code here:
-    }//GEN-LAST:event_titoloNuovoMessaggioFieldAncestorAdded
 
     private void checkIfEnableCifraButton() {
         if (!corpoNuovoMessaggio.getText().equals("") && !titoloNuovoMessaggioField.getText().equals("")
