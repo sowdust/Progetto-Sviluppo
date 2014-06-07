@@ -383,6 +383,7 @@ public class MessagePanel extends javax.swing.JPanel {
         jLabel1.setText("Lingua:");
 
         linguaComboBox.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Italiano", "Inglese", "Francese" }));
+        linguaComboBox.setSelectedIndex(-1);
         linguaComboBox.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 linguaComboBoxActionPerformed(evt);
@@ -731,7 +732,9 @@ public class MessagePanel extends javax.swing.JPanel {
 
     private void destinatariComboBoxAncestorRemoved(javax.swing.event.AncestorEvent evt) {//GEN-FIRST:event_destinatariComboBoxAncestorRemoved
         DefaultComboBoxModel<UserInfo> dlm = (DefaultComboBoxModel<UserInfo>) destinatariComboBox.getModel();
-        // perchè il seguente?
+        /* perchè il seguente? | Dato che i potenziali destinatari cambiano durante l'esecuzione del programma
+         (proposte inviate ed accettate che non avevano precedenti) i destinatari vengono caricati ogni volta che si
+         va nella scheda per comporre un messaggio, non mettere removeAllElements porterebbe a duplicare i destinatari*/
         dlm.removeAllElements();
         //messaggioTemp = null;
 
@@ -743,7 +746,9 @@ public class MessagePanel extends javax.swing.JPanel {
             UserInfo destinatario = (UserInfo) destinatariComboBox.getSelectedItem();
             messaggioTemp.setDestinatario(destinatario);
             messaggioTemp.setTitolo(titoloNuovoMessaggioField.getText());
-            messaggioTemp.setLingua((String) linguaComboBox.getSelectedItem());
+            if (linguaComboBox.getSelectedItem() != null) {
+                messaggioTemp.setLingua((String) linguaComboBox.getSelectedItem());
+            }
             messaggioTemp.setTesto(corpoNuovoMessaggio.getText());
             messaggioTemp.cifra();
             jTextArea6.setText(messaggioTemp.getTestoCifrato());
@@ -772,7 +777,9 @@ public class MessagePanel extends javax.swing.JPanel {
             UserInfo destinatario = (UserInfo) destinatariComboBox.getSelectedItem();
             messaggioTemp.setDestinatario(destinatario);
             messaggioTemp.setTitolo(titoloNuovoMessaggioField.getText());
-            messaggioTemp.setLingua((String) linguaComboBox.getSelectedItem());
+            if (linguaComboBox.getSelectedItem() != null) {
+                messaggioTemp.setLingua((String) linguaComboBox.getSelectedItem());
+            }
             messaggioTemp.setTesto(corpoNuovoMessaggio.getText());
             if (messaggioTemp.save()) {
                 nuovoMessaggioFeedback.setText("Bozza salvata!");
@@ -819,7 +826,7 @@ public class MessagePanel extends javax.swing.JPanel {
         destinatariComboBox.setSelectedIndex(-1);
         titoloNuovoMessaggioField.setText("");
         // italiano lingua di default
-        linguaComboBox.setSelectedIndex(0);
+        linguaComboBox.setSelectedIndex(-1);
         messaggioTemp = new Messaggio(studente);
     }
 
