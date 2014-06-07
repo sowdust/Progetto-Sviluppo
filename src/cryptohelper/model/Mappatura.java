@@ -40,11 +40,15 @@ public class Mappatura implements Serializable {
     public Mappatura(String s) {
         this.map = new LinkedList();
         this.inverseMap = new LinkedList();
-        String[] split = s.split(",");
-        for (String t : split) {
-            String[] m = t.trim().split(">");
-            this.map.add(m[0].trim().charAt(0));
-            this.inverseMap.add(m[1].trim().charAt(0));
+        try {
+            String[] split = s.split(",");
+            for (String t : split) {
+                String[] m = t.trim().split(">");
+                this.map.add(m[0].trim().charAt(0));
+                this.inverseMap.add(m[1].trim().charAt(0));
+            }
+        } catch (Exception e) {
+            System.out.println("Mappatura non creata per via di " + e);
         }
     }
 

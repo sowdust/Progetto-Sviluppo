@@ -55,7 +55,8 @@ public class SessioneApertaPanel extends javax.swing.JPanel {
         proprietario = sessione.getProprietario();
         initComponents();
         initMyComponents();
-        provaMappaturaCorrente(sessione.getMappaturaCorrente());
+        mapCorrente = sessione.getMappaturaCorrente();
+        provaMappaturaCorrente(mapCorrente);
     }
 
     /**
