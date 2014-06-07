@@ -1,19 +1,27 @@
 Tra parentesi le cose non strettamente necessarie ma auspicabili.
 
+Direi per lavorare alla documentazione di farlo nel branch UC3
+(cambiarla, aggiornare i file di commenti ecc..)
+
+Per modificare il TODO farlo qui in master.
+
+Prima di lavorare a qualche punto del TODO, scriverlo di fianco in modo da non 
+lavorare in due alla stessa cosa
+
+
 GUI:
-Gestione soluzioni (Elenca, visualizza, carica, rimuovi)
-Scelta metodo di assunzione
+// ci sta lavorando MattiaC: Gestione soluzioni (Elenca, visualizza, carica, rimuovi)
 Catch e stampa di eccezione
+Cliccando su "annulla" possibilità di inserire commento.
+Niente possibilità di "annulla" nel popup di stato già raggiunto.
 (Registrazione)
 
 
 DOCUMENTAZIONE:
 
-Aggiornare UC in base alle scelte prese sul metodo di fare ass. nella gui
 modificare dsd segnati con AAA o controllare le modifiche fatte
 
 TEST:
-(Scrivere un paio di Unit test)
 (Comportamento albero con vari tipi di assunzioni)
 scelta di una classe significativa di cui fare lo unit testing (Fonte: file "di cosa si compone il progetto completo?")
 
