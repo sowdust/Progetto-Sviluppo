@@ -13,9 +13,8 @@ GUI:
 
 !Testare i cambiamenti nella GUI (Carica soluzione + gestione dell'interazione utente)
 Tab di Gestione soluzioni (Elenco con possibilità di eliminare)
-Catch e stampa di eccezione
+Catch e stampa di eccezione 
 Cliccando su "annulla" possibilità di inserire commento.
-Niente possibilità di "annulla" nel popup di stato già raggiunto.
 (Registrazione)
 
 
@@ -34,5 +33,3 @@ Controllare che non ci siano cose tipo "suca" in giro
 Riempire il db con messaggi significativi
 Decidere la divisione della presentazione di mercoledì
 (Pulizia codice)  
-
-
