@@ -401,7 +401,8 @@ public class SessioneApertaPanel extends javax.swing.JPanel {
         salvaSessioneButton.setEnabled(true);
         // merge della mappatura e dei caratteri da rimuovere
         daInviare = mergeMapRimuovi(daInviare, daRimuovere);
-        System.out.println("Mappatura inviata: " + daInviare.toStringa());
+        feedbackSessione.setText("Inviata mappatura: " + daInviare.toStringa());
+//        System.out.println("Mappatura inviata: " + daInviare.toStringa());
         if (!sessController.faiAssunzione(sessione, daInviare)) {
             /* si potrebbe dare più autorità al session controller facendo sì che
              sessController.faiAssunzioni nel caso in cui faiAssunzioni è false, recupera e restituisce
@@ -421,7 +422,7 @@ public class SessioneApertaPanel extends javax.swing.JPanel {
 
     private void caricaSoluzioneButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_caricaSoluzioneButtonActionPerformed
         JFrame padre = (JFrame) SwingUtilities.getWindowAncestor(this);
-        CaricaSoluzioneDialog caricaSoluzioneDialog = new CaricaSoluzioneDialog(padre, true, proprietario);
+        CaricaSoluzioneDialog caricaSoluzioneDialog = new CaricaSoluzioneDialog(padre, true, proprietario, sessione);
     }//GEN-LAST:event_caricaSoluzioneButtonActionPerformed
 
     private void salvaSoluzioneButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_salvaSoluzioneButtonActionPerformed
@@ -481,6 +482,7 @@ public class SessioneApertaPanel extends javax.swing.JPanel {
 
                 @Override
                 public void keyReleased(KeyEvent e) {
+                    feedbackSessione.setText("");
                     azioni = "";
                     CharField charField = (CharField) e.getSource();
                     Character internalChar = charField.getInternalChar();

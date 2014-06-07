@@ -6,6 +6,7 @@
 package cryptohelper.view;
 
 import cryptohelper.controller.SessionController;
+import cryptohelper.model.Sessione;
 import cryptohelper.model.Soluzione;
 import cryptohelper.model.UserInfo;
 import java.sql.SQLException;
@@ -27,12 +28,14 @@ public class CaricaSoluzioneDialog extends javax.swing.JDialog {
      */
     public static final int RET_OK = 1;
     private static UserInfo proprietario;
+    private static Sessione sessione;
 
     /**
      * Creates new form CaricaSoluzioneDialog
      */
-    public CaricaSoluzioneDialog(java.awt.Frame parent, boolean modal, UserInfo proprietario) {
+    public CaricaSoluzioneDialog(java.awt.Frame parent, boolean modal, UserInfo proprietario, Sessione sessione) {
         super(parent, modal);
+        CaricaSoluzioneDialog.sessione = sessione;
         CaricaSoluzioneDialog.proprietario = proprietario;
         initComponents();
         setVisible(true);
@@ -146,7 +149,12 @@ public class CaricaSoluzioneDialog extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void confermaCaricaButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_confermaCaricaButtonActionPerformed
+
         // TODO add your handling code here:
+        Soluzione s = (Soluzione) dlm.getSelectedItem();
+        sessionController.caricaSoluzione(sessione, s);
+        doClose(RET_CANCEL, "");
+
     }//GEN-LAST:event_confermaCaricaButtonActionPerformed
 
     private void annullaCaricaButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_annullaCaricaButtonActionPerformed
@@ -156,7 +164,7 @@ public class CaricaSoluzioneDialog extends javax.swing.JDialog {
     private void caricaSoluzioneComboBoxAncestorAdded(javax.swing.event.AncestorEvent evt) {//GEN-FIRST:event_caricaSoluzioneComboBoxAncestorAdded
         try {
             List<Soluzione> soluzioni = sessionController.mostraSoluzioni(proprietario);
-            DefaultComboBoxModel<Soluzione> dlm = (DefaultComboBoxModel<Soluzione>) caricaSoluzioneComboBox.getModel();
+            dlm = (DefaultComboBoxModel<Soluzione>) caricaSoluzioneComboBox.getModel();
             System.out.println("in dialog action");
             System.out.println("Caricate " + soluzioni.size() + "soluzioni");
 
@@ -212,7 +220,7 @@ public class CaricaSoluzioneDialog extends javax.swing.JDialog {
         /* Create and display the dialog */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                CaricaSoluzioneDialog dialog = new CaricaSoluzioneDialog(new javax.swing.JFrame(), true, proprietario);
+                CaricaSoluzioneDialog dialog = new CaricaSoluzioneDialog(new javax.swing.JFrame(), true, proprietario, sessione);
                 dialog.addWindowListener(new java.awt.event.WindowAdapter() {
                     @Override
                     public void windowClosing(java.awt.event.WindowEvent e) {
@@ -225,6 +233,7 @@ public class CaricaSoluzioneDialog extends javax.swing.JDialog {
     }
 
     SessionController sessionController = SessionController.getInstance();
+    private DefaultComboBoxModel<Soluzione> dlm;
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton annullaCaricaButton;
     private javax.swing.JComboBox caricaSoluzioneComboBox;
