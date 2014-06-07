@@ -224,4 +224,115 @@ public class AlberoIpotesiTest implements Serializable {
         //assertSame(albero.ipotesiCorrente.padre, albero.getAlbero());
 
     }
+
+    /**
+     * Test of load method, of class AlberoIpotesi.
+     */
+    @Test
+    public void testLoad() {
+        System.out.println("load");
+        int idSessione = 0;
+        AlberoIpotesi expResult = null;
+        AlberoIpotesi result = AlberoIpotesi.load(idSessione);
+        assertEquals(expResult, result);
+        // TODO review the generated test code and remove the default call to fail.
+        fail("The test case is a prototype.");
+    }
+
+    /**
+     * Test of faiAssunzione method, of class AlberoIpotesi.
+     */
+    @Test
+    public void testFaiAssunzione() {
+        System.out.println("faiAssunzione");
+        Mappatura nuoveAssunzioni = null;
+        AlberoIpotesi instance = new AlberoIpotesi();
+        boolean expResult = false;
+        boolean result = instance.faiAssunzione(nuoveAssunzioni);
+        assertEquals(expResult, result);
+        // TODO review the generated test code and remove the default call to fail.
+        fail("The test case is a prototype.");
+    }
+
+    /**
+     * Test of undo method, of class AlberoIpotesi.
+     */
+    @Test
+    public void testUndo() {
+        System.out.println("undo");
+        String motivazione = "";
+        AlberoIpotesi instance = new AlberoIpotesi();
+        instance.undo(motivazione);
+        // TODO review the generated test code and remove the default call to fail.
+        fail("The test case is a prototype.");
+    }
+
+    /**
+     * Test of getMappaturaCorrente method, of class AlberoIpotesi.
+     */
+    @Test
+    public void testGetMappaturaCorrente() {
+        System.out.println("getMappaturaCorrente");
+        AlberoIpotesi instance = new AlberoIpotesi();
+        Mappatura expResult = null;
+        Mappatura result = instance.getMappaturaCorrente();
+        assertEquals(expResult, result);
+        // TODO review the generated test code and remove the default call to fail.
+        fail("The test case is a prototype.");
+    }
+
+    /**
+     * Test of getAlbero method, of class AlberoIpotesi.
+     */
+    @Test
+    public void testGetAlbero() {
+        System.out.println("getAlbero");
+        AlberoIpotesi instance = new AlberoIpotesi();
+        Ipotesi expResult = null;
+        Ipotesi result = instance.getAlbero();
+        assertEquals(expResult, result);
+        // TODO review the generated test code and remove the default call to fail.
+        fail("The test case is a prototype.");
+    }
+
+    /**
+     * Test of giaRaggiunta method, of class AlberoIpotesi.
+     */
+    @Test
+    public void testGiaRaggiunta() {
+        System.out.println("giaRaggiunta");
+        Mappatura mappaturaCorrente = null;
+        AlberoIpotesi instance = new AlberoIpotesi();
+        Ipotesi expResult = null;
+        Ipotesi result = instance.giaRaggiunta(mappaturaCorrente);
+        assertEquals(expResult, result);
+        // TODO review the generated test code and remove the default call to fail.
+        fail("The test case is a prototype.");
+    }
+
+    /**
+     * Test of stampaAlbero method, of class AlberoIpotesi.
+     */
+    @Test
+    public void testStampaAlbero() {
+        System.out.println("stampaAlbero");
+        AlberoIpotesi instance = new AlberoIpotesi();
+        instance.stampaAlbero();
+        // TODO review the generated test code and remove the default call to fail.
+        fail("The test case is a prototype.");
+    }
+
+    /**
+     * Test of getCommento method, of class AlberoIpotesi.
+     */
+    @Test
+    public void testGetCommento() {
+        System.out.println("getCommento");
+        AlberoIpotesi instance = new AlberoIpotesi();
+        String expResult = "";
+        String result = instance.getCommento();
+        assertEquals(expResult, result);
+        // TODO review the generated test code and remove the default call to fail.
+        fail("The test case is a prototype.");
+    }
 }
