@@ -53,6 +53,7 @@ public class SessioneApertaPanel extends javax.swing.JPanel {
         initComponents();
         initMyComponents();
         provaMappaturaCorrente();
+        mapCorrente = sessione.getMappaturaCorrente();
     }
 
     /**
