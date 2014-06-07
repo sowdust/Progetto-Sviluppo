@@ -111,7 +111,7 @@ public class MessagePanel extends javax.swing.JPanel {
         jScrollPane14 = new javax.swing.JScrollPane();
         jTextArea6 = new javax.swing.JTextArea();
 
-        setLayout(new java.awt.BorderLayout());
+        setLayout(new javax.swing.BoxLayout(this, javax.swing.BoxLayout.LINE_AXIS));
 
         messaggiRicevutiPanel.setLayout(new javax.swing.BoxLayout(messaggiRicevutiPanel, javax.swing.BoxLayout.PAGE_AXIS));
 
@@ -511,7 +511,7 @@ public class MessagePanel extends javax.swing.JPanel {
 
         jTabbedPane2.addTab("Crea Nuovo", messaggiCreaPanel);
 
-        add(jTabbedPane2, java.awt.BorderLayout.CENTER);
+        add(jTabbedPane2);
     }// </editor-fold>//GEN-END:initComponents
 
     private void messaggiRicevutiListValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_messaggiRicevutiListValueChanged

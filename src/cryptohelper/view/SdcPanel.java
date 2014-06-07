@@ -71,6 +71,8 @@ public class SdcPanel extends javax.swing.JPanel {
         jScrollPane1 = new javax.swing.JScrollPane();
         showMap = new javax.swing.JTextArea();
 
+        setLayout(new javax.swing.BoxLayout(this, javax.swing.BoxLayout.LINE_AXIS));
+
         elencoSdcPanel.setLayout(new java.awt.BorderLayout());
 
         sdcList.setModel(new javax.swing.DefaultListModel<SistemaCifratura>());
@@ -81,13 +83,13 @@ public class SdcPanel extends javax.swing.JPanel {
             }
         });
         sdcList.addAncestorListener(new javax.swing.event.AncestorListener() {
-            public void ancestorMoved(javax.swing.event.AncestorEvent evt) {
-            }
             public void ancestorAdded(javax.swing.event.AncestorEvent evt) {
                 sdcListAncestorAdded(evt);
             }
             public void ancestorRemoved(javax.swing.event.AncestorEvent evt) {
                 sdcListAncestorRemoved(evt);
+            }
+            public void ancestorMoved(javax.swing.event.AncestorEvent evt) {
             }
         });
         jScrollPane2.setViewportView(sdcList);
@@ -215,26 +217,7 @@ public class SdcPanel extends javax.swing.JPanel {
 
         sdcTabs.addTab("Crea Nuovo", nuovoSdcPanel);
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
-        this.setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 568, Short.MAX_VALUE)
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(layout.createSequentialGroup()
-                    .addGap(0, 0, Short.MAX_VALUE)
-                    .addComponent(sdcTabs, javax.swing.GroupLayout.PREFERRED_SIZE, 568, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGap(0, 0, Short.MAX_VALUE)))
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 440, Short.MAX_VALUE)
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(layout.createSequentialGroup()
-                    .addGap(0, 0, Short.MAX_VALUE)
-                    .addComponent(sdcTabs, javax.swing.GroupLayout.PREFERRED_SIZE, 440, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGap(0, 0, Short.MAX_VALUE)))
-        );
+        add(sdcTabs);
     }// </editor-fold>//GEN-END:initComponents
 
     private void sdcListValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_sdcListValueChanged
