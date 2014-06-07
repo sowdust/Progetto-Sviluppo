@@ -408,8 +408,6 @@
               <SubComponents>
                 <Component class="javax.swing.JTextField" name="titoloNuovoMessaggioField">
                   <Events>
-                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="titoloNuovoMessaggioFieldActionPerformed"/>
-                    <EventHandler event="ancestorAdded" listener="javax.swing.event.AncestorListener" parameters="javax.swing.event.AncestorEvent" handler="titoloNuovoMessaggioFieldAncestorAdded"/>
                     <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="titoloNuovoMessaggioFieldKeyTyped"/>
                   </Events>
                 </Component>

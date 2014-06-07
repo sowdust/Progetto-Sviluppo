@@ -45,6 +45,8 @@ CREATE TABLE Messaggio (
     bozza           boolean,
     letto           boolean,
     sdc             int,
+    eliminatoMitt   boolean DEFAULT false,
+    eliminatoDest   boolean DEFAULT false,
     FOREIGN KEY (mittente) REFERENCES Studente(id),
     FOREIGN KEY (destinatario) REFERENCES Studente(id),
     FOREIGN KEY (sdc) REFERENCES SistemaCifratura(id) ON DELETE CASCADE
@@ -90,12 +92,9 @@ INSERT INTO Proposta (stato, notificata, proponente, partner, sdc) VALUES
     ('accepted', true, 4, 1, 2),
     ('accepted', false, 1, 5, 3),
     ('expired', true, 1, 3, 4),
-    ('pending', false, 3, 1, 5),
-    ('accepted', true, 1, 6, 6);
+    ('accepted', true, 1, 6, 6),
+    ('accepted', false, 3, 1, 5);
        
 INSERT INTO Messaggio (mittente, destinatario, testo, testoCifrato, lingua, titolo, bozza, letto, sdc) VALUES
     (1, 2, 'fede', 'alol', 'Italiano', 'Un titolo a caso', true, False, 1),
     (2, 1, 'ciao pietro', 'pecmneltrm', 'Italiano', 'Saluti', False, False, 1);
-    
-INSERT INTO Sessione (proprietario, messaggio, albero) VALUES
-    (1, 2, null);

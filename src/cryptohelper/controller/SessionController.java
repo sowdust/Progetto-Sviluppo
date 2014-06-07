@@ -9,6 +9,7 @@ import cryptohelper.model.UserInfo;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 import javax.sql.rowset.CachedRowSet;
 
@@ -67,9 +68,9 @@ public class SessionController {
 
     public List<Soluzione> mostraSoluzioni(UserInfo proprietario) throws SQLException {
         DBController dbc = DBController.getInstance();
-        CachedRowSet crs = dbc.execute("SELECT * FROM Soluzione"
+        CachedRowSet crs = dbc.execute("SELECT * FROM Soluzione "
                 + "WHERE Creatore = ? ", proprietario.getId());
-        List<Soluzione> result = null;
+        List<Soluzione> result = new LinkedList<>();
         while (crs.next()) {
             result.add(new Soluzione(crs));
         }
