@@ -72,9 +72,6 @@ public class Sessione {
         Mappatura mapCorrente = getAlbero().getMappaturaCorrente();
         List<Character> listaCaratteri = messaggio.getSimboli();
         if (!mapCorrente.isCompleta(listaCaratteri)) {
-            for (char c : listaCaratteri) {
-                System.out.println(c);
-            }
             return false;
         }
         Soluzione s = new Soluzione(mapCorrente, messaggio, proprietario);
