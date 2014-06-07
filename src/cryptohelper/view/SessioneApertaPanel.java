@@ -107,8 +107,8 @@ public class SessioneApertaPanel extends javax.swing.JPanel {
             destinatarioLabel = new javax.swing.JLabel();
             linguaLabel = new javax.swing.JLabel();
             jPanel5 = new javax.swing.JPanel();
-            jButton1 = new javax.swing.JButton();
-            jButton2 = new javax.swing.JButton();
+            salvaSessioneButton = new javax.swing.JButton();
+            salvaSoluzioneButton = new javax.swing.JButton();
             feedbackSessione = new javax.swing.JLabel();
 
             setLayout(new java.awt.BorderLayout());
@@ -317,23 +317,28 @@ public class SessioneApertaPanel extends javax.swing.JPanel {
 
         jPanel5.setLayout(new java.awt.GridBagLayout());
 
-        jButton1.setText("Salva Sessione");
-        jButton1.setEnabled(false);
-        jButton1.setFocusable(false);
-        jButton1.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        jButton1.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        salvaSessioneButton.setText("Salva Sessione");
+        salvaSessioneButton.setEnabled(false);
+        salvaSessioneButton.setFocusable(false);
+        salvaSessioneButton.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        salvaSessioneButton.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        salvaSessioneButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                salvaSessioneButtonActionPerformed(evt);
             }
         });
-        jPanel5.add(jButton1, new java.awt.GridBagConstraints());
+        jPanel5.add(salvaSessioneButton, new java.awt.GridBagConstraints());
 
-        jButton2.setText("Salva Soluzione");
-        jButton2.setFocusable(false);
-        jButton2.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        jButton2.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        jPanel5.add(jButton2, new java.awt.GridBagConstraints());
+        salvaSoluzioneButton.setText("Salva Soluzione");
+        salvaSoluzioneButton.setFocusable(false);
+        salvaSoluzioneButton.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        salvaSoluzioneButton.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        salvaSoluzioneButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                salvaSoluzioneButtonActionPerformed(evt);
+            }
+        });
+        jPanel5.add(salvaSoluzioneButton, new java.awt.GridBagConstraints());
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 1;
@@ -345,7 +350,7 @@ public class SessioneApertaPanel extends javax.swing.JPanel {
 
     private void faiAssunzioniTestButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_faiAssunzioniTestButtonActionPerformed
         Mappatura temp = new Mappatura(jTextField1.getText());
-        jButton1.setEnabled(true);
+        salvaSessioneButton.setEnabled(true);
         if (!sessController.faiAssunzione(sessione, temp)) {
             /* si potrebbe dare più autorità al session controller facendo sì che
              sessController.faiAssunzioni nel caso in cui faiAssunzioni è false, recupera e restituisce
@@ -369,11 +374,11 @@ public class SessioneApertaPanel extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_undoButtonTestActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void salvaSessioneButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_salvaSessioneButtonActionPerformed
         try {
             if (sessController.salvaSessione(sessione)) {
                 feedbackSessione.setText("Sessione salvata");
-                jButton1.setEnabled(false);
+                salvaSessioneButton.setEnabled(false);
             } else {
                 feedbackSessione.setText("Errore salvataggio");
             }
@@ -381,7 +386,7 @@ public class SessioneApertaPanel extends javax.swing.JPanel {
             Logger.getLogger(SessioneApertaPanel.class
                     .getName()).log(Level.SEVERE, null, ex);
         }
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_salvaSessioneButtonActionPerformed
 
     private void undoButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_undoButtonActionPerformed
         JFrame padre = (JFrame) SwingUtilities.getWindowAncestor(this);
@@ -393,7 +398,7 @@ public class SessioneApertaPanel extends javax.swing.JPanel {
     }//GEN-LAST:event_undoButtonActionPerformed
 
     private void faiAssunzioneButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_faiAssunzioneButtonActionPerformed
-        jButton1.setEnabled(true);
+        salvaSessioneButton.setEnabled(true);
         // merge della mappatura e dei caratteri da rimuovere
         daInviare = mergeMapRimuovi(daInviare, daRimuovere);
         System.out.println("Mappatura inviata: " + daInviare.toStringa());
@@ -418,6 +423,15 @@ public class SessioneApertaPanel extends javax.swing.JPanel {
         JFrame padre = (JFrame) SwingUtilities.getWindowAncestor(this);
         CaricaSoluzioneDialog caricaSoluzioneDialog = new CaricaSoluzioneDialog(padre, true, proprietario);
     }//GEN-LAST:event_caricaSoluzioneButtonActionPerformed
+
+    private void salvaSoluzioneButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_salvaSoluzioneButtonActionPerformed
+        try {
+            // TODO add your handling code here:
+            sessController.salvaSoluzione(sessione);
+        } catch (SQLException ex) {
+            throw new RuntimeException(ex);
+        }
+    }//GEN-LAST:event_salvaSoluzioneButtonActionPerformed
 
     private void provaMappaturaCorrente() {
         try {
@@ -540,8 +554,6 @@ public class SessioneApertaPanel extends javax.swing.JPanel {
     private javax.swing.JButton faiAssunzioneButton;
     private javax.swing.JButton faiAssunzioniTestButton;
     private javax.swing.JLabel feedbackSessione;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
@@ -569,6 +581,8 @@ public class SessioneApertaPanel extends javax.swing.JPanel {
     private javax.swing.JTextField jTextField1;
     private javax.swing.JLabel linguaLabel;
     private javax.swing.JLabel mittenteLabel;
+    private javax.swing.JButton salvaSessioneButton;
+    private javax.swing.JButton salvaSoluzioneButton;
     private javax.swing.JLabel titoloLabel;
     private javax.swing.JButton undoButton;
     private javax.swing.JButton undoButtonTest;
