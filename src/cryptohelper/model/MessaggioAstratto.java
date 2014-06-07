@@ -34,6 +34,6 @@ public interface MessaggioAstratto {
 
     public String getLingua() throws SQLException;
 
-    public boolean elimina() throws SQLException;
+    public boolean elimina(UserInfo studente) throws SQLException;
 
 }
