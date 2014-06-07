@@ -56,6 +56,7 @@ public class MessagePanel extends javax.swing.JPanel {
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
+        java.awt.GridBagConstraints gridBagConstraints;
 
         jTabbedPane2 = new javax.swing.JTabbedPane();
         messaggiRicevutiPanel = new javax.swing.JPanel();
@@ -98,18 +99,15 @@ public class MessagePanel extends javax.swing.JPanel {
         jLabel1 = new javax.swing.JLabel();
         linguaComboBox = new javax.swing.JComboBox();
         jPanel18 = new javax.swing.JPanel();
-        jPanel22 = new javax.swing.JPanel();
         jPanel21 = new javax.swing.JPanel();
         salvaBozzaButton = new javax.swing.JButton();
         cifraButton = new javax.swing.JButton();
         inviaButton = new javax.swing.JButton();
         jPanel23 = new javax.swing.JPanel();
-        jPanel25 = new javax.swing.JPanel();
         jScrollPane8 = new javax.swing.JScrollPane();
         corpoNuovoMessaggio = new javax.swing.JTextArea();
-        jPanel24 = new javax.swing.JPanel();
         jScrollPane14 = new javax.swing.JScrollPane();
-        jTextArea6 = new javax.swing.JTextArea();
+        testoCifratoNuovoMessaggio = new javax.swing.JTextArea();
 
         setLayout(new javax.swing.BoxLayout(this, javax.swing.BoxLayout.LINE_AXIS));
 
@@ -350,13 +348,29 @@ public class MessagePanel extends javax.swing.JPanel {
 
         messaggiCreaPanel.setLayout(new javax.swing.BoxLayout(messaggiCreaPanel, javax.swing.BoxLayout.PAGE_AXIS));
 
+        jPanel19.setLayout(new java.awt.GridBagLayout());
+
         titoloNuovoMessaggioField.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 titoloNuovoMessaggioFieldKeyTyped(evt);
             }
         });
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 1;
+        gridBagConstraints.gridy = 2;
+        gridBagConstraints.gridwidth = 5;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        jPanel19.add(titoloNuovoMessaggioField, gridBagConstraints);
 
         jLabel7.setText("Destinatario:");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 1;
+        gridBagConstraints.gridheight = 3;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        jPanel19.add(jLabel7, gridBagConstraints);
 
         destinatariComboBox.setModel(new javax.swing.DefaultComboBoxModel<UserInfo>());
         destinatariComboBox.addActionListener(new java.awt.event.ActionListener() {
@@ -374,65 +388,59 @@ public class MessagePanel extends javax.swing.JPanel {
             public void ancestorMoved(javax.swing.event.AncestorEvent evt) {
             }
         });
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 1;
+        gridBagConstraints.gridy = 1;
+        gridBagConstraints.gridwidth = 5;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        jPanel19.add(destinatariComboBox, gridBagConstraints);
 
         jLabel8.setText("Titolo:");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 2;
+        gridBagConstraints.gridheight = 3;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        jPanel19.add(jLabel8, gridBagConstraints);
 
         nuovoMessaggioFeedback.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         nuovoMessaggioFeedback.setText("Componi il messaggio");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.gridwidth = 6;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        jPanel19.add(nuovoMessaggioFeedback, gridBagConstraints);
 
         jLabel1.setText("Lingua:");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 3;
+        gridBagConstraints.gridheight = 3;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        jPanel19.add(jLabel1, gridBagConstraints);
 
         linguaComboBox.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Italiano", "Inglese", "Francese" }));
+        linguaComboBox.setSelectedIndex(-1);
         linguaComboBox.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 linguaComboBoxActionPerformed(evt);
             }
         });
-
-        javax.swing.GroupLayout jPanel19Layout = new javax.swing.GroupLayout(jPanel19);
-        jPanel19.setLayout(jPanel19Layout);
-        jPanel19Layout.setHorizontalGroup(
-            jPanel19Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(nuovoMessaggioFeedback, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addGroup(jPanel19Layout.createSequentialGroup()
-                .addGap(56, 56, 56)
-                .addGroup(jPanel19Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jLabel1)
-                    .addComponent(jLabel7)
-                    .addComponent(jLabel8))
-                .addGap(18, 18, 18)
-                .addGroup(jPanel19Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(titoloNuovoMessaggioField, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(destinatariComboBox, javax.swing.GroupLayout.Alignment.TRAILING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(linguaComboBox, 0, 235, Short.MAX_VALUE))
-                .addContainerGap(163, Short.MAX_VALUE))
-        );
-        jPanel19Layout.setVerticalGroup(
-            jPanel19Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel19Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(nuovoMessaggioFeedback)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel19Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(destinatariComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel7))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel19Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(titoloNuovoMessaggioField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel8))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel19Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(linguaComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel1))
-                .addGap(45, 45, 45))
-        );
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 1;
+        gridBagConstraints.gridy = 3;
+        gridBagConstraints.gridwidth = 5;
+        gridBagConstraints.ipadx = 200;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        jPanel19.add(linguaComboBox, gridBagConstraints);
 
         messaggiCreaPanel.add(jPanel19);
 
         jPanel18.setLayout(new java.awt.BorderLayout());
-
-        jPanel22.setLayout(new javax.swing.BoxLayout(jPanel22, javax.swing.BoxLayout.PAGE_AXIS));
-        jPanel18.add(jPanel22, java.awt.BorderLayout.PAGE_START);
 
         salvaBozzaButton.setText("Salva bozza");
         salvaBozzaButton.addActionListener(new java.awt.event.ActionListener() {
@@ -464,8 +472,6 @@ public class MessagePanel extends javax.swing.JPanel {
 
         jPanel23.setLayout(new javax.swing.BoxLayout(jPanel23, javax.swing.BoxLayout.LINE_AXIS));
 
-        jPanel25.setLayout(new java.awt.BorderLayout());
-
         corpoNuovoMessaggio.setColumns(20);
         corpoNuovoMessaggio.setRows(5);
         corpoNuovoMessaggio.addKeyListener(new java.awt.event.KeyAdapter() {
@@ -475,21 +481,15 @@ public class MessagePanel extends javax.swing.JPanel {
         });
         jScrollPane8.setViewportView(corpoNuovoMessaggio);
 
-        jPanel25.add(jScrollPane8, java.awt.BorderLayout.CENTER);
+        jPanel23.add(jScrollPane8);
 
-        jPanel23.add(jPanel25);
+        testoCifratoNuovoMessaggio.setEditable(false);
+        testoCifratoNuovoMessaggio.setColumns(20);
+        testoCifratoNuovoMessaggio.setLineWrap(true);
+        testoCifratoNuovoMessaggio.setRows(5);
+        jScrollPane14.setViewportView(testoCifratoNuovoMessaggio);
 
-        jPanel24.setLayout(new java.awt.BorderLayout());
-
-        jTextArea6.setEditable(false);
-        jTextArea6.setColumns(20);
-        jTextArea6.setLineWrap(true);
-        jTextArea6.setRows(5);
-        jScrollPane14.setViewportView(jTextArea6);
-
-        jPanel24.add(jScrollPane14, java.awt.BorderLayout.CENTER);
-
-        jPanel23.add(jPanel24);
+        jPanel23.add(jScrollPane14);
 
         jPanel18.add(jPanel23, java.awt.BorderLayout.CENTER);
 
@@ -731,11 +731,13 @@ public class MessagePanel extends javax.swing.JPanel {
 
     private void destinatariComboBoxAncestorRemoved(javax.swing.event.AncestorEvent evt) {//GEN-FIRST:event_destinatariComboBoxAncestorRemoved
         DefaultComboBoxModel<UserInfo> dlm = (DefaultComboBoxModel<UserInfo>) destinatariComboBox.getModel();
-        // perchè il seguente?
+        /* perchè il seguente? | Dato che i potenziali destinatari cambiano durante l'esecuzione del programma
+         (proposte inviate ed accettate che non avevano precedenti) i destinatari vengono caricati ogni volta che si
+         va nella scheda per comporre un messaggio, non mettere removeAllElements porterebbe a duplicare i destinatari*/
         dlm.removeAllElements();
-        //messaggioTemp = null;
-
         azzeraTutto();
+        /* necessario altrimenti come capisco quando non arrivo da 'rispondi' o da 'componi bozza'? */
+        messaggioTemp = null;
     }//GEN-LAST:event_destinatariComboBoxAncestorRemoved
 
     private void cifraButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cifraButtonActionPerformed
@@ -743,10 +745,12 @@ public class MessagePanel extends javax.swing.JPanel {
             UserInfo destinatario = (UserInfo) destinatariComboBox.getSelectedItem();
             messaggioTemp.setDestinatario(destinatario);
             messaggioTemp.setTitolo(titoloNuovoMessaggioField.getText());
-            messaggioTemp.setLingua((String) linguaComboBox.getSelectedItem());
+            if (linguaComboBox.getSelectedItem() != null) {
+                messaggioTemp.setLingua((String) linguaComboBox.getSelectedItem());
+            }
             messaggioTemp.setTesto(corpoNuovoMessaggio.getText());
             messaggioTemp.cifra();
-            jTextArea6.setText(messaggioTemp.getTestoCifrato());
+            testoCifratoNuovoMessaggio.setText(messaggioTemp.getTestoCifrato());
             nuovoMessaggioFeedback.setText("Continua a comporre, oppure invia");
             inviaButton.setEnabled(true);
         } catch (SQLException e) {
@@ -759,6 +763,7 @@ public class MessagePanel extends javax.swing.JPanel {
             if (commController.send(messaggioTemp)) {
                 nuovoMessaggioFeedback.setText("Messaggio Inviato! Componi un altro messaggio");
                 azzeraTutto();
+                messaggioTemp = new Messaggio(studente);
             } else {
                 nuovoMessaggioFeedback.setText("Errore nell'invio del messaggio!");
             }
@@ -772,7 +777,9 @@ public class MessagePanel extends javax.swing.JPanel {
             UserInfo destinatario = (UserInfo) destinatariComboBox.getSelectedItem();
             messaggioTemp.setDestinatario(destinatario);
             messaggioTemp.setTitolo(titoloNuovoMessaggioField.getText());
-            messaggioTemp.setLingua((String) linguaComboBox.getSelectedItem());
+            if (linguaComboBox.getSelectedItem() != null) {
+                messaggioTemp.setLingua((String) linguaComboBox.getSelectedItem());
+            }
             messaggioTemp.setTesto(corpoNuovoMessaggio.getText());
             if (messaggioTemp.save()) {
                 nuovoMessaggioFeedback.setText("Bozza salvata!");
@@ -812,15 +819,13 @@ public class MessagePanel extends javax.swing.JPanel {
 
     private void azzeraTutto() {
         nuovoMessaggioFeedback.setText("Componi un nuovo messaggio");
-        jTextArea6.setText("");
+        testoCifratoNuovoMessaggio.setText("");
         corpoNuovoMessaggio.setText("");
         inviaButton.setEnabled(false);
         cifraButton.setEnabled(true);
         destinatariComboBox.setSelectedIndex(-1);
         titoloNuovoMessaggioField.setText("");
-        // italiano lingua di default
-        linguaComboBox.setSelectedIndex(0);
-        messaggioTemp = new Messaggio(studente);
+        linguaComboBox.setSelectedIndex(-1);
     }
 
     private void setLingua(String lingua) {
@@ -866,10 +871,7 @@ public class MessagePanel extends javax.swing.JPanel {
     private javax.swing.JPanel jPanel19;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel21;
-    private javax.swing.JPanel jPanel22;
     private javax.swing.JPanel jPanel23;
-    private javax.swing.JPanel jPanel24;
-    private javax.swing.JPanel jPanel25;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel8;
     private javax.swing.JScrollPane jScrollPane10;
@@ -884,7 +886,6 @@ public class MessagePanel extends javax.swing.JPanel {
     private javax.swing.JTextArea jTextArea1;
     private javax.swing.JTextArea jTextArea2;
     private javax.swing.JTextArea jTextArea3;
-    private javax.swing.JTextArea jTextArea6;
     private javax.swing.JToolBar jToolBar1;
     private javax.swing.JComboBox linguaComboBox;
     private javax.swing.JList messaggiBozzaList;
@@ -898,6 +899,7 @@ public class MessagePanel extends javax.swing.JPanel {
     private javax.swing.JButton ricaricaRicevutiButton;
     private javax.swing.JButton rispondiButton;
     private javax.swing.JButton salvaBozzaButton;
+    private javax.swing.JTextArea testoCifratoNuovoMessaggio;
     private javax.swing.JTextField titoloNuovoMessaggioField;
     // End of variables declaration//GEN-END:variables
 }
