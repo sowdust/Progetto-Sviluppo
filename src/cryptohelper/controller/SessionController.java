@@ -1,5 +1,6 @@
 package cryptohelper.controller;
 
+import cryptohelper.model.Ipotesi;
 import cryptohelper.model.Mappatura;
 import cryptohelper.model.Messaggio;
 import cryptohelper.model.MessaggioSpia;
@@ -11,6 +12,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Stack;
 import javax.sql.rowset.CachedRowSet;
 
 public class SessionController {
@@ -103,6 +105,10 @@ public class SessionController {
 
     public String getCommento(Sessione s) {
         return s.getCommento();
+    }
+
+    public Stack<Ipotesi> getMosse(Sessione sessione) {
+        return sessione.getMosse();
     }
 
 }

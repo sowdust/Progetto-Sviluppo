@@ -155,4 +155,8 @@ public class AlberoIpotesi implements Serializable {
         System.out.println("Conflitti:" + conflitti);
         stampaAlbero();
     }
+
+    Stack<Ipotesi> getMosse() {
+        return mosse;
+    }
 }

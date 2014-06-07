@@ -446,7 +446,7 @@ public class SessioneApertaPanel extends javax.swing.JPanel {
                 jTextArea1.setText(messaggio.getTestoCifrato());
                 jTextArea2.setText(Cifratore.decifraMonoalfabetica(m, messaggio.getTestoCifrato()));
             }
-            undoButtonTest.setEnabled(!m.isEmpty());
+            undoButtonTest.setEnabled(!sessController.getMosse(sessione).isEmpty());
             for (CharField charField : charFields) {
                 Character toWrite = m.inverseMap(charField.getInternalChar());
                 charField.setText((toWrite != null ? toWrite : "") + "");
