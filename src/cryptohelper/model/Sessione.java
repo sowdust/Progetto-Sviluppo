@@ -6,6 +6,7 @@ import java.io.IOException;
 import java.io.ObjectOutputStream;
 import java.sql.SQLException;
 import java.util.List;
+import java.util.Stack;
 import javax.sql.rowset.CachedRowSet;
 
 public class Sessione {
@@ -115,6 +116,10 @@ public class Sessione {
 
     public UserInfo getProprietario() {
         return proprietario;
+    }
+
+    public Stack<Ipotesi> getMosse() {
+        return getAlbero().getMosse();
     }
 
 }

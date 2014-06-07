@@ -55,7 +55,8 @@ public class SessioneApertaPanel extends javax.swing.JPanel {
         proprietario = sessione.getProprietario();
         initComponents();
         initMyComponents();
-        provaMappaturaCorrente();
+        mapCorrente = sessione.getMappaturaCorrente();
+        provaMappaturaCorrente(mapCorrente, true);
     }
 
     /**
@@ -362,7 +363,7 @@ public class SessioneApertaPanel extends javax.swing.JPanel {
                 sessController.undo(sessione, sessione.getCommento());
             }
         }
-        provaMappaturaCorrente();
+        provaMappaturaCorrente(sessione.getMappaturaCorrente(), true);
     }//GEN-LAST:event_faiAssunzioniTestButtonActionPerformed
 
     private void undoButtonTestActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_undoButtonTestActionPerformed
@@ -370,7 +371,7 @@ public class SessioneApertaPanel extends javax.swing.JPanel {
         UndoDialog undoDialog = new UndoDialog(padre, true);
         if (undoDialog.getReturnStatus() == UndoDialog.RET_OK) {
             sessController.undo(sessione, undoDialog.getMotivazione());
-            provaMappaturaCorrente();
+            provaMappaturaCorrente(sessione.getMappaturaCorrente(), true);
         }
     }//GEN-LAST:event_undoButtonTestActionPerformed
 
@@ -393,7 +394,7 @@ public class SessioneApertaPanel extends javax.swing.JPanel {
         UndoDialog undoDialog = new UndoDialog(padre, true);
         if (undoDialog.getReturnStatus() == UndoDialog.RET_OK) {
             sessController.undo(sessione, undoDialog.getMotivazione());
-            provaMappaturaCorrente();
+            provaMappaturaCorrente(sessione.getMappaturaCorrente(), true);
         }
     }//GEN-LAST:event_undoButtonActionPerformed
 
@@ -401,7 +402,8 @@ public class SessioneApertaPanel extends javax.swing.JPanel {
         salvaSessioneButton.setEnabled(true);
         // merge della mappatura e dei caratteri da rimuovere
         daInviare = mergeMapRimuovi(daInviare, daRimuovere);
-        System.out.println("Mappatura inviata: " + daInviare.toStringa());
+        feedbackSessione.setText("Inviata mappatura: " + daInviare.toStringa());
+//        System.out.println("Mappatura inviata: " + daInviare.toStringa());
         if (!sessController.faiAssunzione(sessione, daInviare)) {
             /* si potrebbe dare più autorità al session controller facendo sì che
              sessController.faiAssunzioni nel caso in cui faiAssunzioni è false, recupera e restituisce
@@ -414,14 +416,15 @@ public class SessioneApertaPanel extends javax.swing.JPanel {
                 sessController.undo(sessione, sessione.getCommento());
             }
         }
-        provaMappaturaCorrente();
+        provaMappaturaCorrente(sessione.getMappaturaCorrente(), true);
+        mapCorrente = sessione.getMappaturaCorrente();
         daInviare = new Mappatura();
         daRimuovere = new LinkedList();
     }//GEN-LAST:event_faiAssunzioneButtonActionPerformed
 
     private void caricaSoluzioneButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_caricaSoluzioneButtonActionPerformed
         JFrame padre = (JFrame) SwingUtilities.getWindowAncestor(this);
-        CaricaSoluzioneDialog caricaSoluzioneDialog = new CaricaSoluzioneDialog(padre, true, proprietario);
+        CaricaSoluzioneDialog caricaSoluzioneDialog = new CaricaSoluzioneDialog(padre, true, proprietario, sessione, this);
     }//GEN-LAST:event_caricaSoluzioneButtonActionPerformed
 
     private void salvaSoluzioneButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_salvaSoluzioneButtonActionPerformed
@@ -429,21 +432,23 @@ public class SessioneApertaPanel extends javax.swing.JPanel {
             // TODO add your handling code here:
             sessController.salvaSoluzione(sessione);
             feedbackSessione.setText("Soluzione salvata");
+            salvaSessioneButton.setEnabled(false);
 
         } catch (SQLException ex) {
             feedbackSessione.setText("Errore SQL: " + ex);
         }
     }//GEN-LAST:event_salvaSoluzioneButtonActionPerformed
 
-    private void provaMappaturaCorrente() {
+    private void provaMappaturaCorrente(Mappatura m, Boolean aggiornaMessaggio) {
         try {
             /* temporaneamente è così */
-            mapCorrente = sessione.getMappaturaCorrente();
-            jTextArea1.setText(messaggio.getTestoCifrato());
-            jTextArea2.setText(Cifratore.decifraMonoalfabetica(mapCorrente, messaggio.getTestoCifrato()));
-            undoButtonTest.setEnabled(!mapCorrente.isEmpty());
+            if (aggiornaMessaggio) {
+                jTextArea1.setText(messaggio.getTestoCifrato());
+                jTextArea2.setText(Cifratore.decifraMonoalfabetica(m, messaggio.getTestoCifrato()));
+            }
+            undoButton.setEnabled(sessController.getMosse(sessione).size() > 1);
             for (CharField charField : charFields) {
-                Character toWrite = mapCorrente.inverseMap(charField.getInternalChar());
+                Character toWrite = m.inverseMap(charField.getInternalChar());
                 charField.setText((toWrite != null ? toWrite : "") + "");
             }
         } catch (SQLException ex) {
@@ -481,6 +486,7 @@ public class SessioneApertaPanel extends javax.swing.JPanel {
 
                 @Override
                 public void keyReleased(KeyEvent e) {
+                    feedbackSessione.setText("");
                     azioni = "";
                     CharField charField = (CharField) e.getSource();
                     Character internalChar = charField.getInternalChar();
@@ -505,7 +511,8 @@ public class SessioneApertaPanel extends javax.swing.JPanel {
                     Mappatura tempp = new Mappatura(azioni);
                     daInviare = daInviare.merge(tempp);
                     System.out.println("Mappatura temp: " + tempp.toStringa());
-                    System.out.println("Mappatura: " + daInviare.toStringa());
+                    System.out.println("Mappatura da inviare: " + daInviare.toStringa());
+                    provaMappaturaCorrente(sessione.getMappaturaCorrente().merge(mergeMapRimuovi(daInviare, daRimuovere)), false);
 
                 }
             });
@@ -543,6 +550,14 @@ public class SessioneApertaPanel extends javax.swing.JPanel {
         }
         System.out.println("creo nuova mappatura con stringa " + s);
         return new Mappatura(s);
+
+    }
+
+    void segnalaSoluzioneCaricata() {
+        feedbackSessione.setText("Soluzione caricata");
+        mapCorrente = sessione.getMappaturaCorrente();
+        provaMappaturaCorrente(mapCorrente, true);
+        salvaSessioneButton.setEnabled(true);
 
     }
 
