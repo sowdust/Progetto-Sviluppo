@@ -74,7 +74,6 @@ public class SessionController {
         while (crs.next()) {
             result.add(new Soluzione(crs));
         }
-        System.out.println("Createa una lista di " + result.size() + "soluzioni");
         return result;
     }
 
