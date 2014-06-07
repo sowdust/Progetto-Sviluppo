@@ -1,5 +1,6 @@
 package cryptohelper.controller;
 
+import cryptohelper.model.Ipotesi;
 import cryptohelper.model.Mappatura;
 import cryptohelper.model.Messaggio;
 import cryptohelper.model.MessaggioSpia;
@@ -9,7 +10,9 @@ import cryptohelper.model.UserInfo;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
+import java.util.Stack;
 import javax.sql.rowset.CachedRowSet;
 
 public class SessionController {
@@ -65,6 +68,17 @@ public class SessionController {
         throw new UnsupportedOperationException();
     }
 
+    public List<Soluzione> mostraSoluzioni(UserInfo proprietario) throws SQLException {
+        DBController dbc = DBController.getInstance();
+        CachedRowSet crs = dbc.execute("SELECT * FROM Soluzione "
+                + "WHERE Creatore = ? ", proprietario.getId());
+        List<Soluzione> result = new LinkedList<>();
+        while (crs.next()) {
+            result.add(new Soluzione(crs));
+        }
+        return result;
+    }
+
     public boolean salvaSoluzione(Sessione s) throws SQLException {
         return s.salvaSoluzione();
     }
@@ -91,6 +105,10 @@ public class SessionController {
 
     public String getCommento(Sessione s) {
         return s.getCommento();
+    }
+
+    public Stack<Ipotesi> getMosse(Sessione sessione) {
+        return sessione.getMosse();
     }
 
 }

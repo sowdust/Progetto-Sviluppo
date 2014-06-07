@@ -208,6 +208,7 @@ public class GUI extends javax.swing.JFrame {
                 comunicationTabs.addTab("Proposte", new PropostePanel(studente));
                 comunicationTabs.addTab("Sistemi Cifratura", new SdcPanel(studente));
                 comunicationTabs.addTab("Sessioni", new SessionePanel(studente));
+                comunicationTabs.addTab("Soluzioni", new SoluzioniPanel(studente));
                 cl.show(getContentPane(), "card6");
             } else {
                 errorLoginLabel.setText("nickname o password errati");

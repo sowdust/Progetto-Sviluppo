@@ -83,7 +83,6 @@ public class AlreadyReachedDialog extends javax.swing.JDialog {
     private void initComponents() {
 
         ContinueButton = new javax.swing.JButton();
-        undoButton = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         commentTextArea = new javax.swing.JTextArea();
@@ -97,17 +96,10 @@ public class AlreadyReachedDialog extends javax.swing.JDialog {
             }
         });
 
-        ContinueButton.setText("Continua");
+        ContinueButton.setText("Ok");
         ContinueButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 ContinueButtonActionPerformed(evt);
-            }
-        });
-
-        undoButton.setText("Fai Undo");
-        undoButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                undoButtonActionPerformed(evt);
             }
         });
 
@@ -128,11 +120,10 @@ public class AlreadyReachedDialog extends javax.swing.JDialog {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 233, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(ContinueButton, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(33, 33, 33)
-                        .addComponent(undoButton, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 233, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(69, 69, 69)
+                        .addComponent(ContinueButton, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(21, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -143,9 +134,7 @@ public class AlreadyReachedDialog extends javax.swing.JDialog {
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(ContinueButton)
-                    .addComponent(undoButton))
+                .addComponent(ContinueButton)
                 .addGap(160, 160, 160))
         );
 
@@ -157,10 +146,6 @@ public class AlreadyReachedDialog extends javax.swing.JDialog {
     private void ContinueButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ContinueButtonActionPerformed
         doClose(RET_CONTINUE);
     }//GEN-LAST:event_ContinueButtonActionPerformed
-
-    private void undoButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_undoButtonActionPerformed
-        doClose(RET_UNDO);
-    }//GEN-LAST:event_undoButtonActionPerformed
 
     /**
      * Closes the dialog
@@ -180,7 +165,6 @@ public class AlreadyReachedDialog extends javax.swing.JDialog {
     private javax.swing.JTextArea commentTextArea;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JButton undoButton;
     // End of variables declaration//GEN-END:variables
 
     private int returnStatus = RET_UNDO;

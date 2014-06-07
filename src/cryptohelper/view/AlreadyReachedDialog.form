@@ -34,12 +34,11 @@
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" max="-2" attributes="0">
                   <Component id="jLabel1" max="32767" attributes="0"/>
-                  <Group type="102" alignment="0" attributes="0">
-                      <Component id="ContinueButton" min="-2" pref="100" max="-2" attributes="0"/>
-                      <EmptySpace min="-2" pref="33" max="-2" attributes="0"/>
-                      <Component id="undoButton" min="-2" pref="100" max="-2" attributes="0"/>
-                  </Group>
                   <Component id="jScrollPane1" min="-2" pref="233" max="-2" attributes="0"/>
+                  <Group type="102" alignment="0" attributes="0">
+                      <EmptySpace min="-2" pref="69" max="-2" attributes="0"/>
+                      <Component id="ContinueButton" min="-2" pref="100" max="-2" attributes="0"/>
+                  </Group>
               </Group>
               <EmptySpace pref="21" max="32767" attributes="0"/>
           </Group>
@@ -53,10 +52,7 @@
               <EmptySpace type="separate" max="-2" attributes="0"/>
               <Component id="jScrollPane1" min="-2" pref="83" max="-2" attributes="0"/>
               <EmptySpace max="32767" attributes="0"/>
-              <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="ContinueButton" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="undoButton" alignment="3" min="-2" max="-2" attributes="0"/>
-              </Group>
+              <Component id="ContinueButton" min="-2" max="-2" attributes="0"/>
               <EmptySpace min="-2" pref="160" max="-2" attributes="0"/>
           </Group>
       </Group>
@@ -65,7 +61,7 @@
   <SubComponents>
     <Component class="javax.swing.JButton" name="ContinueButton">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Continua"/>
+        <Property name="text" type="java.lang.String" value="Ok"/>
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="ContinueButtonActionPerformed"/>
@@ -73,14 +69,6 @@
       <AuxValues>
         <AuxValue name="JavaCodeGenerator_AddingCodePost" type="java.lang.String" value="getRootPane().setDefaultButton(ContinueButton);"/>
       </AuxValues>
-    </Component>
-    <Component class="javax.swing.JButton" name="undoButton">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="Fai Undo"/>
-      </Properties>
-      <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="undoButtonActionPerformed"/>
-      </Events>
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel1">
       <Properties>

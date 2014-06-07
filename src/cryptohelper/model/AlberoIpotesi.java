@@ -67,9 +67,9 @@ public class AlberoIpotesi implements Serializable {
      * in passato, true altrimenti
      */
     public boolean faiAssunzione(Mappatura nuoveAssunzioni) {
-        System.out.println("Arrivata assunzione \t" + nuoveAssunzioni.toStringa());
+        //System.out.println("Arrivata assunzione \t" + nuoveAssunzioni.toStringa());
         Mappatura nuovaMappatura = mappaturaCorrente.merge(nuoveAssunzioni);
-        System.out.println("Nuova mappatura \t" + nuovaMappatura.toStringa());
+        //System.out.println("Nuova mappatura \t" + nuovaMappatura.toStringa());
         Ipotesi giaRaggiunta = giaRaggiunta(nuovaMappatura);
 
         //  Se l'ipotesi è già raggiunta, ci spostiamo lì e torniamo false
@@ -86,23 +86,23 @@ public class AlberoIpotesi implements Serializable {
         List<Character> listaDaRimuovere = nuoveAssunzioni.filtraDaRimuovere();
         int nConflitti = mappaturaCorrente.contaConflitti(nuoveAssunzioni);
         Mappatura daAggiungere;
-        System.out.println("Numero conflitti \t" + nConflitti);
-        System.out.println("Da rimuovere \t");
+        //System.out.println("Numero conflitti \t" + nConflitti);
+        //System.out.println("Da rimuovere \t");
         for (char c : listaDaRimuovere) {
-            System.out.print(c + " ");
+            //System.out.print(c + " ");
         }
 
         if (nConflitti < 1 && listaDaRimuovere.isEmpty()) {
 
             ipotesiACuiAttaccarsi = ipotesiCorrente;
             daAggiungere = nuoveAssunzioni.sottrai(mappaturaCorrente);
-            System.out.println("Aggiunto al nodo corrente \t" + nuoveAssunzioni.toStringa());
+            //System.out.println("Aggiunto al nodo corrente \t" + nuoveAssunzioni.toStringa());
 
         } else {
 
             ipotesiACuiAttaccarsi = ipotesiCorrente.trovaConflitto(nuoveAssunzioni, listaDaRimuovere, nConflitti);
             daAggiungere = nuovaMappatura.sottrai(ipotesiACuiAttaccarsi.getMappatura());
-            System.out.println("Aggiunto più in su \t" + nuoveAssunzioni.toStringa());
+            //System.out.println("Aggiunto più in su \t" + nuoveAssunzioni.toStringa());
 
         }
 
@@ -154,5 +154,9 @@ public class AlberoIpotesi implements Serializable {
         System.out.println();
         System.out.println("Conflitti:" + conflitti);
         stampaAlbero();
+    }
+
+    Stack<Ipotesi> getMosse() {
+        return mosse;
     }
 }

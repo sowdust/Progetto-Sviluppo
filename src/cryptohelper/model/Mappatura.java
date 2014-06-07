@@ -40,11 +40,17 @@ public class Mappatura implements Serializable {
     public Mappatura(String s) {
         this.map = new LinkedList();
         this.inverseMap = new LinkedList();
-        String[] split = s.split(",");
-        for (String t : split) {
-            String[] m = t.trim().split(">");
-            this.map.add(m[0].trim().charAt(0));
-            this.inverseMap.add(m[1].trim().charAt(0));
+        if (s.length() > 2) {
+            try {
+                String[] split = s.split(",");
+                for (String t : split) {
+                    String[] m = t.trim().split(">");
+                    this.map.add(m[0].trim().charAt(0));
+                    this.inverseMap.add(m[1].trim().charAt(0));
+                }
+            } catch (Exception e) {
+                System.out.println("Mappatura non creata per via di " + e);
+            }
         }
     }
 
@@ -198,11 +204,11 @@ public class Mappatura implements Serializable {
             int j = inverseMap.indexOf(m.inverseMap.get(i));
             // se il c a sx è assegnato ma non allo stesso modo
             if (k != -1 && (char) inverseMap.get(k) != (char) m.inverseMap.get(i)) {
-                System.out.println("Problema in k " + inverseMap.get(k) + m.inverseMap.get(i));
+                //System.out.println("Problema in k " + inverseMap.get(k) + m.inverseMap.get(i));
                 return true;
             }
             if (j != -1 && (char) map.get(j) != (char) m.map.get(i)) {
-                System.out.println("Problema in j " + map.get(j) + m.map.get(i));
+                //System.out.println("Problema in j " + map.get(j) + m.map.get(i));
                 return true;
             }
         }
@@ -281,7 +287,7 @@ public class Mappatura implements Serializable {
 
     public boolean isCompleta(List<Character> listaCaratteri) {
         for (char c : listaCaratteri) {
-            if (!inverseMap.contains(c)) {
+            if (!map.contains(c)) {
                 return false;
             }
         }

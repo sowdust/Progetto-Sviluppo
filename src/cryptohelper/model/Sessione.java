@@ -6,6 +6,7 @@ import java.io.IOException;
 import java.io.ObjectOutputStream;
 import java.sql.SQLException;
 import java.util.List;
+import java.util.Stack;
 import javax.sql.rowset.CachedRowSet;
 
 public class Sessione {
@@ -70,8 +71,8 @@ public class Sessione {
     public boolean salvaSoluzione() throws SQLException {
         Mappatura mapCorrente = getAlbero().getMappaturaCorrente();
         List<Character> listaCaratteri = messaggio.getSimboli();
-        if (mapCorrente.isCompleta(listaCaratteri)) {
-            throw new IllegalStateException("La mappatura non copre tutti i caratteri usati nel messaggio");
+        if (!mapCorrente.isCompleta(listaCaratteri)) {
+            return false;
         }
         Soluzione s = new Soluzione(mapCorrente, messaggio, proprietario);
         if (s.save()) {
@@ -111,6 +112,14 @@ public class Sessione {
     @Override
     public String toString() {
         return "Mittente: " + messaggio.getDestinatario() + " Destinatario: " + messaggio.getMittente() + " Titolo: " + messaggio.getTitolo();
+    }
+
+    public UserInfo getProprietario() {
+        return proprietario;
+    }
+
+    public Stack<Ipotesi> getMosse() {
+        return getAlbero().getMosse();
     }
 
 }

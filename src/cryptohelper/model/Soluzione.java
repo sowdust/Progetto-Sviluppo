@@ -51,7 +51,14 @@ public class Soluzione {
 
     public boolean elimina() throws SQLException {
         DBController dbc = DBController.getInstance();
-        return dbc.executeUpdate("DELETE * FROM crypto_user.Soluzione WHERE id = ?", id);
+        return dbc.executeUpdate("DELETE FROM Soluzione WHERE id = ?", id);
+    }
+
+    public String toString() {
+        return "F:" + messaggio.getMittente()
+                + " T: " + messaggio.getDestinatario()
+                + " " + mappatura.toStringa();
+
     }
 
 }
