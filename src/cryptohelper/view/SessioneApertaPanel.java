@@ -55,7 +55,7 @@ public class SessioneApertaPanel extends javax.swing.JPanel {
         proprietario = sessione.getProprietario();
         initComponents();
         initMyComponents();
-        provaMappaturaCorrente();
+        provaMappaturaCorrente(sessione.getMappaturaCorrente());
     }
 
     /**
@@ -362,7 +362,7 @@ public class SessioneApertaPanel extends javax.swing.JPanel {
                 sessController.undo(sessione, sessione.getCommento());
             }
         }
-        provaMappaturaCorrente();
+        provaMappaturaCorrente(sessione.getMappaturaCorrente());
     }//GEN-LAST:event_faiAssunzioniTestButtonActionPerformed
 
     private void undoButtonTestActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_undoButtonTestActionPerformed
@@ -370,7 +370,7 @@ public class SessioneApertaPanel extends javax.swing.JPanel {
         UndoDialog undoDialog = new UndoDialog(padre, true);
         if (undoDialog.getReturnStatus() == UndoDialog.RET_OK) {
             sessController.undo(sessione, undoDialog.getMotivazione());
-            provaMappaturaCorrente();
+            provaMappaturaCorrente(sessione.getMappaturaCorrente());
         }
     }//GEN-LAST:event_undoButtonTestActionPerformed
 
@@ -393,7 +393,7 @@ public class SessioneApertaPanel extends javax.swing.JPanel {
         UndoDialog undoDialog = new UndoDialog(padre, true);
         if (undoDialog.getReturnStatus() == UndoDialog.RET_OK) {
             sessController.undo(sessione, undoDialog.getMotivazione());
-            provaMappaturaCorrente();
+            provaMappaturaCorrente(sessione.getMappaturaCorrente());
         }
     }//GEN-LAST:event_undoButtonActionPerformed
 
@@ -415,7 +415,8 @@ public class SessioneApertaPanel extends javax.swing.JPanel {
                 sessController.undo(sessione, sessione.getCommento());
             }
         }
-        provaMappaturaCorrente();
+        provaMappaturaCorrente(sessione.getMappaturaCorrente());
+        mapCorrente = sessione.getMappaturaCorrente();
         daInviare = new Mappatura();
         daRimuovere = new LinkedList();
     }//GEN-LAST:event_faiAssunzioneButtonActionPerformed
@@ -436,15 +437,14 @@ public class SessioneApertaPanel extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_salvaSoluzioneButtonActionPerformed
 
-    private void provaMappaturaCorrente() {
+    private void provaMappaturaCorrente(Mappatura m) {
         try {
             /* temporaneamente è così */
-            mapCorrente = sessione.getMappaturaCorrente();
             jTextArea1.setText(messaggio.getTestoCifrato());
-            jTextArea2.setText(Cifratore.decifraMonoalfabetica(mapCorrente, messaggio.getTestoCifrato()));
-            undoButtonTest.setEnabled(!mapCorrente.isEmpty());
+            jTextArea2.setText(Cifratore.decifraMonoalfabetica(m, messaggio.getTestoCifrato()));
+            undoButtonTest.setEnabled(!m.isEmpty());
             for (CharField charField : charFields) {
-                Character toWrite = mapCorrente.inverseMap(charField.getInternalChar());
+                Character toWrite = m.inverseMap(charField.getInternalChar());
                 charField.setText((toWrite != null ? toWrite : "") + "");
             }
         } catch (SQLException ex) {
@@ -508,6 +508,7 @@ public class SessioneApertaPanel extends javax.swing.JPanel {
                     daInviare = daInviare.merge(tempp);
                     System.out.println("Mappatura temp: " + tempp.toStringa());
                     System.out.println("Mappatura: " + daInviare.toStringa());
+                    provaMappaturaCorrente(sessione.getMappaturaCorrente().merge(daInviare));
 
                 }
             });
