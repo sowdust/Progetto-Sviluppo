@@ -33,9 +33,9 @@ public class CaricaSoluzioneDialog extends javax.swing.JDialog {
      */
     public CaricaSoluzioneDialog(java.awt.Frame parent, boolean modal, UserInfo proprietario) {
         super(parent, modal);
+        CaricaSoluzioneDialog.proprietario = proprietario;
         initComponents();
         setVisible(true);
-        CaricaSoluzioneDialog.proprietario = proprietario;
     }
 
     /**
@@ -154,11 +154,11 @@ public class CaricaSoluzioneDialog extends javax.swing.JDialog {
     }//GEN-LAST:event_annullaCaricaButtonActionPerformed
 
     private void caricaSoluzioneComboBoxAncestorAdded(javax.swing.event.AncestorEvent evt) {//GEN-FIRST:event_caricaSoluzioneComboBoxAncestorAdded
-//        try {
-//            sessionController.mostraSoluzioni(proprietario);
-//        } catch (SQLException e) {
-//            System.out.println(e.getMessage());
-//        }
+        try {
+            sessionController.mostraSoluzioni(proprietario);
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
     }//GEN-LAST:event_caricaSoluzioneComboBoxAncestorAdded
 
     private void caricaSoluzioneComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_caricaSoluzioneComboBoxActionPerformed
