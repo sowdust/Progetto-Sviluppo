@@ -2,8 +2,7 @@ fare merge branch documentazione (UC3) e master
 
 GUI:
 
-// MattiaV fatto una semplice stampa di nella catch di eccezione 
-Registrazione: spostare la jLabel in un posto più appropriato
+(Registrazione: spostare la jLabel in un posto più appropriato)
 
 DOCUMENTAZIONE:
 
@@ -13,8 +12,6 @@ modificare dsd segnati con AAA o controllare le modifiche fatte
 TEST:
 
 scelta di una classe significativa di cui fare lo unit testing (Fonte: file "di cosa si compone il progetto completo?")
-(Comportamento albero con vari tipi di assunzioni)
-!Testare i cambiamenti nella GUI (Carica soluzione + gestione dell'interazione utente)
 
 PRE-CONSEGNA:
 
