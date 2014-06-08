@@ -37,6 +37,7 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
 import javax.swing.SwingUtilities;
+import javax.swing.text.DefaultCaret;
 
 /**
  *
@@ -72,14 +73,10 @@ public class SessioneApertaPanel extends javax.swing.JPanel {
         jPanel1 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTextArea1 = new javax.swing.JTextArea();
+        testoCifrato = new javax.swing.JTextArea();
         jScrollPane2 = new javax.swing.JScrollPane();
-        jTextArea2 = new javax.swing.JTextArea();
+        testoSemiDecifrato = new javax.swing.JTextArea();
         jTabbedPane1 = new javax.swing.JTabbedPane();
-        jPanel3 = new javax.swing.JPanel();
-        faiAssunzioniTestButton = new javax.swing.JButton();
-        jTextField1 = new javax.swing.JTextField();
-        undoButtonTest = new javax.swing.JButton();
         jPanel7 = new javax.swing.JPanel();
         jScrollPane4 = new javax.swing.JScrollPane();
         jPanel8 = new javax.swing.JPanel();
@@ -107,6 +104,10 @@ public class SessioneApertaPanel extends javax.swing.JPanel {
             titoloLabel = new javax.swing.JLabel();
             destinatarioLabel = new javax.swing.JLabel();
             linguaLabel = new javax.swing.JLabel();
+            jPanel3 = new javax.swing.JPanel();
+            faiAssunzioniTestButton = new javax.swing.JButton();
+            jTextField1 = new javax.swing.JTextField();
+            undoButtonTest = new javax.swing.JButton();
             jPanel5 = new javax.swing.JPanel();
             salvaSessioneButton = new javax.swing.JButton();
             salvaSoluzioneButton = new javax.swing.JButton();
@@ -118,63 +119,43 @@ public class SessioneApertaPanel extends javax.swing.JPanel {
 
             jPanel2.setLayout(new javax.swing.BoxLayout(jPanel2, javax.swing.BoxLayout.PAGE_AXIS));
 
-            jTextArea1.setColumns(150);
-            jTextArea1.setLineWrap(true);
-            jTextArea1.setRows(5);
-            jScrollPane1.setViewportView(jTextArea1);
+            testoCifrato.setColumns(150);
+            testoCifrato.setLineWrap(true);
+            testoCifrato.setRows(5);
+            testoCifrato.setCaret(new DefaultCaret() {
+                @Override
+                public void setSelectionVisible(boolean visible) {
+                    super.setSelectionVisible(true);
+                }
+            });
+            testoCifrato.addCaretListener(new javax.swing.event.CaretListener() {
+                public void caretUpdate(javax.swing.event.CaretEvent evt) {
+                    testoCifratoCaretUpdate(evt);
+                }
+            });
+            jScrollPane1.setViewportView(testoCifrato);
 
             jPanel2.add(jScrollPane1);
 
-            jTextArea2.setColumns(150);
-            jTextArea2.setLineWrap(true);
-            jTextArea2.setRows(5);
-            jScrollPane2.setViewportView(jTextArea2);
+            testoSemiDecifrato.setColumns(150);
+            testoSemiDecifrato.setLineWrap(true);
+            testoSemiDecifrato.setRows(5);
+            testoSemiDecifrato.setCaret(new DefaultCaret() {
+                @Override
+                public void setSelectionVisible(boolean visible) {
+                    super.setSelectionVisible(true);
+                }
+            });
+            testoSemiDecifrato.addCaretListener(new javax.swing.event.CaretListener() {
+                public void caretUpdate(javax.swing.event.CaretEvent evt) {
+                    testoSemiDecifratoCaretUpdate(evt);
+                }
+            });
+            jScrollPane2.setViewportView(testoSemiDecifrato);
 
             jPanel2.add(jScrollPane2);
 
             jPanel1.add(jPanel2);
-
-            faiAssunzioniTestButton.setText("Fai Assunzioni");
-            faiAssunzioniTestButton.addActionListener(new java.awt.event.ActionListener() {
-                public void actionPerformed(java.awt.event.ActionEvent evt) {
-                    faiAssunzioniTestButtonActionPerformed(evt);
-                }
-            });
-
-            undoButtonTest.setText("Annulla...");
-            undoButtonTest.addActionListener(new java.awt.event.ActionListener() {
-                public void actionPerformed(java.awt.event.ActionEvent evt) {
-                    undoButtonTestActionPerformed(evt);
-                }
-            });
-
-            javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
-            jPanel3.setLayout(jPanel3Layout);
-            jPanel3Layout.setHorizontalGroup(
-                jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(jPanel3Layout.createSequentialGroup()
-                    .addGap(60, 60, 60)
-                    .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                        .addGroup(jPanel3Layout.createSequentialGroup()
-                            .addComponent(undoButtonTest)
-                            .addGap(85, 85, 85)
-                            .addComponent(faiAssunzioniTestButton))
-                        .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 298, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addContainerGap(120, Short.MAX_VALUE))
-            );
-            jPanel3Layout.setVerticalGroup(
-                jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                    .addGap(22, 22, 22)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGap(18, 18, 18)
-                    .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(faiAssunzioniTestButton)
-                        .addComponent(undoButtonTest))
-                    .addContainerGap(291, Short.MAX_VALUE))
-            );
-
-            jTabbedPane1.addTab("Assunzioni", jPanel3);
 
             jPanel7.setLayout(new javax.swing.BoxLayout(jPanel7, javax.swing.BoxLayout.PAGE_AXIS));
 
@@ -312,6 +293,48 @@ public class SessioneApertaPanel extends javax.swing.JPanel {
 
         jTabbedPane1.addTab("Informazioni", jPanel6);
 
+        faiAssunzioniTestButton.setText("Fai Assunzioni");
+        faiAssunzioniTestButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                faiAssunzioniTestButtonActionPerformed(evt);
+            }
+        });
+
+        undoButtonTest.setText("Annulla...");
+        undoButtonTest.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                undoButtonTestActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
+        jPanel3.setLayout(jPanel3Layout);
+        jPanel3Layout.setHorizontalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addGap(60, 60, 60)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addComponent(undoButtonTest)
+                        .addGap(85, 85, 85)
+                        .addComponent(faiAssunzioniTestButton))
+                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 298, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(120, Short.MAX_VALUE))
+        );
+        jPanel3Layout.setVerticalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
+                .addGap(22, 22, 22)
+                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(faiAssunzioniTestButton)
+                    .addComponent(undoButtonTest))
+                .addContainerGap(291, Short.MAX_VALUE))
+        );
+
+        jTabbedPane1.addTab("Assunzioni", jPanel3);
+
         jPanel1.add(jTabbedPane1);
 
         add(jPanel1, java.awt.BorderLayout.CENTER);
@@ -428,7 +451,6 @@ public class SessioneApertaPanel extends javax.swing.JPanel {
 
     private void salvaSoluzioneButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_salvaSoluzioneButtonActionPerformed
         try {
-            // TODO add your handling code here:
             if (sessController.salvaSoluzione(sessione)) {
                 feedbackSessione.setText("Soluzione salvata.");
             } else {
@@ -441,12 +463,24 @@ public class SessioneApertaPanel extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_salvaSoluzioneButtonActionPerformed
 
+    private void testoCifratoCaretUpdate(javax.swing.event.CaretEvent evt) {//GEN-FIRST:event_testoCifratoCaretUpdate
+        if (testoCifrato.getSelectionStart() != testoSemiDecifrato.getSelectionStart() || testoCifrato.getSelectionEnd() != testoSemiDecifrato.getSelectionEnd()) {
+            testoSemiDecifrato.select(testoCifrato.getSelectionStart(), testoCifrato.getSelectionEnd());
+        }
+    }//GEN-LAST:event_testoCifratoCaretUpdate
+
+    private void testoSemiDecifratoCaretUpdate(javax.swing.event.CaretEvent evt) {//GEN-FIRST:event_testoSemiDecifratoCaretUpdate
+        if (testoCifrato.getSelectionStart() != testoSemiDecifrato.getSelectionStart() || testoCifrato.getSelectionEnd() != testoSemiDecifrato.getSelectionEnd()) {
+            testoCifrato.select(testoSemiDecifrato.getSelectionStart(), testoSemiDecifrato.getSelectionEnd());
+        }
+    }//GEN-LAST:event_testoSemiDecifratoCaretUpdate
+
     private void provaMappaturaCorrente(Mappatura m, Boolean aggiornaMessaggio) {
         try {
             /* temporaneamente è così */
             if (aggiornaMessaggio) {
-                jTextArea1.setText(messaggio.getTestoCifrato());
-                jTextArea2.setText(Cifratore.decifraMonoalfabetica(m, messaggio.getTestoCifrato()));
+                testoCifrato.setText(messaggio.getTestoCifrato());
+                testoSemiDecifrato.setText(Cifratore.decifraMonoalfabetica(m, messaggio.getTestoCifrato()));
             }
             undoButton.setEnabled(sessController.getMosse(sessione).size() > 1);
             for (CharField charField : charFields) {
@@ -595,13 +629,13 @@ public class SessioneApertaPanel extends javax.swing.JPanel {
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JTable jTable1;
     private javax.swing.JTable jTable2;
-    private javax.swing.JTextArea jTextArea1;
-    private javax.swing.JTextArea jTextArea2;
     private javax.swing.JTextField jTextField1;
     private javax.swing.JLabel linguaLabel;
     private javax.swing.JLabel mittenteLabel;
     private javax.swing.JButton salvaSessioneButton;
     private javax.swing.JButton salvaSoluzioneButton;
+    private javax.swing.JTextArea testoCifrato;
+    private javax.swing.JTextArea testoSemiDecifrato;
     private javax.swing.JLabel titoloLabel;
     private javax.swing.JButton undoButton;
     private javax.swing.JButton undoButtonTest;

@@ -316,7 +316,7 @@ public class SessionePanel extends javax.swing.JPanel {
 
     private void creaNuovaSessionePanel(Sessione sessione) {
         SessioneApertaPanel nuovaSessionePanel = new SessioneApertaPanel((sessione));
-        jTabbedPane1.addTab("sessione", nuovaSessionePanel);
+        jTabbedPane1.addTab("Sessione", nuovaSessionePanel);
         int newIndex = jTabbedPane1.indexOfComponent(nuovaSessionePanel);
         jTabbedPane1.setTabComponentAt(newIndex, new ButtonTabComponent(jTabbedPane1));
         jTabbedPane1.setSelectedIndex(newIndex);

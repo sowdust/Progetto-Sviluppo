@@ -146,12 +146,6 @@ public class GUI extends javax.swing.JFrame {
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gridBagConstraints.ipadx = 150;
         registrationPanel.add(registraNickField, gridBagConstraints);
-
-        registraCognomeField.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                registraCognomeFieldActionPerformed(evt);
-            }
-        });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 8;
@@ -264,10 +258,6 @@ public class GUI extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jButton2ActionPerformed
 
-    private void registraCognomeFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_registraCognomeFieldActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_registraCognomeFieldActionPerformed
-
     private Studente studente = null;
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel communicationPanel;
@@ -280,10 +270,6 @@ public class GUI extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
-    private javax.swing.JPasswordField jPasswordField1;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
-    private javax.swing.JTextField jTextField3;
     private javax.swing.JToolBar jToolBar1;
     private javax.swing.JButton loginButton;
     private javax.swing.JPanel loginFormPanel;
