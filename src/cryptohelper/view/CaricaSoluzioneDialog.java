@@ -154,8 +154,10 @@ public class CaricaSoluzioneDialog extends javax.swing.JDialog {
 
         // TODO add your handling code here:
         Soluzione s = (Soluzione) dlm.getSelectedItem();
-        sessionController.caricaSoluzione(sessione, s);
-        pannello.segnalaSoluzioneCaricata();
+        if (s != null) {
+            sessionController.caricaSoluzione(sessione, s);
+            pannello.segnalaSoluzioneCaricata();
+        }
         doClose(RET_OK, "");
 
     }//GEN-LAST:event_confermaCaricaButtonActionPerformed
