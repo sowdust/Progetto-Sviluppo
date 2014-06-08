@@ -58,6 +58,7 @@ public class GUI extends javax.swing.JFrame {
         registraNickField = new javax.swing.JTextField();
         registraCognomeField = new javax.swing.JTextField();
         registraPassField = new javax.swing.JPasswordField();
+        registrationErrorLabel = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
@@ -156,6 +157,10 @@ public class GUI extends javax.swing.JFrame {
         gridBagConstraints.ipadx = 150;
         registrationPanel.add(registraPassField, gridBagConstraints);
 
+        registrationErrorLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        registrationErrorLabel.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
+        registrationPanel.add(registrationErrorLabel, new java.awt.GridBagConstraints());
+
         jLabel1.setText("Nome");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
@@ -241,12 +246,13 @@ public class GUI extends javax.swing.JFrame {
                 comunicationTabs.addTab("Soluzioni", new SoluzioniPanel(studente));
                 cl.show(getContentPane(), "card6");
             } else {
-                errorLoginLabel.setText("nickname o password errati");
+                registrationErrorLabel.setText("Registrazione non riuscita.");
             }
         } catch (SQLException ex) {
+            registrationErrorLabel.setText("Registrazione non riuscita: problemi col database");
             Logger.getLogger(GUI.class.getName()).log(Level.SEVERE, null, ex);
         } catch (RuntimeException e) {
-            System.out.println(e);
+            registrationErrorLabel.setText("Registrazione non riuscita: " + e.getMessage());
         }
     }//GEN-LAST:event_jButton2ActionPerformed
 
@@ -275,6 +281,7 @@ public class GUI extends javax.swing.JFrame {
     private javax.swing.JTextField registraNickField;
     private javax.swing.JTextField registraNomeField;
     private javax.swing.JPasswordField registraPassField;
+    private javax.swing.JLabel registrationErrorLabel;
     private javax.swing.JPanel registrationPanel;
     // End of variables declaration//GEN-END:variables
 }
