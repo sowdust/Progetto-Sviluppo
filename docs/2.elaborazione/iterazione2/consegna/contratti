@@ -21,7 +21,7 @@ Postcondizioni: l'Ipotesi precedente all'ultima Mossa diventa l'Ipotesi corrente
 Operazione:     mostraSoluzioni(st1, st2)
 Riferimenti:    uc: GestisciSoluzioni
 Precondizioni:  Studente st identificato, Studenti st1 e st2 esistenti 
-Postcondizioni: st1 ed st2 sono parametri facoltativi. se presenti, verranno mostrate le soluzioni in cui st1 o st2 sono mittente o destinatario.
+Postcondizioni: vengono mostrate le Soluzioni dello Studente di cui st1 o st2 erano o mittente o destinatario 
 
 Operazione:     salvaSoluzione()
 Riferimenti:    uc: SalvaSoluzione
