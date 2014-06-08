@@ -136,7 +136,7 @@ public class GUI extends javax.swing.JFrame {
         registrationPanel.setLayout(new java.awt.GridBagLayout());
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
-        gridBagConstraints.gridy = 0;
+        gridBagConstraints.gridy = 7;
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gridBagConstraints.ipadx = 150;
         registrationPanel.add(registraNomeField, gridBagConstraints);
@@ -160,12 +160,16 @@ public class GUI extends javax.swing.JFrame {
 
         registrationErrorLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         registrationErrorLabel.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
-        registrationPanel.add(registrationErrorLabel, new java.awt.GridBagConstraints());
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 12;
+        gridBagConstraints.gridwidth = 2;
+        registrationPanel.add(registrationErrorLabel, gridBagConstraints);
 
         jLabel1.setText("Nome");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 0;
+        gridBagConstraints.gridy = 7;
         registrationPanel.add(jLabel1, gridBagConstraints);
 
         jLabel2.setText("Cognome");
