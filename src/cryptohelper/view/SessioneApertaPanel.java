@@ -433,7 +433,6 @@ public class SessioneApertaPanel extends javax.swing.JPanel {
              */
             JFrame padre = (JFrame) SwingUtilities.getWindowAncestor(this);
             AlreadyReachedDialog ard = new AlreadyReachedDialog(padre, true, sessione.getCommento());
-
             if (ard.getReturnStatus() == AlreadyReachedDialog.RET_UNDO) {
                 sessController.undo(sessione, sessione.getCommento());
             }
@@ -453,10 +452,10 @@ public class SessioneApertaPanel extends javax.swing.JPanel {
         try {
             if (sessController.salvaSoluzione(sessione)) {
                 feedbackSessione.setText("Soluzione salvata.");
+                salvaSessioneButton.setEnabled(false);
             } else {
                 feedbackSessione.setText("Mappatura non completa. Soluzione non salvata.");
             }
-            salvaSessioneButton.setEnabled(false);
 
         } catch (SQLException ex) {
             feedbackSessione.setText("Errore SQL: " + ex);
