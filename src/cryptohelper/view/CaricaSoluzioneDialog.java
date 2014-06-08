@@ -30,15 +30,19 @@ public class CaricaSoluzioneDialog extends javax.swing.JDialog {
     private static UserInfo proprietario;
     private static Sessione sessione;
     private static SessioneApertaPanel pannello;
+    private static UserInfo mittente;
+    private static UserInfo destinatario;
 
     /**
      * Creates new form CaricaSoluzioneDialog
      */
-    public CaricaSoluzioneDialog(java.awt.Frame parent, boolean modal, UserInfo proprietario, Sessione sessione, SessioneApertaPanel pannello) {
+    public CaricaSoluzioneDialog(java.awt.Frame parent, boolean modal, UserInfo proprietario, Sessione sessione, SessioneApertaPanel pannello, UserInfo mittente, UserInfo destinatario) {
         super(parent, modal);
         CaricaSoluzioneDialog.sessione = sessione;
         CaricaSoluzioneDialog.proprietario = proprietario;
         CaricaSoluzioneDialog.pannello = pannello;
+        CaricaSoluzioneDialog.mittente = mittente;
+        CaricaSoluzioneDialog.destinatario = destinatario;
         initComponents();
         setVisible(true);
     }
@@ -94,15 +98,13 @@ public class CaricaSoluzioneDialog extends javax.swing.JDialog {
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(55, 55, 55)
-                .addComponent(confermaCaricaButton)
-                .addGap(129, 129, 129)
-                .addComponent(annullaCaricaButton)
-                .addGap(73, 73, 73))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                .addContainerGap(117, Short.MAX_VALUE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(confermaCaricaButton)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(annullaCaricaButton))
                     .addComponent(caricaSoluzioneComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 206, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel1))
                 .addGap(114, 114, 114))
@@ -110,14 +112,15 @@ public class CaricaSoluzioneDialog extends javax.swing.JDialog {
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(78, 78, 78)
+                .addGap(33, 33, 33)
                 .addComponent(jLabel1)
-                .addGap(30, 30, 30)
+                .addGap(43, 43, 43)
                 .addComponent(caricaSoluzioneComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(36, 36, 36)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGap(18, 18, 18)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(confermaCaricaButton)
-                    .addComponent(annullaCaricaButton)))
+                    .addComponent(annullaCaricaButton))
+                .addGap(50, 50, 50))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -209,7 +212,7 @@ public class CaricaSoluzioneDialog extends javax.swing.JDialog {
         /* Create and display the dialog */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                CaricaSoluzioneDialog dialog = new CaricaSoluzioneDialog(new javax.swing.JFrame(), true, proprietario, sessione, pannello);
+                CaricaSoluzioneDialog dialog = new CaricaSoluzioneDialog(new javax.swing.JFrame(), true, proprietario, sessione, pannello, mittente, destinatario);
                 dialog.addWindowListener(new java.awt.event.WindowAdapter() {
                     @Override
                     public void windowClosing(java.awt.event.WindowEvent e) {

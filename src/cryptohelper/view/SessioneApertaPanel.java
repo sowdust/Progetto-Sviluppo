@@ -445,7 +445,7 @@ public class SessioneApertaPanel extends javax.swing.JPanel {
 
     private void caricaSoluzioneButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_caricaSoluzioneButtonActionPerformed
         JFrame padre = (JFrame) SwingUtilities.getWindowAncestor(this);
-        CaricaSoluzioneDialog caricaSoluzioneDialog = new CaricaSoluzioneDialog(padre, true, proprietario, sessione, this);
+        CaricaSoluzioneDialog caricaSoluzioneDialog = new CaricaSoluzioneDialog(padre, true, proprietario, sessione, this, messaggio.getMittente(), messaggio.getDestinatario());
     }//GEN-LAST:event_caricaSoluzioneButtonActionPerformed
 
     private void salvaSoluzioneButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_salvaSoluzioneButtonActionPerformed

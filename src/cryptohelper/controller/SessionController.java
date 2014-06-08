@@ -64,13 +64,24 @@ public class SessionController {
         return s.elimina();
     }
 
-    public List<Soluzione> mostraSoluzioni(UserInfo st1, UserInfo st2) {
-        throw new UnsupportedOperationException();
+    public List<Soluzione> mostraSoluzioni(UserInfo st1, UserInfo st2, UserInfo proprietario) throws SQLException {
+        DBController dbc = DBController.getInstance();
+        CachedRowSet crs = dbc.execute("SELECT Soluzione.ID FROM Messaggio JOIN Soluzione\n"
+                + "ON Soluzione.MESSAGGIO = Messaggio.ID"
+                + "AND (Messaggio.MITTENTE = ? OR Messaggio.DESTINATARIO = ?"
+                + "     OR Messaggio.MITTENTE = ? OR Messaggio.DESTINATARIO = ?)"
+                + "AND Soluzione.PROPRIETARIO = ?", st1.getId(), st1.getId(),
+                st2.getId(), st2.getId(), proprietario.getId());
+        List<Soluzione> result = new LinkedList<>();
+        while (crs.next()) {
+            result.add(new Soluzione(crs));
+        }
+        return result;
     }
 
     public List<Soluzione> mostraSoluzioni(UserInfo proprietario) throws SQLException {
         DBController dbc = DBController.getInstance();
-        CachedRowSet crs = dbc.execute("SELECT * FROM Soluzione "
+        CachedRowSet crs = dbc.execute("SELECT * FROM Soluzione  "
                 + "WHERE Creatore = ? ", proprietario.getId());
         List<Soluzione> result = new LinkedList<>();
         while (crs.next()) {
