@@ -66,6 +66,21 @@ public class Studente {
         return null;
     }
 
+    public static Studente registra(String nome, String cognome, String nickname, String password) throws SQLException {
+        DBController dbc = DBController.getInstance();
+        CachedRowSet crs = dbc.execute("SELECT * FROM Studente WHERE nickname = ? ", nickname);
+        if (crs.next()) {
+            throw new RuntimeException("Nickname già in uso");
+        }
+        int id = dbc.executeInsert("INSERT INTO Studente (nome, cognome, nickname, password) "
+                + "VALUES (?,?,?,?)", nome, cognome, nickname, password);
+        if (id != -1) {
+            return login(nickname, password);
+        }
+
+        return null;
+    }
+
     public UserInfo getUserInfo() {
         return new UserInfo(id, nome, cognome);
     }
