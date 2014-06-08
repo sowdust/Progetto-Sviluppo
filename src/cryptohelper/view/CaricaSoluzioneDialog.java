@@ -66,16 +66,6 @@ public class CaricaSoluzioneDialog extends javax.swing.JDialog {
         jLabel1.setText("Seleziona una Soluzione da caricare");
 
         caricaSoluzioneComboBox.setModel(new javax.swing.DefaultComboBoxModel<Soluzione>());
-        caricaSoluzioneComboBox.addComponentListener(new java.awt.event.ComponentAdapter() {
-            public void componentShown(java.awt.event.ComponentEvent evt) {
-                caricaSoluzioneComboBoxComponentShown(evt);
-            }
-        });
-        caricaSoluzioneComboBox.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                caricaSoluzioneComboBoxActionPerformed(evt);
-            }
-        });
         caricaSoluzioneComboBox.addAncestorListener(new javax.swing.event.AncestorListener() {
             public void ancestorMoved(javax.swing.event.AncestorEvent evt) {
             }
@@ -107,44 +97,38 @@ public class CaricaSoluzioneDialog extends javax.swing.JDialog {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(55, 55, 55)
                 .addComponent(confermaCaricaButton)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 70, Short.MAX_VALUE)
+                .addGap(129, 129, 129)
                 .addComponent(annullaCaricaButton)
                 .addGap(73, 73, 73))
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(87, 87, 87)
-                        .addComponent(jLabel1))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(134, 134, 134)
-                        .addComponent(caricaSoluzioneComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(caricaSoluzioneComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 206, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel1))
+                .addGap(114, 114, 114))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(78, 78, 78)
                 .addComponent(jLabel1)
-                .addGap(27, 27, 27)
+                .addGap(30, 30, 30)
                 .addComponent(caricaSoluzioneComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(36, 36, 36)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(confermaCaricaButton)
-                    .addComponent(annullaCaricaButton))
-                .addContainerGap(43, Short.MAX_VALUE))
+                    .addComponent(annullaCaricaButton)))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         pack();
@@ -172,11 +156,11 @@ public class CaricaSoluzioneDialog extends javax.swing.JDialog {
             dlm = (DefaultComboBoxModel<Soluzione>) caricaSoluzioneComboBox.getModel();
             System.out.println("in dialog action");
             System.out.println("Caricate " + soluzioni.size() + "soluzioni");
-
             for (int i = 0; i < soluzioni.size(); i++) {
                 Soluzione soluzione = soluzioni.get(i);
                 dlm.addElement(soluzione);
             }
+            caricaSoluzioneComboBox.setSelectedIndex(-1);
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
