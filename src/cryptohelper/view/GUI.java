@@ -53,6 +53,8 @@ public class GUI extends javax.swing.JFrame {
         passLoginField = new javax.swing.JPasswordField();
         loginButton = new javax.swing.JButton();
         errorLoginLabel = new javax.swing.JLabel();
+        jToolBar1 = new javax.swing.JToolBar();
+        jLabel5 = new javax.swing.JLabel();
         registrationPanel = new javax.swing.JPanel();
         jTextField1 = new javax.swing.JTextField();
         jTextField2 = new javax.swing.JTextField();
@@ -122,6 +124,11 @@ public class GUI extends javax.swing.JFrame {
         loginFormPanel.add(errorLoginLabel, gridBagConstraints);
 
         loginPanel.add(loginFormPanel, java.awt.BorderLayout.CENTER);
+
+        jToolBar1.setRollover(true);
+        jToolBar1.add(jLabel5);
+
+        loginPanel.add(jToolBar1, java.awt.BorderLayout.PAGE_END);
 
         getContentPane().add(loginPanel, "card6");
 
@@ -214,6 +221,7 @@ public class GUI extends javax.swing.JFrame {
                 errorLoginLabel.setText("nickname o password errati");
             }
         } catch (SQLException ex) {
+            jLabel5.setText("Errore connessione al database");
             Logger.getLogger(GUI.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_loginButtonActionPerformed
@@ -229,10 +237,12 @@ public class GUI extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
     private javax.swing.JPasswordField jPasswordField1;
     private javax.swing.JTextField jTextField1;
     private javax.swing.JTextField jTextField2;
     private javax.swing.JTextField jTextField3;
+    private javax.swing.JToolBar jToolBar1;
     private javax.swing.JButton loginButton;
     private javax.swing.JPanel loginFormPanel;
     private javax.swing.JPanel loginPanel;
