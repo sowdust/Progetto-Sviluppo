@@ -1,18 +1,7 @@
-Tra parentesi le cose non strettamente necessarie ma auspicabili.
-
-Direi per lavorare alla documentazione di farlo nel branch UC3
-(cambiarla, aggiornare i file di commenti ecc..)
-
-Per modificare il TODO farlo qui in master.
-
-Prima di lavorare a qualche punto del TODO, scriverlo di fianco in modo da non 
-lavorare in due alla stessa cosa
-
+fare merge branch documentazione (UC3) e master
 
 GUI:
 
-!Testare i cambiamenti nella GUI (Carica soluzione + gestione dell'interazione utente)
-cambiare design di tab di Gestione soluzioni
 Catch e stampa di eccezione 
 (Registrazione)
 
@@ -21,10 +10,12 @@ DOCUMENTAZIONE:
 
 modificare dsd segnati con AAA o controllare le modifiche fatte
 
-TEST:
-(Comportamento albero con vari tipi di assunzioni)
-scelta di una classe significativa di cui fare lo unit testing (Fonte: file "di cosa si compone il progetto completo?")
 
+TEST:
+
+scelta di una classe significativa di cui fare lo unit testing (Fonte: file "di cosa si compone il progetto completo?")
+(Comportamento albero con vari tipi di assunzioni)
+!Testare i cambiamenti nella GUI (Carica soluzione + gestione dell'interazione utente)
 
 PRE-CONSEGNA:
 
