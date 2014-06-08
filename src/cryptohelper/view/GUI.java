@@ -56,10 +56,11 @@ public class GUI extends javax.swing.JFrame {
         jToolBar1 = new javax.swing.JToolBar();
         jLabel5 = new javax.swing.JLabel();
         registrationPanel = new javax.swing.JPanel();
-        jTextField1 = new javax.swing.JTextField();
-        jTextField2 = new javax.swing.JTextField();
-        jTextField3 = new javax.swing.JTextField();
-        jPasswordField1 = new javax.swing.JPasswordField();
+        registraNomeField = new javax.swing.JTextField();
+        registraNickField = new javax.swing.JTextField();
+        registraCognomeField = new javax.swing.JTextField();
+        registraPassField = new javax.swing.JPasswordField();
+        registrationErrorLabel = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
@@ -138,24 +139,34 @@ public class GUI extends javax.swing.JFrame {
         gridBagConstraints.gridy = 0;
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gridBagConstraints.ipadx = 150;
-        registrationPanel.add(jTextField1, gridBagConstraints);
+        registrationPanel.add(registraNomeField, gridBagConstraints);
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 9;
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gridBagConstraints.ipadx = 150;
-        registrationPanel.add(jTextField2, gridBagConstraints);
+        registrationPanel.add(registraNickField, gridBagConstraints);
+
+        registraCognomeField.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                registraCognomeFieldActionPerformed(evt);
+            }
+        });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 8;
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gridBagConstraints.ipadx = 150;
-        registrationPanel.add(jTextField3, gridBagConstraints);
+        registrationPanel.add(registraCognomeField, gridBagConstraints);
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 10;
         gridBagConstraints.ipadx = 150;
-        registrationPanel.add(jPasswordField1, gridBagConstraints);
+        registrationPanel.add(registraPassField, gridBagConstraints);
+
+        registrationErrorLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        registrationErrorLabel.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
+        registrationPanel.add(registrationErrorLabel, new java.awt.GridBagConstraints());
 
         jLabel1.setText("Nome");
         gridBagConstraints = new java.awt.GridBagConstraints();
@@ -182,6 +193,11 @@ public class GUI extends javax.swing.JFrame {
         registrationPanel.add(jLabel4, gridBagConstraints);
 
         jButton2.setText("Registrami!");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 11;
@@ -226,6 +242,32 @@ public class GUI extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_loginButtonActionPerformed
 
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        try {
+            studente = Studente.registra(registraNomeField.getText(), registraCognomeField.getText(), registraNickField.getText(), String.valueOf(registraPassField.getPassword()));
+            if (studente != null) {
+                CardLayout cl = (CardLayout) getContentPane().getLayout();
+                comunicationTabs.addTab("Messaggi", new MessagePanel(studente));
+                comunicationTabs.addTab("Proposte", new PropostePanel(studente));
+                comunicationTabs.addTab("Sistemi Cifratura", new SdcPanel(studente));
+                comunicationTabs.addTab("Sessioni", new SessionePanel(studente));
+                comunicationTabs.addTab("Soluzioni", new SoluzioniPanel(studente));
+                cl.show(getContentPane(), "card6");
+            } else {
+                registrationErrorLabel.setText("Registrazione non riuscita.");
+            }
+        } catch (SQLException ex) {
+            registrationErrorLabel.setText("Registrazione non riuscita: problemi col database");
+            Logger.getLogger(GUI.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (RuntimeException e) {
+            registrationErrorLabel.setText("Registrazione non riuscita: " + e.getMessage());
+        }
+    }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void registraCognomeFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_registraCognomeFieldActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_registraCognomeFieldActionPerformed
+
     private Studente studente = null;
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel communicationPanel;
@@ -249,6 +291,11 @@ public class GUI extends javax.swing.JFrame {
     private javax.swing.JToolBar loginToolBar;
     private javax.swing.JTextField nickLoginField;
     private javax.swing.JPasswordField passLoginField;
+    private javax.swing.JTextField registraCognomeField;
+    private javax.swing.JTextField registraNickField;
+    private javax.swing.JTextField registraNomeField;
+    private javax.swing.JPasswordField registraPassField;
+    private javax.swing.JLabel registrationErrorLabel;
     private javax.swing.JPanel registrationPanel;
     // End of variables declaration//GEN-END:variables
 }
