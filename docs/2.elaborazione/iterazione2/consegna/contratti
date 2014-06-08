@@ -1,19 +1,23 @@
-Operazione:     getFrequency(Messaggio)
+Operazione:     getFrequency(messaggio)
 Riferimenti:    uc: AnalisiDellFrequenze
-Precondizioni:  num > 0
-Postcondizioni: restituisce oggetto RisultatoAnalisiDiFrequenza che contiene le informazioni statistiche, ovvero la frequenza in percentuale di ogni carattere dell'alfabeto
+Precondizioni:  la spia è all'interno di una Sessione
+Postcondizioni: restituisce una tabella che rappresenta la percentuale delle occorrenze dei caratteri all'interno del messaggio cifrato
+
+Operazione:     getFrequency(lingua)
+Riferimenti:    uc: AnalisiDellFrequenze
+Precondizioni:  la spia è all'interno di una Sessione
+Postcondizioni: restituisce una tabella che rappresenta la percentuale delle occorrenze delle lettere nella lingua del messaggio
              
-Operazione:     faiAssunzione(nuova_assunzione)
+Operazione:     faiAssunzione(map)
 Riferimenti:    uc: AggiornaIpotesiLavoro
-Precondizioni:  ~
-Postcondizioni: viene modificato l'albero delle ipotesi restituendo un feedback (ipotesi gia' raggiunta)
+Precondizioni:  la spia è all'interno di una Sessione
+Postcondizioni: viene aggiunta una Ipotesi all'Albero delle Ipotesi
 
 Operazione:     undo(message)
 Riferimenti:    AggiornaIpotesiDiLavoro
-Precondizioni:  albero delle ipotesi non vuoto -> deve esistere una opotesi precedente a quella corrente
-Postcondizioni: si torna all'ipotesi precedente nell'albero delle ipotesi e message viene salvato nel nodo come motivazione dell'annullamento
-             -> l'Ipotesi precedente all'ultima Mossa diventa l'Ipotesi corrente. La Mossa m tale per cui ip è la successiva di m diventa l'ultima
-
+Precondizioni:  albero delle ipotesi non vuoto -> deve esistere una ipotesi precedente a quella corrente
+Postcondizioni: l'Ipotesi precedente all'ultima Mossa diventa l'Ipotesi corrente. Il messaggio dell'Ipotesi lasciata diventa "message"
+               
 Operazione:     mostraSoluzioni(st1, st2)
 Riferimenti:    uc: GestisciSoluzioni
 Precondizioni:  Studente st identificato, Studenti st1 e st2 esistenti 
@@ -21,12 +25,12 @@ Postcondizioni: st1 ed st2 sono parametri facoltativi. se presenti, verranno mos
 
 Operazione:     salvaSoluzione()
 Riferimenti:    uc: SalvaSoluzione
-Precondizioni:  Studente st identificato
-Postcondizioni: la Mappatura parziale o totale map viene associata al Messaggio msg e viene salvata una nuova Soluzione sol
+Precondizioni:  Studente st identificato, la Spia sta svolgendo una Sessione s
+Postcondizioni: viene salvata una nuova Soluzione sol, la cui mappatura viene ricavata dall'Albero delle Ipotesi della Sessione s
 
 Operazione:     caricaSoluzione(sol)
 Riferimenti:    uc: CaricaSoluzione
-Precondizioni:  Studente st identificato, sol è una soluzione   
+Precondizioni:  Studente st identificato, sol è una soluzione, l'utente sta effettuando una Sessione 
 Postcondizioni: applica la Soluzione sol al messaggio che la Spia sta violando
 
 Operazione:     eliminaSoluzione(sol)
@@ -49,12 +53,12 @@ Riferimenti:    uc: GestisciSessioni
 Precondizioni:  Studente st identificato 
 Postcondizioni: ritorna la lista delle sessioni create dal Studente st
 
-Operazione:     caricaSessione(id, proprietario)
+Operazione:     caricaSessione(sessione)
 Riferimenti:    uc: CaricaSessione
-Precondizioni:  Studente st identificato, s è una Sessione
-Postcondizioni: viene riaperta la Sessione s
+Precondizioni:  Studente st identificato, sessione è una Sessione creata dallo studente st
+Postcondizioni: viene riaperta la Sessione sessione
 
-Operazione:     eliminaSessione(s)
+Operazione:     eliminaSessione(sessione)
 Riferimenti:    uc: GestisciSessioni
-Precondizioni:  Studente st identificato, s è una Sessione 
-Postcondizioni: la Sessione s viene eliminata 
+Precondizioni:  Studente st identificato, sessione è una Sessione creata dallo studente st
+Postcondizioni: la Sessione sessione viene eliminata 

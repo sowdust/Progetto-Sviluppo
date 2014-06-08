@@ -1,1 +1,10 @@
+*AAA-AggiornaIpotesiLavoro:
 Non mi sembra che ci sia, nel ciclo di analisi, un momento in cui si decide se la decondifica è completata, si rimanda solo a un generico feedback del sistema. Questa parte sarebbe da dettagliare meglio in particolare l'interazione spia/sistema. Per il resto va bene.
+
+MattiaV: in EffettuaSessioneDiAnalisi in fondo c'è una include di GestisciSoluzioni.
+forse dovremo creare questo UC, forse no?
+
+
+*AAA-AnalisiDelleFrequenze:
+MattiaV: è normale che ci sia un riquadro "elabora frequenze" nel ramo del sistema dopo che l'interazione con l'utente è già finita?
+Forse il mio DIA lo visualizza male, ma mi pare che questo riquadro vada spostato tra la chiamata dell'utente getFrequency(messaggio) e il ritorno del sistema delle frequenze.
