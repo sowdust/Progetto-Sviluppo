@@ -81,8 +81,7 @@ public class AnalisiFrequenze {
         }
     }
 
-    private static final Map<String, Map<Character, Double>> frequenzeLingue;
-    private static final Map<Character, Double> frequenzeItaliano;
+    private static final Map<String, Map<Character, Double>> frequenzeLingue = new HashMap();
 
     static {
         Map<Character, Double> aMap = new HashMap();
@@ -112,10 +111,38 @@ public class AnalisiFrequenze {
         aMap.put('w', 0.0);
         aMap.put('x', 0.0);
         aMap.put('y', 0.0);
-        frequenzeItaliano = Collections.unmodifiableMap(aMap);
 
-        frequenzeLingue = new HashMap();
-        frequenzeLingue.put("Italiano", frequenzeItaliano);
+        frequenzeLingue.put("Italiano", Collections.unmodifiableMap(aMap));
+
+        aMap = new HashMap();
+        aMap.put('e', 13.00);
+        aMap.put('t', 9.06);
+        aMap.put('a', 8.17);
+        aMap.put('o', 7.52);
+        aMap.put('i', 6.97);
+        aMap.put('n', 6.75);
+        aMap.put('s', 6.33);
+        aMap.put('h', 6.09);
+        aMap.put('r', 5.99);
+        aMap.put('d', 4.25);
+        aMap.put('l', 4.03);
+        aMap.put('c', 2.78);
+        aMap.put('u', 2.76);
+        aMap.put('m', 2.41);
+        aMap.put('w', 2.36);
+        aMap.put('f', 2.23);
+        aMap.put('g', 2.02);
+        aMap.put('y', 1.97);
+        aMap.put('p', 1.93);
+        aMap.put('b', 1.49);
+        aMap.put('v', 0.98);
+        aMap.put('k', 0.77);
+        aMap.put('j', 0.15);
+        aMap.put('x', 0.15);
+        aMap.put('q', 0.10);
+        aMap.put('z', 0.07);
+
+        frequenzeLingue.put("Inglese", Collections.unmodifiableMap(aMap));
     }
 
 }
