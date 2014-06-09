@@ -38,6 +38,7 @@ public class CaricaSoluzioneDialog extends javax.swing.JDialog {
      */
     public CaricaSoluzioneDialog(java.awt.Frame parent, boolean modal, UserInfo proprietario, Sessione sessione, SessioneApertaPanel pannello, UserInfo mittente, UserInfo destinatario) {
         super(parent, modal);
+        setLocationRelativeTo(parent);
         CaricaSoluzioneDialog.sessione = sessione;
         CaricaSoluzioneDialog.proprietario = proprietario;
         CaricaSoluzioneDialog.pannello = pannello;
@@ -155,7 +156,7 @@ public class CaricaSoluzioneDialog extends javax.swing.JDialog {
 
     private void caricaSoluzioneComboBoxAncestorAdded(javax.swing.event.AncestorEvent evt) {//GEN-FIRST:event_caricaSoluzioneComboBoxAncestorAdded
         try {
-            List<Soluzione> soluzioni = sessionController.mostraSoluzioni(proprietario);
+            List<Soluzione> soluzioni = sessionController.mostraSoluzioni(mittente, destinatario, proprietario);
             dlm = (DefaultComboBoxModel<Soluzione>) caricaSoluzioneComboBox.getModel();
             System.out.println("in dialog action");
             System.out.println("Caricate " + soluzioni.size() + "soluzioni");

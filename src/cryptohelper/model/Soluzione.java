@@ -57,7 +57,7 @@ public class Soluzione {
     public String toString() {
         return "F:" + messaggio.getMittente()
                 + " T: " + messaggio.getDestinatario()
-                + " " + mappatura.toStringa();
+                + " Oggetto:" + messaggio.getTitolo();
 
     }
 

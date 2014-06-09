@@ -68,9 +68,9 @@ public class SessionController {
         DBController dbc = DBController.getInstance();
         CachedRowSet crs = dbc.execute("SELECT Soluzione.ID FROM Messaggio JOIN Soluzione\n"
                 + "ON Soluzione.MESSAGGIO = Messaggio.ID"
-                + "AND (Messaggio.MITTENTE = ? OR Messaggio.DESTINATARIO = ?"
-                + "     OR Messaggio.MITTENTE = ? OR Messaggio.DESTINATARIO = ?)"
-                + "AND Soluzione.PROPRIETARIO = ?", st1.getId(), st1.getId(),
+                + " AND (Messaggio.MITTENTE = ? OR Messaggio.DESTINATARIO = ? "
+                + "OR Messaggio.MITTENTE = ? OR Messaggio.DESTINATARIO = ?) "
+                + "AND Soluzione.CREATORE = ?", st1.getId(), st1.getId(),
                 st2.getId(), st2.getId(), proprietario.getId());
         List<Soluzione> result = new LinkedList<>();
         while (crs.next()) {

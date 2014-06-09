@@ -1,12 +1,10 @@
 fare merge branch documentazione (UC3) e master
 
 GUI:
- 
+bug in mostraSoluzioni nella query
+
 DOCUMENTAZIONE:
 Fare modello di dominio UC3
-
-TEST:
-scelta di una classe significativa di cui fare lo unit testing (Fonte: file "di cosa si compone il progetto completo?")
 
 PRE-CONSEGNA:
 Controllare che non ci siano cose tipo "suca" in giro
