@@ -1,0 +1,6 @@
+UC2:
+Soluzione -> Messaggio è stata cambiata ad 1..1
+aggiunto MessaggioSpia
+UC3:
+non è il coordinatore che imposta la difficoltà della sfida, ma il giocatore che sceglie a che difficoltà giocare.
+la sfida mantiene tutte le possibilità dentro di sè. forse dovrebbe essere 'difficoltà' un concetto a parte?
