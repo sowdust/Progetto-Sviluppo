@@ -1,8 +1,9 @@
 fare merge branch documentazione (UC3) e master
 
 GUI:
-
-
+BUG - fai Assunzioni si può premere senza aver inserito nessuna nuova assunzione. questo porta ad un
+feedback di stato già raggiunto privo di messaggio.
+ 
 DOCUMENTAZIONE:
 Fare modello di dominio UC3
 
@@ -12,7 +13,7 @@ scelta di una classe significativa di cui fare lo unit testing (Fonte: file "di 
 PRE-CONSEGNA:
 Controllare che non ci siano cose tipo "suca" in giro
 Riempire il db con messaggi significativi
-Decidere la divisione della presentazione di mercoled�
+Decidere la divisione della presentazione di mercoled�
 (Pulizia codice)  
 
 
