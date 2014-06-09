@@ -58,6 +58,8 @@ public class SessioneApertaPanel extends javax.swing.JPanel {
         initMyComponents();
         mapCorrente = sessione.getMappaturaCorrente();
         provaMappaturaCorrente(mapCorrente, true);
+        faiAssunzioneButton.setEnabled(false);
+
     }
 
     /**
@@ -441,6 +443,7 @@ public class SessioneApertaPanel extends javax.swing.JPanel {
         mapCorrente = sessione.getMappaturaCorrente();
         daInviare = new Mappatura();
         daRimuovere = new LinkedList();
+        faiAssunzioneButton.setEnabled(false);
     }//GEN-LAST:event_faiAssunzioneButtonActionPerformed
 
     private void caricaSoluzioneButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_caricaSoluzioneButtonActionPerformed
@@ -547,7 +550,13 @@ public class SessioneApertaPanel extends javax.swing.JPanel {
                     daInviare = daInviare.merge(tempp);
                     System.out.println("Mappatura temp: " + tempp.toStringa());
                     System.out.println("Mappatura da inviare: " + daInviare.toStringa());
-                    provaMappaturaCorrente(sessione.getMappaturaCorrente().merge(mergeMapRimuovi(daInviare, daRimuovere)), false);
+                    correnteLive = sessione.getMappaturaCorrente().merge(mergeMapRimuovi(daInviare, daRimuovere));
+                    if (correnteLive.equals(sessione.getMappaturaCorrente())) {
+                        faiAssunzioneButton.setEnabled(false);
+                    } else {
+                        faiAssunzioneButton.setEnabled(true);
+                    }
+                    provaMappaturaCorrente(correnteLive, false);
 
                 }
             });
@@ -595,6 +604,10 @@ public class SessioneApertaPanel extends javax.swing.JPanel {
         salvaSessioneButton.setEnabled(true);
 
     }
+
+    // mappatura che rappresenta lo stato della mappatura corrente tenendo
+    // conto delle interazioni fatte dall'utente
+    private Mappatura correnteLive;
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel cDestinatarioLabel;

@@ -234,7 +234,7 @@ public class GUI extends javax.swing.JFrame {
                 errorLoginLabel.setText("nickname o password errati");
             }
         } catch (SQLException ex) {
-            jLabel5.setText("Errore connessione al database");
+            errorLoginLabel.setText("Errore connessione al database");
             Logger.getLogger(GUI.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_loginButtonActionPerformed
