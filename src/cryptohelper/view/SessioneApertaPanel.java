@@ -602,6 +602,7 @@ public class SessioneApertaPanel extends javax.swing.JPanel {
         mapCorrente = sessione.getMappaturaCorrente();
         provaMappaturaCorrente(mapCorrente, true);
         salvaSessioneButton.setEnabled(true);
+        faiAssunzioneButton.setEnabled(false);
 
     }
 
