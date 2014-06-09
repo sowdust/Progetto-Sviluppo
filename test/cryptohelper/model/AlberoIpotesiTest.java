@@ -7,7 +7,6 @@ package cryptohelper.model;
 
 import cryptohelper.controller.DBController;
 import java.sql.SQLException;
-import java.util.Stack;
 import org.junit.After;
 import org.junit.AfterClass;
 import static org.junit.Assert.*;
