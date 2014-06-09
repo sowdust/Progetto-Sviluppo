@@ -66,11 +66,9 @@ public class SessionController {
 
     public List<Soluzione> mostraSoluzioni(UserInfo st1, UserInfo st2, UserInfo proprietario) throws SQLException {
         DBController dbc = DBController.getInstance();
-        CachedRowSet crs = dbc.execute("SELECT Soluzione.ID FROM Messaggio JOIN Soluzione\n"
-                + "ON Soluzione.MESSAGGIO = Messaggio.ID"
-                + " AND (Messaggio.MITTENTE = ? OR Messaggio.DESTINATARIO = ? "
-                + "OR Messaggio.MITTENTE = ? OR Messaggio.DESTINATARIO = ?) "
-                + "AND Soluzione.CREATORE = ?", st1.getId(), st1.getId(),
+        CachedRowSet crs = dbc.execute("SELECT S.id, S.creatore, S.messaggio, S.mappatura FROM Messaggio AS M JOIN Soluzione AS S ON S.messaggio = M.id"
+                + " WHERE (M.mittente = ? OR M.destinatario = ? OR M.mittente = ? OR M.destinatario = ?) "
+                + "AND S.creatore = ?", st1.getId(), st1.getId(),
                 st2.getId(), st2.getId(), proprietario.getId());
         List<Soluzione> result = new LinkedList<>();
         while (crs.next()) {
