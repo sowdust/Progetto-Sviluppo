@@ -78,6 +78,24 @@ public class Ipotesi implements Serializable {
         }
     }
 
+    public String toString(int d, Ipotesi ipotesiCorrente) {
+        String result = null;
+        result += "  ";
+        for (int i = 0; i <= d; ++i) {
+            result += "     ";
+        }
+        if (this == ipotesiCorrente) {
+            result += "\b\b**";
+        }
+        assunzioni.toStringa();
+        for (Ipotesi i : figli) {
+            if (i != null) {
+                result += i.toString(d + 1, ipotesiCorrente);
+            }
+        }
+        return result;
+    }
+
     /*
      * Esplorando ricorsivamente i nodi figli, restituisce, se esiste, il primo
      * in cui lo stato sia uguale a m; null altrimenti

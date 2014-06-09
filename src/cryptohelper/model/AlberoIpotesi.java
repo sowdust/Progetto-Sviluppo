@@ -156,6 +156,10 @@ public class AlberoIpotesi implements Serializable {
         stampaAlbero();
     }
 
+    public String toString() {
+        return radice.toString(0, ipotesiCorrente);
+    }
+
     Stack<Ipotesi> getMosse() {
         return mosse;
     }
