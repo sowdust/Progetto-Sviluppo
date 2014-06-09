@@ -66,10 +66,10 @@ public class SessionController {
 
     public List<Soluzione> mostraSoluzioni(UserInfo st1, UserInfo st2, UserInfo proprietario) throws SQLException {
         DBController dbc = DBController.getInstance();
-        CachedRowSet crs = dbc.execute("SELECT S.id, S.creatore, S.messaggio, S.mappatura FROM Messaggio AS M JOIN Soluzione AS S ON S.messaggio = M.id"
-                + " WHERE (M.mittente = ? OR M.destinatario = ? OR M.mittente = ? OR M.destinatario = ?) "
-                + "AND S.creatore = ?", st1.getId(), st1.getId(),
-                st2.getId(), st2.getId(), proprietario.getId());
+        CachedRowSet crs = dbc.execute("SELECT S.id, S.creatore, S.messaggio, S.mappatura"
+                + "FROM Messaggio AS M JOIN Soluzione AS S ON S.messaggio = M.id"
+                + " WHERE (M.mittente = ? OR M.destinatario = ? OR M.mittente = ? OR M.destinatario = ?)"
+                + "AND S.creatore = ?", st1.getId(), st1.getId(), st2.getId(), st2.getId(), proprietario.getId());
         List<Soluzione> result = new LinkedList<>();
         while (crs.next()) {
             result.add(new Soluzione(crs));
@@ -104,7 +104,10 @@ public class SessionController {
         DBController dbc = DBController.getInstance();
         CachedRowSet crs = dbc.execute("SELECT * FROM Messaggio "
                 + "WHERE Bozza = ? AND Mittente != ? AND Destinatario != ? AND "
-                + "id NOT IN (SELECT messaggio FROM Sessione WHERE proprietario = ?)", false, userInfo.getId(), userInfo.getId(), userInfo.getId());
+                + "id NOT IN ("
+                + "SELECT messaggio FROM Sessione WHERE proprietario = ? "
+                + "UNION "
+                + "SELECT messaggio FROM Soluzione WHERE creatore = ?)", false, userInfo.getId(), userInfo.getId(), userInfo.getId(), userInfo.getId());
         List<MessaggioSpia> listaMessaggi = new ArrayList<>();
         while (crs.next()) {
             listaMessaggi.add(new Messaggio(crs));
