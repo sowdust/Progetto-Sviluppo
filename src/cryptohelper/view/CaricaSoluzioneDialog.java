@@ -170,14 +170,6 @@ public class CaricaSoluzioneDialog extends javax.swing.JDialog {
         }
     }//GEN-LAST:event_caricaSoluzioneComboBoxAncestorAdded
 
-    private void caricaSoluzioneComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_caricaSoluzioneComboBoxActionPerformed
-
-    }//GEN-LAST:event_caricaSoluzioneComboBoxActionPerformed
-
-    private void caricaSoluzioneComboBoxComponentShown(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_caricaSoluzioneComboBoxComponentShown
-
-    }//GEN-LAST:event_caricaSoluzioneComboBoxComponentShown
-
     private void doClose(int retStatus) {
         setVisible(false);
         dispose();
