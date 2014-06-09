@@ -160,7 +160,11 @@ public class AlberoIpotesi implements Serializable {
         return radice.toString(0, ipotesiCorrente);
     }
 
-    Stack<Ipotesi> getMosse() {
+    public Stack<Ipotesi> getMosse() {
         return mosse;
+    }
+    
+    public Ipotesi getIpotesiCorrente() {
+        return this.ipotesiCorrente;
     }
 }

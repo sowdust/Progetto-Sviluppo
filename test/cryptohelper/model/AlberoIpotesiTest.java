@@ -17,8 +17,9 @@ import org.junit.Test;
 
 /**
  * La classe AlberoIpotesiTest implementa uno Unit Testing della classe
- * AlberoIpotesi. La gerarchia dei test è: faiAssunzione -> load. 
- *                                                       -> getMappaturaCorrente
+ * AlberoIpotesi. La gerarchia dei test è: giaRaggiunta -> faiAssunzione -> load
+ *                                                                      -> getMappaturaCorrente
+ *                                                                      -> undo
  * Assioma è che AlberoIpotesi.toString non sia un metodo-truffa
  *
  * @author Mattia Cerrato, mattia.cerrato[at]studenti.unito[dot]it
@@ -50,7 +51,9 @@ public class AlberoIpotesiTest {
     }
 
     /**
-     * Test of load method, of class AlberoIpotesi.
+     * Test of load method, of class AlberoIpotesi. Viene richiamato il metodo load di due alberi
+     * su cui sono state compiute tramite GUI le stesse assunzioni, e ci si chiede se questi due
+     * abbiano la stessa rappresentazione su stringa.
      */
     @Test
     public void testLoad() {
@@ -90,16 +93,23 @@ public class AlberoIpotesiTest {
     }
 
     /**
-     * Test of undo method, of class AlberoIpotesi.
+     * Test of undo method, of class AlberoIpotesi. Vengono verificate le seguenti situazioni:
+     * 1. una undo su un albero con nessuna assunzione fatta non cambia lo stato dell'albero
+     * 2. una undo su un albero con una ipotesi non rende l'albero uguale all'albero senza ipotesi...
+     * 3. ... ma la mappatura delll'ipotesi corrente è la stessa, cioè la mappatura vuota
      */
     @Test
     public void testUndo() {
         System.out.println("undo");
-        String motivazione = "";
+        String motivazione = "prova";
         AlberoIpotesi instance = new AlberoIpotesi();
         instance.undo(motivazione);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        assertEquals(instance.toString(), alberoTest.toString());
+        alberoTest.faiAssunzione(new Mappatura("a > b"));
+//      assertFalse(alberoTest.toString().equals(instance.toString()));
+        alberoTest.undo(motivazione);
+        assertFalse(alberoTest.toString().equals(instance.toString()));
+        assertTrue(alberoTest.getIpotesiCorrente().assunzioni.toStringa().equals(instance.getIpotesiCorrente().assunzioni.toStringa()));
     }
 
     /**
@@ -129,76 +139,23 @@ public class AlberoIpotesiTest {
         nuovaMappatura = new Mappatura("c > e");
         instance.faiAssunzione(nuovaMappatura);
         result = instance.getMappaturaCorrente();
-        assertFalse(result.toStringa() == expResult.toStringa());
+        assertFalse(result.toStringa().equals(expResult.toStringa()));
     }
 
     /**
-     * Test of getAlbero method, of class AlberoIpotesi.
-     */
-    @Test
-    public void testGetAlbero() {
-        System.out.println("getAlbero");
-        AlberoIpotesi instance = new AlberoIpotesi();
-        Ipotesi expResult = null;
-        Ipotesi result = instance.getAlbero();
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
-
-    /**
-     * Test of giaRaggiunta method, of class AlberoIpotesi.
+     * Test of giaRaggiunta method, of class AlberoIpotesi. Vengono testati i seguenti casi:
+     * 1. In un albero con una sola ipotesi, l'ipotesi con la stessa mappatura risulta già raggiunta?
+     * 2. Un'ipotesi con mappatura diversa per un solo caso da una già presente risulta già raggiunta?
+     * 3. L'ipotesi con mappatura vuota risulta già raggiunta?
      */
     @Test
     public void testGiaRaggiunta() {
         System.out.println("giaRaggiunta");
-        Mappatura mappaturaCorrente = null;
-        AlberoIpotesi instance = new AlberoIpotesi();
-        Ipotesi expResult = null;
-        Ipotesi result = instance.giaRaggiunta(mappaturaCorrente);
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
-
-    /**
-     * Test of stampaAlbero method, of class AlberoIpotesi.
-     */
-    @Test
-    public void testStampaAlbero() {
-        System.out.println("stampaAlbero");
-        AlberoIpotesi instance = new AlberoIpotesi();
-        instance.stampaAlbero();
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
-
-    /**
-     * Test of getCommento method, of class AlberoIpotesi.
-     */
-    @Test
-    public void testGetCommento() {
-        System.out.println("getCommento");
-        AlberoIpotesi instance = new AlberoIpotesi();
-        String expResult = "";
-        String result = instance.getCommento();
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
-
-    /**
-     * Test of getMosse method, of class AlberoIpotesi.
-     */
-    @Test
-    public void testGetMosse() {
-        System.out.println("getMosse");
-        AlberoIpotesi instance = new AlberoIpotesi();
-        Stack<Ipotesi> expResult = null;
-        Stack<Ipotesi> result = instance.getMosse();
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        alberoTest.faiAssunzione(new Mappatura("a > b, b > c"));
+        alberoTest.undo("prova");
+        assertNotNull(alberoTest.giaRaggiunta(new Mappatura("a > b, b > c")));
+        assertNull(alberoTest.giaRaggiunta(new Mappatura("a > c, b> c")));
+        assertNotNull(alberoTest.giaRaggiunta(new Mappatura("")));
     }
 
 }

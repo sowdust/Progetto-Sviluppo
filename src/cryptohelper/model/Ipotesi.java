@@ -95,6 +95,7 @@ public class Ipotesi implements Serializable {
         }
         return result;
     }
+    
 
     /*
      * Esplorando ricorsivamente i nodi figli, restituisce, se esiste, il primo
