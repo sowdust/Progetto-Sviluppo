@@ -4,16 +4,12 @@ GUI:
 
 
 DOCUMENTAZIONE:
-
-modificare dsd segnati con AAA o controllare le modifiche fatte
-
+Fare modello di dominio UC3
 
 TEST:
-
 scelta di una classe significativa di cui fare lo unit testing (Fonte: file "di cosa si compone il progetto completo?")
 
 PRE-CONSEGNA:
-
 Controllare che non ci siano cose tipo "suca" in giro
 Riempire il db con messaggi significativi
 Decidere la divisione della presentazione di mercoledì
