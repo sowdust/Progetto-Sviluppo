@@ -146,12 +146,12 @@ public class CaricaSoluzioneDialog extends javax.swing.JDialog {
             sessionController.caricaSoluzione(sessione, s);
             pannello.segnalaSoluzioneCaricata();
         }
-        doClose(RET_OK, "");
+        doClose(RET_OK);
 
     }//GEN-LAST:event_confermaCaricaButtonActionPerformed
 
     private void annullaCaricaButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_annullaCaricaButtonActionPerformed
-        doClose(RET_CANCEL, "");
+        doClose(RET_CANCEL);
     }//GEN-LAST:event_annullaCaricaButtonActionPerformed
 
     private void caricaSoluzioneComboBoxAncestorAdded(javax.swing.event.AncestorEvent evt) {//GEN-FIRST:event_caricaSoluzioneComboBoxAncestorAdded
@@ -178,7 +178,7 @@ public class CaricaSoluzioneDialog extends javax.swing.JDialog {
 
     }//GEN-LAST:event_caricaSoluzioneComboBoxComponentShown
 
-    private void doClose(int retStatus, String mot) {
+    private void doClose(int retStatus) {
         setVisible(false);
         dispose();
     }
