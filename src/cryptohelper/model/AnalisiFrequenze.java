@@ -16,6 +16,10 @@ import java.util.Collections;
  */
 public class AnalisiFrequenze {
 
+    private AnalisiFrequenze() {
+
+    }
+
     public static Map<Character, Double> getFrequency(MessaggioSpia m) throws SQLException {
 
         Mappatura mappatura = m.getSdc().getMappatura();

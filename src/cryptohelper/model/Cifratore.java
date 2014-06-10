@@ -18,6 +18,9 @@ package cryptohelper.model;
 
 public class Cifratore {
 
+    private Cifratore() {
+    }
+
     public static String cifraMonoalfabetica(Mappatura mappa, String testo) {
         StringBuilder testoCifrato = new StringBuilder(testo.length());
         for (Character c : testo.toCharArray()) {
