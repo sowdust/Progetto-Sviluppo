@@ -156,7 +156,15 @@ public class AlberoIpotesi implements Serializable {
         stampaAlbero();
     }
 
-    Stack<Ipotesi> getMosse() {
+    public String toString() {
+        return radice.toString(0, ipotesiCorrente);
+    }
+
+    public Stack<Ipotesi> getMosse() {
         return mosse;
+    }
+    
+    public Ipotesi getIpotesiCorrente() {
+        return this.ipotesiCorrente;
     }
 }
