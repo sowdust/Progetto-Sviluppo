@@ -2,5 +2,3 @@ apriMessaggioRicevuto
 setLetto e save sono chiamati dal guicontroller. togliamo load da aprimessaggioricevuto. 
 prima di fare setletto e save facciamo getTestoCifrato, con messaggio che fa una query
 per caricare il contenuto e il commcontr imposta letto e salva 
-
-
