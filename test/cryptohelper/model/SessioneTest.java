@@ -61,7 +61,7 @@ public class SessioneTest {
         Sessione due = Sessione.load(1);
         System.out.println("test: ");
         due.getAlbero().stampaAlbero();
-        System.out.println("Prima mossa: " + due.getAlbero().mosse.get(0).getMappatura());
+        System.out.println("Prima mossa: " + due.getAlbero().getMosse().get(0).getMappatura());
     }
 
 }
