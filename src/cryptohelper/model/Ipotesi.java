@@ -17,7 +17,7 @@ public class Ipotesi implements Serializable {
         this.figli = new LinkedList<>();
     }
 
-    Ipotesi aggiungiIpotesi(Mappatura map) {
+    public Ipotesi aggiungiIpotesi(Mappatura map) {
         Ipotesi ip = new Ipotesi(map, this);
         figli.add(ip);
         return ip;
@@ -38,7 +38,7 @@ public class Ipotesi implements Serializable {
      * Percorrendo il cammino fino alla radice, restituisce il primo nodo
      * in cui vi è un assegnazione in conflitto con la mappatura m
      */
-    Ipotesi trovaConflitto(Mappatura m, List<Character> listaDaRimuovere, int conflitti) {
+    public Ipotesi trovaConflitto(Mappatura m, List<Character> listaDaRimuovere, int conflitti) {
         Mappatura diQuestoNodo = new Mappatura(assunzioni);
         if (null == padre) {
             return this;
@@ -53,14 +53,10 @@ public class Ipotesi implements Serializable {
         if (conflitti == 0 && listaDaRimuovere.isEmpty()) {
             return this.padre;
         }
-//        System.out.println("Mappa corrente: " + m);
-//        System.out.println("Da rimuovere: " + listaDaRimuovere.size());
-//        System.out.println("Conflitti rimasti: " + conflitti);
-//        System.out.println("risalgo");
         return padre.trovaConflitto(m, listaDaRimuovere, conflitti);
     }
 
-    void stampa(int d, Ipotesi ipotesiCorrente) {
+    public void stampa(int d, Ipotesi ipotesiCorrente) {
         System.out.print("  ");
         for (int i = 0; i <= d; ++i) {
             System.out.print("     ");
@@ -101,7 +97,7 @@ public class Ipotesi implements Serializable {
      * Esplorando ricorsivamente i nodi figli, restituisce, se esiste, il primo
      * in cui lo stato sia uguale a m; null altrimenti
      */
-    Ipotesi giaRaggiunta(Mappatura totale, Mappatura corrente) {
+    public Ipotesi giaRaggiunta(Mappatura totale, Mappatura corrente) {
         Mappatura stato = corrente.merge(assunzioni);
 
         // se m è uguale allo stato dell'ipotesi in cui siamo
@@ -122,11 +118,11 @@ public class Ipotesi implements Serializable {
         return null;
     }
 
-    void setCommento(String commento) {
+    public void setCommento(String commento) {
         this.commento = commento;
     }
 
-    String getCommento() {
+    public String getCommento() {
         return this.commento;
     }
 

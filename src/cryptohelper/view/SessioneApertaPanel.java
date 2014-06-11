@@ -510,7 +510,7 @@ public class SessioneApertaPanel extends javax.swing.JPanel {
         return new Mappatura(s);
     }
 
-    void segnalaSoluzioneCaricata() {
+    protected void segnalaSoluzioneCaricata() {
         feedbackSessione.setText("Soluzione caricata");
         mapCorrente = sessione.getMappaturaCorrente();
         provaMappaturaCorrente(mapCorrente, true);

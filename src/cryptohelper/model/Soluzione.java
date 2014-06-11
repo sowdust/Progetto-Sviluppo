@@ -55,9 +55,9 @@ public class Soluzione {
     }
 
     public String toString() {
-        return "F:" + messaggio.getMittente()
-                + " T: " + messaggio.getDestinatario()
-                + " Oggetto:" + messaggio.getTitolo();
+        return "M:" + messaggio.getMittente()
+                + "; D: " + messaggio.getDestinatario()
+                + "; Oggetto:" + messaggio.getTitolo();
 
     }
 

@@ -143,18 +143,7 @@ public class AlberoIpotesi implements Serializable {
         return ipotesiCorrente.getCommento();
     }
 
-    private void test(Mappatura nuoveAss, List<Character> r, int conflitti) {
-        System.out.println("Mappatura corrente:" + mappaturaCorrente);
-        System.out.println("Nuove assunzioni:" + nuoveAss);
-        System.out.print("Da rimuovere:" + nuoveAss);
-        for (char c : r) {
-            System.out.print(r + " ");
-        }
-        System.out.println();
-        System.out.println("Conflitti:" + conflitti);
-        stampaAlbero();
-    }
-
+    @Override
     public String toString() {
         return radice.toString(0, ipotesiCorrente);
     }
