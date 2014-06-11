@@ -1,12 +1,12 @@
 Operazione:     sniffMessaggi()
 Riferimenti:    uc: CreaSfida
 Precondizioni:  il Coordinatore sta creando una sfida
-Postcondizioni: ritorna una lista di tutti i messaggi inviati da tutti gli utenti
+Postcondizioni: vengono caricati tutti i messaggi presenti nel sistema
 
 Operazione:     caricaDettagliMessaggio(msg)
 Riferimenti:    uc: CreaSfida
 Precondizioni:  il Coordinatore sta creando una sfida 
-Postcondizioni: ritorna tutte il messaggio completo di tutte le sue informazioni 
+Postcondizioni: il messaggio viene caricato completo di tutte le sue informazioni 
 
 Operazione:     inizializzaSfida(messaggio)
 Riferimenti:    uc: CreaSfida
@@ -25,11 +25,10 @@ Postcondizioni: viene salvata una nuova Sfida in cui il messaggio da decifrare s
 
 Operazione:     mostraListaSfide()
 Riferimenti:    uc: EffettuaSfida
-Precondizioni:  -
+Precondizioni:  il Coordinatore è identificato
 Postcondizioni: ritorna una lista con tutte le sfide create sino a questo momento dal Coordinatore
 
 Operazione:     partecipaSfida(sfida, difficoltà)
 Riferimenti:    uc: EffettuaSfida
 Precondizioni:  il Giocatore ha scelto la difficoltà a cui intende giocare
-Postcondizioni: viene ritornata la sfida scelta dal Giocatore, con il testo cifrato di Sfida modificato
-                secondo la difficoltà scelta
+Postcondizioni: viene associata al Giocatore la sfida
