@@ -88,9 +88,6 @@ public class AlberoIpotesi implements Serializable {
         Mappatura daAggiungere;
         //System.out.println("Numero conflitti \t" + nConflitti);
         //System.out.println("Da rimuovere \t");
-        for (char c : listaDaRimuovere) {
-            //System.out.print(c + " ");
-        }
 
         if (nConflitti < 1 && listaDaRimuovere.isEmpty()) {
 
@@ -122,6 +119,7 @@ public class AlberoIpotesi implements Serializable {
             ipotesiCorrente = radice;
             mappaturaCorrente = new Mappatura();
         }
+        stampaAlbero();
     }
 
     public Mappatura getMappaturaCorrente() {
@@ -138,6 +136,7 @@ public class AlberoIpotesi implements Serializable {
 
     public void stampaAlbero() {
         radice.stampa(0, ipotesiCorrente);
+        System.out.println("-----------------------------");
     }
 
     public String getCommento() {
@@ -163,7 +162,7 @@ public class AlberoIpotesi implements Serializable {
     public Stack<Ipotesi> getMosse() {
         return mosse;
     }
-    
+
     public Ipotesi getIpotesiCorrente() {
         return this.ipotesiCorrente;
     }

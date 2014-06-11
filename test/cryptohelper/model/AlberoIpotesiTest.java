@@ -16,10 +16,7 @@ import org.junit.Test;
 
 /**
  * La classe AlberoIpotesiTest implementa uno Unit Testing della classe
- * AlberoIpotesi. La gerarchia dei test è: giaRaggiunta -> faiAssunzione -> load
- *                                                                      -> getMappaturaCorrente
- *                                                                      -> undo
- * Assioma è che AlberoIpotesi.toString non sia un metodo-truffa
+ * AlberoIpotesi.
  *
  * @author Mattia Cerrato, mattia.cerrato[at]studenti.unito[dot]it
  */
@@ -50,28 +47,11 @@ public class AlberoIpotesiTest {
     }
 
     /**
-     * Test of load method, of class AlberoIpotesi. Viene richiamato il metodo load di due alberi
-     * su cui sono state compiute tramite GUI le stesse assunzioni, e ci si chiede se questi due
-     * abbiano la stessa rappresentazione su stringa.
-     */
-    @Test
-    public void testLoad() {
-        System.out.println("load");
-        int idSessione1 = 18;
-        int idSessione2 = 19; //due sessioni con le stesse ipotesi fatte
-        AlberoIpotesi test1 = AlberoIpotesi.load(idSessione1);
-        AlberoIpotesi test2 = AlberoIpotesi.load(idSessione2);
-        assertEquals(test1.toString(), test2.toString());
-    }
-
-    /**
-     * Test of faiAssunzione method, of class AlberoIpotesi. Il metodo faiAssunzione
-     * viene eseguito su due oggetti AlberoIpotesi. Dopo ogni assunzione si controlla che
-     * gli oggetti abbiano la stessa rappresentazione su stringa, che è caratterizzante
-     * dello stato delle Ipotesi. 
-     * Le assunzioni fatte sono:
-     * 1. a > b 
-     * 2. a > b, a > e
+     * Test of faiAssunzione method, of class AlberoIpotesi. Il metodo
+     * faiAssunzione viene eseguito su due oggetti AlberoIpotesi. Dopo ogni
+     * assunzione si controlla che gli oggetti abbiano la stessa
+     * rappresentazione su stringa, che è caratterizzante dello stato delle
+     * Ipotesi. Le assunzioni fatte sono: 1. a > b 2. a > b, a > e
      */
     @Test
     public void testFaiAssunzione() {
@@ -92,10 +72,11 @@ public class AlberoIpotesiTest {
     }
 
     /**
-     * Test of undo method, of class AlberoIpotesi. Vengono verificate le seguenti situazioni:
-     * 1. una undo su un albero con nessuna assunzione fatta non cambia lo stato dell'albero
-     * 2. una undo su un albero con una ipotesi non rende l'albero uguale all'albero senza ipotesi...
-     * 3. ... ma la mappatura delll'ipotesi corrente è la stessa, cioè la mappatura vuota
+     * Test of undo method, of class AlberoIpotesi. Vengono verificate le
+     * seguenti situazioni: 1. una undo su un albero con nessuna assunzione
+     * fatta non cambia lo stato dell'albero 2. una undo su un albero con una
+     * ipotesi non rende l'albero uguale all'albero senza ipotesi... 3. ... ma
+     * la mappatura delll'ipotesi corrente è la stessa, cioè la mappatura vuota
      */
     @Test
     public void testUndo() {
@@ -112,12 +93,14 @@ public class AlberoIpotesiTest {
     }
 
     /**
-     * Test of getMappaturaCorrente method, of class AlberoIpotesi. Similmente a faiAssunzione,
-     * viene richiamato il metodo faiAssunzione su due alberi inizialmente vuoti. Si effettuano 
-     * i seguenti controlli, tramite il metodo toStringa():
-     * - la mappaturacorrente dei due alberi è uguale quando ancora non sono state fatte ipotesi?
-     * - la mappaturacorrente dei due alberi è uguale quando viene fatta la stessa ipotesi su entrambi?
-     * - la mappatura dei due alberi è differente quando uno dei due alberi ha un'ipotesi che l'altro non ha?
+     * Test of getMappaturaCorrente method, of class AlberoIpotesi. Similmente a
+     * faiAssunzione, viene richiamato il metodo faiAssunzione su due alberi
+     * inizialmente vuoti. Si effettuano i seguenti controlli, tramite il metodo
+     * toStringa(): - la mappaturacorrente dei due alberi è uguale quando ancora
+     * non sono state fatte ipotesi? - la mappaturacorrente dei due alberi è
+     * uguale quando viene fatta la stessa ipotesi su entrambi? - la mappatura
+     * dei due alberi è differente quando uno dei due alberi ha un'ipotesi che
+     * l'altro non ha?
      */
     @Test
     public void testGetMappaturaCorrente() {
@@ -142,10 +125,11 @@ public class AlberoIpotesiTest {
     }
 
     /**
-     * Test of giaRaggiunta method, of class AlberoIpotesi. Vengono testati i seguenti casi:
-     * 1. In un albero con una sola ipotesi, l'ipotesi con la stessa mappatura risulta già raggiunta?
-     * 2. Un'ipotesi con mappatura diversa per un solo caso da una già presente risulta già raggiunta?
-     * 3. L'ipotesi con mappatura vuota risulta già raggiunta?
+     * Test of giaRaggiunta method, of class AlberoIpotesi. Vengono testati i
+     * seguenti casi: 1. In un albero con una sola ipotesi, l'ipotesi con la
+     * stessa mappatura risulta già raggiunta? 2. Un'ipotesi con mappatura
+     * diversa per un solo caso da una già presente risulta già raggiunta? 3.
+     * L'ipotesi con mappatura vuota risulta già raggiunta?
      */
     @Test
     public void testGiaRaggiunta() {

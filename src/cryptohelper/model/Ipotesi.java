@@ -9,7 +9,7 @@ public class Ipotesi implements Serializable {
     public Mappatura assunzioni;
     public List<Ipotesi> figli;
     public Ipotesi padre;
-    public String commento;
+    public String commento = "";
 
     public Ipotesi(Mappatura map, Ipotesi padre) {
         this.padre = padre;
@@ -95,7 +95,7 @@ public class Ipotesi implements Serializable {
         }
         return result;
     }
-    
+
 
     /*
      * Esplorando ricorsivamente i nodi figli, restituisce, se esiste, il primo

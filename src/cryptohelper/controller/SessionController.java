@@ -29,8 +29,13 @@ public class SessionController {
         return instance;
     }
 
-    public boolean faiAssunzione(Sessione s, Mappatura nuoveAssunzioni) {
-        return s.faiAssunzione(nuoveAssunzioni);
+    public String faiAssunzione(Sessione s, Mappatura nuoveAssunzioni) {
+        if (s.faiAssunzione(nuoveAssunzioni)) {
+            return null;
+        } else {
+            return s.getCommento();
+        }
+
     }
 
     public void undo(Sessione s, String motivazione) {
@@ -66,9 +71,9 @@ public class SessionController {
 
     public List<Soluzione> mostraSoluzioni(UserInfo st1, UserInfo st2, UserInfo proprietario) throws SQLException {
         DBController dbc = DBController.getInstance();
-        CachedRowSet crs = dbc.execute("SELECT S.id, S.creatore, S.messaggio, S.mappatura"
-                + "FROM Messaggio AS M JOIN Soluzione AS S ON S.messaggio = M.id"
-                + " WHERE (M.mittente = ? OR M.destinatario = ? OR M.mittente = ? OR M.destinatario = ?)"
+        CachedRowSet crs = dbc.execute("SELECT S.id, S.creatore, S.messaggio, S.mappatura "
+                + "FROM Messaggio AS M JOIN Soluzione AS S ON S.messaggio = M.id "
+                + "WHERE (M.mittente = ? OR M.destinatario = ? OR M.mittente = ? OR M.destinatario = ?) "
                 + "AND S.creatore = ?", st1.getId(), st1.getId(), st2.getId(), st2.getId(), proprietario.getId());
         List<Soluzione> result = new LinkedList<>();
         while (crs.next()) {
