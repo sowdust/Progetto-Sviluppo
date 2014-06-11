@@ -7,6 +7,12 @@ package cryptohelper.model;
 
 import cryptohelper.controller.DBController;
 import java.sql.SQLException;
+import java.util.Stack;
+import static junit.framework.Assert.assertEquals;
+import static junit.framework.Assert.assertFalse;
+import static junit.framework.Assert.assertNotSame;
+import static junit.framework.Assert.assertSame;
+import static junit.framework.Assert.assertTrue;
 import org.junit.After;
 import org.junit.AfterClass;
 import static org.junit.Assert.*;
@@ -56,6 +62,35 @@ public class AlberoIpotesiTest {
     @Test
     public void testFaiAssunzione() {
         System.out.println("faiAssunzione");
+        AlberoIpotesi albero = new AlberoIpotesi();
+        Mappatura a = new Mappatura("a > z, b > w, c > y");
+        //  PRIMA ASSUNZIONE
+        //  a > z, b > w, c > y
+        albero.faiAssunzione(new Mappatura(a));
+        assertSame(albero.getIpotesiCorrente(), albero.getAlbero().figli.get(0));
+        assertEquals(albero.getAlbero().figli.get(0).getMappatura(), a);
+        assertNotSame(albero.getAlbero().figli.get(0).getMappatura(), a);
+        assertEquals(albero.getMappaturaCorrente(), a);
+        System.out.println("Stato alla prima ipotesi:");
+        System.out.println("Map corrente: " + albero.getMappaturaCorrente());
+        albero.stampaAlbero();
+
+        //  SECONDA ASSUNZIONE
+        //  d > x, e > u
+        Mappatura b = new Mappatura("d > x, e > u");
+        albero.faiAssunzione(b);
+        Ipotesi seconda = albero.getIpotesiCorrente();
+        assertEquals(albero.getIpotesiCorrente().assunzioni, b);
+        assertTrue(albero.getAlbero().figli.size() == 1);
+        assertSame(albero.getAlbero().figli.get(0).figli.get(0), albero.getIpotesiCorrente());
+        assertFalse(albero.getIpotesiCorrente().padre == null);
+        assertEquals(albero.getIpotesiCorrente().getMappatura(), albero.getMappaturaCorrente());
+        assertEquals(albero.getMappaturaCorrente(), a.merge(b));
+        System.out.println("Stato alla seconda ipotesi:");
+        System.out.print("Map corrente: ");
+        albero.getMappaturaCorrente().stampa();
+        albero.stampaAlbero();
+
         Mappatura nuoveAssunzioni = new Mappatura("a > b");
         AlberoIpotesi instance = new AlberoIpotesi();
         instance.faiAssunzione(nuoveAssunzioni);
@@ -72,11 +107,10 @@ public class AlberoIpotesiTest {
     }
 
     /**
-     * Test of undo method, of class AlberoIpotesi. Vengono verificate le
-     * seguenti situazioni: 1. una undo su un albero con nessuna assunzione
-     * fatta non cambia lo stato dell'albero 2. una undo su un albero con una
-     * ipotesi non rende l'albero uguale all'albero senza ipotesi... 3. ... ma
-     * la mappatura delll'ipotesi corrente è la stessa, cioè la mappatura vuota
+     * Test of undo method, of class AlberoIpotesi. Vengono verificate le seguenti situazioni:
+     * 1. una undo su un albero con nessuna assunzione fatta non cambia lo stato dell'albero
+     * 2. una undo su un albero con una ipotesi non rende l'albero uguale all'albero senza ipotesi...
+     * 3. ... ma la mappatura delll'ipotesi corrente è la stessa, cioè la mappatura vuota
      */
     @Test
     public void testUndo() {
@@ -93,14 +127,12 @@ public class AlberoIpotesiTest {
     }
 
     /**
-     * Test of getMappaturaCorrente method, of class AlberoIpotesi. Similmente a
-     * faiAssunzione, viene richiamato il metodo faiAssunzione su due alberi
-     * inizialmente vuoti. Si effettuano i seguenti controlli, tramite il metodo
-     * toStringa(): - la mappaturacorrente dei due alberi è uguale quando ancora
-     * non sono state fatte ipotesi? - la mappaturacorrente dei due alberi è
-     * uguale quando viene fatta la stessa ipotesi su entrambi? - la mappatura
-     * dei due alberi è differente quando uno dei due alberi ha un'ipotesi che
-     * l'altro non ha?
+     * Test of getMappaturaCorrente method, of class AlberoIpotesi. Similmente a faiAssunzione,
+     * viene richiamato il metodo faiAssunzione su due alberi inizialmente vuoti. Si effettuano 
+     * i seguenti controlli, tramite il metodo toStringa():
+     * - la mappaturacorrente dei due alberi è uguale quando ancora non sono state fatte ipotesi?
+     * - la mappaturacorrente dei due alberi è uguale quando viene fatta la stessa ipotesi su entrambi?
+     * - la mappatura dei due alberi è differente quando uno dei due alberi ha un'ipotesi che l'altro non ha?
      */
     @Test
     public void testGetMappaturaCorrente() {
@@ -125,11 +157,10 @@ public class AlberoIpotesiTest {
     }
 
     /**
-     * Test of giaRaggiunta method, of class AlberoIpotesi. Vengono testati i
-     * seguenti casi: 1. In un albero con una sola ipotesi, l'ipotesi con la
-     * stessa mappatura risulta già raggiunta? 2. Un'ipotesi con mappatura
-     * diversa per un solo caso da una già presente risulta già raggiunta? 3.
-     * L'ipotesi con mappatura vuota risulta già raggiunta?
+     * Test of giaRaggiunta method, of class AlberoIpotesi. Vengono testati i seguenti casi:
+     * 1. In un albero con una sola ipotesi, l'ipotesi con la stessa mappatura risulta già raggiunta?
+     * 2. Un'ipotesi con mappatura diversa per un solo caso da una già presente risulta già raggiunta?
+     * 3. L'ipotesi con mappatura vuota risulta già raggiunta?
      */
     @Test
     public void testGiaRaggiunta() {
@@ -139,6 +170,272 @@ public class AlberoIpotesiTest {
         assertNotNull(alberoTest.giaRaggiunta(new Mappatura("a > b, b > c")));
         assertNull(alberoTest.giaRaggiunta(new Mappatura("a > c, b> c")));
         assertNotNull(alberoTest.giaRaggiunta(new Mappatura("")));
+    }
+
+    /**
+     * Test of getAlbero method, of class AlberoIpotesi.
+     */
+    @Test
+    public void testGetAlbero() {
+        System.out.println("getAlbero");
+        AlberoIpotesi instance = new AlberoIpotesi();
+        Ipotesi expResult = null;
+        Ipotesi result = instance.getAlbero();
+        assertEquals(expResult, result);
+        // TODO review the generated test code and remove the default call to fail.
+        fail("The test case is a prototype.");
+    }
+
+    /**
+     * Test of stampaAlbero method, of class AlberoIpotesi.
+     */
+    @Test
+    public void testStampaAlbero() {
+        System.out.println("stampaAlbero");
+        AlberoIpotesi instance = new AlberoIpotesi();
+        instance.stampaAlbero();
+        // TODO review the generated test code and remove the default call to fail.
+        fail("The test case is a prototype.");
+    }
+
+    /**
+     * Test of getCommento method, of class AlberoIpotesi.
+     */
+    @Test
+    public void testGetCommento() {
+        System.out.println("getCommento");
+        AlberoIpotesi instance = new AlberoIpotesi();
+        String expResult = "commento";
+        instance.getMosse().peek().setCommento(expResult);
+        String result = instance.getCommento();
+        assertEquals(expResult, result);
+    }
+
+    /**
+     * Test of toString method, of class AlberoIpotesi.
+     */
+    @Test
+    public void testToString() {
+        System.out.println("toString");
+        AlberoIpotesi instance = new AlberoIpotesi();
+        String expResult = "";
+        String result = instance.toString();
+        assertEquals(expResult, result);
+        // TODO review the generated test code and remove the default call to fail.
+        fail("The test case is a prototype.");
+    }
+
+    /**
+     * Test of getMosse method, of class AlberoIpotesi.
+     */
+    @Test
+    public void testGetMosse() {
+        System.out.println("getMosse");
+        AlberoIpotesi instance = new AlberoIpotesi();
+        Stack<Ipotesi> expResult = null;
+        Stack<Ipotesi> result = instance.getMosse();
+        assertEquals(expResult, result);
+        // TODO review the generated test code and remove the default call to fail.
+        fail("The test case is a prototype.");
+    }
+
+    /**
+     * Test of getIpotesiCorrente method, of class AlberoIpotesi.
+     */
+    @Test
+    public void testGetIpotesiCorrente() {
+        System.out.println("getIpotesiCorrente");
+        AlberoIpotesi instance = new AlberoIpotesi();
+        Ipotesi expResult = null;
+        Ipotesi result = instance.getIpotesiCorrente();
+        assertEquals(expResult, result);
+        // TODO review the generated test code and remove the default call to fail.
+        fail("The test case is a prototype.");
+    }
+
+    /**
+     * Test of testVecchio method, of class AlberoIpotesi.
+     */
+    @Test
+    public void testVecchio() {
+
+        AlberoIpotesi albero = new AlberoIpotesi();
+        Mappatura a = new Mappatura("a > z, b > w, c > y");
+
+        //  PRIMA ASSUNZIONE
+        //  a > z, b > w, c > y
+        albero.faiAssunzione(new Mappatura(a));
+        assertSame(albero.getIpotesiCorrente(), albero.getAlbero().figli.get(0));
+        assertEquals(albero.getAlbero().figli.get(0).getMappatura(), a);
+        assertNotSame(albero.getAlbero().figli.get(0).getMappatura(), a);
+        assertTrue(albero.getIpotesiCorrente().padre == albero.getAlbero());
+        assertEquals(albero.getMappaturaCorrente(), a);
+        System.out.println("Stato alla prima ipotesi:");
+        System.out.println("Map corrente: " + albero.getMappaturaCorrente());
+        albero.stampaAlbero();
+
+        //  SECONDA ASSUNZIONE [no contaConflitti]
+        //  d > x, e > u
+        Mappatura b = new Mappatura("d > x, e > u");
+        albero.faiAssunzione(b);
+        Ipotesi seconda = albero.getIpotesiCorrente();
+        assertEquals(albero.getIpotesiCorrente().assunzioni, b);
+        assertFalse(albero.getAlbero().figli.isEmpty());
+        assertTrue(albero.getAlbero().figli.size() == 1);
+        assertSame(albero.getAlbero().figli.get(0).figli.get(0), albero.getIpotesiCorrente());
+        assertFalse(albero.getIpotesiCorrente().padre == null);
+        assertEquals(albero.getIpotesiCorrente().getMappatura(), albero.getMappaturaCorrente());
+        assertEquals(albero.getMappaturaCorrente(), a.merge(b));
+        System.out.println("Stato alla seconda ipotesi:");
+        System.out.print("Map corrente: ");
+        albero.getMappaturaCorrente().stampa();
+        albero.stampaAlbero();
+
+        //  TERZA ASSUNZIONE   [no contaConflitti]
+        Mappatura c = new Mappatura("f > v");
+        albero.faiAssunzione(c);
+        Ipotesi terza = albero.getIpotesiCorrente();
+        assertEquals(albero.getMappaturaCorrente(), a.merge(b).merge(c));
+        assertSame(albero.getMosse().pop(), albero.getIpotesiCorrente());
+        assertSame(albero.getMosse().peek(), albero.getIpotesiCorrente().padre);
+        assertSame(albero.getMosse().push(albero.getIpotesiCorrente()), albero.getIpotesiCorrente());
+        System.out.println("Stato alla terza ipotesi:");
+        System.out.print("Map corrente: ");
+        albero.getMappaturaCorrente().stampa();
+        albero.stampaAlbero();
+
+        //  SEMPLICE UNDO
+        albero.undo("");
+        assertEquals(albero.getMappaturaCorrente(), a.merge(b));
+        assertSame(albero.getIpotesiCorrente(), seconda);
+        assertSame(albero.getIpotesiCorrente().figli.get(0), terza);
+        System.out.println("Stato dopo undo:");
+        System.out.print("Map corrente: ");
+        albero.getMappaturaCorrente().stampa();
+        albero.stampaAlbero();
+
+        //  TERZA ASSUNZIONE BIS. Riassegnazione terza ipotesi
+        c = new Mappatura("f > t");
+        albero.faiAssunzione(c);
+        Ipotesi terzabis = albero.getIpotesiCorrente();
+        assertEquals(albero.getMappaturaCorrente(), a.merge(b).merge(c));
+        assertSame(terzabis.padre, seconda);
+        assertTrue(terza.figli.isEmpty());
+        assertSame(seconda.figli.get(0), terza);
+        assertSame(seconda.figli.get(1), terzabis);
+        System.out.println("Stato dopo undo terza ipotesi:");
+        System.out.print("Map corrente: ");
+        albero.getMappaturaCorrente().stampa();
+        albero.stampaAlbero();
+
+        //  QUINTA ASSUNZIONE. Giusto per allungare
+        Mappatura d = new Mappatura("g > s");
+        albero.faiAssunzione(d);
+        Ipotesi quinta = albero.getIpotesiCorrente();
+        assertEquals(albero.getMappaturaCorrente(), a.merge(b).merge(c).merge(d));
+        System.out.println("Stato alla quinta ipotesi:");
+        System.out.print("Map corrente: ");
+        albero.getMappaturaCorrente().stampa();
+        albero.stampaAlbero();
+
+        //  SESTA ASSUNZIONE [ conflitto con la seconda!]
+        Mappatura e = new Mappatura("h > q, d > r");
+        albero.faiAssunzione(e);
+        assertEquals(albero.getMappaturaCorrente(), a.merge(b).merge(c).merge(d).merge(e));
+        System.out.println("Stato alla sesta ipotesi:");
+        System.out.print("Map corrente: ");
+        albero.getMappaturaCorrente().stampa();
+        albero.stampaAlbero();
+
+        //  SESTA BIS. Controlliamo che l'undo faccia il suo lavoro
+        albero.undo("");
+        assertEquals(albero.getMappaturaCorrente(), a.merge(b).merge(c).merge(d));
+        assertSame(albero.getIpotesiCorrente(), quinta);
+        System.out.println("Stato dopo undo sesta ipotesi:");
+        System.out.print("Map corrente: ");
+        albero.getMappaturaCorrente().stampa();
+        albero.stampaAlbero();
+
+        //  TORNIAMO ALLA RADICE A FORZA DI UNDO
+        albero.undo("");
+        albero.undo("");
+        albero.undo("");
+        albero.undo("");
+        assertTrue(albero.getMosse().size() == 1);
+        assertEquals(albero.getIpotesiCorrente(), albero.getAlbero());
+        assertEquals(albero.getMosse().peek(), albero.getIpotesiCorrente());
+        System.out.println("Stato dopo undo fino a radice:");
+        System.out.print("Map corrente: ");
+        albero.getMappaturaCorrente().stampa();
+        albero.stampaAlbero();
+
+        //  ANDIAMO IN UNO STATO GIÀ RAGGIUNTO
+        //  identico alla quinta ipotesi
+        Mappatura gia = new Mappatura("d > x, e > u, a > z, b > w, c > y, f > t, g > s ");
+
+        assertFalse(albero.faiAssunzione(gia));
+        assertSame(albero.getIpotesiCorrente(), quinta);
+        assertSame(albero.getMosse().pop(), quinta);
+        albero.getMosse().push(quinta);
+        System.out.println("Stato dopo ipotesi già raggiunta (la quinta)");
+        System.out.print("Map corrente: ");
+        albero.getMappaturaCorrente().stampa();
+        albero.stampaAlbero();
+        /*
+         assertTrue(albero.faiAssunzione(new MappaturaImpl("f>x,d>k")));
+         System.out.println("Stato dopo doppio conflitto");
+         System.out.println("Map corrente: " + albero.getMappatura());
+         albero.stampaAlbero();
+         */
+
+        assertTrue(albero.faiAssunzione(new Mappatura("f>x,d>k,a>-")));
+        System.out.println("Stato dopo doppio e rimozione");
+        System.out.print("Map corrente: ");
+        albero.getMappaturaCorrente().stampa();
+        albero.stampaAlbero();
+
+        // ORA TOGLIAMO UN PO' DI ASSUNZIONI E ANDIAMO IN UNO STATO GIÀ RAGGIUNTO
+        assertTrue(albero.faiAssunzione(new Mappatura("d > - , c> z")));
+        System.out.println("Stato dopo aver tolto la d");
+        System.out.print("Map corrente: ");
+        albero.getMappaturaCorrente().stampa();
+        albero.stampaAlbero();
+
+        a = new Mappatura("e > h");
+        albero.faiAssunzione(a);
+        System.out.println("Stato dopo aver impostato manualmente");
+        System.out.print("Map corrente: ");
+        albero.getMappaturaCorrente().stampa();
+        albero.stampaAlbero();
+        assertSame(albero.getIpotesiCorrente().padre, albero.getAlbero());
+        assertFalse(false);
+
+        a = new Mappatura("d > r, e > u, a > z, b > w, c > y, f > t, g > s, h > q");
+        //a = new MappaturaImpl("e > -");
+        assertFalse(albero.faiAssunzione(a));
+        System.out.println("Stato dopo aver impostato manualmente");
+        System.out.print("Map corrente: ");
+        albero.getMappaturaCorrente().stampa();
+        albero.stampaAlbero();
+        //assertSame(albero.getIpotesiCorrente().padre, albero.getAlbero());
+        assertFalse(false);
+
+        a = new Mappatura("h > -, d > x, e > u, a > z, b > w, c > y, f > t, g > -");
+        assertFalse(albero.faiAssunzione(a));
+        assertSame(terzabis, albero.getIpotesiCorrente());
+        System.out.println("Stato dopo aver impostato eliminato");
+        System.out.print("Map corrente: ");
+        albero.getMappaturaCorrente().stampa();
+        albero.stampaAlbero();
+        //assertSame(albero.getIpotesiCorrente().padre, albero.getAlbero());
+
+        assertTrue(albero.faiAssunzione(new Mappatura("f>-,d>-")));
+        System.out.println("Stato dopo aver disimpostato f e d");
+        System.out.print("Map corrente: ");
+        albero.getMappaturaCorrente().stampa();
+        albero.stampaAlbero();
+        //assertSame(albero.getIpotesiCorrente().padre, albero.getAlbero());
+
     }
 
 }

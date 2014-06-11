@@ -28,8 +28,8 @@ import javax.sql.rowset.CachedRowSet;
 public class AlberoIpotesi implements Serializable {
 
     private final Ipotesi radice;
-    public Stack<Ipotesi> mosse;
-    public Ipotesi ipotesiCorrente;
+    private Stack<Ipotesi> mosse;
+    private Ipotesi ipotesiCorrente;
     private Mappatura mappaturaCorrente;
 
     public AlberoIpotesi() {
