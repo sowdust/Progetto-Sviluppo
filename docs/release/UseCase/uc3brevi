@@ -1,0 +1,47 @@
+ATTORE: Giocatore
+OBIETTIVO Giocatore 1: Risolvere le Sfide
+
+    USE CASE: Effettua Sfida
+    Il Giocatore visualizza la lista delle sfide e sceglie quella a cui partecipare
+    Il Giocatore indica la difficoltà preferita: facile, normale o difficile
+    Il sistema applica al messaggio delle modifiche a seconda della difficoltà scelta: se
+    "facile" hai tutte le informazioni, tra cui spazi e punteggiatura, se "normale" è rimossa
+    l'informazione della lingua, se "difficile" sono tolti anche spazi e punteggiatura dal 
+    testo cifrato. 
+    <<include>> Effettua ciclo di analisi 
+    <<include>> Salva Risultato
+
+    USE CASE: Gestisci Risultati
+    <<include>> Visualizza Risultati
+    <<include>> Salva Risultato
+
+    USE CASE: Salva Risultato
+    Il giocatore invia la sua soluzione
+    Il sistema calcola il punteggio, che viene calcolato in base alla correttezza della mappatura,
+    al tempo impiegato e alla difficoltà
+    Il giocatore visualizza il punteggio ottenuto
+            
+    USE CASE: Visualizza Risultati
+    Il giocatore visualizza la lista delle sfide e ne sceglie una
+    Il giocatore visualizza la classifica dei punteggi della sfida scelta 
+    <<extends>> Visualizza Dettaglio Risultato
+
+    USE CASE: Visualizza Dettaglio Risultato
+    Il giocatore visualizza la mappatura inviata come soluzione e la mappatura corretta, assieme al punteggio ottenuto
+
+ATTORE: Coordinatore
+OBIETTIVO Coordinatore 1: Selezionare i Messaggi per le Sfide
+
+    USE CASE: Gestisci Sfida
+    <<include>> Crea Sfida
+    <<include>> Chiudi Sfida
+    <<include>> Visualizza Risultati
+
+    USE CASE: Crea Sfida
+    Il coordinatore visualizza tutti i Messaggi scambiati tra gli Studenti
+    Seleziona un Messaggio da visualizzare, di cui vengono mostrate tutte le informazioni
+    Decide se rendere tale Messaggio una Sfida
+
+    USE CASE: Chiudi Sfida
+    Il coordinatore visualizza tutte le Sfide create
+    Seleziona una Sfida e ha la possibilità di renderla non più giocabile

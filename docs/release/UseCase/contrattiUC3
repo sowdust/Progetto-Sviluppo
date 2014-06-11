@@ -1,0 +1,52 @@
+Operazione:     sniffMessaggi()
+Riferimenti:    uc: CreaSfida
+Precondizioni:  il Coordinatore sta creando una sfida
+<<<<<<< HEAD:docs/release/UseCase/contrattiUC3
+Postcondizioni: nessuna
+
+Operazione:     caricaDettagliMessaggio(msg)
+Riferimenti:    uc: CreaSfida
+Precondizioni:  il Coordinatore è identificato e msg non è oggetto di nessun'altra sfida
+Postcondizioni: nessuna
+=======
+Postcondizioni: vengono caricati tutti i messaggi presenti nel sistema
+
+Operazione:     caricaDettagliMessaggio(msg)
+Riferimenti:    uc: CreaSfida
+Precondizioni:  il Coordinatore sta creando una sfida 
+Postcondizioni: il messaggio viene caricato completo di tutte le sue informazioni 
+>>>>>>> 0d7b294e58a653445a0dcad26526fae5c2104043:docs/3.costruzione/iterazione1/contratti
+
+Operazione:     inizializzaSfida(messaggio)
+Riferimenti:    uc: CreaSfida
+Precondizioni:  il Coordinatore ha visualizzato i dettagli di messaggio
+Postcondizioni: viene inizializzata una nuova Sfida associata a tale messaggio
+
+Operazione:     impostaTempoLimite()
+Riferimenti:    uc: CreaSfida
+Precondizioni:  il Coordinatore ha inizializzato una Sfida s
+Postcondizioni: viene impostata la durata della Sfida s
+
+Operazione:     salvaSfida(sfida)
+Riferimenti:    uc: CreaSfida
+Precondizioni:  la sfida è già stata inizializzata 
+Postcondizioni: viene salvata la Sfida sfida
+
+Operazione:     mostraListaSfide()
+Riferimenti:    uc: EffettuaSfida
+<<<<<<< HEAD:docs/release/UseCase/contrattiUC3
+Precondizioni:  nessuna
+Postcondizioni: nessuna
+=======
+Precondizioni:  il Coordinatore è identificato
+Postcondizioni: ritorna una lista con tutte le sfide create sino a questo momento dal Coordinatore
+>>>>>>> 0d7b294e58a653445a0dcad26526fae5c2104043:docs/3.costruzione/iterazione1/contratti
+
+Operazione:     partecipaSfida(sfida, difficoltà)
+Riferimenti:    uc: EffettuaSfida
+Precondizioni:  il Giocatore ha scelto la difficoltà a cui intende giocare
+<<<<<<< HEAD:docs/release/UseCase/contrattiUC3
+Postcondizioni: nessuna
+=======
+Postcondizioni: viene associata al Giocatore la sfida
+>>>>>>> 0d7b294e58a653445a0dcad26526fae5c2104043:docs/3.costruzione/iterazione1/contratti
