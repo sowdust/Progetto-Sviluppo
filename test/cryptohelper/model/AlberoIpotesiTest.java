@@ -7,6 +7,7 @@ package cryptohelper.model;
 
 import cryptohelper.controller.DBController;
 import java.sql.SQLException;
+import java.util.Stack;
 import org.junit.After;
 import org.junit.AfterClass;
 import static org.junit.Assert.*;
@@ -155,6 +156,100 @@ public class AlberoIpotesiTest {
         assertNotNull(alberoTest.giaRaggiunta(new Mappatura("a > b, b > c")));
         assertNull(alberoTest.giaRaggiunta(new Mappatura("a > c, b> c")));
         assertNotNull(alberoTest.giaRaggiunta(new Mappatura("")));
+    }
+
+    /**
+     * Test of getAlbero method, of class AlberoIpotesi.
+     */
+    @Test
+    public void testGetAlbero() {
+        System.out.println("getAlbero");
+        AlberoIpotesi instance = new AlberoIpotesi();
+        Ipotesi expResult = null;
+        Ipotesi result = instance.getAlbero();
+        assertEquals(expResult, result);
+        // TODO review the generated test code and remove the default call to fail.
+        fail("The test case is a prototype.");
+    }
+
+    /**
+     * Test of stampaAlbero method, of class AlberoIpotesi.
+     */
+    @Test
+    public void testStampaAlbero() {
+        System.out.println("stampaAlbero");
+        AlberoIpotesi instance = new AlberoIpotesi();
+        instance.stampaAlbero();
+        // TODO review the generated test code and remove the default call to fail.
+        fail("The test case is a prototype.");
+    }
+
+    /**
+     * Test of getCommento method, of class AlberoIpotesi.
+     */
+    @Test
+    public void testGetCommento() {
+        System.out.println("getCommento");
+        AlberoIpotesi instance = new AlberoIpotesi();
+        String expResult = "";
+        String result = instance.getCommento();
+        assertEquals(expResult, result);
+        // TODO review the generated test code and remove the default call to fail.
+        fail("The test case is a prototype.");
+    }
+
+    /**
+     * Test of toString method, of class AlberoIpotesi.
+     */
+    @Test
+    public void testToString() {
+        System.out.println("toString");
+        AlberoIpotesi instance = new AlberoIpotesi();
+        String expResult = "";
+        String result = instance.toString();
+        assertEquals(expResult, result);
+        // TODO review the generated test code and remove the default call to fail.
+        fail("The test case is a prototype.");
+    }
+
+    /**
+     * Test of getMosse method, of class AlberoIpotesi.
+     */
+    @Test
+    public void testGetMosse() {
+        System.out.println("getMosse");
+        AlberoIpotesi instance = new AlberoIpotesi();
+        Stack<Ipotesi> expResult = null;
+        Stack<Ipotesi> result = instance.getMosse();
+        assertEquals(expResult, result);
+        // TODO review the generated test code and remove the default call to fail.
+        fail("The test case is a prototype.");
+    }
+
+    /**
+     * Test of getIpotesiCorrente method, of class AlberoIpotesi.
+     */
+    @Test
+    public void testGetIpotesiCorrente() {
+        System.out.println("getIpotesiCorrente");
+        AlberoIpotesi instance = new AlberoIpotesi();
+        Ipotesi expResult = null;
+        Ipotesi result = instance.getIpotesiCorrente();
+        assertEquals(expResult, result);
+        // TODO review the generated test code and remove the default call to fail.
+        fail("The test case is a prototype.");
+    }
+
+    /**
+     * Test of testVecchio method, of class AlberoIpotesi.
+     */
+    @Test
+    public void testTestVecchio() {
+        System.out.println("testVecchio");
+        AlberoIpotesi instance = new AlberoIpotesi();
+        instance.testVecchio();
+        // TODO review the generated test code and remove the default call to fail.
+        fail("The test case is a prototype.");
     }
 
 }
