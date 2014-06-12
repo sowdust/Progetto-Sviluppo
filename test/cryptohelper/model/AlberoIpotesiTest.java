@@ -107,10 +107,11 @@ public class AlberoIpotesiTest {
     }
 
     /**
-     * Test of undo method, of class AlberoIpotesi. Vengono verificate le seguenti situazioni:
-     * 1. una undo su un albero con nessuna assunzione fatta non cambia lo stato dell'albero
-     * 2. una undo su un albero con una ipotesi non rende l'albero uguale all'albero senza ipotesi...
-     * 3. ... ma la mappatura delll'ipotesi corrente è la stessa, cioè la mappatura vuota
+     * Test of undo method, of class AlberoIpotesi. Vengono verificate le
+     * seguenti situazioni: 1. una undo su un albero con nessuna assunzione
+     * fatta non cambia lo stato dell'albero 2. una undo su un albero con una
+     * ipotesi non rende l'albero uguale all'albero senza ipotesi... 3. ... ma
+     * la mappatura delll'ipotesi corrente è la stessa, cioè la mappatura vuota
      */
     @Test
     public void testUndo() {
@@ -127,12 +128,14 @@ public class AlberoIpotesiTest {
     }
 
     /**
-     * Test of getMappaturaCorrente method, of class AlberoIpotesi. Similmente a faiAssunzione,
-     * viene richiamato il metodo faiAssunzione su due alberi inizialmente vuoti. Si effettuano 
-     * i seguenti controlli, tramite il metodo toStringa():
-     * - la mappaturacorrente dei due alberi è uguale quando ancora non sono state fatte ipotesi?
-     * - la mappaturacorrente dei due alberi è uguale quando viene fatta la stessa ipotesi su entrambi?
-     * - la mappatura dei due alberi è differente quando uno dei due alberi ha un'ipotesi che l'altro non ha?
+     * Test of getMappaturaCorrente method, of class AlberoIpotesi. Similmente a
+     * faiAssunzione, viene richiamato il metodo faiAssunzione su due alberi
+     * inizialmente vuoti. Si effettuano i seguenti controlli, tramite il metodo
+     * toStringa(): - la mappaturacorrente dei due alberi è uguale quando ancora
+     * non sono state fatte ipotesi? - la mappaturacorrente dei due alberi è
+     * uguale quando viene fatta la stessa ipotesi su entrambi? - la mappatura
+     * dei due alberi è differente quando uno dei due alberi ha un'ipotesi che
+     * l'altro non ha?
      */
     @Test
     public void testGetMappaturaCorrente() {
@@ -157,10 +160,11 @@ public class AlberoIpotesiTest {
     }
 
     /**
-     * Test of giaRaggiunta method, of class AlberoIpotesi. Vengono testati i seguenti casi:
-     * 1. In un albero con una sola ipotesi, l'ipotesi con la stessa mappatura risulta già raggiunta?
-     * 2. Un'ipotesi con mappatura diversa per un solo caso da una già presente risulta già raggiunta?
-     * 3. L'ipotesi con mappatura vuota risulta già raggiunta?
+     * Test of giaRaggiunta method, of class AlberoIpotesi. Vengono testati i
+     * seguenti casi: 1. In un albero con una sola ipotesi, l'ipotesi con la
+     * stessa mappatura risulta già raggiunta? 2. Un'ipotesi con mappatura
+     * diversa per un solo caso da una già presente risulta già raggiunta? 3.
+     * L'ipotesi con mappatura vuota risulta già raggiunta?
      */
     @Test
     public void testGiaRaggiunta() {
@@ -170,32 +174,6 @@ public class AlberoIpotesiTest {
         assertNotNull(alberoTest.giaRaggiunta(new Mappatura("a > b, b > c")));
         assertNull(alberoTest.giaRaggiunta(new Mappatura("a > c, b> c")));
         assertNotNull(alberoTest.giaRaggiunta(new Mappatura("")));
-    }
-
-    /**
-     * Test of getAlbero method, of class AlberoIpotesi.
-     */
-    @Test
-    public void testGetAlbero() {
-        System.out.println("getAlbero");
-        AlberoIpotesi instance = new AlberoIpotesi();
-        Ipotesi expResult = null;
-        Ipotesi result = instance.getAlbero();
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
-
-    /**
-     * Test of stampaAlbero method, of class AlberoIpotesi.
-     */
-    @Test
-    public void testStampaAlbero() {
-        System.out.println("stampaAlbero");
-        AlberoIpotesi instance = new AlberoIpotesi();
-        instance.stampaAlbero();
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
     }
 
     /**
@@ -209,48 +187,6 @@ public class AlberoIpotesiTest {
         instance.getMosse().peek().setCommento(expResult);
         String result = instance.getCommento();
         assertEquals(expResult, result);
-    }
-
-    /**
-     * Test of toString method, of class AlberoIpotesi.
-     */
-    @Test
-    public void testToString() {
-        System.out.println("toString");
-        AlberoIpotesi instance = new AlberoIpotesi();
-        String expResult = "";
-        String result = instance.toString();
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
-
-    /**
-     * Test of getMosse method, of class AlberoIpotesi.
-     */
-    @Test
-    public void testGetMosse() {
-        System.out.println("getMosse");
-        AlberoIpotesi instance = new AlberoIpotesi();
-        Stack<Ipotesi> expResult = null;
-        Stack<Ipotesi> result = instance.getMosse();
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
-
-    /**
-     * Test of getIpotesiCorrente method, of class AlberoIpotesi.
-     */
-    @Test
-    public void testGetIpotesiCorrente() {
-        System.out.println("getIpotesiCorrente");
-        AlberoIpotesi instance = new AlberoIpotesi();
-        Ipotesi expResult = null;
-        Ipotesi result = instance.getIpotesiCorrente();
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
     }
 
     /**
