@@ -424,7 +424,7 @@ public class MessagePanel extends javax.swing.JPanel {
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
         jPanel19.add(jLabel1, gridBagConstraints);
 
-        linguaComboBox.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Italiano", "Inglese", "Francese" }));
+        linguaComboBox.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Italiano", "Inglese" }));
         linguaComboBox.setSelectedIndex(-1);
         linguaComboBox.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {

@@ -160,10 +160,7 @@ public class CaricaSoluzioneDialog extends javax.swing.JDialog {
         try {
             List<Soluzione> soluzioni = sessionController.mostraSoluzioni(mittente, destinatario, proprietario);
             dlm = (DefaultComboBoxModel<Soluzione>) caricaSoluzioneComboBox.getModel();
-            System.out.println("in dialog action");
-            System.out.println("Caricate " + soluzioni.size() + "soluzioni");
-            for (int i = 0; i < soluzioni.size(); i++) {
-                Soluzione soluzione = soluzioni.get(i);
+            for (Soluzione soluzione : soluzioni) {
                 dlm.addElement(soluzione);
             }
             caricaSoluzioneComboBox.setSelectedIndex(-1);
